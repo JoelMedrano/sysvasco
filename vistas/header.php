@@ -7,7 +7,7 @@ if (strlen(session_id()) < 1)
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ITVentas | www.incanatoit.com</title>
+    <title>Corp Vasco SAC</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -19,8 +19,8 @@ if (strlen(session_id()) < 1)
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../public/css/_all-skins.min.css">
-    <link rel="apple-touch-icon" href="../public/img/apple-touch-icon.png">
-    <link rel="shortcut icon" href="../public/img/favicon.ico">
+    <link rel="apple-touch-icon" href="../public/img/icono.png">
+    <link rel="shortcut icon" href="../public/img/icono.png">
 
     <!-- DATATABLES -->
     <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">    
@@ -30,17 +30,17 @@ if (strlen(session_id()) < 1)
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
 
   </head>
-  <body class="hold-transition skin-blue-light sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>IT</b>Ventas</span>
+          <span class="logo-mini"><b>JF</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>ITVentas</b></span>
+          <span class="logo-lg"><b>VASCO</b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -65,8 +65,8 @@ if (strlen(session_id()) < 1)
                   <li class="user-header">
                     <img src="../files/usuarios/<?php echo $_SESSION['imagen']; ?>" class="img-circle" alt="User Image">
                     <p>
-                      www.incanatoit.com - Desarrollando Software
-                      <small>www.youtube.com/jcarlosad7</small>
+                      www.jackyform.com.pe   Desarrollando Software
+                      <small>Diana Godos - Joel Medrano</small>
                     </p>
                   </li>
                   
@@ -102,7 +102,6 @@ if (strlen(session_id()) < 1)
             </li>';
             }
             ?>
-
             <?php 
             if ($_SESSION['almacen']==1)
             {
@@ -201,19 +200,24 @@ if (strlen(session_id()) < 1)
             }
             ?>
 
-            <li>
+             <?php 
+            if ($_SESSION['rrhh']==1)
+            {
+              echo '<li class="treeview">
               <a href="#">
-                <i class="fa fa-plus-square"></i> <span>Ayuda</span>
-                <small class="label pull-right bg-red">PDF</small>
+                <i class="fa fa-heartbeat"></i> <span>Recursos Humanos</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
-                <small class="label pull-right bg-yellow">IT</small>
-              </a>
-            </li>
-                        
+              <ul class="treeview-menu">
+                <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Maestros</a></li>
+                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Registro</a></li>
+                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>                
+              </ul>
+            </li>';
+            }
+            ?>
+
+                      
           </ul>
         </section>
         <!-- /.sidebar -->
