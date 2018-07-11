@@ -16,6 +16,7 @@ function init(){
 	            $('#idcategoria').selectpicker('refresh');
 
 	});
+
 	$("#imagenmuestra").hide();
 }
 
@@ -40,6 +41,7 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
+		$('#nombre').focus();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 	}
