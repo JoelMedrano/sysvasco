@@ -234,6 +234,23 @@ if (strlen(session_id()) < 1)
             </li>';
             }
             ?>
+
+            <?php 
+            if ($_SESSION['calendarios']==1)
+            {
+              echo '<li class="treeview">
+              <a href="#">
+                <i class="fa fa-hourglass-o"></i> <span>Calendario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="reloj.php"><i class="fa fa-circle-o"></i> Reloj</a></li>
+           
+           
+              </ul>
+            </li>';
+            }
+            ?>
                       
           </ul>
         </section>

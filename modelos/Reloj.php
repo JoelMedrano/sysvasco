@@ -14,12 +14,12 @@ Class Reloj
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($CodBar, $Fecha, $FecReg,  $PcReg, $UsuReg, $Hora)
+	public function insertar($CodBar, $Fecha, $FecReg,  $PcReg, $UsuReg, $Hora, $TipPla,   $Dia, $EstHor, $TurPer )
 	{
 
 
-		$sql="INSERT INTO reloj (CodBar, Fecha , HorEnt,  PcReg, UsuReg, FecReg )
-		VALUES ('$CodBar', '$Fecha', '$Hora' , '$PcReg', '$UsuReg', '$FecReg' )";
+		$sql="INSERT INTO reloj (CodBar, Fecha , HorEnt,  PcReg, UsuReg, FecReg, TipPla, TipMov, EstHor, Turno )
+		VALUES ('$CodBar', '$Fecha', '$Hora' , '$PcReg', '$UsuReg', '$FecReg', '$TipPla' ,  '$Dia' , '$EstHor', '$TurPer' )";
 		return ejecutarConsulta($sql);
 
 
@@ -83,9 +83,20 @@ Class Reloj
 	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
 	public function consultar($CodBar, $Fecha)
 	{
-		$sql="SELECT CodBar FROM reloj WHERE CodBar='$CodBar'  and Fecha='$Fecha'";
+		$sql="SELECT CodBar, TipPla FROM reloj WHERE CodBar='$CodBar'  and Fecha='$Fecha' ";
 		return ejecutarConsulta($sql);
 
+	}
+
+
+
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultarDataPersonal($CodBar)
+	{
+		$sql="SELECT  TipPla, TurPer FROM personal WHERE CodBar='$CodBar'  ";
+		return ejecutarConsulta($sql);
 
 	}
 

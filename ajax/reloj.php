@@ -9,6 +9,11 @@ session_start();
 
 //Campos de Seguridad//
 $FecEmi =  date("d/m/Y H:i:s");
+
+$Diatexto =  date('l');
+
+$EstadoHorario =  date('a');
+
 $UsuReg=$_SESSION['login'];
 $PcReg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
 $FecReg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$FecEmi)));
@@ -16,6 +21,23 @@ $Fecha = date("Y-m-d",strtotime(str_replace('/','-',$FecEmi)));
 $Hora = date("H:i:s",strtotime(str_replace('/','-',$FecEmi)));
 //Campos de Seguridad//
 
+  if ($Diatexto=='Saturday'){
+  	$Dia='S';
+
+ }else if($DiaTexto=='Sunday'){
+ 	$Dia='D';
+
+ }else{
+ 	$Dia='C'; 
+ }
+
+
+
+ if($EstadoHorario=='am'){
+  $EstHor='D';
+ }else if($EstadoHorario=='pm'){
+  $EstHor='N';
+ }
 
 
 
@@ -31,28 +53,33 @@ $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
-		$totalc=0;
+	
 
         $CodigoIngresado=$reloj->consultar($CodBar, $Fecha);
         $regc=$CodigoIngresado->fetch_object();
-       // $totalc=$regc->CodBar;
+        $Codigo=$regc->CodBar;
+
+        $DataPersonal=$reloj->consultarDataPersonal($CodBar);
+        $dp=$DataPersonal->fetch_object();
+        $TipPla=$dp->TipPla;
+        $TurPer=$dp->TurPer;
 		//Declaramos el array para almacenar todos los permisos marcados
 
 
-         if ($regc->CodBar=='') {
-         
-         	   $rspta=$reloj->insertar($CodBar, $Fecha, $FecReg, $PcReg, $UsuReg, $Hora); 
+		
+
+		 	if ($Codigo=='') {
+         	   $rspta=$reloj->insertar($CodBar, $Fecha, $FecReg, $PcReg, $UsuReg, $Hora, $TipPla,  $Dia, $EstHor, $TurPer); 
 			    echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";
-
-         }else{
-
-
+            }else{
          	  $rspta=$reloj->editar($CodBar, $Fecha, $FecReg, $PcReg, $UsuReg, $Hora); 
 			    echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
-
-
-         }
+            }
 	
+
+
+		
+         
         	
 			
 

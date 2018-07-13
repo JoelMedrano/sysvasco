@@ -12,7 +12,18 @@ else
 require 'header.php';
 if ($_SESSION['almacen']==1)
 {
+
+
+
+  
+
+
+
 ?>
+
+
+
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -22,7 +33,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Artículo <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Marcador <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -55,15 +66,55 @@ if ($_SESSION['almacen']==1)
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                          
-                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label>CODIGO</label>
-                            <input type="text" class="form-control" name="CodBar" id="CodBar" >
-                          </div>
                          
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button  type="text" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
 
+                         <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                         </div>
+
+                            <div class="form-group col-lg-1 col-md-6 col-sm-1 col-xs-12">
+                            <label>CODIGO</label>
+                            <input type="text" class="form-control" align="center"  name="CodBar" id="CodBar" >
                             </div>
+                         
+
+                            <br>
+                            <br>
+
+                            <div class="form-group col-lg-1 col-md-6 col-sm-1 col-xs-12">
+                            <button  type="text" align="center" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+                            </div>
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+
 
                         </form>
 
