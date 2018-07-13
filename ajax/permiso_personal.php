@@ -1,7 +1,7 @@
 <?php 
-require_once "../modelos/Articulo.php";
+require_once "../modelos/Permiso_Personal.php";
 
-$articulo=new Articulo();
+$permiso_personal=new Permiso_Personal();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
@@ -14,27 +14,15 @@ $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
-		if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
-		{
-			$imagen=$_POST["imagenactual"];
-		}
-		else 
-		{
-			$ext = explode(".", $_FILES["imagen"]["name"]);
-			if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png")
-			{
-				$imagen = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/articulos/" . $imagen);
-			}
-		}
 		if (empty($idarticulo)){
-			$rspta=$articulo->insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
+			$rspta=$permiso_personal->insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
 			echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";
 		}
 		else {
-			$rspta=$articulo->editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
+			$rspta=$permiso_personal->editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
 			echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
 		}
+
 	break;
 
 	case 'desactivar':
@@ -93,8 +81,5 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->idcategoria . '>' . $reg->nombre . '</option>';
 				}
 	break;
-
-
-	
 }
 ?>
