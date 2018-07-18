@@ -15,9 +15,9 @@ define("DB_PASSWORD", "vasco123");
 define("DB_ENCODE","utf8");
 
 //Definimos una constante como nombre del proyecto
-define("PRO_NOMBRE","ITVentas");
+define("PRO_NOMBRE","VASCO");
 
 //Zona horaria de tu país para la funcion date de php
-date_default_timezone_set('America/Bogota');
+date_default_timezone_set('America/Lima');
 
 ?>

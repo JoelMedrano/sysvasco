@@ -32,8 +32,12 @@ switch ($_GET["op"]){
 				move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/" . $imagen);
 			}
 		}
+
 		//Hash SHA256 en la contraseña
-		$clavehash=hash("SHA256",$clave);
+		if (strlen($clave)>0) //obtengo la longitud de la cadena clave para determinar si se ha ingresado datos.
+		      $clavehash=hash("SHA256",$clave); //Al editar se encripta n veces.
+		else
+		    $clavehash=""; //Como no se ingresado datos la cadena sigue siendo vacío.
 
 		if (empty($idusuario)){
 			$rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);

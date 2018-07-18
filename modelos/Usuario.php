@@ -34,7 +34,11 @@ Class Usuario
 	//Implementamos un método para editar registros
 	public function editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$permisos)
 	{
-		$sql="UPDATE usuario SET nombre='$nombre',tipo_documento='$tipo_documento',num_documento='$num_documento',direccion='$direccion',telefono='$telefono',email='$email',cargo='$cargo',login='$login',clave='$clave',imagen='$imagen' WHERE idusuario='$idusuario'";
+		if (strlen($clave)>0)
+		       $sql="UPDATE usuario SET nombre='$nombre',num_documento='$num_documento',email='$email',login='$login',clave='$clave',imagen='$imagen' WHERE idusuario='$idusuario'";
+		else //Ya no se actualiza el campo clave.
+		       $sql="UPDATE usuario SET nombre='$nombre',num_documento='$num_documento',email='$email',login='$login',imagen='$imagen' WHERE idusuario='$idusuario'";
+		       
 		ejecutarConsulta($sql);
 
 		//Eliminamos todos los permisos asignados para volverlos a registrar
