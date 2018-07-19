@@ -260,7 +260,7 @@ if (strlen(session_id()) < 1)
             {
               echo '<li class="treeview">
               <a href="#">
-                <i class="fa fa-calendar"></i> <span>U D P</span>
+                <i class="fa fa-scissors"></i> <span>U D P</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
