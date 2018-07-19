@@ -83,7 +83,7 @@ if ($_SESSION['almacen']==1)
 
                             <div class="form-group col-lg-1 col-md-6 col-sm-1 col-xs-12">
                             <label>CODIGO</label>
-                            <input type="text" class="form-control" align="center"  name="CodBar" id="CodBar" >
+                            <input type="text" class="form-control" align="center"  name="id_trab" id="id_trab" >
                             </div>
                          
 

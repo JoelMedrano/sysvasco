@@ -10,17 +10,17 @@ function init(){
 		guardaryeditar(e);	
 	})
 
-	//Cargamos los items al select categoria
-	$.post("../ajax/articulo.php?op=selectCategoria", function(r){
-	            $("#idcategoria").html(r);
-	            $('#idcategoria').selectpicker('refresh');
+	//Cargamos los items al select tipo de permiso
+	$.post("../ajax/consultasD.php?op=selectTipoPermiso", function(r){
+	            $("#tip_permiso").html(r);
+	            $('#tip_permiso').selectpicker('refresh');
 
 	});
 
 	//Cargamos los items al select personal
 	$.post("../ajax/consultasD.php?op=selectPersonal", function(r){
-	            $("#CodBar").html(r);
-	            $('#CodBar').selectpicker('refresh');
+	            $("#id_trab").html(r);
+	            $('#id_trab').selectpicker('refresh');
 
 	});
 
@@ -88,7 +88,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/articulo.php?op=listar',
+					url: '../ajax/permiso_personal.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -126,35 +126,35 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(id_permiso)
 {
-	$.post("../ajax/articulo.php?op=mostrar",{idarticulo : idarticulo}, function(data, status)
+	$.post("../ajax/permiso_personal.php?op=mostrar",{id_permiso : id_permiso}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#idcategoria").val(data.idcategoria);
-		$('#idcategoria').selectpicker('refresh');
-		$("#codigo").val(data.codigo);
-		$("#nombre").val(data.nombre);
-		$("#stock").val(data.stock);
-		$("#descripcion").val(data.descripcion);
-		$("#imagenmuestra").show();
-		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
-		$("#imagenactual").val(data.imagen);
- 		$("#idarticulo").val(data.idarticulo);
- 		generarbarcode();
+		$("#id_trab").val(data.id_trab);
+		$('#id_trab').selectpicker('refresh');
+		$("#id_permiso").val(data.id_permiso);
+		$("#fecha_emision").val(data.fecha_emision);
+		$("#fecha_procede").val(data.fecha_procede); 
+		$("#fecha_hasta").val(data.fecha_hasta);
+		$("#tip_permiso").val(data.tip_permiso);
+		$('#tip_permiso').selectpicker('refresh'); 
+		$("#hora_ing").val(data.hora_ing);
+		$("#hora_sal").val(data.hora_sal);
+ 		$("#motivo").val(data.motivo);
 
  	})
 }
 
 //Función para desactivar registros
-function desactivar(idarticulo)
+function desactivar(id_permiso)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
+	bootbox.confirm("¿Está seguro de desactivar el permiso?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/permiso_personal.php?op=desactivar", {id_permiso : id_permiso}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -163,18 +163,49 @@ function desactivar(idarticulo)
 }
 
 //Función para activar registros
-function activar(idarticulo)
+function activar(id_permiso)
 {
-	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
+	bootbox.confirm("¿Está seguro de activar el permiso?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/permiso_personal.php?op=activar", {id_permiso : id_permiso}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }
 	})
 }
+
+
+//Función para desactivar registros
+function desaprobar(id_permiso)
+{
+	bootbox.confirm("¿Está seguro de desaprobar el permiso?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/permiso_personal.php?op=desaprobar", {id_permiso : id_permiso}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
+}
+
+//Función para activar registros
+function aprobar(id_permiso)
+{
+	bootbox.confirm("¿Está seguro de aprobar el permiso?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/permiso_personal.php?op=aprobar", {id_permiso : id_permiso}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
+}
+
+
 
 //función para generar el código de barras
 function generarbarcode()

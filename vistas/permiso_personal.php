@@ -12,6 +12,12 @@ else
 require 'header.php';
 if ($_SESSION['almacen']==1)
 {
+
+ $fecha=date("d/m/Y");
+          
+
+
+
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -22,7 +28,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Permisos <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Permisos <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptpermisos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -31,58 +37,83 @@ if ($_SESSION['almacen']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Código</th>
-                            <th>Stock</th>
-                            <th>Imagen</th>
-                            <th>Estado</th>
+                          
+                            <th>Fecha Emision</th>
+                            <th>Fecha Procede</th>
+                            <th>Colaborador</th>
+                            <th>Tipo Permiso</th>
+                            <th>Motivo</th>
+                            <th>Estado de Aprobacion</th>
+                            <th>Estado de Registro</th>
+                            <th>Visualizar</th>
+                            <th>Aprobar</th>
+                            <th>Anular</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
+                            <th>Fecha Emision</th>
+                            <th>Fecha Procede</th>
+                            <th>Colaborador</th>
+                            <th>Tipo Permiso</th>
+                            <th>Motivo</th>
+                            <th>Estado de Aprobacion</th>
+                            <th>Estado de Registro</th>
                             <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Código</th>
-                            <th>Stock</th>
-                            <th>Imagen</th>
-                            <th>Estado</th>
+                            <th>Aprobar</th>
+                            <th>Anular</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label>Nombre(*):</label>
-                            <input type="hidden" name="idarticulo" id="idarticulo">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
+                 
+               
+
+                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Fec.Emisión:</label>
+                            <input type="text" class="form-control" name="fecha_emision" id="fecha_emision"   value= "<?=$fecha ?>" required>
                           </div>
+
+                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Fec.Procede:</label>
+                            <input type="text" class="form-control" name="fecha_procede" id="fecha_procede"  value= "<?=$fecha ?>"  required>
+                          </div>
+
+                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Fec.Hasta:</label>
+                            <input type="text" class="form-control" name="fecha_hasta" id="fecha_hasta"  value= "<?=$fecha ?>"  required>
+                          </div>
+
+                          
+
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Codigo de Personal(*):</label>
+                            <input type="hidden" name="id_permiso" id="id_permiso">
+                            <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+
 
                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label>Codigo Personal(*):</label>
-                            <select id="idcategoria" name="idcategoria" class="form-control selectpicker" data-live-search="true" required></select>
+                            <label>Tipo de Permiso(*):</label>
+                            <select id="tip_permiso" name="tip_permiso" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
 
-                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label>Tipo de Personal(*):</label>
-                            <select id="CodBar" name="CodBar" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
+                          
 
-
-                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Hora Ingreso(*):</label>
-                            <input type="time" class="form-control" name="stock" id="stock" required>
-                          </div>
-                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label>Hora Salida :</label>
-                            <input type="time" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
+                            <input type="time" class="form-control" name="hora_ing" id="hora_ing">
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Hora Salida :</label>
+                            <input type="time" class="form-control" name="hora_sal" id="hora_sal">
+                          </div>
+
+                          <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <label>Motivo:</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
+                            <input type="text" class="form-control" name="motivo" id="motivo"  required>
                           </div>
                          
                           

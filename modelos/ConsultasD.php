@@ -47,12 +47,51 @@ Class ConsultasD
 	}
 
 
-//Implementar un método para listar los registros y mostrar en el select
+   //Implementar un método para listar los registros y mostrar en el select
 	public function select()
 	{
-		$sql="SELECT * FROM Personal";
+		$sql="SELECT * FROM Trabajador";
 		return ejecutarConsulta($sql);		
 	}
+
+
+	//Implementar un método para listar los registros y mostrar en el select
+	public function selectTipoPermiso()
+	{
+		$sql="SELECT des_corta AS tip_permiso , des_larga AS  tipo_permiso FROM tabla_maestra_detalle where cod_tabla='TPER' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	//Implementar un método para listar los registros y mostrar en el select
+	public function selectFuncion()
+	{
+		$sql="SELECT des_larga AS id_funcion , des_larga AS  funcion FROM tabla_maestra_detalle where cod_tabla='TFUN' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	//Implementar un método para listar los registros y mostrar en el select
+	public function selectArea()
+	{
+		$sql="SELECT des_larga AS id_area , des_larga AS  area_trab FROM tabla_maestra_detalle where cod_tabla='TARE' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	//Implementar un método para listar los registros y mostrar en el select
+	public function selectTipoDocumento()
+	{
+		$sql="SELECT des_larga AS id_tip_doc , des_larga AS  tipo_documento FROM tabla_maestra_detalle where cod_tabla='TDOC' ";
+		return ejecutarConsulta($sql);		
+	}
+
+	
+
+
+
+
+
 
 
 

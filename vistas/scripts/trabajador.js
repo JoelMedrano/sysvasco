@@ -10,12 +10,33 @@ function init(){
 		guardaryeditar(e);	
 	})
 
-	//Cargamos los items al select categoria
-	$.post("../ajax/articulo.php?op=selectCategoria", function(r){
-	            $("#idcategoria").html(r);
-	            $('#idcategoria').selectpicker('refresh');
+	
+
+	//Cargamos los items al select funcion del trabajador
+	$.post("../ajax/consultasD.php?op=selectFuncion", function(r){
+	            $("#id_funcion").html(r);
+	            $('#id_funcion').selectpicker('refresh');
 
 	});
+
+
+	//Cargamos los items al select area del trabajador
+	$.post("../ajax/consultasD.php?op=selectArea", function(r){
+	            $("#id_area").html(r);
+	            $('#id_area').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select tipo de documento
+	$.post("../ajax/consultasD.php?op=selectTipoDocumento", function(r){
+	            $("#id_tip_doc").html(r);
+	            $('#id_tip_doc').selectpicker('refresh');
+
+	});
+
+
+
 
 	$("#imagenmuestra").hide();
 }
@@ -41,10 +62,9 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
+		$('#nombre').focus();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-		$('#id_trab').focus();
-
 	}
 	else
 	{
@@ -77,7 +97,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/articulo.php?op=listar',
+					url: '../ajax/trabajador.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -98,7 +118,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/reloj.php?op=guardaryeditar",
+		url: "../ajax/articulo.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -115,24 +135,23 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(id_trab)
 {
-	$.post("../ajax/articulo.php?op=mostrar",{idarticulo : idarticulo}, function(data, status)
+	$.post("../ajax/trabajador.php?op=mostrar",{id_trab : id_trab}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#idcategoria").val(data.idcategoria);
-		$('#idcategoria').selectpicker('refresh');
+		$("#id_funcion").val(data.id_funcion);
+		$('#id_funcion').selectpicker('refresh');
 		$("#codigo").val(data.codigo);
-		$("#nombre").val(data.nombre);
-		$("#stock").val(data.stock);
-		$("#descripcion").val(data.descripcion);
-		$("#imagenmuestra").show();
-		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
-		$("#imagenactual").val(data.imagen);
- 		$("#idarticulo").val(data.idarticulo);
- 		generarbarcode();
+		$("#id_trab").val(data.id_trab);
+		//$("#stock").val(data.stock);
+		//$("#descripcion").val(data.descripcion);
+		//$("#imagenmuestra").show();
+		//$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+		//$("#imagenactual").val(data.imagen);
+ 		//$("#idarticulo").val(data.idarticulo);
 
  	})
 }

@@ -1,47 +1,44 @@
 <?php 
 require_once "../modelos/Reloj.php";
+session_start();
 
 $reloj=new Reloj();
 
 
-session_start();
-
-
 //Campos de Seguridad//
-$FecEmi =  date("d/m/Y H:i:s");
-
-$Diatexto =  date('l');
-
-$EstadoHorario =  date('a');
-
-$UsuReg=$_SESSION['login'];
-$PcReg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
-$FecReg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$FecEmi)));
-$Fecha = date("Y-m-d",strtotime(str_replace('/','-',$FecEmi)));
-$Hora = date("H:i:s",strtotime(str_replace('/','-',$FecEmi)));
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 //Campos de Seguridad//
 
-  if ($Diatexto=='Saturday'){
-  	$Dia='S';
 
- }else if($DiaTexto=='Sunday'){
- 	$Dia='D';
+$fecha = date("Y-m-d",strtotime(str_replace('/','-',$fec_emi)));
+$hora = date("H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+$dia_texto =  date('l');
+$estado_horario =  date('a');
 
+
+  if ($dia_texto=='Saturday'){
+  	$dia='S';
+ }else if($dia_texto=='Sunday'){
+ 	$dia='D';
  }else{
- 	$Dia='C'; 
+ 	$dia='C'; 
  }
 
 
 
- if($EstadoHorario=='am'){
-  $EstHor='D';
- }else if($EstadoHorario=='pm'){
-  $EstHor='N';
+ if($estado_horario=='am'){
+  $est_hor='D';
+ }else if($estado_horario=='pm'){
+  $est_hor='N';
  }
 
 
 
-$CodBar=isset($_POST["CodBar"])? limpiarCadena($_POST["CodBar"]):"";
+$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
+
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
 $codigo=isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
@@ -55,24 +52,23 @@ switch ($_GET["op"]){
 
 	
 
-        $CodigoIngresado=$reloj->consultar($CodBar, $Fecha);
-        $regc=$CodigoIngresado->fetch_object();
-        $Codigo=$regc->CodBar;
+        $codigo_ingresado=$reloj->consultar($id_trab, $fecha);
+        $regc=$codigo_ingresado->fetch_object();
+        $codigo=$regc->id_trab;
 
-        $DataPersonal=$reloj->consultarDataPersonal($CodBar);
-        $dp=$DataPersonal->fetch_object();
-        $TipPla=$dp->TipPla;
-        $TurPer=$dp->TurPer;
+        $data_personal=$reloj->consultarDataPersonal($id_trab);
+        $dp=$data_personal->fetch_object();
+        $tip_pla=$dp->tip_pla;
+        $tur_per=$dp->tur_per;
+
 		//Declaramos el array para almacenar todos los permisos marcados
 
 
-		
-
-		 	if ($Codigo=='') {
-         	   $rspta=$reloj->insertar($CodBar, $Fecha, $FecReg, $PcReg, $UsuReg, $Hora, $TipPla,  $Dia, $EstHor, $TurPer); 
+		 	if ($codigo=='') {
+         	   $rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $tip_pla,  $dia, $est_hor, $tur_per); 
 			    echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";
             }else{
-         	  $rspta=$reloj->editar($CodBar, $Fecha, $FecReg, $PcReg, $UsuReg, $Hora); 
+         	  $rspta=$reloj->editar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
 			    echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
             }
 	

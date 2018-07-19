@@ -78,9 +78,76 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->CodBar . '>' . $reg->Razon . '</option>';
+					echo '<option value=' . $reg->id_trab . '>' . $reg->ape_trab . '</option>';
 				}
 	break;
+
+
+
+//Agregado DG 18072018
+	case "selectTipoPermiso":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTipoPermiso();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->tip_permiso . '>' . $reg->tipo_permiso . '</option>';
+				}
+	break;
+
+//Agregado DG 19072018
+	case "selectFuncion":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectFuncion();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_funcion . '>' . $reg->funcion . '</option>';
+				}
+	break;
+
+
+//Agregado DG 19072018
+	case "selectArea":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectArea();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_area . '>' . $reg->area_trab . '</option>';
+				}
+	break;
+
+
+
+
+
+//Agregado DG 19072018
+	case "selectTipoDocumento":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTipoDocumento();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_tip_doc . '>' . $reg->tipo_documento . '</option>';
+				}
+	break;
+
+
+
+
+
+
+
+
 
 }
 ?>

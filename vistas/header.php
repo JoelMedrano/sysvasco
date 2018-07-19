@@ -211,7 +211,8 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Maestros</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Registro</a></li>
-                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>                
+                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>  
+                <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>               
 
               </ul>
             </li>';

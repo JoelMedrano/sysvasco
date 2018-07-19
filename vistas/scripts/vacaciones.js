@@ -41,10 +41,9 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
+		$('#nombre').focus();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-		$('#id_trab').focus();
-
 	}
 	else
 	{
@@ -77,7 +76,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/articulo.php?op=listar',
+					url: '../ajax/vacaciones.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -98,7 +97,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/reloj.php?op=guardaryeditar",
+		url: "../ajax/articulo.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
