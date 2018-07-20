@@ -52,7 +52,7 @@ Class ConsultasJ
 	//Seleccionar desde la lista de areas
 	public function selectArea()
 	{
-		$sql="SELECT	cod_argumento as area,
+		$sql="SELECT	cod_argumento as 'area',
 						cod_tabla,
 						des_larga
 						FROM tabla_maestra_detalle tmd
