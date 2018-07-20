@@ -61,27 +61,67 @@ if ($_SESSION['almacen']==1)
 
 
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Id.trabajador(*):</label>
-                            <input type="text" class="form-control" name="id_trab" id="id_trab"  required>
-                          </div>
+                      
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Nombre(*):</label>
-                            <input type="hidden" name="idarticulo" id="idarticulo">
-                            <input type="text" class="form-control" name="nom_trab" id="nom_trab"  required>
-                          </div>
+
+                           
+                           <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+
+                                
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nombre(*):</label>
+                                <div class="col-lg-2">
+                                   <input type="hidden" name="idarticulo" id="idarticulo">
+                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab"  required>
+                                </div>
+
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
+                                <div class="col-lg-2">
+                                    <input type="text" class="form-control" name="apemat_trab" id="apemat_trab"  required>
+                                </div>
+
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="id_trab" id="id_trab"  required>
+                                </div>
+
+                              
+                             
+                           </div>
+
+
+                            <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tip.Doc(*):</label>
+                                <div class="col-lg-1">
+                                  <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
 
                          
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Ap.Paterno(*):</label>
-                            <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required>
-                          </div>
+                            </div>
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Ap.Materno(*):</label>
-                            <input type="text" class="form-control" name="apemat_trab" id="apemat_trab"  required>
-                          </div>
+
+
+
+                        
+
+
+
+
+                         
+
+
+
+                     
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Tip.Doc(*):</label>

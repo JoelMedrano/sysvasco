@@ -79,6 +79,8 @@ if ($_SESSION['escritorio']==1)
                               </div>
                               <a href="ingreso.php" class="small-box-footer">Compras <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
+                            comm-html-section
+                            
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                           <div class="small-box bg-green">

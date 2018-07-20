@@ -29,6 +29,7 @@ function init(){
 
 
 
+
 	//Cargamos los items al select tipo de documento
 	$.post("../ajax/consultasD.php?op=selectTipoDocumento", function(r){
 	            $("#id_tip_doc").html(r);
@@ -259,15 +260,63 @@ function mostrar(id_trab)
 		mostrarform(true);
 
 		$("#id_funcion").val(data.id_funcion);
-		$('#id_funcion').selectpicker('refresh');
+		$('#id_funcion').selectpicker('refresh'); 
+
+        $("#id_genero").val(data.id_genero);
+		$('#id_genero').selectpicker('refresh'); 
+
+		$("#id_tip_doc").val(data.id_tip_doc);
+		$('#id_tip_doc').selectpicker('refresh'); 
+
+		$("#id_tip_plan").val(data.id_tip_plan);
+		$('#id_tip_plan').selectpicker('refresh');
+
+		$("#id_sucursal").val(data.id_sucursal);
+		$('#id_sucursal').selectpicker('refresh');
+
+		$("#id_area").val(data.id_area);
+		$('#id_area').selectpicker('refresh'); 
+
+		$("#id_cen_cost").val(data.id_cen_cost);
+		$('#id_cen_cost').selectpicker('refresh'); 
+
+		$("#id_tip_man_ob").val(data.id_tip_man_ob);
+		$('#id_tip_man_ob').selectpicker('refresh'); 
+
+		$("#id_categoria").val(data.id_categoria);
+		$('#id_categoria').selectpicker('refresh');
+
+		$("#id_form_pag").val(data.id_form_pag);
+		$('#id_form_pag').selectpicker('refresh');
+
+		$("#id_tip_cont").val(data.id_tip_cont);
+		$('#id_tip_cont').selectpicker('refresh');
+
+		$("#id_est_civil").val(data.id_est_civil);
+		$('#id_est_civil').selectpicker('refresh');
+
+		$("#id_reg_pen").val(data.id_reg_pen);
+		$('#id_reg_pen').selectpicker('refresh');
+
+		$("#id_com_act").val(data.id_com_act);
+		$('#id_com_act').selectpicker('refresh');
+
+		$("#id_t_registro").val(data.id_t_registro);
+		$('#id_t_registro').selectpicker('refresh');
+
+
+
+
 		$("#id_trab").val(data.id_trab);
 		$("#nom_trab").val(data.nom_trab);
-		$("#apepat_trab").val(data.nom_trab);
-		$("#apemat_trab").val(data.nom_trab);
-
-
-
+		$("#apepat_trab").val(data.apepat_trab);
+		$("#apemat_trab").val(data.apemat_trab);
+		$("#num_doc_trab").val(data.num_doc_trab);
 		
+
+
+	
+
 
  	})
 }
