@@ -42,7 +42,7 @@ Class Trabajador
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_trab)
 	{
-		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apemat_trab, tr.apepat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
+		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tr.apepat_trab, tr.apemat_trab,  tr.nom_trab  , tpla.des_larga AS tipo_planilla,
 				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
@@ -64,7 +64,7 @@ Class Trabajador
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apemat_trab, tr.apepat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
+		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
 				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON

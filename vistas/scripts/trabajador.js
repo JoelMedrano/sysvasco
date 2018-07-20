@@ -28,12 +28,128 @@ function init(){
 	});
 
 
+
 	//Cargamos los items al select tipo de documento
 	$.post("../ajax/consultasD.php?op=selectTipoDocumento", function(r){
 	            $("#id_tip_doc").html(r);
 	            $('#id_tip_doc').selectpicker('refresh');
 
 	});
+
+
+	//Cargamos los items al select tipo de planilla
+	$.post("../ajax/consultasD.php?op=selectTipoPlanilla", function(r){
+	            $("#id_tip_plan").html(r);
+	            $('#id_tip_plan').selectpicker('refresh');
+
+	});
+
+
+   //Cargamos los items al select tipo de planilla
+	$.post("../ajax/consultasD.php?op=selectCentroCostos", function(r){
+	            $("#id_cen_cost").html(r);
+	            $('#id_cen_cost').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select tipo de planilla
+	$.post("../ajax/consultasD.php?op=selectManoDeObra", function(r){
+	            $("#id_tip_man_ob").html(r);
+	            $('#id_tip_man_ob').selectpicker('refresh');
+
+	});
+
+
+
+	//Cargamos los items al select tipo de planilla
+	$.post("../ajax/consultasD.php?op=selectSucursal", function(r){
+	            $("#id_sucursal").html(r);
+	            $('#id_sucursal').selectpicker('refresh');
+
+	});
+
+
+
+	//Cargamos los items al select categoria laboral
+	$.post("../ajax/consultasD.php?op=selectCategoriaLaboral", function(r){
+	            $("#id_categoria").html(r);
+	            $('#id_categoria').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select categoria laboral
+	$.post("../ajax/consultasD.php?op=selectFormaDePago", function(r){
+	            $("#id_form_pag").html(r);
+	            $('#id_form_pag').selectpicker('refresh');
+
+	});
+
+
+
+	//Cargamos los items al select categoria laboral
+	$.post("../ajax/consultasD.php?op=selectTipoContrato", function(r){
+	            $("#id_tip_cont").html(r);
+	            $('#id_tip_cont').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select estado civil
+	$.post("../ajax/consultasD.php?op=selectEstadoCivil", function(r){
+	            $("#id_est_civil").html(r);
+	            $('#id_est_civil').selectpicker('refresh');
+
+	});
+
+
+
+	//Cargamos los items al select regimen pensionario
+	$.post("../ajax/consultasD.php?op=selectRegimenPensionario", function(r){
+	            $("#id_reg_pen").html(r);
+	            $('#id_reg_pen').selectpicker('refresh');
+
+	});
+
+
+
+	//Cargamos los items al select comision actual
+	$.post("../ajax/consultasD.php?op=selectComisionActual", function(r){
+	            $("#id_com_act").html(r);
+	            $('#id_com_act').selectpicker('refresh');
+
+	});
+
+
+
+
+	//Cargamos los items al select genero
+	$.post("../ajax/consultasD.php?op=selectGenero", function(r){
+	            $("#id_genero").html(r);
+	            $('#id_genero').selectpicker('refresh');
+
+	});
+
+
+
+	//Cargamos los items al select t registro
+	$.post("../ajax/consultasD.php?op=selectTRegistro", function(r){
+	            $("#id_t_registro").html(r);
+	            $('#id_t_registro').selectpicker('refresh');
+
+	});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -105,7 +221,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 10,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -144,14 +260,14 @@ function mostrar(id_trab)
 
 		$("#id_funcion").val(data.id_funcion);
 		$('#id_funcion').selectpicker('refresh');
-		$("#codigo").val(data.codigo);
 		$("#id_trab").val(data.id_trab);
-		//$("#stock").val(data.stock);
-		//$("#descripcion").val(data.descripcion);
-		//$("#imagenmuestra").show();
-		//$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
-		//$("#imagenactual").val(data.imagen);
- 		//$("#idarticulo").val(data.idarticulo);
+		$("#nom_trab").val(data.nom_trab);
+		$("#apepat_trab").val(data.nom_trab);
+		$("#apemat_trab").val(data.nom_trab);
+
+
+
+		
 
  	})
 }

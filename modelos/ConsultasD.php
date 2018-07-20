@@ -47,7 +47,7 @@ Class ConsultasD
 	}
 
 
-   //Implementar un método para listar los registros y mostrar en el select
+   // Permiso - Implementar un método para listar los registros y mostrar en el select
 	public function select()
 	{
 		$sql="SELECT * FROM Trabajador";
@@ -55,7 +55,7 @@ Class ConsultasD
 	}
 
 
-	//Implementar un método para listar los registros y mostrar en el select
+	// Permiso - Implementar un método para listar los registros y mostrar en el select
 	public function selectTipoPermiso()
 	{
 		$sql="SELECT des_corta AS tip_permiso , des_larga AS  tipo_permiso FROM tabla_maestra_detalle where cod_tabla='TPER' ";
@@ -63,28 +63,140 @@ Class ConsultasD
 	}
 
 
-	//Implementar un método para listar los registros y mostrar en el select
+	// Trabajador -  Implementar un método para listar los registros y mostrar en el select
 	public function selectFuncion()
 	{
-		$sql="SELECT des_larga AS id_funcion , des_larga AS  funcion FROM tabla_maestra_detalle where cod_tabla='TFUN' ";
+		$sql="SELECT cod_argumento AS id_funcion , des_larga AS  funcion FROM tabla_maestra_detalle where cod_tabla='TFUN' ";
 		return ejecutarConsulta($sql);		
 	}
 
 
-	//Implementar un método para listar los registros y mostrar en el select
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectArea()
 	{
-		$sql="SELECT des_larga AS id_area , des_larga AS  area_trab FROM tabla_maestra_detalle where cod_tabla='TARE' ";
+		$sql="SELECT cod_argumento AS id_area , des_larga AS  area_trab FROM tabla_maestra_detalle where cod_tabla='TARE' ";
 		return ejecutarConsulta($sql);		
 	}
 
 
-	//Implementar un método para listar los registros y mostrar en el select
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectTipoDocumento()
 	{
-		$sql="SELECT des_larga AS id_tip_doc , des_larga AS  tipo_documento FROM tabla_maestra_detalle where cod_tabla='TDOC' ";
+		$sql="SELECT cod_argumento AS id_tip_doc , des_larga AS  tipo_documento FROM tabla_maestra_detalle where cod_tabla='TDOC' ";
 		return ejecutarConsulta($sql);		
 	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectTipoPlanilla()
+	{
+		$sql="SELECT cod_argumento AS id_tip_plan , des_larga AS  tipo_planilla FROM tabla_maestra_detalle where cod_tabla='TPLA' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+   //  Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectCentroCostos()
+	{
+		$sql="SELECT cod_argumento AS id_cen_cost , des_larga AS  centro_costos FROM tabla_maestra_detalle where cod_tabla='TCCO' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador -  Implementar un método para listar los registros y mostrar en el select
+	public function selectManoDeObra()
+	{
+		$sql="SELECT cod_argumento AS id_tip_man_ob , des_larga AS  tipo_mano_obra FROM tabla_maestra_detalle where cod_tabla='TTMO' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectSucursal()
+	{
+		$sql="SELECT cod_argumento AS id_sucursal , des_larga AS  sucursal_anexo FROM tabla_maestra_detalle where cod_tabla='TSUA' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectCategoriaLaboral()
+	{
+		$sql="SELECT cod_argumento AS id_categoria , des_larga AS  categoria_laboral FROM tabla_maestra_detalle where cod_tabla='TCAL' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectFormaDePago()
+	{
+		$sql="SELECT cod_argumento AS id_form_pag , des_larga AS  forma_pago FROM tabla_maestra_detalle where cod_tabla='TFOP' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectTipoContrato()
+	{
+		$sql="SELECT cod_argumento AS id_tip_cont , des_larga AS  tipo_contrato FROM tabla_maestra_detalle where cod_tabla='TCON' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectEstadoCivil()
+	{
+		$sql="SELECT cod_argumento AS id_est_civil, des_larga AS  estado_civil FROM tabla_maestra_detalle where cod_tabla='TECI' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectRegimenPensionario()
+	{
+		$sql="SELECT cod_argumento AS id_reg_pen, des_larga AS  regimen_pensionario FROM tabla_maestra_detalle where cod_tabla='TREP' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectComisionActual()
+	{
+		$sql="SELECT cod_argumento AS id_com_act, des_larga AS  comision_actual FROM tabla_maestra_detalle where cod_tabla='TTCA' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectGenero()
+	{
+		$sql="SELECT cod_argumento AS id_genero, des_larga AS  genero FROM tabla_maestra_detalle where cod_tabla='TGEN' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectTRegistro()
+	{
+		$sql="SELECT cod_argumento AS id_t_registro, des_larga AS  t_registro FROM tabla_maestra_detalle where cod_tabla='TTRE' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	
 

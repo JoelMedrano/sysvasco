@@ -213,7 +213,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Registro</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>  
                 <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>               
-
+                <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajador</a></li>    
               </ul>
             </li>';
             }

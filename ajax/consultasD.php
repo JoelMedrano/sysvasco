@@ -69,7 +69,7 @@ switch ($_GET["op"]){
 
 
 
-//Agregado DG 13072018
+//Permiso - Agregado DG 13072018
 	case "selectPersonal":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
@@ -78,13 +78,13 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->id_trab . '>' . $reg->ape_trab . '</option>';
+					echo '<option value=' . $reg->id_trab . '>' . $reg->apemat_trab . '</option>';
 				}
 	break;
 
 
 
-//Agregado DG 18072018
+// Permiso - Agregado DG 18072018
 	case "selectTipoPermiso":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
@@ -97,7 +97,7 @@ switch ($_GET["op"]){
 				}
 	break;
 
-//Agregado DG 19072018
+// Trabajador - Agregado DG 19072018
 	case "selectFuncion":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
@@ -111,7 +111,7 @@ switch ($_GET["op"]){
 	break;
 
 
-//Agregado DG 19072018
+//Trabajador - Agregado DG 19072018
 	case "selectArea":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
@@ -128,7 +128,7 @@ switch ($_GET["op"]){
 
 
 
-//Agregado DG 19072018
+// Trabajador - Agregado DG 19072018
 	case "selectTipoDocumento":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
@@ -140,6 +140,196 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->id_tip_doc . '>' . $reg->tipo_documento . '</option>';
 				}
 	break;
+
+
+
+
+// Trabajador - Agregado DG 19072018
+	case "selectTipoPlanilla":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTipoPlanilla();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_tip_plan . '>' . $reg->tipo_planilla. '</option>';
+				}
+	break;
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectCentroCostos":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectCentroCostos();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_cen_cost . '>' . $reg->centro_costos. '</option>';
+				}
+	break;
+
+
+// Trabajador -Agregado DG 20072018
+	case "selectManoDeObra":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectManoDeObra();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_tip_man_ob . '>' . $reg->tipo_mano_obra. '</option>';
+				}
+	break;
+
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectSucursal":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectSucursal();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_sucursal . '>' . $reg->sucursal_anexo. '</option>';
+				}
+	break;
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectCategoriaLaboral":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectCategoriaLaboral();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_categoria . '>' . $reg->categoria_laboral. '</option>';
+				}
+	break;
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectFormaDePago":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectFormaDePago();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_form_pag . '>' . $reg->forma_pago. '</option>';
+				}
+	break;
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectTipoContrato":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTipoContrato();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_tip_cont . '>' . $reg->tipo_contrato. '</option>';
+				}
+	break;
+
+
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectEstadoCivil":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectEstadoCivil();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_est_civil . '>' . $reg->estado_civil. '</option>';
+				}
+	break;
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectRegimenPensionario":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectRegimenPensionario();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_reg_pen . '>' . $reg->regimen_pensionario. '</option>';
+				}
+	break;
+
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectComisionActual":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectComisionActual();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_com_act . '>' . $reg->comision_actual. '</option>';
+				}
+	break;
+
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectGenero":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectGenero();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_genero . '>' . $reg->genero. '</option>';
+				}
+	break;
+
+
+// Trabajador - Agregado DG 20072018
+	case "selectTRegistro":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTRegistro();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_t_registro . '>' . $reg->t_registro. '</option>';
+				}
+	break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

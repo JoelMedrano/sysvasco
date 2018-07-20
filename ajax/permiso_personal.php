@@ -90,7 +90,7 @@ switch ($_GET["op"]){
  				
  				"0"=>$reg->fecha_emision,
  				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->ape_trab,
+ 				"2"=>$reg->apepat_trab,
  				"3"=>$reg->tipo_permiso,
  				"4"=>$reg->motivo,
 

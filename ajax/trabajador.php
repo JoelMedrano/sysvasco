@@ -8,6 +8,15 @@ $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $id_funcion=isset($_POST["id_funcion"])? limpiarCadena($_POST["id_funcion"]):"";
 $id_area=isset($_POST["id_area"])? limpiarCadena($_POST["id_area"]):"";
 $id_tip_doc=isset($_POST["id_tip_doc"])? limpiarCadena($_POST["id_tip_doc"]):"";
+$id_tip_plan=isset($_POST["id_tip_plan"])? limpiarCadena($_POST["id_tip_plan"]):"";
+
+
+
+
+
+
+$nom_trab=isset($_POST["nom_trab"])? limpiarCadena($_POST["nom_trab"]):"";
+
 
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
