@@ -58,11 +58,18 @@ if ($_SESSION['acceso']==1)
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Colaboradores(*):</label>
+                            <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre(*):</label>
                             <input type="hidden" name="idusuario" id="idusuario">
                             <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
                           </div>
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Tipo Documento(*):</label>
                             <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
@@ -80,16 +87,22 @@ if ($_SESSION['acceso']==1)
                             <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección" maxlength="70">
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Teléfono:</label>
-                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Teléfono">
+                            <label>Anexo:</label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Anexo">
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Email:</label>
                             <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email">
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Cargo:</label>
-                            <input type="text" class="form-control" name="cargo" id="cargo" maxlength="20" placeholder="Cargo">
+
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Cargo(*):</label>
+                            <select id="cargo" name="cargo" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Area:</label>
+                            <select id="area" name="area" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Login (*):</label>

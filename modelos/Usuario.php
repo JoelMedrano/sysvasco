@@ -11,10 +11,10 @@ Class Usuario
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$permisos)
+	public function insertar($id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area,$login,$clave,$imagen,$permisos)
 	{
-		$sql="INSERT INTO usuario (nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,login,clave,imagen,condicion)
-		VALUES ('$nombre','$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$login','$clave','$imagen','1')";
+		$sql="INSERT INTO usuario (id_trab,nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,area,login,clave,imagen,condicion)
+		VALUES ('$id_trab',UPPER('$nombre'),'$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$area','$login','$clave','$imagen','1')";
 		//return ejecutarConsulta($sql);
 		$idusuarionew=ejecutarConsulta_retornarID($sql);
 
@@ -32,7 +32,7 @@ Class Usuario
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen,$permisos)
+	public function editar($idusuario,$id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area,$login,$clave,$imagen,$permisos)
 	{
 		if (strlen($clave)>0)
 		       $sql="UPDATE usuario SET nombre='$nombre',num_documento='$num_documento',email='$email',login='$login',clave='$clave',imagen='$imagen' WHERE idusuario='$idusuario'";

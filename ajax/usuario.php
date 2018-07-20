@@ -5,6 +5,7 @@ require_once "../modelos/Usuario.php";
 $usuario=new Usuario();
 
 $idusuario=isset($_POST["idusuario"])? limpiarCadena($_POST["idusuario"]):"";
+$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 $tipo_documento=isset($_POST["tipo_documento"])? limpiarCadena($_POST["tipo_documento"]):"";
 $num_documento=isset($_POST["num_documento"])? limpiarCadena($_POST["num_documento"]):"";
@@ -12,9 +13,11 @@ $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
 $telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
 $email=isset($_POST["email"])? limpiarCadena($_POST["email"]):"";
 $cargo=isset($_POST["cargo"])? limpiarCadena($_POST["cargo"]):"";
+$area=isset($_POST["area"])? limpiarCadena($_POST["area"]):"";
 $login=isset($_POST["login"])? limpiarCadena($_POST["login"]):"";
 $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
@@ -40,7 +43,7 @@ switch ($_GET["op"]){
 		    $clavehash=""; //Como no se ingresado datos la cadena sigue siendo vacío.
 
 		if (empty($idusuario)){
-			$rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
+			$rspta=$usuario->insertar($id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area,$login,$clavehash,$imagen,$_POST['permiso']);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
@@ -179,5 +182,42 @@ switch ($_GET["op"]){
         header("Location: ../index.php");
 
 	break;
+
+	case "SelectTrabajador":
+		require_once "../modelos/ConsultasJ.php";
+		$consultasj = new ConsultasJ();
+
+		$rspta = $consultasj->select();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_trab . '>' . $reg->trabajador . '</option>';
+				}
+	break;
+
+	case "SelectFuncion":
+		require_once "../modelos/ConsultasJ.php";
+		$consultasj = new ConsultasJ();
+
+		$rspta = $consultasj->SelectFuncion();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->cargo . '>' . $reg->des_larga . '</option>';
+				}
+	break;	
+
+	case "SelectArea":
+		require_once "../modelos/ConsultasJ.php";
+		$consultasj = new ConsultasJ();
+
+		$rspta = $consultasj->SelectArea();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->area . '>' . $reg->des_larga . '</option>';
+				}
+	break;
+
 }
 ?>

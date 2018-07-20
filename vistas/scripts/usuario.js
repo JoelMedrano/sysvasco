@@ -15,17 +15,40 @@ function init(){
 	$.post("../ajax/usuario.php?op=permisos&id=",function(r){
 	        $("#permisos").html(r);
 	});
+
+	//Cargamos los items al select trabajador
+	$.post("../ajax/usuario.php?op=SelectTrabajador", function(r){
+	            $("#id_trab").html(r);
+	            $('#id_trab').selectpicker('refresh');
+
+	});	
+
+	//Cargamos los items al select funciones
+	$.post("../ajax/usuario.php?op=SelectFuncion", function(r){
+	            $("#cargo").html(r);
+	            $('#cargo').selectpicker('refresh');
+
+	});
+
+	//Cargamos los items al select area
+	$.post("../ajax/usuario.php?op=SelectArea", function(r){
+	            $("#area").html(r);
+	            $('#area').selectpicker('refresh');
+
+	});			
 }
 
 //Función limpiar
 function limpiar()
 {
+	$("#id_trab").val("");	
 	$("#nombre").val("");
 	$("#num_documento").val("");
 	$("#direccion").val("");
 	$("#telefono").val("");
 	$("#email").val("");
 	$("#cargo").val("");
+	$("#area").val("");
 	$("#login").val("");
 	$("#clave").val("");
 	$("#imagenmuestra").attr("src","");
@@ -83,7 +106,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 20,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -120,6 +143,15 @@ function mostrar(idusuario)
 		data = JSON.parse(data);		
 		mostrarform(true);
 
+		$("#id_trab").val(data.id_trab);
+		$('#id_trab').selectpicker('refresh');
+		$("#cargo").val(data.cargo);		
+		$('#cargo').selectpicker('refresh');
+		$("#area").val(data.area);
+		$('#area').selectpicker('refresh');
+
+
+		$("#id_trab").val(data.id_trab);
 		$("#nombre").val(data.nombre);
 		$("#tipo_documento").val(data.tipo_documento);
 		$("#tipo_documento").selectpicker('refresh');
@@ -127,7 +159,7 @@ function mostrar(idusuario)
 		$("#direccion").val(data.direccion);
 		$("#telefono").val(data.telefono);
 		$("#email").val(data.email);
-		$("#cargo").val(data.cargo);
+		
 		$("#login").val(data.login);
 		$("#clave").val();
 		$("#imagenmuestra").show();
