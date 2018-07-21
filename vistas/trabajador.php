@@ -56,6 +56,8 @@ if ($_SESSION['almacen']==1)
                           </tfoot>
                         </table>
                     </div>
+
+
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
 
@@ -63,12 +65,9 @@ if ($_SESSION['almacen']==1)
 
                       
 
-
-                           
+                    <div class="box-header with-border">
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
-
-                                
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nombre(*):</label>
                                 <div class="col-lg-2">
@@ -84,7 +83,7 @@ if ($_SESSION['almacen']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
                                 <div class="col-lg-2">
-                                    <input type="text" class="form-control" name="apemat_trab" id="apemat_trab"  required>
+                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab"  required>
                                 </div>
 
 
@@ -92,61 +91,336 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" name="id_trab" id="id_trab"  required>
                                 </div>
-
-                              
                              
                            </div>
 
+                       
 
-                            <!-- fila 1 -->
+
+                             <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
 
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tip.Doc(*):</label>
-                                <div class="col-lg-1">
-                                  <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true" required></select>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Direccion(*):</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="dir_trab" id="dir_trab"  required>
                                 </div>
 
-                         
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Urbanizacion(*):</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="urb_trab" id="urb_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Distrito(*):</label>
+                                <div class="col-lg-2">
+                                  <select id="id_distrito" name="id_distrito" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento(*):</label>
+                                <div class="col-lg-2">
+                                  <select id="id_departamento" name="id_departamento" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+
+                            </div>
+
+                       </div>
+
+
+
+
+                            <div class="form-group  col-xs-12">
+                            </div>
+                            <div class="form-group  col-xs-12">
                             </div>
 
 
 
 
+
+                       <div class="box-header with-border">
+
+
+                            <div class="form-group  col-xs-12">
+
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Nac.:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="fec_nac_trab" id="fec_nac_trab"  required>
+                                </div>
+
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Lugar Nac:</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="lug_nac_trab" id="lug_nac_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Edad</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nacionalidad</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Est.Civil(*):</label>
+                                <div class="col-lg-1">
+                                   <select id="id_est_civil" name="id_est_civil" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+
+
+                            </div>
+
+
+                          
+
+                            <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tipo de Doc(*):</label>
+                                <div class="col-lg-2">
+                                  <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+
+                                
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Dni:</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tlf. Docimicilio:</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="num_tlf_dom" id="num_tlf_dom"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tlf. Celular:</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="num_tlf_cel" id="num_tlf_cel"  required>
+                                </div>
+
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">E-Mail</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+                         
+                            </div>
+
+                          
+
+
+                    </div>
+
+
+
+                    <div class="form-group  col-xs-12">
+                    </div>
+                    <div class="form-group  col-xs-12">
+                    </div>
                         
 
 
 
+                    <div class="box-header with-border">
 
-                         
+
+                        <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Empresa1:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cargo:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_tlf_dom" id="num_tlf_dom"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Jefe Inm:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_tlf_cel" id="num_tlf_cel"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Desde - Hasta</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+                               
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+
+                            </div>
+
+
+
+                          <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Empresa2:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cargo:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_tlf_dom" id="num_tlf_dom"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Jefe Inm:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_tlf_cel" id="num_tlf_cel"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Desde - Hasta</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+                               
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Empresa3:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cargo:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_tlf_dom" id="num_tlf_dom"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Jefe Inm:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="num_tlf_cel" id="num_tlf_cel"  required>
+                                </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Desde - Hasta</label>
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+                               
+                                <div class="col-lg-1">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  required>
+                                </div>
+
+                            </div>
+
+
+
+
+                    </div>
+
+
+
+                    <div class="box-header with-border">
+
+                    
+                       <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Sucursal(*):</label>
+                                <div class="col-lg-2">
+                                 <select id="id_sucursal" name="id_sucursal" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+                       </div>
+
+
+                       <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Funcion(*):</label>
+                                <div class="col-lg-2">
+                                 <select id="id_funcion" name="id_funcion" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+                       </div>
+
+                       <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Area(*):</label>
+                                <div class="col-lg-2">
+                                  <select id="id_area" name="id_area" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+                        </div>
+
+
+                        <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Turno(*):</label>
+                                <div class="col-lg-2">
+                                 <select id="id_turno" name="id_turno" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+                       </div>
+
+                       <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">FechaIngreso:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_ing_trab" id="fec_ing_trab"  required>
+                                </div>
+
+                        </div>
+                     
+
+                        <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cond.Laboral:</label>
+                                <div class="col-lg-2">
+                                 <select id="id_tip_plan" name="id_tip_plan" class="form-control selectpicker" data-live-search="true" required></select>
+                                </div>
+                        </div>  
+
+                        <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Remuneracion:</label>
+                                <div class="col-lg-2">
+                                <input type="text" class="form-control" name="sueldo_trab" id="sueldo_trab"  required>
+                                </div>
+
+                        </div>
+
+                        <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Bono:</label>
+                                <div class="col-lg-2">
+                                <input type="text" class="form-control" name="bono_trab" id="bono_trab"  required>
+                                </div>
+
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Observaciones:</label>
+                                <div class="col-lg-5">
+                                <input type="text" class="form-control" name="bono_trab" id="bono_trab"  required>
+                                </div>
+
+
+
+                        </div>
+
+
+                        
+
+
+                                
+
+
+
+
+
+                   </div> 
+
+
+
+
+
 
 
 
                      
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Tip.Doc(*):</label>
-                            <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true" required></select>
-                           </div>
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Nro.Doc(*):</label>
-                            <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab"  required>
-                          </div>
+                         
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Funcion(*):</label>
-                            <select id="id_funcion" name="id_funcion" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
+                         
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Area(*):</label>
-                            <select id="id_area" name="id_area" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
-
-                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Tip.Planilla(*):</label>
-                            <select id="id_tip_plan" name="id_tip_plan" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
+                           
 
                             <!-- -->
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -159,11 +433,7 @@ if ($_SESSION['almacen']==1)
                             <select id="id_tip_man_ob" name="id_tip_man_ob" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Sucursal(*):</label>
-                            <select id="id_sucursal" name="id_sucursal" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
-
+                          
 
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Categoria Laboral(*):</label>
@@ -181,10 +451,7 @@ if ($_SESSION['almacen']==1)
                           </div>
 
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Est.Civil(*):</label>
-                            <select id="id_est_civil" name="id_est_civil" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
+                          
 
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">

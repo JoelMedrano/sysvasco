@@ -143,6 +143,15 @@ function init(){
 
 
 
+	//Cargamos los items al select turno
+	$.post("../ajax/consultasD.php?op=selectTurno", function(r){
+	            $("#id_turno").html(r);
+	            $('#id_turno').selectpicker('refresh');
+
+	});
+
+
+
 
 
 
@@ -303,6 +312,10 @@ function mostrar(id_trab)
 
 		$("#id_t_registro").val(data.id_t_registro);
 		$('#id_t_registro').selectpicker('refresh');
+
+
+		$("#id_turno").val(data.id_turno);
+		$('#id_turno').selectpicker('refresh');
 
 
 

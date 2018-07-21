@@ -319,6 +319,24 @@ switch ($_GET["op"]){
 
 
 
+// Trabajador - Agregado DG 20072018
+	case "selectTurno":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTurno();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_turno . '>' . $reg->turno. '</option>';
+				}
+	break;
+
+
+
+
+
+
 
 
 

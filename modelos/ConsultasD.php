@@ -189,6 +189,17 @@ Class ConsultasD
 
 
 
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectTurno()
+	{
+		$sql="SELECT cod_argumento AS id_turno, des_larga AS  turno FROM tabla_maestra_detalle where cod_tabla='TTUR' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+
+
 
 
 
