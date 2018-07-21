@@ -182,7 +182,7 @@ if ($_SESSION['udp']==1)
 </div>
 
 <!--=====================================
-MODAL AGREGAR MODELO
+MODAL AGREGAR USUARIO
 ======================================-->
 
 <div id="modalAgregarModelo" class="modal fade" role="dialog">
@@ -191,7 +191,7 @@ MODAL AGREGAR MODELO
 
     <div class="modal-content">
 
-      <form role="form" method="post">
+      <form role="form" method="post" enctype="multipart/form-data">
 
         <!--=====================================
         CABEZA DEL MODAL
@@ -201,7 +201,7 @@ MODAL AGREGAR MODELO
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title">Agregar categoría</h4>
+          <h4 class="modal-title">Agregar Modelo</h4>
 
         </div>
 
@@ -213,20 +213,137 @@ MODAL AGREGAR MODELO
 
           <div class="box-body">
 
-            <!-- ENTRADA PARA EL NOMBRE -->
+            <!-- ENTRADA PARA EL CODIGO INTERNO -->
             
             <div class="form-group">
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-code"></i></span> 
 
-                <input type="text" class="form-control input-lg" name="nuevaCategoria" placeholder="Ingresar categoría" required>
+                <input type="text" class="form-control input-lg" name="nuevoCodigo" placeholder="Ingresar código" required>
 
               </div>
 
             </div>
-  
+
+            <!-- ENTRADA PARA EL CODIGO DEL MODELO -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-rocket"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoCodModelo" placeholder="Codigo del Modelo" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL NOMBRE DEL MODELO -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-lightbulb-o"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar Nombre" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL TIPO-->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoTipo" placeholder="Ingresar Tipo" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA LINEA -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoLinea" placeholder="Ingresar Linea" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA SELECCIONAR SU MARCA -->
+
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span> 
+
+                <select class="form-control input-lg" name="nuevoPerfil">
+                  
+                  <option value="">Selecionar Marca</option>
+
+                  <option value="JACKYFORM">JACKYFORM</option>
+
+                  <option value="GUAPITAS">GUAPITAS</option>
+
+                  <option value="VASCO">VASCO</option>
+
+                  <option value="DLUBA">DLUBA</option>
+
+                  
+                </select>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- ENTRADA PARA LA DESCRIPCIÓN -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevaDescripcion" placeholder="Ingresar descripción" required>
+
+              </div>
+
+            </div>
+
+
+
+            
+
+            <!-- ENTRADA PARA SUBIR FOTO -->
+
+             <div class="form-group">
+              
+              <div class="panel">SUBIR FOTO</div>
+
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+
+              <p class="help-block">Peso máximo de la foto 200 MB</p>
+
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="100px">
+
+            </div>
+
           </div>
 
         </div>
@@ -239,7 +356,7 @@ MODAL AGREGAR MODELO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Guardar categoría</button>
+          <button type="submit" class="btn btn-primary">Guardar usuario</button>
 
         </div>
 
