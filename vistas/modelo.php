@@ -233,7 +233,7 @@ MODAL AGREGAR USUARIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-rocket"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="nuevoCodModelo" placeholder="Codigo del Modelo" required>
 
@@ -247,7 +247,7 @@ MODAL AGREGAR USUARIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-lightbulb-o"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-caret-square-o-right"></i></span> 
 
                 <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar Nombre" required>
 
@@ -289,9 +289,9 @@ MODAL AGREGAR USUARIO
               
               <div class="input-group">
               
-                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span> 
+                <span class="input-group-addon"><i class="fa fa-maxcdn"></i></span> 
 
-                <select class="form-control input-lg" name="nuevoPerfil">
+                <select class="form-control input-lg" name="nuevoMarca">
                   
                   <option value="">Selecionar Marca</option>
 
@@ -311,36 +311,89 @@ MODAL AGREGAR USUARIO
             </div>
 
 
+            <!-- ENTRADA PARA LA PRECIO BRUTO -->
 
-            <!-- ENTRADA PARA LA DESCRIPCIÓN -->
-
-             <div class="form-group">
+             <div class="form-group row">
               
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span> 
+                <div class="col-xs-6">
 
-                <input type="text" class="form-control input-lg" name="nuevaDescripcion" placeholder="Ingresar descripción" required>
+                  <div class="input-group">
+                  
+                    <span class="input-group-addon"><i class="fa fa-money"></i></span> 
+
+                    <input type="number" class="form-control input-lg" name="nuevoPreBru" placeholder="Precio Bruto" step="any" required>
+
+                  </div>                
+
+                </div>
+
+
+
+
+
+              <!-- ENTRADA PARA LA PRECIO NETO -->
+
+
+                <div class="col-xs-6">  
+
+                  <div class="input-group">
+                  
+                    <span class="input-group-addon"><i class="fa fa-percent"></i></span> 
+
+                    <input type="number" class="form-control input-lg" name="nuevoPreNet" placeholder="Precio Neto" step="any" required>
+
+                  </div>
+
+                  <br>
+
+                  <!-- CHECKBOX PARA PORCENTAJE -->
+
+                  <div class="col-xs-6">
+                    
+                    <div class="form-group">
+                      
+                      <label>
+                        
+                        <input type="checkbox" class="minimal porcentaje" checked>
+                        Utilizar porcentaje
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                  <!-- ENTRADA PARA PORCENTAJE -->
+
+                  <div class="col-xs-6" style="padding:0">
+                    
+                    <div class="input-group">
+                      
+                      <input type="number" class="form-control input-lg nuevoPorcentaje" min="0" value="18" required>
+
+                      <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+
+                    </div>
+
+                  </div>
+
+
+                </div>        
 
               </div>
 
-            </div>
 
-
-
-            
 
             <!-- ENTRADA PARA SUBIR FOTO -->
 
              <div class="form-group">
               
-              <div class="panel">SUBIR FOTO</div>
+              <div class="panel">SUBIR IMAGEN</div>
 
               <input type="file" id="nuevaFoto" name="nuevaFoto">
 
-              <p class="help-block">Peso máximo de la foto 200 MB</p>
+              <p class="help-block">Peso máximo de la foto 2MB</p>
 
-              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="100px">
+              <img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="100px">
 
             </div>
 
@@ -356,7 +409,7 @@ MODAL AGREGAR USUARIO
 
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Guardar usuario</button>
+          <button type="submit" class="btn btn-primary">Guardar Modelo</button>
 
         </div>
 
@@ -376,7 +429,9 @@ else
 }
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/fichastecnicas.js"></script>
+
+<script src="../public/js/plantilla.js"></script>
+
 <?php 
 }
 ob_end_flush();
