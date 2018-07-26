@@ -19,6 +19,7 @@ if ($_SESSION['escritorio']==1)
   $regc=$rsptac->fetch_object();
   $totalc=$regc->total_compra;
 
+
   $rsptav = $consulta->totalventahoy();
   $regv=$rsptav->fetch_object();
   $totalv=$regv->total_venta;
@@ -31,6 +32,8 @@ if ($_SESSION['escritorio']==1)
     $fechasc=$fechasc.'"'.$regfechac->fecha .'",';
     $totalesc=$totalesc.$regfechac->total .','; 
   }
+
+
 
   //Quitamos la última coma
   $fechasc=substr($fechasc, 0, -1);

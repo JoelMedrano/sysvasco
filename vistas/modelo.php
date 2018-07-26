@@ -16,11 +16,11 @@ if ($_SESSION['udp']==1)
 <div class="content-wrapper">
 
   <section class="content-header">
-    
+
     <h1>
-      
+
       Administrar Modelos
-    
+
     </h1>
 
   </section>
@@ -30,9 +30,9 @@ if ($_SESSION['udp']==1)
     <div class="box">
 
       <div class="box-header with-border">
-  
+
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarModelo">
-          
+
           Agregar Modelo
 
         </button>
@@ -40,133 +40,83 @@ if ($_SESSION['udp']==1)
       </div>
 
       <div class="box-body">
-        
+
        <table class="table table-bordered table-striped dt-responsive tablas">
-         
+
         <thead>
-         
+
          <tr>
-           
+
            	<th style="width:10px">#</th>
            	<th>Marca</th>
            	<th>Modelo</th>
-			<th>Nombre</th>
-			<th>Estado</th>
-			<th>Tipo</th>
-			<th>Linea</th>
-			<th>Imagen</th>
-			<th>Creacion</th>
-			<th>Opciones</th>
+      			<th>Nombre</th>
+      			<th>Estado</th>
+      			<th>Tipo</th>
+      			<th>Linea</th>
+      			<th>Imagen</th>
+            <th>P. Bruto</th>
+            <th>P. Neto</th>
+      			<th>Creacion</th>
+      			<th>Opciones</th>
 
-         </tr> 
+         </tr>
 
         </thead>
 
         <tbody>
-          
-          <tr>
 
-            <td>1</td>
+          <?php
 
-            <td>JACKYFORM</td>
-            <td>10010</td>
-            <td>TRUZA SPORT</td>
-            <td><button class="btn btn-success btn-xs">Activo</button></td>
-            <td>Truza</td>
-            <td>020</td>
-            <td><img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-			<td>2018-07-20</td>
-            <td>
+            require_once "../controladores/modelos.controlador.php";
 
-              <div class="btn-group">
-                  
-                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+            $item = null;
+            $valor = null;
 
-                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
 
-              </div>  
 
-            </td>
+            $modelos = ControladorModelos::ctrMostrarModelos($item, $valor);
 
-          </tr>
 
-          <tr>
+            foreach ($modelos as $key => $value) {
 
-            <td>1</td>
+              echo '<tr>
 
-            <td>JACKYFORM</td>
-            <td>10010</td>
-            <td>TRUZA SPORT</td>
-            <td><button class="btn btn-danger btn-xs">Inactivo</button></td>
-            <td>Truza</td>
-            <td>020</td>
-            <td><img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-			<td>2018-07-20</td>
-            <td>
+                    <td>'.($key+1).'</td>
+                    <td>'.($value['id_marca']).'</td>
+                    <td>'.($value['cod_mod']).'</td>
+                    <td>'.($value['nom_mod']).'</td>';
 
-              <div class="btn-group">
-                  
-                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                    if($value["est_mod"] != 0){
 
-                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                      echo '<td><button class="btn btn-success btn-xs btnActivar" id_modelo="'.$value['est_mod'].'" est_mod="1">Activo</button></td>';
 
-              </div>  
+                    }else {
+                      echo '<td><button class="btn btn-danger btn-xs btnActivar" id_modelo="'.$value['est_mod'].'" est_mod="0">Inactivo</button></td>';
+                    }
 
-            </td>
+              echo '<td>'.($value['tip_mod']).'</td>
+                    <td>'.($value['lin_mod']).'</td>
+                    <td><img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
+                    <th>S/ '.($value['pb_mod']).'</th>
+                    <th>S/ '.($value['pn_mod']).'</th>
+                    <td>'.($value['fec_cre']).'</td>
+                    <td>
 
-          </tr>
+                      <div class="btn-group">
 
-          <tr>
+                        <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
 
-            <td>1</td>
+                        <button class="btn btn-danger"><i class="fa fa-times"></i></button>
 
-            <td>JACKYFORM</td>
-            <td>10010</td>
-            <td>TRUZA SPORT</td>
-            <td><button class="btn btn-success btn-xs">Activado</button></td>
-            <td>Truza</td>
-            <td>020</td>
-            <td><img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-			<td>2018-07-20</td>
-            <td>
+                      </div>
 
-              <div class="btn-group">
-                  
-                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                    </td>
 
-                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                  </tr>';
+            }
 
-              </div>  
-
-            </td>
-
-          </tr>
-
-          <tr>
-
-            <td>1</td>
-
-            <td>JACKYFORM</td>
-            <td>10010</td>
-            <td>TRUZA SPORT</td>
-            <td><button class="btn btn-success btn-xs">Activado</button></td>
-            <td>Truza</td>
-            <td>020</td>
-            <td><img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-			<td>2018-07-20</td>
-            <td>
-
-              <div class="btn-group">
-                  
-                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-
-                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-
-              </div>  
-
-            </td>
-
-          </tr>                              
+          ?>
 
 
         </tbody>
@@ -182,11 +132,11 @@ if ($_SESSION['udp']==1)
 </div>
 
 <!--=====================================
-MODAL AGREGAR USUARIO
+MODAL AGREGAR MODELO
 ======================================-->
 
 <div id="modalAgregarModelo" class="modal fade" role="dialog">
-  
+
   <div class="modal-dialog">
 
     <div class="modal-content">
@@ -214,12 +164,12 @@ MODAL AGREGAR USUARIO
           <div class="box-body">
 
             <!-- ENTRADA PARA EL CODIGO INTERNO -->
-            
+
             <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-code"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoCodigo" placeholder="Ingresar código" required>
 
@@ -230,10 +180,10 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA EL CODIGO DEL MODELO -->
 
              <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-compass"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoCodModelo" placeholder="Codigo del Modelo" required>
 
@@ -244,10 +194,10 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA EL NOMBRE DEL MODELO -->
 
              <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-caret-square-o-right"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-caret-square-o-right"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar Nombre" required>
 
@@ -258,10 +208,10 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA EL TIPO-->
 
              <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoTipo" placeholder="Ingresar Tipo" required>
 
@@ -272,10 +222,10 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA LA LINEA -->
 
              <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoLinea" placeholder="Ingresar Linea" required>
 
@@ -286,13 +236,13 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA SELECCIONAR SU MARCA -->
 
             <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-maxcdn"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-maxcdn"></i></span>
 
                 <select class="form-control input-lg" name="nuevoMarca">
-                  
+
                   <option value="">Selecionar Marca</option>
 
                   <option value="JACKYFORM">JACKYFORM</option>
@@ -303,7 +253,7 @@ MODAL AGREGAR USUARIO
 
                   <option value="DLUBA">DLUBA</option>
 
-                  
+
                 </select>
 
               </div>
@@ -314,16 +264,16 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA LA PRECIO BRUTO -->
 
              <div class="form-group row">
-              
+
                 <div class="col-xs-6">
 
                   <div class="input-group">
-                  
-                    <span class="input-group-addon"><i class="fa fa-money"></i></span> 
+
+                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
 
                     <input type="number" class="form-control input-lg" name="nuevoPreBru" placeholder="Precio Bruto" step="any" required>
 
-                  </div>                
+                  </div>
 
                 </div>
 
@@ -334,11 +284,11 @@ MODAL AGREGAR USUARIO
               <!-- ENTRADA PARA LA PRECIO NETO -->
 
 
-                <div class="col-xs-6">  
+                <div class="col-xs-6">
 
                   <div class="input-group">
-                  
-                    <span class="input-group-addon"><i class="fa fa-percent"></i></span> 
+
+                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
 
                     <input type="number" class="form-control input-lg" name="nuevoPreNet" placeholder="Precio Neto" step="any" required>
 
@@ -349,11 +299,11 @@ MODAL AGREGAR USUARIO
                   <!-- CHECKBOX PARA PORCENTAJE -->
 
                   <div class="col-xs-6">
-                    
+
                     <div class="form-group">
-                      
+
                       <label>
-                        
+
                         <input type="checkbox" class="minimal porcentaje" checked>
                         Utilizar porcentaje
                       </label>
@@ -365,9 +315,9 @@ MODAL AGREGAR USUARIO
                   <!-- ENTRADA PARA PORCENTAJE -->
 
                   <div class="col-xs-6" style="padding:0">
-                    
+
                     <div class="input-group">
-                      
+
                       <input type="number" class="form-control input-lg nuevoPorcentaje" min="0" value="18" required>
 
                       <span class="input-group-addon"><i class="fa fa-percent"></i></span>
@@ -377,7 +327,7 @@ MODAL AGREGAR USUARIO
                   </div>
 
 
-                </div>        
+                </div>
 
               </div>
 
@@ -386,7 +336,7 @@ MODAL AGREGAR USUARIO
             <!-- ENTRADA PARA SUBIR FOTO -->
 
              <div class="form-group">
-              
+
               <div class="panel">SUBIR IMAGEN</div>
 
               <input type="file" id="nuevaFoto" name="nuevaFoto">
@@ -429,10 +379,8 @@ else
 }
 require 'footer.php';
 ?>
-
-<script src="../public/js/plantilla.js"></script>
-
-<?php 
+<script type="text/javascript" src="scripts/plantilla.js"></script>
+<?php
 }
 ob_end_flush();
 ?>

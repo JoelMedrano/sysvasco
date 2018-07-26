@@ -10,12 +10,16 @@ if (strlen(session_id()) < 1)
     <title>Corp Vasco SAC</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../public/css/font-awesome/css/font-awesome.min.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="../public/css/AdminLTE.min.css">
+
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../public/css/_all-skins.min.css">
@@ -28,6 +32,30 @@ if (strlen(session_id()) < 1)
     <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
+    
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="../public/plugins/iCheck/all.css">
+
+
+   <!--=====================================
+  PLUGINS DE CSS
+  ======================================-->
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  
+  <!-- DataTables -->
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
+
+   <!-- Daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+
 
 
   </head>
