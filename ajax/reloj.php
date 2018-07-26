@@ -58,38 +58,20 @@ switch ($_GET["op"]){
 
         $data_personal=$reloj->consultarDataPersonal($id_trab);
         $dp=$data_personal->fetch_object();
-        $tip_pla=$dp->tip_pla;
-        $tur_per=$dp->tur_per;
+        $id_tip_plan=$dp->id_tip_plan;
+        $id_turno=$dp->id_turno;
 
 		//Declaramos el array para almacenar todos los permisos marcados
 
 
 		 	if ($codigo=='') {
-         	   $rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $tip_pla,  $dia, $est_hor, $tur_per); 
-			    echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";
+         	   $rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
+			    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
             }else{
          	  $rspta=$reloj->editar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-			    echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
+			    echo $rspta ? "Marcación registrada" : "Marcación no se pudo actualizar";
             }
-	
-
-
-		
-         
-        	
 			
-
-
-   
-			   
-
-
-		
-
-			
-
-	
-		
 	break;
 
 	case 'desactivar':

@@ -3,6 +3,8 @@ var tabla;
 //Función que se ejecuta al inicio
 function init(){
 	mostrarform(false);
+
+
 	listar();
 
 	$("#formulario").on("submit",function(e)
@@ -10,7 +12,6 @@ function init(){
 		guardaryeditar(e);	
 	})
 
-	
 
 	//Cargamos los items al select funcion del trabajador
 	$.post("../ajax/consultasD.php?op=selectFuncion", function(r){
@@ -26,8 +27,6 @@ function init(){
 	            $('#id_area').selectpicker('refresh');
 
 	});
-
-
 
 
 	//Cargamos los items al select tipo de documento
@@ -155,15 +154,6 @@ function init(){
 
 
 
-
-
-
-
-
-
-
-
-
 	$("#imagenmuestra").hide();
 }
 
@@ -188,7 +178,6 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
-		$('#nombre').focus();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 	}
@@ -199,6 +188,11 @@ function mostrarform(flag)
 		$("#btnagregar").show();
 	}
 }
+
+
+
+
+
 
 //Función cancelarform
 function cancelarform()
@@ -244,7 +238,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/articulo.php?op=guardaryeditar",
+		url: "../ajax/trabajador.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -260,6 +254,9 @@ function guardaryeditar(e)
 	});
 	limpiar();
 }
+
+
+
 
 function mostrar(id_trab)
 {
@@ -318,6 +315,15 @@ function mostrar(id_trab)
 		$('#id_turno').selectpicker('refresh');
 
 
+		$("#id_departamento").val(data.id_departamento);
+		$('#id_departamento').selectpicker('refresh');
+
+
+		$("#id_nacionalidad").val(data.id_nacionalidad);
+		$('#id_nacionalidad').selectpicker('refresh');
+
+		$("#id_tip_doc").val(data.id_tip_doc);
+		$('#id_tip_doc').selectpicker('refresh');
 
 
 		$("#id_trab").val(data.id_trab);
@@ -325,6 +331,22 @@ function mostrar(id_trab)
 		$("#apepat_trab").val(data.apepat_trab);
 		$("#apemat_trab").val(data.apemat_trab);
 		$("#num_doc_trab").val(data.num_doc_trab);
+		$("#dir_trab").val(data.dir_trab);
+		$("#urb_trab").val(data.urb_trab);
+		$("#fec_nac_trab").val(data.fec_nac_trab);
+		$("#lug_nac_trab").val(data.lug_nac_trab);
+		$("#num_tlf_dom").val(data.num_tlf_dom);
+		$("#num_tlf_cel").val(data.num_tlf_cel);
+		$("#email_trab").val(data.email_trab);
+		$("#fec_ing_trab").val(data.fec_ing_trab);
+		$("#fec_cese_trab").val(data.fec_cese_trab);
+		$("#sueldo_trab").val(data.sueldo_trab);
+		$("#bono_trab").val(data.bono_trab);
+		$("#asig_trab").val(data.asig_trab);
+		$("#obs_trab").val(data.obs_trab);
+		$("#fecfin_con_ant").val(data.fecfin_con_ant);
+		$("#fecfin_con_act").val(data.fecfin_con_act);
+		$("#cusp_trab").val(data.cusp_trab);
 		
 
 
@@ -333,6 +355,8 @@ function mostrar(id_trab)
 
  	})
 }
+
+
 
 //Función para desactivar registros
 function desactivar(idarticulo)
@@ -361,6 +385,8 @@ function activar(idarticulo)
         }
 	})
 }
+
+
 
 //función para generar el código de barras
 function generarbarcode()

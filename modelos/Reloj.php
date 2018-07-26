@@ -14,12 +14,12 @@ Class Reloj
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $tip_pla,  $dia, $est_hor, $tur_per )
+	public function insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno )
 	{
 
 
 		$sql="INSERT INTO reloj (id_trab, fecha , hor_ent,  pc_reg, usu_reg, fec_reg, tip_pla, tip_mov, est_hor, turno )
-		VALUES ('$id_trab', '$fecha', '$hora' , '$pc_reg', '$usu_reg', '$fec_reg', '$tip_pla' ,  '$dia' , '$est_hor', '$tur_per' )";
+		VALUES ('$id_trab', '$fecha', '$hora' , '$pc_reg', '$usu_reg', '$fec_reg', '$id_tip_plan' ,  '$dia' , '$est_hor', '$id_turno' )";
 		return ejecutarConsulta($sql);
 
 
@@ -93,7 +93,7 @@ Class Reloj
 	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
 	public function consultarDataPersonal($id_trab)
 	{
-		$sql="SELECT  tip_pla, tur_per FROM trabajador WHERE id_trab='$id_trab'  ";
+		$sql="SELECT  id_tip_plan, id_turno FROM trabajador WHERE id_trab='$id_trab'  ";
 		return ejecutarConsulta($sql);
 
 	}

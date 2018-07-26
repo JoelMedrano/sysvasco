@@ -2,8 +2,9 @@ var tabla;
 
 //Función que se ejecuta al inicio
 function init(){
-	mostrarform(false);
+	mostrarform(true);
 	listar();
+	limpiar();
 
 	$("#formulario").on("submit",function(e)
 	{
@@ -23,14 +24,7 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
+	$("#id_trab").val("");
 }
 
 //Función mostrar formulario
@@ -107,7 +101,7 @@ function guardaryeditar(e)
 	    success: function(datos)
 	    {                    
 	          bootbox.alert(datos);	          
-	          mostrarform(false);
+	          mostrarform(true);
 	          tabla.ajax.reload();
 	    }
 
