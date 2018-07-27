@@ -1,5 +1,5 @@
 <?php
-if (strlen(session_id()) < 1) 
+if (strlen(session_id()) < 1)
   session_start();
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ if (strlen(session_id()) < 1)
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../public/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../public/css/font-awesome.css">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="../public/css/AdminLTE.min.css">
@@ -27,12 +27,12 @@ if (strlen(session_id()) < 1)
     <link rel="shortcut icon" href="../public/img/icono.png">
 
     <!-- DATATABLES -->
-    <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">    
+    <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
     <link href="../public/datatables/buttons.dataTables.min.css" rel="stylesheet"/>
     <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet"/>
 
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
-    
+
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="../public/plugins/iCheck/all.css">
 
@@ -43,7 +43,7 @@ if (strlen(session_id()) < 1)
 
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-  
+
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
 
@@ -82,7 +82,7 @@ if (strlen(session_id()) < 1)
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
-              
+
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -98,17 +98,17 @@ if (strlen(session_id()) < 1)
                       <small>Diana Godos - Joel Medrano</small>
                     </p>
                   </li>
-                  
+
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    
+
                     <div class="pull-right">
                       <a href="../ajax/usuario.php?op=salir" class="btn btn-default btn-flat">Cerrar</a>
                     </div>
                   </li>
                 </ul>
               </li>
-              
+
             </ul>
           </div>
 
@@ -117,11 +117,11 @@ if (strlen(session_id()) < 1)
       <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">       
+        <section class="sidebar">
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header"></li>
-            <?php 
+            <?php
             if ($_SESSION['escritorio']==1)
             {
               echo '<li>
@@ -131,7 +131,7 @@ if (strlen(session_id()) < 1)
             </li>';
             }
             ?>
-            <?php 
+            <?php
             if ($_SESSION['almacen']==1)
             {
               echo '<li class="treeview">
@@ -148,7 +148,7 @@ if (strlen(session_id()) < 1)
             }
             ?>
 
-            <?php 
+            <?php
             if ($_SESSION['compras']==1)
             {
               echo '<li class="treeview">
@@ -165,7 +165,7 @@ if (strlen(session_id()) < 1)
             }
             ?>
 
-            <?php 
+            <?php
             if ($_SESSION['ventas']==1)
             {
               echo '<li class="treeview">
@@ -181,8 +181,8 @@ if (strlen(session_id()) < 1)
             </li>';
             }
             ?>
-                        
-            <?php 
+
+            <?php
             if ($_SESSION['acceso']==1)
             {
               echo '<li class="treeview">
@@ -193,13 +193,13 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
-                
+
               </ul>
             </li>';
             }
             ?>
 
-            <?php 
+            <?php
             if ($_SESSION['consultac']==1)
             {
               echo '<li class="treeview">
@@ -208,13 +208,13 @@ if (strlen(session_id()) < 1)
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="comprasfecha.php"><i class="fa fa-circle-o"></i> Consulta Compras</a></li>                
+                <li><a href="comprasfecha.php"><i class="fa fa-circle-o"></i> Consulta Compras</a></li>
               </ul>
             </li>';
             }
             ?>
 
-             <?php 
+             <?php
             if ($_SESSION['consultav']==1)
             {
               echo '<li class="treeview">
@@ -223,13 +223,13 @@ if (strlen(session_id()) < 1)
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="ventasfechacliente.php"><i class="fa fa-circle-o"></i> Consulta Ventas</a></li>                
+                <li><a href="ventasfechacliente.php"><i class="fa fa-circle-o"></i> Consulta Ventas</a></li>
               </ul>
             </li>';
             }
             ?>
 
-             <?php 
+             <?php
             if ($_SESSION['rrhh']==1)
             {
               echo '<li class="treeview">
@@ -240,15 +240,15 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Maestros</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Registro</a></li>
-                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>  
-                <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>               
-                <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajador</a></li>    
+                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>
+                <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>
+                <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajador</a></li>
               </ul>
             </li>';
             }
             ?>
 
-             <?php 
+             <?php
             if ($_SESSION['reloj']==1)
             {
               echo '<li class="treeview">
@@ -258,14 +258,14 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="reloj.php"><i class="fa fa-circle-o"></i> Reloj</a></li>
-           
-           
+
+
               </ul>
             </li>';
             }
             ?>
 
-            <?php 
+            <?php
             if ($_SESSION['calendarios']==1)
             {
               echo '<li class="treeview">
@@ -275,16 +275,16 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
-           
-           
+
+
               </ul>
             </li>';
             }
             ?>
-              
 
 
-            <?php 
+
+            <?php
             if ($_SESSION['udp']==1)
             {
               echo '<li class="treeview">
@@ -294,12 +294,12 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i> Fichas Tecnicas</a></li>
-           
-           
+
+
               </ul>
             </li>';
             }
-            ?>                      
+            ?>
           </ul>
         </section>
         <!-- /.sidebar -->
