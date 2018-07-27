@@ -9,10 +9,11 @@ $apemat_trab=isset($_POST["apemat_trab"])? limpiarCadena($_POST["apemat_trab"]):
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $dir_trab=isset($_POST["dir_trab"])? limpiarCadena($_POST["dir_trab"]):"";
 $urb_trab=isset($_POST["urb_trab"])? limpiarCadena($_POST["urb_trab"]):"";
-$id_departamento=isset($_POST["id_departamento"])? limpiarCadena($_POST["id_departamento"]):"";
+$id_distrito=isset($_POST["id_distrito"])? limpiarCadena($_POST["id_distrito"]):"";
+$departamento=isset($_POST["departamento"])? limpiarCadena($_POST["departamento"]):"";
 $fec_nac_trab=isset($_POST["fec_nac_trab"])? limpiarCadena($_POST["fec_nac_trab"]):"";
 $lug_nac_trab=isset($_POST["lug_nac_trab"])? limpiarCadena($_POST["lug_nac_trab"]):"";
-$id_nacionalidad=isset($_POST["id_nacionalidad"])? limpiarCadena($_POST["id_nacionalidad"]):"";
+$nacionalidad=isset($_POST["nacionalidad"])? limpiarCadena($_POST["nacionalidad"]):"";
 $id_est_civil=isset($_POST["id_est_civil"])? limpiarCadena($_POST["id_est_civil"]):"";
 $id_tip_doc=isset($_POST["id_tip_doc"])? limpiarCadena($_POST["id_tip_doc"]):"";
 $num_doc_trab=isset($_POST["num_doc_trab"])? limpiarCadena($_POST["num_doc_trab"]):"";
@@ -52,14 +53,14 @@ switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		if (empty($id_trab)){
-			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_departamento, $fec_nac_trab,$lug_nac_trab,$id_nacionalidad,$id_est_civil,
+			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
 				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab);
 			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
 		}
 		else {
-			$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_departamento, $fec_nac_trab,$lug_nac_trab,$id_nacionalidad,$id_est_civil,
+			$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
 				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab);

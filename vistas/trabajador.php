@@ -25,7 +25,6 @@ if ($_SESSION['almacen']==1)
                     <div class="box-header with-border">
                           <h1 class="box-title">Trabajador 
                           <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> 
-                          <button class="btn btn-success" id="btnagregar" onclick="mostrarformDatos(true)"><i class="fa fa-plus-circle"></i> Agregar</button>
                           <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
@@ -73,19 +72,19 @@ if ($_SESSION['almacen']==1)
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nombre(*):</label>
                                 <div class="col-lg-2">
                                    <input type="hidden" name="idarticulo" id="idarticulo">
-                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab"  required>
+                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required>
+                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab"  required>
+                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="id_trab" id="id_trab"  required>
+                                   <input type="text" class="form-control" name="id_trab" id="id_trab">
                                 </div>
                              
                            </div>
@@ -107,7 +106,7 @@ if ($_SESSION['almacen']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento(*):</label>
                                 <div class="col-lg-2">
-                                  <select id="id_departamento" name="id_departamento" class="form-control selectpicker" data-live-search="true"></select>
+                                  <select id="departamento" name="departamento" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                             </div>
 
@@ -127,19 +126,19 @@ if ($_SESSION['almacen']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Nac.:</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="fec_nac_trab" id="fec_nac_trab"  required>
+                                  <input type="text" class="form-control" name="fec_nac_trab" id="fec_nac_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Lugar Nac:</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="lug_nac_trab" id="lug_nac_trab"  required>
+                                  <input type="text" class="form-control" name="lug_nac_trab" id="lug_nac_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Edad</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="edad_trab" id="edad_trab"  required>
+                                  <input type="text" class="form-control" name="edad_trab" id="edad_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nacionalidad</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="id_nacionalidad" id="id_nacionalidad" >
+                                  <input type="text" class="form-control" name="nacionalidad" id="nacionalidad">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Est.Civil(*):</label>
                                 <div class="col-lg-1">
@@ -248,7 +247,7 @@ if ($_SESSION['almacen']==1)
                             <div class="form-group  col-xs-12">
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Observaciones:</label>
                                     <div class="col-lg-5">
-                                    <input type="text" class="form-control" name="obs_trab" id="obs_trab"  required>
+                                    <input type="text" class="form-control" name="obs_trab" id="obs_trab">
                                     </div>
                             </div>
 
@@ -302,9 +301,6 @@ if ($_SESSION['almacen']==1)
                                     <div class="col-lg-2">
                                       <select id="id_genero" name="id_genero" class="form-control selectpicker" data-live-search="true"></select>
                                     </div>
-                                   
-
-
                             </div>
 
                             <div class="form-group  col-xs-12">
@@ -354,12 +350,6 @@ if ($_SESSION['almacen']==1)
                         </form>
                     </div>
                     <!--Fin centro -->
-
-
-
-
-
-
 
 
 

@@ -149,6 +149,13 @@ function init(){
 
 	});
 
+	//Cargamos los items al select turno
+	$.post("../ajax/consultasD.php?op=selectDistrito", function(r){
+	            $("#id_distrito").html(r);
+	            $('#id_distrito').selectpicker('refresh');
+
+	});
+
 
 
 
@@ -315,12 +322,11 @@ function mostrar(id_trab)
 		$('#id_turno').selectpicker('refresh');
 
 
-		$("#id_departamento").val(data.id_departamento);
-		$('#id_departamento').selectpicker('refresh');
+		$("#id_distrito").val(data.id_distrito);
+		$('#id_distrito').selectpicker('refresh');
 
 
-		$("#id_nacionalidad").val(data.id_nacionalidad);
-		$('#id_nacionalidad').selectpicker('refresh');
+		
 
 		$("#id_tip_doc").val(data.id_tip_doc);
 		$('#id_tip_doc').selectpicker('refresh');
@@ -347,6 +353,8 @@ function mostrar(id_trab)
 		$("#fecfin_con_ant").val(data.fecfin_con_ant);
 		$("#fecfin_con_act").val(data.fecfin_con_act);
 		$("#cusp_trab").val(data.cusp_trab);
+		$("#nacionalidad").val(data.nacionalidad);
+		$("#departamento").val(data.departamento);
 		
 
 

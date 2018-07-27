@@ -334,6 +334,38 @@ switch ($_GET["op"]){
 
 
 
+// Trabajador - Agregado DG 27072018
+	case "selectDistrito":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectDistrito();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_distrito . '>' . $reg->distrito. '</option>';
+				}
+	break;
+
+
+
+// Trabajador - Agregado DG 27072018
+	case "selectDepartamento":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectDepartamento();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_departamento . '>' . $reg->departamento. '</option>';
+				}
+	break;
+
+
+
+
+
 
 
 

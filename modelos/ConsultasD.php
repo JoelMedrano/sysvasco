@@ -197,6 +197,22 @@ Class ConsultasD
 	}
 
 
+    // Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectDistrito()
+	{
+		$sql="SELECT coddist AS id_distrito, Distrito AS  distrito FROM ubigeo where coddpto='15' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	  // Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectDepartamento()
+	{
+		$sql="SELECT coddist AS id_departamento, Distrito AS  distrito FROM ubigeo where coddpto='15' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
 
 
 
