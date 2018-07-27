@@ -41,7 +41,7 @@ if ($_SESSION['udp']==1)
 
       <div class="box-body">
 
-       <table class="table table-bordered table-striped dt-responsive tablas">
+       <table class="table table-bordered table-striped dt-responsive tablaModelos" width="100%">
 
         <thead>
 
@@ -62,64 +62,8 @@ if ($_SESSION['udp']==1)
 
          </tr>
 
-        </thead>
+       </thead>
 
-        <tbody>
-
-          <?php
-
-            require_once "../controladores/modelos.controlador.php";
-
-            $item = null;
-            $valor = null;
-
-
-
-            $modelos = ControladorModelos::ctrMostrarModelos($item, $valor);
-
-
-            foreach ($modelos as $key => $value) {
-
-              echo '<tr>
-
-                    <td>'.($key+1).'</td>
-                    <td>'.($value['id_marca']).'</td>
-                    <td>'.($value['cod_mod']).'</td>
-                    <td>'.($value['nom_mod']).'</td>';
-
-                    if($value["est_mod"] != 0){
-
-                      echo '<td><button class="btn btn-success btn-xs btnActivar" id_modelo="'.$value['est_mod'].'" est_mod="1">Activo</button></td>';
-
-                    }else {
-                      echo '<td><button class="btn btn-danger btn-xs btnActivar" id_modelo="'.$value['est_mod'].'" est_mod="0">Inactivo</button></td>';
-                    }
-
-              echo '<td>'.($value['tip_mod']).'</td>
-                    <td>'.($value['lin_mod']).'</td>
-                    <td><img src="../files/modelos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                    <th>S/ '.($value['pb_mod']).'</th>
-                    <th>S/ '.($value['pn_mod']).'</th>
-                    <td>'.($value['fec_cre']).'</td>
-                    <td>
-
-                      <div class="btn-group">
-
-                        <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-
-                        <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-
-                      </div>
-
-                    </td>
-
-                  </tr>';
-            }
-
-          ?>
-
-
-        </tbody>
 
        </table>
 
@@ -380,6 +324,7 @@ else
 require 'footer.php';
 ?>
 <script type="text/javascript" src="scripts/plantilla.js"></script>
+
 <?php
 }
 ob_end_flush();
