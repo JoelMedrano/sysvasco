@@ -22,7 +22,6 @@
 
     <script src="../public/js/bootbox.min.js"></script>
     <script src="../public/js/bootstrap-select.min.js"></script>
-    <script src="../public/js/icheck.min.js"></script>
 
 
 

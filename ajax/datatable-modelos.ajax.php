@@ -9,13 +9,7 @@ class TablaModelos{
   public function mostrarTablaModelos(){
 
     $imagen = "<img src='../files/modelos/default/anonymous.png' width='40px'>";
-    $botenes =  "<div class="btn-group">
 
-                  <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-
-                </div";
 
     echo '{
             "data": [

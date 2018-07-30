@@ -34,29 +34,23 @@ if (strlen(session_id()) < 1)
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
 
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="../public/plugins/iCheck/all.css">
+    <link rel="stylesheet" href="plugins/iCheck/all.css">
+
+    <!--=====================================
+    PLUGINS DE CSS
+    ======================================-->
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
 
 
-   <!--=====================================
-  PLUGINS DE CSS
-  ======================================-->
-
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-
-  <!-- DataTables -->
-  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
-
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="plugins/iCheck/all.css">
-
-   <!-- Daterange picker -->
-  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
 
 
+      <!-- Daterange picker -->
+     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
+     <!-- Morris chart -->
+     <link rel="stylesheet" href="bower_components/morris.js/morris.css">
 
   </head>
   <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
