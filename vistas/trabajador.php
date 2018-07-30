@@ -106,7 +106,7 @@ if ($_SESSION['almacen']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento(*):</label>
                                 <div class="col-lg-2">
-                                  <select id="departamento" name="departamento" class="form-control selectpicker" data-live-search="true"></select>
+                                  <input type="text" class="form-control" name="departamento" id="departamento" >
                                 </div>
                             </div>
 

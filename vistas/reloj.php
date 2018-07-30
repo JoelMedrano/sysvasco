@@ -117,7 +117,7 @@ $fecha=$dias[gmdate('w')]." ".gmdate('d')." de ".$meses[gmdate('n')-1]. " del ".
                                                   </h1>
                                                </div>
                                                <div class="icon">
-                                                  <i class="ion ion-bag"></i>
+                                                  <i class="ion"></i>
                                                </div>
                                                <a class="small-box-footer"></a>
                                            </div>
@@ -138,7 +138,7 @@ $fecha=$dias[gmdate('w')]." ".gmdate('d')." de ".$meses[gmdate('n')-1]. " del ".
                                             </h1>
                                           </div>
                                           <div class="icon">
-                                            <i class="ion ion-bag"></i>
+                                            <i class="ion"></i>
                                           </div>
                                           <a  class="small-box-footer"> </a>
                                         </div>
