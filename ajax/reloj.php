@@ -64,12 +64,12 @@ switch ($_GET["op"]){
 		//Declaramos el array para almacenar todos los permisos marcados
 
 
-		 	if(!is_null($codigo)){
+		 	if ($codigo==''){
          	   $rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
 			    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
             }else{
          	  $rspta=$reloj->editar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-			    echo $rspta ? "Marcación registrada" : "Marcación no se pudo actualizar";
+			    echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
             }
 			
 	break;
