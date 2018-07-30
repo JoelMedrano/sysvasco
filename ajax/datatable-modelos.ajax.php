@@ -1,51 +1,54 @@
 <?php
 
+require_once  "../controladores/modelos.controlador.php";
+require_once "../modelos/modelos.modelo.php";
+
 class TablaModelos{
 
   /*=============================================
   MOSTRAR LA TABLA DE MODELOS
   =============================================*/
+    public function mostrarTablaModelos(){
 
-  public function mostrarTablaModelos(){
+      $item = null;
+      $valor = null;
 
-    $imagen = "<img src='../files/modelos/default/anonymous.png' width='40px'>";
+      $modelos = ControladorModelos::ctrMostrarModelos($item,$valor);
 
+      $botones =  "<div class='btn-group'><button class='btn btn-warning'><i class='fa fa-pencil'></i></button><button class='btn btn-danger'><i class='fa fa-times'></i></button></div>";
 
-    echo '{
-            "data": [
-              [
-                "1",
-                "JACKYFORM",
-                "10010",
-                "TRUZA SPORT",
-                "ACTIVO",
-                "TRUZA",
-                "020",
-                "'.$imagen.'",
-                "0.00",
-                "0.00",
-                "2018-07-23 12:40:10",
-                "botones"
-              ],
-              [
-                "2",
-                "JACKYFORM",
-                "10011",
-                "TANGA OLIMPICA",
-                "ACTIVO",
-                "TRUZA",
-                "030",
-                "'.$imagen.'",
-                "0.00",
-                "0.00",
-                "2018-07-23 12:40:10",
-                "botones"
-              ]
-            ]
-          }';
+      $datosJson = '{
+              "data": [';
 
+              for ($i=0; $i < count($modelos); $i++) {
+
+                $imagen =   "<img src='".$modelos[$i]["ima_mod"]."' width='40px'>";
+
+                $datosJson .= '[
+                      "'.($i+1).'",
+                      "'.$modelos[$i]["id_marca"].'",
+                      "'.$modelos[$i]["cod_mod"].'",
+                      "'.$modelos[$i]["nom_mod"].'",
+                      "'.$modelos[$i]["est_mod"].'",
+                      "'.$modelos[$i]["tip_mod"].'",
+                      "'.$modelos[$i]["lin_mod"].'",
+                      "'.$imagen.'",
+                      "S/ '.number_format($modelos[$i]["pb_mod"],2).'",
+                      "S/ '.number_format($modelos[$i]["pn_mod"],2).'",
+                      "'.$modelos[$i]["fec_cre"].'",
+                      "'.$botones.'"
+                    ],';
+              }
+
+              $datosJson = substr($datosJson,0,-1);
+              $datosJson .=']
+
+            }';
+
+      echo $datosJson;
+
+    }
   }
-}
 
 /*=============================================
 ACTIVAR TABLA MODELOS
