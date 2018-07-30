@@ -84,7 +84,7 @@ if ($_SESSION['almacen']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="id_trab" id="id_trab">
+                                   <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
                                 </div>
                              
                            </div>
@@ -171,9 +171,6 @@ if ($_SESSION['almacen']==1)
                                   <input type="text" class="form-control" name="email_trab" id="email_trab">
                                 </div>
                             </div>
-
-                          
-
 
                     </div>
 
