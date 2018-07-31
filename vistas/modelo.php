@@ -62,6 +62,7 @@ if ($_SESSION['udp']==1)
 
          </tr>
 
+
        </thead>
 
 
@@ -185,18 +186,24 @@ MODAL AGREGAR MODELO
 
                 <span class="input-group-addon"><i class="fa fa-maxcdn"></i></span>
 
-                <select class="form-control input-lg" name="nuevoMarca">
+                <select class="form-control input-lg" id="nuevaMarca" name="nuevaMarca" required>
 
-                  <option value="">Selecionar Marca</option>
+                  <option value="">Seleccionar Marca</option>
 
-                  <option value="JACKYFORM">JACKYFORM</option>
+                  <?php
 
-                  <option value="GUAPITAS">GUAPITAS</option>
+                    require_once "../controladores/consultasj.controlador.php";
 
-                  <option value="VASCO">VASCO</option>
 
-                  <option value="DLUBA">DLUBA</option>
+                      $areas = ControladorConsultasJ::ctrMostrarAreas();
 
+                      foreach ($areas as $key => $value) {
+
+                        echo '<option value="'.$value["cod_argumento"].'">'.$value["des_larga"].'</option>';
+
+                      }
+
+                  ?>
 
                 </select>
 
