@@ -56,10 +56,7 @@ $("#nuevaMarca").change(function(){
             $("#nuevoCodigo").val(nuevoCodigo);
 
           }
-
-
         }
-
   	})
 
 })
