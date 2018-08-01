@@ -10,8 +10,9 @@ class ControladorModelos{
 
 	static public function ctrMostrarModelos($item, $valor){
 
+    $tabla= "modelojf";
 
-		$respuesta = ModeloModelos::mdlMostrarModelos($item, $valor);
+		$respuesta = ModeloModelos::mdlMostrarModelos($tabla, $item, $valor);
 
 		return $respuesta;
 

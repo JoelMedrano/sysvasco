@@ -29,10 +29,10 @@ CAPTURANDO LA MARCA PARA ASIGNAR CÓDIGO
 =============================================*/
 $("#nuevaMarca").change(function(){
 
-    var cod_argumento = $(this).val();
+    var idMarca = $(this).val();
 
     var datos = new FormData();
-  	datos.append("cod_argumento", cod_argumento);
+  	datos.append("idMarca", idMarca);
 
     	$.ajax({
 
@@ -42,13 +42,43 @@ $("#nuevaMarca").change(function(){
         cache: false,
         contentType: false,
         processData: false,
-        //dataType:"json",
+        dataType:"json",
         success:function(respuesta){
 
-          console.log("respuesta", respuesta);
+          if(!respuesta){
+
+            var nuevoCodigo = idMarca+"001";
+            $("#nuevoCodigo").val(nuevoCodigo);
+
+          }else{
+
+            var nuevoCodigo = Number(respuesta["codigo"]) + 1;
+            $("#nuevoCodigo").val(nuevoCodigo);
+
+          }
+
 
         }
 
   	})
+
+})
+
+/*=============================================
+AGREGANDO PRECIO DE NETO
+=============================================*/
+
+$("#nuevoPreBru").change(function(){
+
+  if($(".porcentaje").prop("checked")){
+
+    var valorPorcentaje = $(".nuevoPorcentaje").val();
+
+    var porcentaje = Number(($("#nuevoPreBru").val()*valorPorcentaje/100))+Number($("#nuevoPreBru").val());
+
+    $("#nuevoPreNet").val(porcentaje);
+    $("#nuevoPreNet").prop("readonly", true);
+
+  }
 
 })

@@ -108,76 +108,6 @@ MODAL AGREGAR MODELO
 
           <div class="box-body">
 
-            <!-- ENTRADA PARA EL CODIGO INTERNO -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-code"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoCodigo" placeholder="Ingresar código" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL CODIGO DEL MODELO -->
-
-             <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoCodModelo" placeholder="Codigo del Modelo" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL NOMBRE DEL MODELO -->
-
-             <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-caret-square-o-right"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar Nombre" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL TIPO-->
-
-             <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoTipo" placeholder="Ingresar Tipo" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA LA LINEA -->
-
-             <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoLinea" placeholder="Ingresar Linea" required>
-
-              </div>
-
-            </div>
-
             <!-- ENTRADA PARA SELECCIONAR SU MARCA -->
 
             <div class="form-group">
@@ -192,14 +122,16 @@ MODAL AGREGAR MODELO
 
                   <?php
 
-                    require_once "../controladores/consultasj.controlador.php";
+                    require_once "../controladores/marcas.controlador.php";
 
+                      $item = null;
+                      $valor = null;
 
-                      $areas = ControladorConsultasJ::ctrMostrarAreas();
+                      $marcas = ControladorMarcas::ctrMostrarMarcas($item, $valor);
 
-                      foreach ($areas as $key => $value) {
+                      foreach ($marcas as $key => $value) {
 
-                        echo '<option value="'.$value["cod_argumento"].'">'.$value["des_larga"].'</option>';
+                        echo '<option value="'.$value["id"].'">'.$value["marca"].'</option>';
 
                       }
 
@@ -211,6 +143,75 @@ MODAL AGREGAR MODELO
 
             </div>
 
+            <!-- ENTRADA PARA EL CODIGO INTERNO -->
+
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+
+                <input type="text" class="form-control input-lg" id="nuevoCodigo" name="nuevoCodigo" placeholder="Código Interno" readonly required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL CODIGO DEL MODELO -->
+
+             <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
+
+                <input type="text" class="form-control input-lg" id="nuevoCodModelo" name="nuevoCodModelo" placeholder="Codigo del Modelo" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL NOMBRE DEL MODELO -->
+
+             <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-caret-square-o-right"></i></span>
+
+                <input type="text" class="form-control input-lg" id="nuevoNombre" name="nuevoNombre" placeholder="Ingresar Nombre" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA EL TIPO-->
+
+             <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
+
+                <input type="text" class="form-control input-lg" id="nuevoTipo" name="nuevoTipo" placeholder="Ingresar Tipo" required>
+
+              </div>
+
+            </div>
+
+            <!-- ENTRADA PARA LA LINEA -->
+
+             <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
+
+                <input type="text" class="form-control input-lg" id="nuevoLinea" name="nuevoLinea" placeholder="Ingresar Linea" required>
+
+              </div>
+
+            </div>
 
             <!-- ENTRADA PARA LA PRECIO BRUTO -->
 
@@ -222,15 +223,11 @@ MODAL AGREGAR MODELO
 
                     <span class="input-group-addon"><i class="fa fa-money"></i></span>
 
-                    <input type="number" class="form-control input-lg" name="nuevoPreBru" placeholder="Precio Bruto" step="any" required>
+                    <input type="number" class="form-control input-lg" name="nuevoPreBru" id="nuevoPreBru" placeholder="Precio Bruto" step="any" required>
 
                   </div>
 
                 </div>
-
-
-
-
 
               <!-- ENTRADA PARA LA PRECIO NETO -->
 
@@ -239,9 +236,9 @@ MODAL AGREGAR MODELO
 
                   <div class="input-group">
 
-                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
 
-                    <input type="number" class="form-control input-lg" name="nuevoPreNet" placeholder="Precio Neto" step="any" required>
+                    <input type="number" class="form-control input-lg" id="nuevoPreNet" name="nuevoPreNet" placeholder="Precio Neto" step="any" required>
 
                   </div>
 

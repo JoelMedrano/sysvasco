@@ -2,13 +2,38 @@
 
 require_once "conexion.php";
 
-class ModeloConsultasJ{
+class ModeloMarcas{
 
 	/*=============================================
-	MOSTRAR Modelos
+	MOSTRAR MARCAS
 	=============================================*/
 
-	static public function mdlMostrarCategorias($tabla, $item, $valor){
+	static public function mdlIngresarMarca($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(marca) VALUES (:marca)");
+
+		$stmt->bindParam(":marca", $datos, PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	MOSTRAR MARCAS
+	=============================================*/
+
+	static public function mdlMostrarMarcas($tabla, $item, $valor){
 
 		if($item != null){
 

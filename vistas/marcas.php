@@ -130,7 +130,7 @@ if ($_SESSION['udp']==1)
 </div>
 
 <!--=====================================
-MODAL AGREGAR Marca
+MODAL AGREGAR MARCA
 ======================================-->
 
 <div id="modalAgregarMarca" class="modal fade" role="dialog">
@@ -190,9 +190,9 @@ MODAL AGREGAR Marca
           <button type="submit" class="btn btn-primary">Guardar Marca</button>
 
         </div>
-        <?
-          require_once "../controladores/marcas.controlador.php";
-          require_once "../modelos/marcas.modelo.php";
+        <?php
+
+          require "../controladores/marcas.controlador.php";
 
           $crearMarca = new ControladorMarcas();
           $crearMarca -> ctrCrearMarca();

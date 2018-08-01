@@ -11,12 +11,12 @@ class AjaxModelos{
   /*=============================================
   GENERAR CÓDIGO A PARTIR DE ID CATEGORIA
   =============================================*/
-  public $cod_argumento;
+  public $idMarca;
 
   public function ajaxCrearCodigoModelo(){
 
-    $item = "cod_argumento";
-    $valor = $this->cod_argumento;
+    $item = "id_marca";
+    $valor = $this->idMarca;
 
 
     $respuesta = ControladorModelos::ctrMostrarModelos($item,$valor);
@@ -28,13 +28,13 @@ class AjaxModelos{
 }
 
 /*=============================================
-GENERAR CÓDIGO A PARTIR DE ID CATEGORIA
+GENERAR CÓDIGO A PARTIR DE ID MARCA
 =============================================*/
 
-if(isset($_POST["cod_argumento"])){
+if(isset($_POST["idMarca"])){
 
 	$codigoModelo = new AjaxModelos();
-	$codigoModelo -> cod_argumento = $_POST["cod_argumento"];
+	$codigoModelo -> idMarca = $_POST["idMarca"];
 	$codigoModelo -> ajaxCrearCodigoModelo();
 
 }
