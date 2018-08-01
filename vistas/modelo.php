@@ -279,8 +279,6 @@ MODAL AGREGAR MODELO
 
               </div>
 
-
-
             <!-- ENTRADA PARA SUBIR FOTO -->
 
              <div class="form-group">
