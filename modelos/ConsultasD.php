@@ -119,7 +119,7 @@ Class ConsultasD
 		return ejecutarConsulta($sql);		
 	}
 
-
+	
 
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectCategoriaLaboral()
@@ -200,7 +200,7 @@ Class ConsultasD
     // Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectDistrito()
 	{
-		$sql="SELECT coddist AS id_distrito, Distrito AS  distrito FROM ubigeo where coddpto='15' ";
+		$sql="SELECT coddist AS id_distrito, Distrito AS  distrito FROM ubigeo where coddpto='15' AND codprov='01' ";
 		return ejecutarConsulta($sql);		
 	}
 

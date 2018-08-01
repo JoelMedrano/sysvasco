@@ -34,6 +34,7 @@ if ($_SESSION['almacen']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
+                            <th>Id.Trabajador</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
                             <th>Dni</th>
@@ -48,6 +49,7 @@ if ($_SESSION['almacen']==1)
                           <tbody>                            
                           </tbody>
                           <tfoot>
+                            <th>Id.Trabajador</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
                             <th>Dni</th>
@@ -61,6 +63,8 @@ if ($_SESSION['almacen']==1)
                           </tfoot>
                         </table>
                     </div>
+
+                    <!--M,J,K,G,M -->
 
 
                     <div class="panel-body" id="formularioregistros">
@@ -104,7 +108,7 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-2">
                                   <select id="id_distrito" name="id_distrito" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento(*):</label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento:</label>
                                 <div class="col-lg-2">
                                   <input type="text" class="form-control" name="departamento" id="departamento" >
                                 </div>
@@ -122,7 +126,6 @@ if ($_SESSION['almacen']==1)
 
                        <div class="box-header with-border">
 
-
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Nac.:</label>
                                 <div class="col-lg-2">
@@ -134,7 +137,7 @@ if ($_SESSION['almacen']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Edad</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="edad_trab" id="edad_trab">
+                                  <input type="text" class="form-control" readonly  name="edad_trab" id="edad_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nacionalidad</label>
                                 <div class="col-lg-1">
@@ -147,14 +150,14 @@ if ($_SESSION['almacen']==1)
                             </div>
 
                           
-
+                            <!-- fila 1 -->
                             <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tipo de Doc(*):</label>
                                 <div class="col-lg-2">
                                   <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Dni:</label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Dni(*):</label>
                                 <div class="col-lg-1">
                                   <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab">
                                 </div>
@@ -181,7 +184,6 @@ if ($_SESSION['almacen']==1)
                     <div class="form-group  col-xs-12">
                     </div>
                         
-
 
 
                     <div class="box-header with-border">
@@ -211,11 +213,11 @@ if ($_SESSION['almacen']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">FechaIngreso:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
+                                <input type="text" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Cese:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_cese_trab" id="fec_cese_trab">
+                                <input type="text" class="form-control" name="fec_cese_trab" id="fec_cese_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cond.Laboral:</label>
                                 <div class="col-lg-2">
@@ -248,8 +250,6 @@ if ($_SESSION['almacen']==1)
                                     </div>
                             </div>
 
-
-                      
 
                       </div> 
 

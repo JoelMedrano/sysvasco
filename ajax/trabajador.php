@@ -1,5 +1,7 @@
 <?php 
 require_once "../modelos/Trabajador.php";
+session_start();
+
 
 $trabajador=new Trabajador();
 
@@ -49,7 +51,22 @@ $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 
 //Agregado el 30/07/2018
 $fec_nac_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_nac_trab)));
+
+$fec_ing_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_ing_trab)));
+$fec_cese_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_cese_trab)));
+
+$fecfin_con_act = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_act)));
+$fecfin_con_ant = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_ant)));
 //Agregado el 30/07/2018
+
+
+//Campos de Seguridad//
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+//Campos de Seguridad//
+
 
 
 
@@ -59,27 +76,27 @@ switch ($_GET["op"]){
 		if (empty($id_trab)){
 			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
 				$num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $asig_trab, $obs_trab, $id_cen_cost,
-				 $id_tip_man_ob);
+				 $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg );
 			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
 		}
 		else {
 			$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab, $id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
-				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab);
+				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg  );
 			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
 		}
 
 	break;
 
 	case 'desactivar':
-		$rspta=$articulo->desactivar($idarticulo);
- 		echo $rspta ? "Artículo Desactivado" : "Artículo no se puede desactivar";
+		$rspta=$trabajador->desactivar($id_trab, $usu_reg, $pc_reg, $fec_reg );
+ 		echo $rspta ? "Trabajador Inactivo" : "Trabajador no se puede desactivar";
 	break;
 
 	case 'activar':
-		$rspta=$articulo->activar($idarticulo);
- 		echo $rspta ? "Artículo activado" : "Artículo no se puede activar";
+		$rspta=$trabajador->activar($id_trab);
+ 		echo $rspta ? "Trabajador Activo" : "Trabajador no se puede activar";
 	break;
 
 	case 'mostrar':
@@ -89,7 +106,6 @@ switch ($_GET["op"]){
 	break;
 
 	
-
 	case 'listar':
 		$rspta=$trabajador->listar();
  		//Vamos a declarar un array
@@ -97,19 +113,19 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				
- 				"0"=>$reg->tipo_planilla,
- 				"1"=>$reg->sucursal_anexo,
- 				"2"=>$reg->num_doc_trab,
- 				"3"=>$reg->nombres,
- 				"4"=>$reg->area_trab,
- 				"5"=>$reg->funcion,
- 				"6"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
+ 				"0"=>$reg->id_trab,
+ 				"1"=>$reg->tipo_planilla,
+ 				"2"=>$reg->sucursal_anexo,
+ 				"3"=>$reg->num_doc_trab,
+ 				"4"=>$reg->nombres,
+ 				"5"=>$reg->area_trab,
+ 				"6"=>$reg->funcion,
+ 				"7"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"7"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>':
+ 				"8"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"8"=>'<a target="_blank" href="'.'../vistas/trabajador_datos.php?id_trab='.$reg->id_trab.'"  > <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"9"=>($reg->est_reg)?
+ 				"9"=>'<a target="_blank" href="'.'../vistas/trabajador_datos.php?id_trab='.$reg->id_trab.'"  > <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+ 				"10"=>($reg->est_reg)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
  				);

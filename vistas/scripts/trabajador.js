@@ -317,16 +317,12 @@ function mostrar(id_trab)
 		$("#id_t_registro").val(data.id_t_registro);
 		$('#id_t_registro').selectpicker('refresh');
 
-
 		$("#id_turno").val(data.id_turno);
 		$('#id_turno').selectpicker('refresh');
-
 
 		$("#id_distrito").val(data.id_distrito);
 		$('#id_distrito').selectpicker('refresh');
 
-
-		
 
 		$("#id_tip_doc").val(data.id_tip_doc);
 		$('#id_tip_doc').selectpicker('refresh');
@@ -355,10 +351,9 @@ function mostrar(id_trab)
 		$("#cusp_trab").val(data.cusp_trab);
 		$("#nacionalidad").val(data.nacionalidad);
 		$("#departamento").val(data.departamento);
+		$("#edad_trab").val(data.edad_trab);
+
 		
-
-
-	
 
 
  	})
@@ -367,12 +362,12 @@ function mostrar(id_trab)
 
 
 //Función para desactivar registros
-function desactivar(idarticulo)
+function desactivar(id_trab)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
+	bootbox.confirm("¿Está Seguro de desactivar el Trabajador?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/trabajador.php?op=desactivar", {id_trab : id_trab}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -381,12 +376,12 @@ function desactivar(idarticulo)
 }
 
 //Función para activar registros
-function activar(idarticulo)
+function activar(id_trab)
 {
-	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
+	bootbox.confirm("¿Está Seguro de activar el Trabajador?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/trabajador.php?op=activar", {id_trab : id_trab}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	

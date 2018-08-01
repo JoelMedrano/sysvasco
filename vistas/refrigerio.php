@@ -22,7 +22,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Vacaciones <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Artículo <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -31,31 +31,31 @@ if ($_SESSION['almacen']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Id.Trabajador</th>
-                            <th>Sucursal Anexo</th>
-                            <th>Dni</th>
-                            <th>Nombres</th>
-                            <th>Area</th>
-                            <th>Estado</th>
                             <th>Opciones</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Código</th>
+                            <th>Stock</th>
+                            <th>Imagen</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Id.Trabajador</th>
-                            <th>Sucursal Anexo</th>
-                            <th>Dni</th>
-                            <th>Nombres</th>
-                            <th>Area</th>
-                            <th>Estado</th>
                             <th>Opciones</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Código</th>
+                            <th>Stock</th>
+                            <th>Imagen</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Nombres(*):</label>
+                            <label>Nombre(*):</label>
                             <input type="hidden" name="idarticulo" id="idarticulo">
                             <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
                           </div>
@@ -111,7 +111,7 @@ require 'footer.php';
 ?>
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
-<script type="text/javascript" src="scripts/vacaciones.js"></script>
+<script type="text/javascript" src="scripts/refrigerio.js"></script>
 <?php 
 }
 ob_end_flush();
