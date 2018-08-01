@@ -79,3 +79,23 @@ $("#nuevoPreBru").change(function(){
   }
 
 })
+
+
+/*=============================================
+CAMBIO DE PORCENTAJE
+=============================================*/
+
+$(".nuevoPorcentaje").change(function(){
+
+  if($(".porcentaje").prop("checked")){
+
+    var valorPorcentaje = $(".nuevoPorcentaje").val();
+
+    var porcentaje = Number(($("#nuevoPreBru").val()*valorPorcentaje/100))+Number($("#nuevoPreBru").val());
+
+    $("#nuevoPreNet").val(porcentaje);
+    $("#nuevoPreNet").prop("readonly", true);
+
+  }
+
+})
