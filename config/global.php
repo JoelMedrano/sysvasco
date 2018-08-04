@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Ip de la pc servidor de base de datos
 define("DB_HOST","192.168.1.7");
 

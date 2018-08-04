@@ -290,8 +290,8 @@ if (strlen(session_id()) < 1)
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i> Fichas Tecnicas</a></li>
-
+                <li><a href="marcas.php"><i class="fa fa-circle-o"></i> Marcas</a></li>
+                <li><a href="modelo.php"><i class="fa fa-circle-o"></i> Modelos</a></li>
 
               </ul>
             </li>';
