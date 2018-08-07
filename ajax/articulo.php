@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "../modelos/Articulo.php";
 
 $articulo=new Articulo();
@@ -18,7 +18,7 @@ switch ($_GET["op"]){
 		{
 			$imagen=$_POST["imagenactual"];
 		}
-		else 
+		else
 		{
 			$ext = explode(".", $_FILES["imagen"]["name"]);
 			if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png")
@@ -55,11 +55,13 @@ switch ($_GET["op"]){
 
 	case 'listar':
 		$rspta=$articulo->listar();
- 		//Vamos a declarar un array
+
+		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
- 			$data[]=array(
+
+			$data[]=array(
  				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->idarticulo.')"><i class="fa fa-close"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.
@@ -95,6 +97,6 @@ switch ($_GET["op"]){
 	break;
 
 
-	
+
 }
 ?>
