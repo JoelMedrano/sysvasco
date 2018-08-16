@@ -1,3 +1,4 @@
+
 <?php
 //Incluímos inicialmente la conexión a la base de datos
 
@@ -16,33 +17,19 @@ Class ModeloMarcas
   //Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT * FROM MARCAS";
+		$sql="SELECT * FROM marcas";
 
 		return ejecutarConsulta($sql);
 	}
 
-  static public function mdlIngresarMarca($datos){
+	//Implementar un método para listar los registros y mostrar en el select
+	public function select()
+	{
+		$sql="SELECT * FROM marcas";
+		return ejecutarConsulta($sql);
+	}
 
-    $stmt = Conexion::conectar()->prepare("INSERT INTO marcas(nombre) VALUES (:nombre)");
-    $stmt->bindParam(":nombre",$datos,PDO::PARAM_STR);
-
-    if($stmt->execute()){
-
-			return "ok";
-
-		}else{
-
-			return "error";
-
-		}
-
-		$stmt->close();
-		$stmt = null;
-
-  }
-
-
-
+		
 }
 
 ?>

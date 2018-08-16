@@ -22,7 +22,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Artículo <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Modelos <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -62,15 +62,28 @@ if ($_SESSION['almacen']==1)
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Marca(*):</label>
+                            <select id="id_marca" name="id_marca" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Modelo(*):</label>
+                            <input type="hidden" name="id_modelo" id="id_modelo">
+                            <input type="text" class="form-control" name="cod_mod" id="cod_mod" maxlength="10" placeholder="Modelo" required>
+                          </div>
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre(*):</label>
-                            <input type="hidden" name="idarticulo" id="idarticulo">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
+                            <input type="text" class="form-control" name="nom_mod" id="nom_mod" maxlength="50" placeholder="Nombre" required>
                           </div>
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Categoría(*):</label>
-                            <select id="idcategoria" name="idcategoria" class="form-control selectpicker" data-live-search="true" required></select>
+                            <label>Tipo(*):</label>
+                            <select id="tip_mod" name="tip_mod" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Stock(*):</label>
                             <input type="number" class="form-control" name="stock" id="stock" required>
@@ -109,48 +122,6 @@ if ($_SESSION['almacen']==1)
 
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" style="width: 65% !important;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Artículo</h4>
-        </div>
-        <div class="modal-body">
-          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-            <thead>
-                <th>Opciones</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Código</th>
-                <th>Stock</th>
-                <th>Precio Venta</th>
-                <th>Imagen</th>
-            </thead>
-            <tbody>
-
-            </tbody>
-            <tfoot>
-              <th>Opciones</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Código</th>
-                <th>Stock</th>
-                <th>Precio Venta</th>
-                <th>Imagen</th>
-            </tfoot>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Fin modal -->
-
 <?php
 }
 else

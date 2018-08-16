@@ -11,6 +11,9 @@
     <!-- AdminLTE App -->
     <script src="../public/js/app.min.js"></script>
 
+    <!-- iCheck 1.0.1 -->
+    <script src="plugins/iCheck/icheck.min.js"></script>
+
     <!-- DATATABLES -->
     <script src="../public/datatables/jquery.dataTables.min.js"></script>
     <script src="../public/datatables/dataTables.buttons.min.js"></script>

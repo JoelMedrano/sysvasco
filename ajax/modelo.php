@@ -4,7 +4,7 @@ require_once "../modelos/Modelo.php";
 $modelo=new Modelo();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
-$idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
+$id_marca=isset($_POST["id_marca"])? limpiarCadena($_POST["id_marca"]):"";
 $codigo=isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
 $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 $stock=isset($_POST["stock"])? limpiarCadena($_POST["stock"]):"";
@@ -22,7 +22,7 @@ switch ($_GET["op"]){
 
 			$data[]=array(
         "0"=>$reg->id_modelo,
-				"1"=>$reg->marca,
+				"1"=>$reg->nombre,
  				"2"=>$reg->codigo,
  				"3"=>$reg->cod_mod,
  				"4"=>$reg->nom_mod,
@@ -43,6 +43,31 @@ switch ($_GET["op"]){
 
 	break;
 
+	case "selectMarca":
+		require_once "../modelos/Marca.php";
+
+		$marca = new ModeloMarcas();
+
+		$rspta = $marca->select();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_marca . '>' . $reg->nombre . '</option>';
+				}
+	break;
+
+	case "selectTipo":
+		require_once "../modelos/Modelo.php";
+
+		$tipo = new Modelo();
+
+		$rspta = $tipo->selectTipo();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->tip_mod . '>' . $reg->tip_mod . '</option>';
+				}
+	break;
 
 
 }

@@ -65,4 +65,18 @@ class ControladorMarcas{
 
 	}
 
+	/*=============================================
+	MOSTRAR CATEGORIAS
+	=============================================*/
+
+	static public function ctrMostrarmarcas($item, $valor){
+
+		$tabla = "marcas";
+
+		$respuesta = ModeloMarcas::mdlMostrarMarcas($tabla, $item, $valor);
+
+		return $respuesta;
+
+	}
+
 }

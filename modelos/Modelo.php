@@ -30,7 +30,16 @@ Class Modelo
 									LEFT JOIN marcas ma
 									ON m.id_marca=ma.id_marca";
 
-		return ejecutarConsulta($sql);
+									return ejecutarConsulta($sql);
+	}
+
+	public function selectTipo(){
+		$sql="SELECT	tip_mod
+									FROM modelojf
+									GROUP BY tip_mod";
+
+  							  return ejecutarConsulta($sql);
+
 	}
 
 

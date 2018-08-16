@@ -10,6 +10,20 @@ function init(){
 		guardaryeditar(e);
 	})
 
+	//Cargamos los items al select la marca
+	$.post("../ajax/modelo.php?op=selectMarca", function(r){
+							$("#id_marca").html(r);
+							$('#id_marca').selectpicker('refresh');
+
+	});
+
+	//Cargamos los items al select el tipo
+	$.post("../ajax/modelo.php?op=selectTipo", function(r){
+							$("#tip_mod").html(r);
+							$('#tip_mod').selectpicker('refresh');
+
+	});
+
 	$("#imagenmuestra").hide();
 }
 
@@ -78,7 +92,7 @@ function listar()
 				},
 		"bDestroy": true,
 		"iDisplayLength": 5,//Paginación
-	  "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+	  "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
 //Función para guardar o editar
