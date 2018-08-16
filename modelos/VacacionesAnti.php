@@ -2,7 +2,7 @@
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
-Class Refrigerio
+Class Vacaciones
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -11,45 +11,61 @@ Class Refrigerio
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($hora_ini,$hora_fin,$descrip, $usu_reg, $pc_reg, $fec_reg )
+	public function insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen)
 	{
-		$sql="INSERT INTO refrigerio (hora_ini,hora_fin,descrip, usu_reg, pc_reg, fec_reg )
-		VALUES ('$hora_ini','$hora_fin','$descrip', '$usu_reg', '$pc_reg', '$fec_reg' )";
+		$sql="INSERT INTO articulo (idcategoria,codigo,nombre,stock,descripcion,imagen,condicion)
+		VALUES ('$idcategoria','$codigo','$nombre','$stock','$descripcion','$imagen','1')";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($cod_ref,$hora_ini,$hora_fin,$descrip, $usu_reg, $pc_reg, $fec_reg )
+	public function editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen)
 	{
-		$sql="UPDATE refrigerio SET hora_ini='$hora_ini',hora_fin='$hora_fin',descrip='$descrip', usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg'  WHERE cod_ref='$cod_ref'";
+		$sql="UPDATE articulo SET idcategoria='$idcategoria',codigo='$codigo',nombre='$nombre',stock='$stock',descripcion='$descripcion',imagen='$imagen' WHERE idarticulo='$idarticulo'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para desactivar registros
-	public function desactivar($cod_ref)
+	public function desactivar($idarticulo)
 	{
-		$sql="UPDATE refrigerio SET est_ref='0' WHERE cod_ref='$cod_ref'";
+		$sql="UPDATE articulo SET condicion='0' WHERE idarticulo='$idarticulo'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar registros
-	public function activar($cod_ref)
+	public function activar($idarticulo)
 	{
-		$sql="UPDATE refrigerio SET est_ref='1' WHERE cod_ref='$cod_ref'";
+		$sql="UPDATE articulo SET condicion='1' WHERE idarticulo='$idarticulo'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($cod_ref)
+	public function mostrar($idarticulo)
 	{
-		$sql="SELECT * FROM refrigerio WHERE cod_ref='$cod_ref' ";
+		$sql="SELECT * FROM articulo WHERE idarticulo='$idarticulo'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql=" SELECT * from refrigerio ";
+		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
+				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab
+				FROM trabajador tr
+				LEFT JOIN tabla_maestra_detalle AS tpla ON
+				tpla.cod_argumento= tr.id_tip_plan
+				AND tpla.cod_tabla='TPLA'
+				LEFT JOIN tabla_maestra_detalle AS tsua ON
+				tsua.cod_argumento= tr.id_sucursal
+				AND tsua.cod_tabla='TSUA'
+				LEFT JOIN tabla_maestra_detalle AS tfun ON
+				tfun.cod_argumento= tr.id_funcion
+				AND tfun.cod_tabla='TFUN'
+				LEFT JOIN tabla_maestra_detalle AS tare ON
+				tare.cod_argumento= tr.id_area
+				AND tare.cod_tabla='TARE'
+				WHERE tr.id_tip_plan='1'
+				 ";
 		return ejecutarConsulta($sql);		
 	}
 

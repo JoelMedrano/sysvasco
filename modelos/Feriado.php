@@ -2,7 +2,7 @@
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
-Class Refrigerio
+Class Feriado
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -49,7 +49,7 @@ Class Refrigerio
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql=" SELECT * from refrigerio ";
+		$sql="SELECT * FROM tabla_maestra_cabecera  WHERE cod_tabla LIKE 'FE%' ";
 		return ejecutarConsulta($sql);		
 	}
 

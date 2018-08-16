@@ -1,8 +1,8 @@
 <?php 
-require_once "../modelos/Refrigerio.php";
+require_once "../modelos/Feriado.php";
 session_start();
 
-$refrigerio=new Refrigerio();
+$feriado=new Feriado();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
@@ -57,22 +57,20 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
-		$rspta=$refrigerio->listar();
+		$rspta=$feriado->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
  				"0"=>$reg->cod_ref,
- 				"1"=>$reg->hora_fin,
- 				"2"=>$reg->hora_ini,
- 				"3"=>$reg->descrip,
- 				"4"=>($reg->est_ref)?'<span class="label bg-green">Activado</span>':
+ 				"1"=>$reg->descrip,
+ 				"2"=>($reg->est_ref)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"5"=>($reg->est_ref)?
+ 				"3"=>($reg->est_ref)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->cod_ref.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->cod_ref.')"><i class="fa fa-check"></i></button>',
- 				"6"=>($reg->est_ref)?'<button class="btn btn-warning" onclick="mostrar('.$reg->cod_ref.')"><i class="fa fa-pencil"></i></button>':
+ 				"4"=>($reg->est_ref)?'<button class="btn btn-warning" onclick="mostrar('.$reg->cod_ref.')"><i class="fa fa-pencil"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->cod_ref.')"><i class="fa fa-pencil"></i></button>'
  				);
  		}

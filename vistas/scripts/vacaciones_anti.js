@@ -10,9 +10,14 @@ function init(){
 		guardaryeditar(e);	
 	})
 
-	
+	//Cargamos los items al select categoria
+	$.post("../ajax/articulo.php?op=selectCategoria", function(r){
+	            $("#idcategoria").html(r);
+	            $('#idcategoria').selectpicker('refresh');
 
+	});
 
+	$("#imagenmuestra").hide();
 }
 
 //Función limpiar
@@ -36,9 +41,16 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
-		$('#nombre').focus();
-		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
+		listarArticulos();
+
+
+		$("#btnGuardar").hide();
+		$("#btnCancelar").show();
+		$("#btnAgregarArt").show();
+		detalles=0;
+
+
 	}
 	else
 	{
@@ -71,7 +83,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/refrigerio.php?op=listar',
+					url: '../ajax/vacaciones.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -79,7 +91,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 10,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -92,7 +104,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/refrigerio.php?op=guardaryeditar",
+		url: "../ajax/articulo.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -109,29 +121,47 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(cod_ref)
+function mostrar(idarticulo)
 {
-	$.post("../ajax/refrigerio.php?op=mostrar",{cod_ref : cod_ref}, function(data, status)
+	$.post("../ajax/articulo.php?op=mostrar",{idarticulo : idarticulo}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		
-		$("#cod_ref").val(data.cod_ref);
-		$("#hora_ini").val(data.hora_ini);
-		$("#hora_fin").val(data.hora_fin);
-		$("#descrip").val(data.descrip);
+		$("#idcategoria").val(data.idcategoria);
+		$('#idcategoria').selectpicker('refresh');
+		$("#codigo").val(data.codigo);
+		$("#nombre").val(data.nombre);
+		$("#stock").val(data.stock);
+		$("#descripcion").val(data.descripcion);
+		$("#imagenmuestra").show();
+		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+		$("#imagenactual").val(data.imagen);
+ 		$("#idarticulo").val(data.idarticulo);
+ 		generarbarcode();
 
- 	})
+ 		//Ocultar y mostrar los botones
+		$("#btnGuardar").hide();
+		$("#btnCancelar").show();
+		$("#btnAgregarArt").hide();
+
+
+ 	});
+
+
+ 	$.post("../ajax/venta.php?op=listarDetalle&id="+idventa,function(r){
+	        $("#detalles").html(r);
+	});	
+
 }
 
 //Función para desactivar registros
-function desactivar(cod_ref)
+function desactivar(idarticulo)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el refrigerio?", function(result){
+	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/refrigerio.php?op=desactivar", {cod_ref : cod_ref}, function(e){
+        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -140,12 +170,12 @@ function desactivar(cod_ref)
 }
 
 //Función para activar registros
-function activar(cod_ref)
+function activar(idarticulo)
 {
-	bootbox.confirm("¿Está Seguro de activar el refrigerio?", function(result){
+	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/refrigerio.php?op=activar", {cod_ref : cod_ref}, function(e){
+        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
