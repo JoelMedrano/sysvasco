@@ -71,7 +71,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/refrigerio.php?op=listar',
+					url: '../ajax/feriado.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){

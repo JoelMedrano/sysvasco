@@ -115,7 +115,38 @@ if ($_SESSION['almacen']==1)
                             <label>Motivo:</label>
                             <input type="text" class="form-control" name="motivo" id="motivo"  required>
                           </div>
-                         
+
+                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Subir Imagen1:</label>
+                            <input type="file" class="form-control" name="imagen1" id="imagen1">
+                            <input type="hidden" name="imagenactual1" id="imagenactual1">
+                            <img src="" width="150px" height="120px" id="imagenmuestra1">
+                          </div>
+
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Subir Imagen2:</label>
+                            <input type="file" class="form-control" name="imagen2" id="imagen2">
+                            <input type="hidden" name="imagenactual2" id="imagenactual2">
+                            <img src="" width="150px" height="120px" id="imagenmuestra2">
+                          </div>
+
+
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Subir Imagen3:</label>
+                            <input type="file" class="form-control" name="imagen3" id="imagen3">
+                            <input type="hidden" name="imagenactual3" id="imagenactual3">
+                            <img src="" width="150px" height="120px" id="imagenmuestra3">
+                          </div>
+
+
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Subir Imagen4:</label>
+                            <input type="file" class="form-control" name="imagen4" id="imagen4">
+                            <input type="hidden" name="imagenactual4" id="imagenactual4">
+                            <img src="" width="150px" height="120px" id="imagenmuestra4">
+                          </div>
+
+
                           
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>

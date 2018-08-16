@@ -27,6 +27,13 @@ $hora_ing=isset($_POST["hora_ing"])? limpiarCadena($_POST["hora_ing"]):"";
 $hora_sal=isset($_POST["hora_sal"])? limpiarCadena($_POST["hora_sal"]):"";
 $motivo=isset($_POST["motivo"])? limpiarCadena($_POST["motivo"]):"";
 
+$imagen1=isset($_POST["imagen1"])? limpiarCadena($_POST["imagen1"]):"";
+$imagen2=isset($_POST["imagen2"])? limpiarCadena($_POST["imagen2"]):"";
+$imagen3=isset($_POST["imagen3"])? limpiarCadena($_POST["imagen3"]):"";
+$imagen4=isset($_POST["imagen4"])? limpiarCadena($_POST["imagen4"]):"";
+
+
+
 
 //Campos de Seguridad//
 $usu_reg=$_SESSION['login'];
@@ -41,14 +48,82 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
+
+		if (!file_exists($_FILES['imagen1']['tmp_name']) || !is_uploaded_file($_FILES['imagen1']['tmp_name']))
+		{
+			$imagen1=$_POST["imagenactual1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["imagen1"]["name"]);
+			if ($_FILES['imagen1']['type'] == "image/jpg" || $_FILES['imagen1']['type'] == "image/jpeg" || $_FILES['imagen1']['type'] == "image/png")
+			{
+				$imagen1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["imagen1"]["tmp_name"], "../files/permisos_personal/" . $imagen1);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['imagen2']['tmp_name']) || !is_uploaded_file($_FILES['imagen2']['tmp_name']))
+		{
+			$imagen2=$_POST["imagenactual2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["imagen2"]["name"]);
+			if ($_FILES['imagen2']['type'] == "image/jpg" || $_FILES['imagen2']['type'] == "image/jpeg" || $_FILES['imagen2']['type'] == "image/png")
+			{
+				$imagen2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["imagen2"]["tmp_name"], "../files/permisos_personal/" . $imagen2);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['imagen3']['tmp_name']) || !is_uploaded_file($_FILES['imagen3']['tmp_name']))
+		{
+			$imagen3=$_POST["imagenactual3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["imagen3"]["name"]);
+			if ($_FILES['imagen3']['type'] == "image/jpg" || $_FILES['imagen3']['type'] == "image/jpeg" || $_FILES['imagen3']['type'] == "image/png")
+			{
+				$imagen3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["imagen3"]["tmp_name"], "../files/permisos_personal/" . $imagen3);
+			}
+		}
+
+
+
+
+		if (!file_exists($_FILES['imagen4']['tmp_name']) || !is_uploaded_file($_FILES['imagen4']['tmp_name']))
+		{
+			$imagen4=$_POST["imagenactual4"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["imagen4"]["name"]);
+			if ($_FILES['imagen4']['type'] == "image/jpg" || $_FILES['imagen4']['type'] == "image/jpeg" || $_FILES['imagen4']['type'] == "image/png")
+			{
+				$imagen4 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["imagen4"]["tmp_name"], "../files/permisos_personal/" . $imagen4);
+			}
+		}
+
+
+
 		if (empty($id_permiso)){
-			$rspta=$permiso_personal->insertar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo,  $fec_reg, $pc_reg, $usu_reg);
+			$rspta=$permiso_personal->insertar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo,  $fec_reg, $pc_reg, $usu_reg, $imagen1, $imagen2, $imagen3, $imagen4 );
 			echo $rspta ? "Permiso registrado" : "Permiso no se pudo registrar";
 		}
 		else {
-			$rspta=$permiso_personal->editar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo,  $fec_reg, $pc_reg, $usu_reg);
+			$rspta=$permiso_personal->editar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo,  $fec_reg, $pc_reg, $usu_reg, $imagen1,  $imagen2, $imagen3, $imagen4);
 			echo $rspta ? "Permiso actualizado" : "Permiso no se pudo actualizar";
 		}
+
+
 
 	break;
 

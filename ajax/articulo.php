@@ -27,6 +27,8 @@ switch ($_GET["op"]){
 				move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/articulos/" . $imagen);
 			}
 		}
+
+		
 		if (empty($idarticulo)){
 			$rspta=$articulo->insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
 			echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";

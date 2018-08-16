@@ -22,7 +22,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Refrigerio<button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Feriados<button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -32,8 +32,6 @@ if ($_SESSION['almacen']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Codigo</th>
-                            <th>Hora Inicio</th>
-                            <th>Hora Fin</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
                             <th>Activar</th>
@@ -43,8 +41,6 @@ if ($_SESSION['almacen']==1)
                           </tbody>
                           <tfoot>
                             <th>Codigo</th>
-                            <th>Hora Inicio</th>
-                            <th>Hora Fin</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
                             <th>Activar</th>
@@ -60,15 +56,15 @@ if ($_SESSION['almacen']==1)
                             <input type="text" class="form-control" name="cod_ref" id="cod_ref"  readonly>
                           </div>
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Hora Inicio:</label>
+                            <label>01:</label>
                             <input type="text" class="form-control" name="hora_ini" id="hora_ini" placeholder="Hora Inicio">
                           </div>
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Hora Fin:</label>
+                            <label>02:</label>
                             <input type="text" class="form-control" name="hora_fin" id="hora_fin"  placeholder="Hora Fin">
                           </div>
                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <label>Descripcion:</label>
+                            <label>03:</label>
                             <input type="text" class="form-control" name="descrip" id="descrip"  placeholder="Descripción">
                           </div>
                           
@@ -99,7 +95,7 @@ require 'footer.php';
 ?>
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
-<script type="text/javascript" src="scripts/refrigerio.js"></script>
+<script type="text/javascript" src="scripts/feriado.js"></script>
 <?php 
 }
 ob_end_flush();
