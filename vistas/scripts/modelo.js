@@ -30,14 +30,17 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
+	$("#cod_mod").val("");
+	$("#nom_mod").val("");
+	$("#tip_mod").val("");
+	$("#lin_mod").val("");
+	$("#pv_mod").val("");
+	$("#cmp_mod").val("");
+	$("#imagenmuestra").attr("style","display: none;");
 	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
+	$("#id_modelo").val("");
+	$("#imagen").attr("src","");
+
 }
 
 //Función mostrar formulario
@@ -48,7 +51,7 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
-		$('#nombre').focus();
+		$('#cod_mod').focus();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 	}
@@ -91,7 +94,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 12,//Paginación
 	  "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -104,7 +107,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/articulo.php?op=guardaryeditar",
+		url: "../ajax/modelo.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -121,35 +124,37 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(idarticulo)
+function mostrar(id_modelo)
 {
-	$.post("../ajax/articulo.php?op=mostrar",{idarticulo : idarticulo}, function(data, status)
+	$.post("../ajax/modelo.php?op=mostrar",{id_modelo : id_modelo}, function(data, status)
 	{
 		data = JSON.parse(data);
 		mostrarform(true);
 
-		$("#idcategoria").val(data.idcategoria);
-		$('#idcategoria').selectpicker('refresh');
-		$("#codigo").val(data.codigo);
-		$("#nombre").val(data.nombre);
-		$("#stock").val(data.stock);
-		$("#descripcion").val(data.descripcion);
+		$("#id_marca").val(data.id_marca);
+		$('#id_marca').selectpicker('refresh');
+		$("#cod_mod").val(data.cod_mod);
+		$("#nom_mod").val(data.nom_mod);
+		$("#tip_mod").val(data.tip_mod);
+		$('#tip_mod').selectpicker('refresh');
+		$("#lin_mod").val(data.lin_mod);
+		$("#pv_mod").val(data.pv_mod);
+		$("#cmp_mod").val(data.cmp_mod);
 		$("#imagenmuestra").show();
-		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+		$("#imagenmuestra").attr("src","../files/modelos/"+data.imagen);
 		$("#imagenactual").val(data.imagen);
- 		$("#idarticulo").val(data.idarticulo);
- 		generarbarcode();
+ 		$("#id_modelo").val(data.id_modelo);
 
  	})
 }
 
 //Función para desactivar registros
-function desactivar(idarticulo)
+function desactivar(id_modelo)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
+	bootbox.confirm("¿Está Seguro de desactivar el modelo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/modelo.php?op=desactivar", {id_modelo : id_modelo}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -158,12 +163,12 @@ function desactivar(idarticulo)
 }
 
 //Función para activar registros
-function activar(idarticulo)
+function activar(id_modelo)
 {
-	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
+	bootbox.confirm("¿Está Seguro de activar el modelo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/modelo.php?op=activar", {id_modelo : id_modelo}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -171,18 +176,5 @@ function activar(idarticulo)
 	})
 }
 
-//función para generar el código de barras
-function generarbarcode()
-{
-	codigo=$("#codigo").val();
-	JsBarcode("#barcode", codigo);
-	$("#print").show();
-}
-
-//Función para imprimir el Código de barras
-function imprimir()
-{
-	$("#print").printArea();
-}
 
 init();

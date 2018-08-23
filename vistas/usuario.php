@@ -15,7 +15,7 @@ if ($_SESSION['acceso']==1)
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">        
+      <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -41,7 +41,7 @@ if ($_SESSION['acceso']==1)
                             <th>Foto</th>
                             <th>Estado</th>
                           </thead>
-                          <tbody>                            
+                          <tbody>
                           </tbody>
                           <tfoot>
                             <th>Opciones</th>
@@ -102,7 +102,7 @@ if ($_SESSION['acceso']==1)
 
                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Area:</label>
-                            <select id="area" name="area" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="area1" name="area1" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Login (*):</label>
@@ -115,7 +115,7 @@ if ($_SESSION['acceso']==1)
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Permisos:</label>
                             <ul style="list-style: none;" id="permisos">
-                              
+
                             </ul>
                           </div>
 
@@ -150,7 +150,7 @@ require 'footer.php';
 ?>
 
 <script type="text/javascript" src="scripts/usuario.js"></script>
-<?php 
+<?php
 }
 ob_end_flush();
 ?>

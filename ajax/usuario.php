@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 require_once "../modelos/Usuario.php";
 
 $usuario=new Usuario();
@@ -13,7 +13,7 @@ $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
 $telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
 $email=isset($_POST["email"])? limpiarCadena($_POST["email"]):"";
 $cargo=isset($_POST["cargo"])? limpiarCadena($_POST["cargo"]):"";
-$area=isset($_POST["area"])? limpiarCadena($_POST["area"]):"";
+$area1=isset($_POST["area1"])? limpiarCadena($_POST["area1"]):"";
 $login=isset($_POST["login"])? limpiarCadena($_POST["login"]):"";
 $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
@@ -26,7 +26,7 @@ switch ($_GET["op"]){
 		{
 			$imagen=$_POST["imagenactual"];
 		}
-		else 
+		else
 		{
 			$ext = explode(".", $_FILES["imagen"]["name"]);
 			if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png")
@@ -43,12 +43,12 @@ switch ($_GET["op"]){
 		    $clavehash=""; //Como no se ingresado datos la cadena sigue siendo vacío.
 
 		if (empty($idusuario)){
-			$rspta=$usuario->insertar($id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area,$login,$clavehash,$imagen,$_POST['permiso']);
+			$rspta=$usuario->insertar($id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area1,$login,$clavehash,$imagen,$_POST['permiso']);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
-			$rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
-			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
+			$rspta=$usuario->editar($idusuario,$id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area1,$login,$clavehash,$imagen,$_POST['permiso']);
+				echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
 	break;
 
@@ -85,7 +85,7 @@ switch ($_GET["op"]){
  				"4"=>$reg->telefono,
  				"5"=>$reg->email,
  				"6"=>$reg->login,
- 				"7"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px' >",
+ 				"7"=>($reg->imagen!='')?"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px' >":"<img src='../files/usuarios/anonymous.png' height='50px' width='50px'>",
  				"8"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>'
  				);
@@ -174,7 +174,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'salir':
-		//Limpiamos las variables de sesión   
+		//Limpiamos las variables de sesión
         session_unset();
         //Destruìmos la sesión
         session_destroy();
@@ -195,17 +195,17 @@ switch ($_GET["op"]){
 				}
 	break;
 
-	case "SelectFuncion":
+	case "SelectCargo":
 		require_once "../modelos/ConsultasJ.php";
 		$consultasj = new ConsultasJ();
 
-		$rspta = $consultasj->SelectFuncion();
+		$rspta = $consultasj->SelectCargo();
 
 		while ($reg = $rspta->fetch_object())
 				{
 					echo '<option value=' . $reg->cargo . '>' . $reg->des_larga . '</option>';
 				}
-	break;	
+	break;
 
 	case "SelectArea":
 		require_once "../modelos/ConsultasJ.php";
@@ -215,7 +215,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->area . '>' . $reg->des_larga . '</option>';
+					echo '<option value=' . $reg->area1 . '>' . $reg->des_larga . '</option>';
 				}
 	break;
 

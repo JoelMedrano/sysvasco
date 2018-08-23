@@ -33,7 +33,6 @@ if ($_SESSION['almacen']==1)
                           <thead>
                             <th>Id</th>
                             <th>Marca</th>
-                            <th>Codigo</th>
                             <th>Modelo</th>
                             <th>Nombre</th>
                             <th>Estado</th>
@@ -42,13 +41,13 @@ if ($_SESSION['almacen']==1)
                             <th>Imagen</th>
                             <th>P. Venta</th>
                             <th>Creacion</th>
+                            <th>Opciones</th>
                           </thead>
                           <tbody>
                           </tbody>
                           <tfoot>
                             <th>Id</th>
                             <th>Marca</th>
-                            <th>Codigo</th>
                             <th>Modelo</th>
                             <th>Nombre</th>
                             <th>Estado</th>
@@ -57,18 +56,19 @@ if ($_SESSION['almacen']==1)
                             <th>Imagen</th>
                             <th>P. Venta</th>
                             <th>Creacion</th>
+                            <th>Opciones</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Marca(*):</label>
                             <select id="id_marca" name="id_marca" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Modelo(*):</label>
                             <input type="hidden" name="id_modelo" id="id_modelo">
                             <input type="text" class="form-control" name="cod_mod" id="cod_mod" maxlength="10" placeholder="Modelo" required>
@@ -79,34 +79,33 @@ if ($_SESSION['almacen']==1)
                             <input type="text" class="form-control" name="nom_mod" id="nom_mod" maxlength="50" placeholder="Nombre" required>
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Tipo(*):</label>
                             <select id="tip_mod" name="tip_mod" class="form-control selectpicker" data-live-search="true" required></select>
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Stock(*):</label>
-                            <input type="number" class="form-control" name="stock" id="stock" required>
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <label>Linea(*):</label>
+                            <input type="text" class="form-control" name="lin_mod" id="lin_mod" maxlength="50" placeholder="Linea" required>
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Descripción:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
+
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Precio Venta(*):</label>
+                            <input type="number" class="form-control" name="pv_mod" id="pv_mod" maxlength="50" placeholder="Precio de Venta Sin IGV" step="any" required>
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Costo Mp(*):</label>
+                            <input type="number" class="form-control" name="cmp_mod" id="cmp_mod" placeholder="Costo Materia Prima" step="any" readonly required>
+                          </div>
+
+                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <label>Imagen:</label>
                             <input type="file" class="form-control" name="imagen" id="imagen">
                             <input type="hidden" name="imagenactual" id="imagenactual">
-                            <img src="" width="150px" height="120px" id="imagenmuestra">
+                            <img src="" width="150px" height="150px" id="imagenmuestra">
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Código:</label>
-                            <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Código Barras">
-                            <button class="btn btn-success" type="button" onclick="generarbarcode()">Generar</button>
-                            <button class="btn btn-info" type="button" onclick="imprimir()">Imprimir</button>
-                            <div id="print">
-                              <svg id="barcode"></svg>
-                            </div>
-                          </div>
+
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 

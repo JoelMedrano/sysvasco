@@ -293,6 +293,8 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="marca.php"><i class="fa fa-circle-o"></i> Marcas</a></li>
                 <li><a href="modelo.php"><i class="fa fa-circle-o"></i> Modelos</a></li>
+                <li><a href="hoja_cotizacion.php"><i class="fa fa-circle-o"></i> Hoja de Cotizacion</a></li>
+                <li><a href="cotizacion.php"><i class="fa fa-circle-o"></i> Cotizacion</a></li>
 
               </ul>
             </li>';

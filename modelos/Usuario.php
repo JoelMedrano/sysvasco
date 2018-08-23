@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
@@ -11,10 +11,10 @@ Class Usuario
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area,$login,$clave,$imagen,$permisos)
+	public function insertar($id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area1,$login,$clave,$imagen,$permisos)
 	{
-		$sql="INSERT INTO usuario (id_trab,nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,area,login,clave,imagen,condicion)
-		VALUES ('$id_trab',UPPER('$nombre'),'$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$area','$login','$clave','$imagen','1')";
+		$sql="INSERT INTO usuario (id_trab,nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,area1,login,clave,imagen,condicion)
+		VALUES ('$id_trab',UPPER('$nombre'),'$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$area1','$login','$clave','$imagen','1')";
 		//return ejecutarConsulta($sql);
 		$idusuarionew=ejecutarConsulta_retornarID($sql);
 
@@ -32,13 +32,14 @@ Class Usuario
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($idusuario,$id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area,$login,$clave,$imagen,$permisos)
+	public function editar($idusuario,$id_trab,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$area1,$login,$clave,$imagen,$permisos)
 	{
+
 		if (strlen($clave)>0)
-		       $sql="UPDATE usuario SET nombre='$nombre',num_documento='$num_documento',email='$email',login='$login',clave='$clave',imagen='$imagen' WHERE idusuario='$idusuario'";
+       $sql="UPDATE usuario SET id_trab='$id_trab',nombre='$nombre',num_documento='$num_documento',email='$email',cargo='$cargo',area1=$area1,login='$login',clave='$clave',imagen='$imagen' WHERE idusuario='$idusuario'";
 		else //Ya no se actualiza el campo clave.
-		       $sql="UPDATE usuario SET nombre='$nombre',num_documento='$num_documento',email='$email',login='$login',imagen='$imagen' WHERE idusuario='$idusuario'";
-		       
+       $sql="UPDATE usuario SET id_trab='$id_trab',nombre='$nombre',num_documento='$num_documento',email='$email',cargo='$cargo',area1=$area1,login='$login',imagen='$imagen' WHERE idusuario='$idusuario'";
+
 		ejecutarConsulta($sql);
 
 		//Eliminamos todos los permisos asignados para volverlos a registrar
@@ -83,8 +84,22 @@ Class Usuario
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT * FROM usuario";
-		return ejecutarConsulta($sql);		
+		$sql="SELECT	idusuario,
+									id_trab,
+									UPPER(nombre) AS nombre,
+									tipo_documento,
+									num_documento,
+									direccion,
+									telefono,
+									email,
+									cargo,
+									area1,
+									login,
+									clave,
+									imagen,
+									condicion
+									FROM Usuario";
+		return ejecutarConsulta($sql);
 	}
 	//Implementar un método para listar los permisos marcados
 	public function listarmarcados($idusuario)
@@ -96,8 +111,8 @@ Class Usuario
 	//Función para verificar el acceso al sistema
 	public function verificar($login,$clave)
     {
-    	$sql="SELECT idusuario,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login FROM usuario WHERE login='$login' AND clave='$clave' AND condicion='1'"; 
-    	return ejecutarConsulta($sql);  
+    	$sql="SELECT idusuario,nombre,tipo_documento,num_documento,telefono,email,cargo,imagen,login FROM usuario WHERE login='$login' AND clave='$clave' AND condicion='1'";
+    	return ejecutarConsulta($sql);
     }
 }
 
