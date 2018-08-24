@@ -11,10 +11,71 @@ Class Cotizacion
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_cotizacion,$idarticulo,$cantidad,$precio_cotizacion,$descuento)
+	public function insertar($idcliente,
+													$idusuario,
+													$empresa,
+													$cod_mod,
+													$color_mod,
+													$tallas_mod,
+													$id_trab,
+													$div_mod,
+													$temp_mod,
+													$dest_mod,
+													$tela1_mod,
+													$tela2_mod,
+													$tela3_mod,
+													$tipo_comprobante,
+													$serie_comprobante,
+													$num_comprobante,
+													$fecha_hora,
+													$impuesto,
+													$total_cotizacion,
+													$idarticulo,
+													$cantidad,
+													$precio_cotizacion,
+													$descuento)
 	{
-		$sql="INSERT INTO cotizacion (idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total_cotizacion,estado)
-		VALUES ('$idcliente','$idusuario','$tipo_comprobante','$serie_comprobante','$num_comprobante','$fecha_hora','$impuesto','$total_cotizacion','Aceptado')";
+		$sql="INSERT INTO cotizacion (idcliente,
+																	idusuario,
+																	empresa,
+																	cod_mod,
+																	color_mod,
+																	tallas_mod,
+																	id_trab,
+																	div_mod,
+																	temp_mod,
+																	dest_mod,
+																	tela1_mod,
+																	tela2_mod,
+																	tela3_mod,
+																	tipo_comprobante,
+																	serie_comprobante,
+																	num_comprobante,
+																	fecha_hora,
+																	impuesto,
+																	total_cotizacion,
+																	estado)
+
+												VALUES	('$idcliente',
+																 '$idusuario',
+																 '$empresa',
+																 '$cod_mod',
+																 '$color_mod',
+																 '$tallas_mod',
+																 '$id_trab',
+																 '$div_mod',
+																 '$temp_mod',
+																 '$dest_mod',
+																 '$tela1_mod',
+																 '$tela2_mod',
+																 '$tela3_mod',
+																 '$tipo_comprobante',
+																 '$serie_comprobante',
+																 '$num_comprobante',
+																 '$fecha_hora',
+																 '$impuesto',
+																 '$total_cotizacion',
+																 'POR APROBAR')";
 		//return ejecutarConsulta($sql);
 		$idcotizacionnew=ejecutarConsulta_retornarID($sql);
 
@@ -85,70 +146,69 @@ Class Cotizacion
 
 	public function listarDetalle($idcotizacion)
 	{
-		$sql="SELECT
-dc.idcotizacion,
-dc.idarticulo,
-mp.nombre,
-dc.cantidad,
-dc.precio_cotizacion,
-dc.descuento,
-(dc.cantidad*dc.precio_cotizacion-dc.descuento) AS subtotal
-FROM detalle_cotizacion dc
-LEFT JOIN
-(SELECT
-SUBSTRING(pro.codfab,1,6) AS id_articulo,
-tmd.des_larga AS nombre,
-tmd.des_corta AS cod_linea,
-lin.linea,
-und.unidad,
-pre.precio
-FROM producto pro
-LEFT JOIN tabla_m_detalle AS tmd
-ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
-LEFT JOIN
-(SELECT
-SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-tmd.des_larga AS linea,
-tmd.des_corta AS cod_linea
-FROM producto pro
-LEFT JOIN tabla_m_detalle AS tmd
-ON LEFT(pro.codfab,3)=tmd.des_corta
-WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
-GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
-ON SUBSTRING(pro.codfab,1,6)=cod_sublinea
-LEFT JOIN
-(SELECT
-SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-tmd.des_corta AS unidad
-FROM producto pro
-LEFT JOIN tabla_m_detalle AS tmd
-ON pro.undpro=tmd.cod_argumento
-WHERE pro.estpro='1' AND tmd.cod_tabla='tund'
-GROUP BY SUBSTRING(pro.CodFab,1,6)) AS und
-ON SUBSTRING(pro.codfab,1,6)=und.cod_sublinea
-LEFT JOIN
-(SELECT
-SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-MAX(GREATEST(
-CASE
-WHEN pmp.monprov1='DOLARES AMERICANOS' THEN pmp.preprov1*3.3
-ELSE pmp.preprov1 END,
-CASE
-WHEN pmp.monprov2='DOLARES AMERICANOS' THEN pmp.preprov2*3.3
-ELSE pmp.preprov2 END,
-CASE
-WHEN pmp.monprov3='DOLARES AMERICANOS' THEN pmp.preprov3*3.3
-ELSE pmp.preprov3 END)) AS precio
-FROM preciomp pmp
-LEFT JOIN producto pro
-ON pmp.codpro=pro.codpro
-WHERE pro.estpro='1'
-GROUP BY SUBSTRING(pro.CodFab,1,6)) AS pre
-ON SUBSTRING(pro.codfab,1,6)=pre.cod_sublinea
-WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea
-GROUP BY SUBSTRING(pro.CodFab,1,6)) AS mp
-ON dc.idarticulo=mp.id_articulo
-where dc.idcotizacion='$idcotizacion'";
+		$sql="SELECT	dc.idcotizacion,
+									dc.idarticulo,
+									mp.nombre,
+									dc.cantidad,
+									dc.precio_cotizacion,
+									dc.descuento,
+									(dc.cantidad*dc.precio_cotizacion-dc.descuento) AS subtotal
+									FROM detalle_cotizacion dc
+									LEFT JOIN
+										(SELECT
+										SUBSTRING(pro.codfab,1,6) AS id_articulo,
+										tmd.des_larga AS nombre,
+										tmd.des_corta AS cod_linea,
+										lin.linea,
+										und.unidad,
+										pre.precio
+										FROM producto pro
+										LEFT JOIN tabla_m_detalle AS tmd
+										ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
+										LEFT JOIN
+										(SELECT
+										SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
+										tmd.des_larga AS linea,
+										tmd.des_corta AS cod_linea
+										FROM producto pro
+										LEFT JOIN tabla_m_detalle AS tmd
+										ON LEFT(pro.codfab,3)=tmd.des_corta
+										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
+										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
+									ON SUBSTRING(pro.codfab,1,6)=cod_sublinea
+									LEFT JOIN
+										(SELECT
+										SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
+										tmd.des_corta AS unidad
+										FROM producto pro
+										LEFT JOIN tabla_m_detalle AS tmd
+										ON pro.undpro=tmd.cod_argumento
+										WHERE pro.estpro='1' AND tmd.cod_tabla='tund'
+										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS und
+									ON SUBSTRING(pro.codfab,1,6)=und.cod_sublinea
+									LEFT JOIN
+										(SELECT
+										SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
+										MAX(GREATEST(
+										CASE
+										WHEN pmp.monprov1='DOLARES AMERICANOS' THEN pmp.preprov1*3.3
+										ELSE pmp.preprov1 END,
+										CASE
+										WHEN pmp.monprov2='DOLARES AMERICANOS' THEN pmp.preprov2*3.3
+										ELSE pmp.preprov2 END,
+										CASE
+										WHEN pmp.monprov3='DOLARES AMERICANOS' THEN pmp.preprov3*3.3
+										ELSE pmp.preprov3 END)) AS precio
+										FROM preciomp pmp
+										LEFT JOIN producto pro
+										ON pmp.codpro=pro.codpro
+										WHERE pro.estpro='1'
+										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS pre
+									ON SUBSTRING(pro.codfab,1,6)=pre.cod_sublinea
+									WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea
+									GROUP BY SUBSTRING(pro.CodFab,1,6)) AS mp
+									ON dc.idarticulo=mp.id_articulo
+									where dc.idcotizacion='$idcotizacion'";
 
 		return ejecutarConsulta($sql);
 	}

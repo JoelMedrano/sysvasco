@@ -94,7 +94,7 @@ if ($_SESSION['udp']==1)
 
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Diseñado Por(*):</label>
-                            <select id="diseñador" name="diseñador" class="form-control selectpicker" data-live-search="true" required>
+                            <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required>
                             </select>
                           </div>
 

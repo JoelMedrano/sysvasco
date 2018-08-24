@@ -9,11 +9,6 @@ function init(){
 	{
 		guardaryeditar(e);
 	});
-	//Cargamos los items al select cliente
-	$.post("../ajax/cotizacion.php?op=selectCliente", function(r){
-	            $("#idcliente").html(r);
-	            $('#idcliente').selectpicker('refresh');
-	});
 
 	//Cargamos los items al select cliente
 	$.post("../ajax/cotizacion.php?op=selectMod", function(r){
@@ -23,8 +18,8 @@ function init(){
 
 	//Cargamos los items al select cliente
 	$.post("../ajax/cotizacion.php?op=selectDiseñador", function(r){
-							$("#diseñador").html(r);
-							$('#diseñador').selectpicker('refresh');
+							$("#id_trab").html(r);
+							$('#id_trab').selectpicker('refresh');
 	});
 
 	//Cargamos los items al select cliente
@@ -56,6 +51,14 @@ function limpiar()
 	$("#serie_comprobante").val("");
 	$("#num_comprobante").val("");
 	$("#impuesto").val("0");
+
+	$("#empresa").val("0");
+	$('#empresa').selectpicker('refresh');
+	$("#cod_mod").val("0");
+	$('#cod_mod').selectpicker('refresh');
+	$("#color_mod").val("");
+
+
 	$("#idcotizacion").val("");
 
 	$("#total_cotizacion").val("");
@@ -130,7 +133,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 12,//Paginación
+		"iDisplayLength": 20,//Paginación
 	    "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -194,8 +197,7 @@ function mostrar(idcotizacion)
 		data = JSON.parse(data);
 		mostrarform(true);
 
-		$("#idcliente").val(data.idcliente);
-		$("#idcliente").selectpicker('refresh');
+
 		$("#tipo_comprobante").val(data.tipo_comprobante);
 		$("#tipo_comprobante").selectpicker('refresh');
 		$("#serie_comprobante").val(data.serie_comprobante);
@@ -209,8 +211,8 @@ function mostrar(idcotizacion)
 		$("#empresa").selectpicker('refresh');
 		$("#color_mod").val(data.color_mod);
 		$("#tallas_mod").val(data.tallas_mod);
-		$("#diseñador").val(data.diseñador);
-		$("#diseñador").selectpicker('refresh');
+		$("#id_trab").val(data.id_trab);
+		$("#id_trab").selectpicker('refresh');
 		$("#div_mod").val(data.div_mod);
 		$("#temp_mod").val(data.temp_mod);
 		$("#dest_mod").val(data.dest_mod);
@@ -287,10 +289,10 @@ function agregarDetalle(idarticulo,articulo,precio_cotizacion)
     	var fila='<tr class="filas" id="fila'+cont+'">'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
-    	'<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-    	'<td><input type="number" name="precio_cotizacion[]" id="precio_cotizacion[]" value="'+precio_cotizacion+'"></td>'+
-    	'<td><input type="number" name="descuento[]" value="'+descuento+'"></td>'+
-    	'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
+    	'<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'" step="any"></td>'+
+    	'<td><input type="number" name="precio_cotizacion[]" id="precio_cotizacion[]" value="'+precio_cotizacion+'" step="any"></td>'+
+    	'<td><input type="number" name="descuento[]" value="'+descuento+'" step="any"></td>'+
+    	'<td><span name="subtotal" id="subtotal'+cont+'" step="any">'+subtotal+'</span></td>'+
     	'<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa fa-refresh"></i></button></td>'+
     	'</tr>';
     	cont++;

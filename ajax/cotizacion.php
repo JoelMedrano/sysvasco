@@ -7,21 +7,35 @@ require_once "../modelos/Cotizacion.php";
 $cotizacion=new Cotizacion();
 
 $idcotizacion=isset($_POST["idcotizacion"])? limpiarCadena($_POST["idcotizacion"]):"";
-$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
 $idusuario=$_SESSION["idusuario"];
+$fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
+$total_cotizacion=isset($_POST["total_cotizacion"])? limpiarCadena($_POST["total_cotizacion"]):"";
+$empresa=isset($_POST["empresa"])? limpiarCadena($_POST["empresa"]):"";
+$cod_mod=isset($_POST["cod_mod"])? limpiarCadena($_POST["cod_mod"]):"";
+$color_mod=isset($_POST["color_mod"])? limpiarCadena($_POST["color_mod"]):"";
+$tallas_mod=isset($_POST["tallas_mod"])? limpiarCadena($_POST["tallas_mod"]):"";
+$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
+$div_mod=isset($_POST["div_mod"])? limpiarCadena($_POST["div_mod"]):"";
+$temp_mod=isset($_POST["temp_mod"])? limpiarCadena($_POST["temp_mod"]):"";
+$dest_mod=isset($_POST["dest_mod"])? limpiarCadena($_POST["dest_mod"]):"";
+$tela1_mod=isset($_POST["tela1_mod"])? limpiarCadena($_POST["tela1_mod"]):"";
+$tela2_mod=isset($_POST["tela2_mod"])? limpiarCadena($_POST["tela2_mod"]):"";
+$tela3_mod=isset($_POST["tela3_mod"])? limpiarCadena($_POST["tela3_mod"]):"";
+
+
+$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
 $tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
 $serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
 $num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
-$fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
 $impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
-$total_cotizacion=isset($_POST["total_cotizacion"])? limpiarCadena($_POST["total_cotizacion"]):"";
 
-$cod_mod=isset($_POST["cod_mod"])? limpiarCadena($_POST["cod_mod"]):"";
+
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($idcotizacion)){
-			$rspta=$cotizacion->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_cotizacion,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_cotizacion"],$_POST["descuento"]);
+			$rspta=$cotizacion->insertar($idcliente,$idusuario,$empresa,$cod_mod,$color_mod,$tallas_mod,$id_trab,$div_mod,$temp_mod,$dest_mod,$tela1_mod,$tela2_mod,$tela3_mod,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_cotizacion,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_cotizacion"],$_POST["descuento"]);
 			echo $rspta ? "Cotizacion registrada" : "No se pudieron registrar todos los datos de la cotizacion";
 		}
 		else {
@@ -217,11 +231,11 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>'<button class="btn btn-success" onclick="agregarDetalle('.$reg->codigo.',\''.$reg->nombre.'\',\''.$reg->precio.'\')"><span class="fa fa-plus"></span></button>',
+ 				"0"=>'<button class="btn btn-success" onclick="agregarDetalle(\''.$reg->idarticulo.'\',\''.$reg->nombre.'\',\''.$reg->precio.'\')"><span class="fa fa-plus"></span></button>',
  				"1"=>$reg->nombre,
         "2"=>$reg->linea,
         "3"=>$reg->unidad,
- 				"4"=>$reg->codigo,
+ 				"4"=>$reg->idarticulo,
  				"5"=>$reg->precio
  				);
  		}

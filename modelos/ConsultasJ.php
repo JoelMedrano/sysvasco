@@ -157,7 +157,7 @@ Class ConsultasJ
 
 	public function selectMP()
 	{
-		$sql="SELECT		SUBSTRING(pro.codfab,1,6) AS codigo,
+		$sql="SELECT		SUBSTRING(pro.codfab,1,6) AS idarticulo,
 										tmd.des_larga AS nombre,
 										tmd.des_corta AS cod_linea,
 										lin.linea,
