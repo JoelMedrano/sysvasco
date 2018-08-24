@@ -154,9 +154,9 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(idventa)
+function mostrar(nro_doc)
 {
-	$.post("../ajax/vacaciones.php?op=mostrar",{idventa : idventa}, function(data, status)
+	$.post("../ajax/vacaciones.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
@@ -171,13 +171,16 @@ function mostrar(idventa)
 		$("#impuesto").val(data.impuesto);
 		$("#idventa").val(data.idventa);
 
+		$("#nro_doc").val(data.nro_doc);
+
 		//Ocultar y mostrar los botones
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
 		$("#btnAgregarArt").hide();
+
  	});
 
- 	$.post("../ajax/vacaciones.php?op=listarDetalle&id="+idventa,function(r){
+ 	$.post("../ajax/vacaciones.php?op=listarDetalle&id="+nro_doc,function(r){
 	        $("#detalles").html(r);
 	});	
 }

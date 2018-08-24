@@ -45,11 +45,16 @@ switch ($_GET["op"]){
 		$total=0;
 		echo '<thead style="background-color:#A9D0F5">
                                     <th>Opciones</th>
-                                    <th>Artículo</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Venta</th>
-                                    <th>Descuento</th>
-                                    <th>Subtotal</th>
+                                    <th>Periodo</th>
+                                    <th>Del</th>
+                                    <th>Al</th>
+                                    <th>Tot.Dias</th>
+                                    <th>Dias Pend</th>
+                                    <th>Del</th>
+                                    <th>Al</th>
+                                    <th>Tot.Dias</th>
+                                    <th>Dias Pend</th>
+                                    <th>Observaciones</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object())
@@ -58,12 +63,18 @@ switch ($_GET["op"]){
 					$total=$total+($reg->precio_venta*$reg->cantidad-$reg->descuento);
 				}
 		echo '<tfoot>
-                                    <th>TOTAL</th>
+                                    
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th><h4 id="total">S/.'.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tfoot>';
 	break;
 
@@ -83,10 +94,10 @@ switch ($_GET["op"]){
  				"4"=>$reg->nombres,
  				"5"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
  				'<span class="label bg-red">Anulado</span>',
- 				"6"=>(($reg->est_reg=='Aceptado')?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-eye"></i></button>'.
- 					' <button class="btn btn-danger" onclick="anular('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-eye"></i></button>').
- 					'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+ 				"6"=>(($reg->est_reg=='Aceptado')?'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>'.
+ 					' <button class="btn btn-danger" onclick="anular('.$reg->nro_doc.')"><i class="fa fa-close"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>').
+ 					'<a target="_blank" href="'.$url.$reg->nro_doc.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  				);
  		}
  		$results = array(
