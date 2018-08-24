@@ -78,7 +78,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->id_trab . '>' . $reg->apemat_trab . '</option>';
+					echo '<option value=' . $reg->id_trab . '>' .$reg->nom_trab. ' ' . $reg->apepat_trab.  ' ' .$reg->apemat_trab. '</option>';
 				}
 	break;
 

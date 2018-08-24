@@ -37,6 +37,7 @@ switch ($_GET["op"]){
 			$rspta=$articulo->editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
 			echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
 		}
+		
 	break;
 
 	case 'desactivar':

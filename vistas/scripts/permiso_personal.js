@@ -153,21 +153,21 @@ function mostrar(id_permiso)
 
 
  		$("#imagenmuestra1").show();
-		$("#imagenmuestra1").attr("src","../files/permiso_personal/"+data.imagen1);
+		$("#imagenmuestra1").attr("src","../files/permisos_personal/"+data.imagen1);
 		$("#imagenactual1").val(data.imagen1);
 
 		$("#imagenmuestra2").show();
-		$("#imagenmuestra2").attr("src","../files/permiso_personal/"+data.imagen2);
+		$("#imagenmuestra2").attr("src","../files/permisos_personal/"+data.imagen2);
 		$("#imagenactual2").val(data.imagen2);
 
 
 		$("#imagenmuestra3").show();
-		$("#imagenmuestra3").attr("src","../files/permiso_personal/"+data.imagen3);
+		$("#imagenmuestra3").attr("src","../files/permisos_personal/"+data.imagen3);
 		$("#imagenactual3").val(data.imagen3);
 
 
 		$("#imagenmuestra4").show();
-		$("#imagenmuestra4").attr("src","../files/permiso_personal/"+data.imagen4);
+		$("#imagenmuestra4").attr("src","../files/permisos_personal/"+data.imagen4);
 		$("#imagenactual4").val(data.imagen4);
 
 

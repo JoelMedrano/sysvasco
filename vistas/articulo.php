@@ -71,12 +71,18 @@ if ($_SESSION['almacen']==1)
                             <label>Descripción:</label>
                             <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Imagen:</label>
+
+
+
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Subir Imagen1:</label>
                             <input type="file" class="form-control" name="imagen" id="imagen">
                             <input type="hidden" name="imagenactual" id="imagenactual">
                             <img src="" width="150px" height="120px" id="imagenmuestra">
                           </div>
+
+
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Código:</label>
                             <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Código Barras">

@@ -77,10 +77,10 @@ switch ($_GET["op"]){
 
  			$data[]=array(
  				"0"=>$reg->id_trab,
- 				"1"=>$reg->nombres,
- 				"2"=>$reg->sucursal_anexo,
+ 				"1"=>$reg->sucursal_anexo,
+ 				"2"=>$reg->area,
  				"3"=>$reg->funcion,
- 				"4"=>$reg->area,
+ 				"4"=>$reg->nombres,
  				"5"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
  				'<span class="label bg-red">Anulado</span>',
  				"6"=>(($reg->est_reg=='Aceptado')?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-eye"></i></button>'.

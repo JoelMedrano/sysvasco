@@ -35,9 +35,9 @@ if ($_SESSION['ventas']==1)
                             
                             <th>Codigo</th>
                             <th>Sucursal Anexo</th>
-                            <th>Dni</th>
-                            <th>Nombres</th>
                             <th>Area</th>
+                            <th>Funcion</th>
+                            <th>Nombres</th>
                             <th>Estado</th>
                             <th>Opciones</th>
                           </thead>
@@ -47,9 +47,9 @@ if ($_SESSION['ventas']==1)
                             
                             <th>Codigo</th>
                             <th>Sucursal Anexo</th>
-                            <th>Dni</th>
-                            <th>Nombres</th>
                             <th>Area</th>
+                            <th>Funcion</th>
+                            <th>Nombres</th>
                             <th>Estado</th>
                             <th>Opciones</th>
                           </tfoot>
