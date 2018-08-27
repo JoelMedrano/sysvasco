@@ -9,11 +9,16 @@ function init(){
 	{
 		guardaryeditar(e);	
 	});
+	
+
+
 	//Cargamos los items al select cliente
-	$.post("../ajax/venta.php?op=selectCliente", function(r){
-	            $("#idcliente").html(r);
-	            $('#idcliente').selectpicker('refresh');
+	$.post("../ajax/consultasD.php?op=selectTrabajadorVacaciones", function(r){
+	            $("#id_nomtrab").html(r);
+	            $('#id_nomtrab').selectpicker('refresh');
 	});	
+
+
 }
 
 //Función limpiar
@@ -33,13 +38,14 @@ function limpiar()
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
 	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+	var today = now.getFullYear()+"-"+(month)+"-"+(day);
     $('#fecha_hora').val(today);
 
     //Marcamos el primer tipo_documento
     $("#tipo_comprobante").val("Boleta");
 	$("#tipo_comprobante").selectpicker('refresh');
 }
+
 
 //Función mostrar formulario
 function mostrarform(flag)
@@ -116,7 +122,7 @@ function listarArticulos()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/vacaciones.php?op=listarArticulosVenta',
+					url: '../ajax/vacaciones.php?op=selectPeriodosVacaciones',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -156,28 +162,34 @@ function guardaryeditar(e)
 
 function mostrar(nro_doc)
 {
-	$.post("../ajax/vacaciones.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
+		$.post("../ajax/vacaciones.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#idcliente").val(data.idcliente);
-		$("#idcliente").selectpicker('refresh');
-		$("#tipo_comprobante").val(data.tipo_comprobante);
-		$("#tipo_comprobante").selectpicker('refresh');
-		$("#serie_comprobante").val(data.serie_comprobante);
-		$("#num_comprobante").val(data.num_comprobante);
-		$("#fecha_hora").val(data.fecha);
-		$("#impuesto").val(data.impuesto);
-		$("#idventa").val(data.idventa);
+		$("#id_nomtrab").val(data.id_nomtrab);
+		$("#id_nomtrab").selectpicker('refresh');
 
 		$("#nro_doc").val(data.nro_doc);
+		$("#apemat_trab").val(data.apemat_trab);
+		$("#id_trab").val(data.id_trab);
+
+		$("#sucursal").val(data.sucursal);
+		$("#area_trab").val(data.area_trab);
+
+		$("#fec_ing_trab").val(data.fec_ing_trab);
+
+
+		
+
+
+		
 
 		//Ocultar y mostrar los botones
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
-		$("#btnAgregarArt").hide();
-
+		//$("#btnAgregarArt").hide();
+		$("#btnAgregarArt").show();
  	});
 
  	$.post("../ajax/vacaciones.php?op=listarDetalle&id="+nro_doc,function(r){
@@ -186,12 +198,12 @@ function mostrar(nro_doc)
 }
 
 //Función para anular registros
-function anular(idventa)
+function anular(nro_doc)
 {
 	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/venta.php?op=anular", {idventa : idventa}, function(e){
+        	$.post("../ajax/vacaciones.php?op=anular", {nro_doc : nro_doc}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -221,22 +233,28 @@ function marcarImpuesto()
     }
   }
 
-function agregarDetalle(idarticulo,articulo,precio_venta)
+function agregarDetalle(id_periodo,periodo)
   {
-  	var cantidad=1;
-    var descuento=0;
+  	
 
-    if (idarticulo!="")
+    if (id_periodo!="")
     {
-    	var subtotal=cantidad*precio_venta;
+    	
     	var fila='<tr class="filas" id="fila'+cont+'">'+
+    	'<td><input type="hidden" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
+    	'<td><input type="text" size="7" type="hidden" editable name="id_periodo[]" "></td>'+
+    	'<td><input type="text" size="7" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="50" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="7" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="7" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
+    	'<td><input type="text" size="50" name="id_periodo[]" ></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-    	'<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
-    	'<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-    	'<td><input type="number" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
-    	'<td><input type="number" name="descuento[]" value="'+descuento+'"></td>'+
-    	'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
-    	'<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa fa-refresh"></i></button></td>'+
     	'</tr>';
     	cont++;
     	detalles=detalles+1;
@@ -245,8 +263,9 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     }
     else
     {
-    	alert("Error al ingresar el detalle, revisar los datos del artículo");
+    	alert("Error al ingresar el detalle, revisar los datos del periodo");
     }
+
   }
 
   function modificarSubototales()

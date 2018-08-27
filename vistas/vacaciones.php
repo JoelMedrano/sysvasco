@@ -57,35 +57,47 @@ if ($_SESSION['ventas']==1)
                     </div>
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                          <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <label>Trabajador(*):</label>
-                            <input type="hidden" name="idventa" id="idventa">
-                            <select id="idcliente" name="idcliente" class="form-control selectpicker" data-live-search="true" required>
-                              
+                            <select id="id_nomtrab" name="id_nomtrab" class="form-control selectpicker" data-live-search="true" required>
                             </select>
                           </div>
-                          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <label>Codigo(*):</label>
-                            <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
+                          <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
+                            <label>Codigo.Trab:</label>
+                            <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
                           </div>
+                           <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
+                            <label>Dni:</label>
+                            <input type="text" readonly class="form-control" name="nro_doc" id="nro_doc">
+                          </div>
+
                           <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                             <label>Sucursal:</label>
-                            <input type="text" class="form-control" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Serie">
+                            <input type="text" readonly class="form-control" name="sucursal" id="sucursal"  placeholder="Sucursal">
                           </div>
                           <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                             <label>Area:</label>
-                            <input type="text" class="form-control" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Número" required="">
+                            <input type="text" readonly class="form-control" name="area_trab" id="area_trab"  placeholder="Area" >
                           </div>
-                         
-                          
+                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                            <label>Fec.Ingreso:</label>
+                            <input type="text" readonly class="form-control" name="fec_ing_trab" id="fec_ing_trab"  placeholder="Fecha de Ingreso">
+                          </div>
+                        
                           <br>
 
-                          <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                          <!--<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
                             <a data-toggle="modal" href="#myModal">           
                               <button class="btn btn-warning" onclick="agregarDetalle()"><span class="fa fa-plus"></span></button>
                             </a>
-                          </div>
+                          </div>-->
 
+
+                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
+                            <a data-toggle="modal" href="#myModal">
+                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Periodo</button>
+                            </a>
+                          </div>
 
 
                           <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
@@ -107,7 +119,6 @@ if ($_SESSION['ventas']==1)
                                     <th><h4 id="total">S/. 0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
                                 </tfoot>
                                 <tbody>
-                                  
                                 </tbody>
                             </table>
                           </div>
@@ -134,30 +145,22 @@ if ($_SESSION['ventas']==1)
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Artículo</h4>
+          <h4 class="modal-title">Seleccione un Periodo</h4>
         </div>
         <div class="modal-body">
           <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
             <thead>
                 <th>Opciones</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Código</th>
-                <th>Stock</th>
-                <th>Precio Venta</th>
-                <th>Imagen</th>
+                <th>Id.Periodo</th>
+                <th>Periodo</th>
             </thead>
             <tbody>
               
             </tbody>
             <tfoot>
               <th>Opciones</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Código</th>
-                <th>Stock</th>
-                <th>Precio Venta</th>
-                <th>Imagen</th>
+                <th>Id.Periodo</th>
+                <th>Periodo</th>
             </tfoot>
           </table>
         </div>

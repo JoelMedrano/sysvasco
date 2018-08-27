@@ -16,6 +16,9 @@ $fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
 $impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
 $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
 
+
+$nro_doc=isset($_POST["nro_doc"])? limpiarCadena($_POST["nro_doc"]):"";
+
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($idventa)){
@@ -27,12 +30,12 @@ switch ($_GET["op"]){
 	break;
 
 	case 'anular':
-		$rspta=$vacaciones->anular($idventa);
+		$rspta=$vacaciones->anular($nro_doc);
  		echo $rspta ? "Venta anulada" : "Venta no se puede anular";
 	break;
 
 	case 'mostrar':
-		$rspta=$vacaciones->mostrar($idventa);
+		$rspta=$vacaciones->mostrar($nro_doc);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -44,26 +47,32 @@ switch ($_GET["op"]){
 		$rspta = $vacaciones->listarDetalle($id);
 		$total=0;
 		echo '<thead style="background-color:#A9D0F5">
-                                    <th>Opciones</th>
-                                    <th>Periodo</th>
-                                    <th>Del</th>
-                                    <th>Al</th>
-                                    <th>Tot.Dias</th>
-                                    <th>Dias Pend</th>
-                                    <th>Del</th>
-                                    <th>Al</th>
-                                    <th>Tot.Dias</th>
-                                    <th>Dias Pend</th>
-                                    <th>Observaciones</th>
+                                    <th width="100px">Periodo</th>
+                                    <th width="70px">Del</th>
+                                    <th width="70px">Al</th>
+                                    <th width="40px">Total Dias</th>
+                                    <th width="40px">Dias Pend</th>
+                                    <th width="150px">Obser Detalle</th>
+                                    <th width="50px">Vencidas</th>
+                                    <th width="50px">Truncas</th>
+                                    <th width="50px">Inicio</th>
+                                    <th width="50px">Salida</th>
+                                    <th width="40px">Tot.Dias</th>
+                                    <th width="40px">Dias Pend</th>
+                                    <th width="150px" >Observaciones</th>
+                                    <th width="50px">Opciones</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<tr class="filas"><td></td><td>'.$reg->nombre.'</td><td>'.$reg->cantidad.'</td><td>'.$reg->precio_venta.'</td><td>'.$reg->descuento.'</td><td>'.$reg->subtotal.'</td></tr>';
-					$total=$total+($reg->precio_venta*$reg->cantidad-$reg->descuento);
+					echo '<tr class="filas"><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->vencidas.'</td><td>'.$reg->truncas.'</td><td>'.$reg->fec_del_dec.'</td><td>'.$reg->fec_al_dec.'</td><td>'.$reg->tot_dias_dec.'</td><td>'.$reg->pen_dias_dec.'</td><td>'.$reg->obser.'</td><td></td></tr>';
+					$total=$periodo;
 				}
 		echo '<tfoot>
                                     
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -121,23 +130,19 @@ switch ($_GET["op"]){
 				}
 	break;
 
-	case 'listarArticulosVenta':
-		require_once "../modelos/Articulo.php";
-		$articulo=new Articulo();
+	case 'selectPeriodosVacaciones':
+		require_once "../modelos/ConsultasD.php";
+		$consultasD=new ConsultasD();
 
-		$rspta=$articulo->listarActivosVenta();
+		$rspta=$consultasD->selectPeriodosVacaciones();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idarticulo.',\''.$reg->nombre.'\',\''.$reg->precio_venta.'\')"><span class="fa fa-plus"></span></button>',
- 				"1"=>$reg->nombre,
- 				"2"=>$reg->categoria,
- 				"3"=>$reg->codigo,
- 				"4"=>$reg->stock,
- 				"5"=>$reg->precio_venta,
- 				"6"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px' >"
+ 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->id_periodo.',\''.$reg->periodo.'\')"><span class="fa fa-plus"></span></button>',
+ 				"1"=>$reg->id_periodo,
+ 				"2"=>$reg->periodo
  				);
  		}
  		$results = array(

@@ -33,7 +33,7 @@ Class Vacaciones
 
 
 	//Implementamos un método para anular la venta
-	public function anular($idventa)
+	public function anular($nro_doc)
 	{
 		$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
 		return ejecutarConsulta($sql);
@@ -43,13 +43,30 @@ Class Vacaciones
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($nro_doc)
 	{
-		$sql="SELECT v.idventa,DATE(v.fecha_hora) as fecha,v.idcliente,p.nombre as cliente,u.idusuario,u.nombre as usuario,v.tipo_comprobante,v.serie_comprobante,v.num_comprobante,v.total_venta,v.impuesto,v.estado FROM venta v INNER JOIN persona p ON v.idcliente=p.idpersona INNER JOIN usuario u ON v.idusuario=u.idusuario WHERE v.idventa='$idventa'";
+		$sql="SELECT Tra.id_trab, Tra.num_doc_trab AS nro_doc, Tra.num_doc_trab AS id_nomtrab ,  CONCAT(Tra.apepat_trab, ' ' , Tra.apemat_trab, ' ', Tra.nom_trab)   AS apellidosynombres ,   Tra.apemat_trab, Tra.apepat_trab, Tra.nom_trab, Tra.id_sucursal, Tra.id_area, TbAre.Des_Larga AS area_trab,
+              TbSua.des_larga AS sucursal, DATE_FORMAT(fec_ing_trab, '%d/%m/%Y')  AS fec_ing_trab
+				FROM Trabajador Tra
+				LEFT JOIN tabla_maestra_detalle TbAre ON
+					TbAre.cod_tabla='TARE'
+					AND TbAre.cod_argumento= Tra.id_area
+				LEFT JOIN tabla_maestra_detalle TbSua ON
+					TbSua.cod_tabla='TSUA'
+					AND TbSua.cod_argumento= Tra.id_sucursal
+				where num_doc_trab='$nro_doc' 
+              ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function listarDetalle($idventa)
+	public function listarDetalle($nro_doc)
 	{
-		$sql="SELECT dv.idventa,dv.idarticulo,a.nombre,dv.cantidad,dv.precio_venta,dv.descuento,(dv.cantidad*dv.precio_venta-dv.descuento) as subtotal FROM detalle_venta dv inner join articulo a on dv.idarticulo=a.idarticulo where dv.idventa='$idventa'";
+		$sql="SELECT nro_doc, id_periodo, TbPea.des_larga AS PeridoAnual, DATE_FORMAT(fec_del, '%d/%m/%Y') AS  fec_del, DATE_FORMAT(fec_al, '%d/%m/%Y') AS fec_al, tot_dias, pen_dias, vencidas, truncas, DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS   fec_del_dec, DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS  fec_al_dec, tot_dias_dec,
+				 pen_dias_dec, inicio_prog, salida_prog, tot_dias_prog, obser, obser_detalle
+				FROM Vacaciones vac
+				LEFT JOIN tabla_maestra_detalle  TbPea ON
+				TbPea.cod_tabla='TPEA'
+				AND TbPea.cod_argumento= vac.id_periodo
+				where vac.nro_doc='$nro_doc'
+				ORDER BY vac.Nro_doc ASC, vac.id_periodo ASC";
 		return ejecutarConsulta($sql);
 	}
 
@@ -57,7 +74,7 @@ Class Vacaciones
 	public function listar()
 	{
 		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
-				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab
+				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab,  tr.num_doc_trab AS nro_doc
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
 				tpla.cod_argumento= tr.id_tip_plan

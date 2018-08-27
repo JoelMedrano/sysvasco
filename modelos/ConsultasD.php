@@ -205,6 +205,22 @@ Class ConsultasD
 	}
 
 
+	// Vacaciones - Implementar un método para listar los registros y mostrar en el select
+	public function selectTrabajadorVacaciones()
+	{
+		$sql="SELECT id_trab, num_doc_trab As id_nomtrab,  CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab)    AS apellidosynombres FROM Trabajador";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	public function selectPeriodosVacaciones()
+	{
+		$sql="SELECT cod_argumento AS id_periodo , des_larga AS periodo FROM tabla_maestra_detalle where cod_tabla='TPEA' ";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
 
 
 

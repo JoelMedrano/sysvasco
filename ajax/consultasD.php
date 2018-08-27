@@ -349,6 +349,37 @@ switch ($_GET["op"]){
 
 
 
+// Trabajador de vacaciones - Agregado DG 27082018
+	case "selectTrabajadorVacaciones":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTrabajadorVacaciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_nomtrab . '>' . $reg->apellidosynombres. '</option>';
+				}
+	break;
+
+
+
+// Trabajador de vacaciones - Agregado DG 27082018
+	case "selectTrabajadorVacaciones":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectPeriodosVacaciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_periodo . '>' . $reg->periodo. '</option>';
+				}
+	break;
+
+
+
+
 
 
 

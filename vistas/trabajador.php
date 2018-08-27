@@ -34,7 +34,7 @@ if ($_SESSION['almacen']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Id.Trabajador</th>
+                            <th>Cod.</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
                             <th>Dni</th>
@@ -49,7 +49,7 @@ if ($_SESSION['almacen']==1)
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Id.Trabajador</th>
+                            <th>Cod.</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
                             <th>Dni</th>
