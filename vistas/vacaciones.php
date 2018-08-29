@@ -34,6 +34,7 @@ if ($_SESSION['ventas']==1)
                           <thead>
                             
                             <th>Codigo</th>
+                            <th>Dni</th>
                             <th>Sucursal Anexo</th>
                             <th>Area</th>
                             <th>Funcion</th>
@@ -46,6 +47,7 @@ if ($_SESSION['ventas']==1)
                           <tfoot>
                             
                             <th>Codigo</th>
+                            <th>Dni</th>
                             <th>Sucursal Anexo</th>
                             <th>Area</th>
                             <th>Funcion</th>
@@ -86,12 +88,6 @@ if ($_SESSION['ventas']==1)
                         
                           <br>
 
-                          <!--<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
-                            <a data-toggle="modal" href="#myModal">           
-                              <button class="btn btn-warning" onclick="agregarDetalle()"><span class="fa fa-plus"></span></button>
-                            </a>
-                          </div>-->
-
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
                             <a data-toggle="modal" href="#myModal">
@@ -103,20 +99,38 @@ if ($_SESSION['ventas']==1)
                           <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                             <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                               <thead style="background-color:#A9D0F5">
+                                    <th>Item</th>
+                                    <th>Periodo</th>
+                                    <th>Del</th>
+                                    <th>Al</th>
+                                    <th>Total Dias</th>
+                                    <th>Dias Pend</th>
+                                    <th>Obser Detalle</th>
+                                    <th>Vencidas</th>
+                                    <th>Truncas</th>
+                                    <th>Inicio</th>
+                                    <th>Salida</th>
+                                    <th>Tot.Dias</th>
+                                    <th>Dias Pend</th>
+                                    <th>Observaciones</th>
                                     <th>Opciones</th>
-                                    <th>Artículo</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Venta</th>
-                                    <th>Descuento</th>
-                                    <th>Subtotal</th>
                                 </thead>
                                 <tfoot>
-                                    <th>TOTAL</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th><h4 id="total">S/. 0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Opciones</th>
                                 </tfoot>
                                 <tbody>
                                 </tbody>
@@ -126,8 +140,9 @@ if ($_SESSION['ventas']==1)
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 
-                            <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
+
                         </form>
                     </div>
                     <!--Fin centro -->

@@ -18,14 +18,20 @@ $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):
 
 
 $nro_doc=isset($_POST["nro_doc"])? limpiarCadena($_POST["nro_doc"]):"";
+$id_nomtrab=isset($_POST["id_nomtrab"])? limpiarCadena($_POST["id_nomtrab"]):"";
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
-		if (empty($idventa)){
-			$rspta=$vacaciones->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_venta"],$_POST["descuento"]);
-			echo $rspta ? "Venta registrada" : "No se pudieron registrar todos los datos de la venta";
+		if (empty($nro_doc)){
+			$rspta=$vacaciones->insertar($id_nomtrab,$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],
+				$_POST["pen_dias"],$_POST["obser_detalle"],$_POST["vencidas"],$_POST["truncas"],$_POST["fec_del_dec"],$_POST["fec_al_dec"],$_POST["tot_dias_dec"],
+				$_POST["pen_dias_dec"],$_POST["obser"]);
+			echo $rspta ? "Vacacion registrada" : "No se pudieron registrar todos los datos de la vacacion";
 		}
 		else {
+			$rspta=$vacaciones->editar($nro_doc,$_POST["correlativo"],$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"]);
+			echo $rspta ? "Vacaciones actualizadas" : "No se pudieron actualizar todos los datos de las vacaciones";
 		}
 	break;
 
@@ -47,6 +53,7 @@ switch ($_GET["op"]){
 		$rspta = $vacaciones->listarDetalle($id);
 		$total=0;
 		echo '<thead style="background-color:#A9D0F5">
+									<th width="40px">Item</th>
                                     <th width="100px">Periodo</th>
                                     <th width="70px">Del</th>
                                     <th width="70px">Al</th>
@@ -65,7 +72,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<tr class="filas"><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->vencidas.'</td><td>'.$reg->truncas.'</td><td>'.$reg->fec_del_dec.'</td><td>'.$reg->fec_al_dec.'</td><td>'.$reg->tot_dias_dec.'</td><td>'.$reg->pen_dias_dec.'</td><td>'.$reg->obser.'</td><td></td></tr>';
+					echo '<tr class="filas"><td>'.$reg->correlativo.'</td><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->vencidas.'</td><td>'.$reg->truncas.'</td><td>'.$reg->fec_del_dec.'</td><td>'.$reg->fec_al_dec.'</td><td>'.$reg->tot_dias_dec.'</td><td>'.$reg->pen_dias_dec.'</td><td>'.$reg->obser.'</td><td></td></tr>';
 					$total=$periodo;
 				}
 		echo '<tfoot>
@@ -97,13 +104,14 @@ switch ($_GET["op"]){
 
  			$data[]=array(
  				"0"=>$reg->id_trab,
- 				"1"=>$reg->sucursal_anexo,
- 				"2"=>$reg->area,
- 				"3"=>$reg->funcion,
- 				"4"=>$reg->nombres,
- 				"5"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
+ 				"1"=>$reg->num_doc_trab,
+ 				"2"=>$reg->sucursal_anexo,
+ 				"3"=>$reg->area,
+ 				"4"=>$reg->funcion,
+ 				"5"=>$reg->nombres,
+ 				"6"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
  				'<span class="label bg-red">Anulado</span>',
- 				"6"=>(($reg->est_reg=='Aceptado')?'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>'.
+ 				"7"=>(($reg->est_reg=='Aceptado')?'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>'.
  					' <button class="btn btn-danger" onclick="anular('.$reg->nro_doc.')"><i class="fa fa-close"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>').
  					'<a target="_blank" href="'.$url.$reg->nro_doc.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'

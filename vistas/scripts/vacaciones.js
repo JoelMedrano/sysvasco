@@ -55,7 +55,6 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
-		//$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 		listarArticulos();
 
@@ -180,13 +179,8 @@ function mostrar(nro_doc)
 		$("#fec_ing_trab").val(data.fec_ing_trab);
 
 
-		
-
-
-		
-
 		//Ocultar y mostrar los botones
-		$("#btnGuardar").hide();
+		$("#btnGuardar").show();
 		$("#btnCancelar").show();
 		//$("#btnAgregarArt").hide();
 		$("#btnAgregarArt").show();
@@ -240,20 +234,21 @@ function agregarDetalle(id_periodo,periodo)
     if (id_periodo!="")
     {
     	
-    	var fila='<tr class="filas" id="fila'+cont+'">'+
-    	'<td><input type="hidden" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
-    	'<td><input type="text" size="7" type="hidden" editable name="id_periodo[]" "></td>'+
-    	'<td><input type="text" size="7" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="50" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="7" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="7" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="2" name="id_periodo[]" ></td>'+
-    	'<td><input type="text" size="50" name="id_periodo[]" ></td>'+
+    	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
+    	'<td><input type="text" size="3" name="correlativo[]" ></td>'+
+    	'<td><input type="hidden" size="3" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
+    	'<td><input type="date" size="5" name="fec_del[]" ></td>'+
+    	'<td><input type="date" size="5" name="fec_al[]" ></td>'+
+    	'<td><input type="text" size="2" name="tot_dias[]" ></td>'+
+    	'<td><input type="text" size="2" name="pen_dias[]" ></td>'+
+    	'<td><input type="text" size="50" name="obser_detalle[]" ></td>'+
+    	'<td><input type="text" size="2" name="vencidas[]" ></td>'+
+    	'<td><input type="text" size="2" name="truncas[]" ></td>'+
+    	'<td><input type="date" size="7" name="fec_del_dec[]" ></td>'+
+    	'<td><input type="date" size="7" name="fec_al_dec[]" ></td>'+
+    	'<td><input type="text" size="2" name="tot_dias_dec[]" ></td>'+
+    	'<td><input type="text" size="2" name="pen_dias_dec[]" ></td>'+
+    	'<td><input type="text" size="50" name="obser[]" ></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'</tr>';
     	cont++;
@@ -299,7 +294,9 @@ function agregarDetalle(id_periodo,periodo)
     evaluar();
   }
 
-  function evaluar(){
+
+
+ function evaluar(){
   	if (detalles>0)
     {
       $("#btnGuardar").show();
@@ -311,11 +308,13 @@ function agregarDetalle(id_periodo,periodo)
     }
   }
 
+
+
   function eliminarDetalle(indice){
   	$("#fila" + indice).remove();
   	calcularTotales();
   	detalles=detalles-1;
-  	evaluar()
+  	
   }
 
 init();

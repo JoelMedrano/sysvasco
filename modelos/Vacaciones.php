@@ -11,24 +11,49 @@ Class Vacaciones
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$idarticulo,$cantidad,$precio_venta,$descuento)
+	public function insertar($id_nomtrab,$id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias,$obser_detalle,$vencidas,$truncas,$fec_del_dec,$fec_al_dec,$tot_dias_dec,$pen_dias_dec,$obser)
 	{
-		$sql="INSERT INTO venta (idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total_venta,estado)
-		VALUES ('$idcliente','$idusuario','$tipo_comprobante','$serie_comprobante','$num_comprobante','$fecha_hora','$impuesto','$total_venta','Aceptado')";
-		//return ejecutarConsulta($sql);
-		$idventanew=ejecutarConsulta_retornarID($sql);
+		
 
 		$num_elementos=0;
 		$sw=true;
+		$item=1;
 
-		while ($num_elementos < count($idarticulo))
+		while ($num_elementos <count($id_periodo))
 		{
-			$sql_detalle = "INSERT INTO detalle_venta(idventa, idarticulo,cantidad,precio_venta,descuento) VALUES ('$idventanew', '$idarticulo[$num_elementos]','$cantidad[$num_elementos]','$precio_venta[$num_elementos]','$descuento[$num_elementos]')";
+			$sql_detalle = "INSERT INTO vacaciones(nro_doc,correlativo, id_periodo,fec_del,fec_al,tot_dias,pen_dias,obser_detalle,vencidas,truncas,fec_del_dec,fec_al_dec,tot_dias_dec,pen_dias_dec,obser) 
+			VALUES ('$id_nomtrab','$item', '$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]','$obser_detalle[$num_elementos]',
+				'$vencidas[$num_elementos]','$truncas[$num_elementos]','$fec_del_dec[$num_elementos]','$fec_al_dec[$num_elementos]','$tot_dias_dec[$num_elementos]','$pen_dias_dec[$num_elementos]',
+				'$obser[$num_elementos]')";
+			ejecutarConsulta($sql_detalle) or $sw = false;
+			$num_elementos=$num_elementos + 1;
+			$item=$item + 1;
+		
+		}
+
+		return $sw;
+	}
+
+
+	//Implementamos un método para editar registros
+	public function editar($nro_doc,$correlativo,$id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias)
+	{
+		
+		$num_elementos=0;
+		$sw=true;
+
+		while ($num_elementos < count($correlativo))
+		{
+			$sql_detalle = "INSERT INTO vacaciones(nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES ('$nro_doc', '$correlativo[$num_elementos]','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]'))";
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 		}
 
 		return $sw;
+
+
+
+
 	}
 
 
@@ -59,21 +84,21 @@ Class Vacaciones
 
 	public function listarDetalle($nro_doc)
 	{
-		$sql="SELECT nro_doc, id_periodo, TbPea.des_larga AS PeridoAnual, DATE_FORMAT(fec_del, '%d/%m/%Y') AS  fec_del, DATE_FORMAT(fec_al, '%d/%m/%Y') AS fec_al, tot_dias, pen_dias, vencidas, truncas, DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS   fec_del_dec, DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS  fec_al_dec, tot_dias_dec,
+		$sql="SELECT nro_doc, id_periodo, correlativo,TbPea.des_larga AS PeridoAnual, DATE_FORMAT(fec_del, '%d/%m/%Y') AS  fec_del, DATE_FORMAT(fec_al, '%d/%m/%Y') AS fec_al, tot_dias, pen_dias, vencidas, truncas, DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS   fec_del_dec, DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS  fec_al_dec, tot_dias_dec,
 				 pen_dias_dec, inicio_prog, salida_prog, tot_dias_prog, obser, obser_detalle
 				FROM Vacaciones vac
 				LEFT JOIN tabla_maestra_detalle  TbPea ON
 				TbPea.cod_tabla='TPEA'
 				AND TbPea.cod_argumento= vac.id_periodo
 				where vac.nro_doc='$nro_doc'
-				ORDER BY vac.Nro_doc ASC, vac.id_periodo ASC";
+				ORDER BY  vac.correlativo ASC";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
+		$sql="SELECT tr.id_trab, tr.num_doc_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
 				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab,  tr.num_doc_trab AS nro_doc
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
