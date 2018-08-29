@@ -11,32 +11,29 @@ Class Cotizacion
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idcliente,
-													$idusuario,
-													$empresa,
-													$cod_mod,
-													$color_mod,
-													$tallas_mod,
-													$id_trab,
-													$div_mod,
-													$temp_mod,
-													$dest_mod,
-													$tela1_mod,
-													$tela2_mod,
-													$tela3_mod,
-													$tipo_comprobante,
-													$serie_comprobante,
-													$num_comprobante,
-													$fecha_hora,
-													$impuesto,
-													$total_cotizacion,
-													$idarticulo,
-													$cantidad,
-													$precio_cotizacion,
-													$descuento)
+	public function insertar(	$idusuario,
+														$empresa,
+														$cod_mod,
+														$color_mod,
+														$tallas_mod,
+														$id_trab,
+														$div_mod,
+														$temp_mod,
+														$dest_mod,
+														$tela1_mod,
+														$tela2_mod,
+														$tela3_mod,
+														$bord_mod,
+														$esta_mod,
+														$manu_mod,
+														$fecha_hora,
+														$total_cotizacion,
+														$idarticulo,
+														$cantidad,
+														$precio_cotizacion,
+														$descuento)
 	{
-		$sql="INSERT INTO cotizacion (idcliente,
-																	idusuario,
+		$sql="INSERT INTO cotizacion (idusuario,
 																	empresa,
 																	cod_mod,
 																	color_mod,
@@ -48,16 +45,14 @@ Class Cotizacion
 																	tela1_mod,
 																	tela2_mod,
 																	tela3_mod,
-																	tipo_comprobante,
-																	serie_comprobante,
-																	num_comprobante,
+																	bord_mod,
+																	esta_mod,
+																	manu_mod,
 																	fecha_hora,
-																	impuesto,
 																	total_cotizacion,
 																	estado)
 
-												VALUES	('$idcliente',
-																 '$idusuario',
+												VALUES	('$idusuario',
 																 '$empresa',
 																 '$cod_mod',
 																 '$color_mod',
@@ -69,13 +64,12 @@ Class Cotizacion
 																 '$tela1_mod',
 																 '$tela2_mod',
 																 '$tela3_mod',
-																 '$tipo_comprobante',
-																 '$serie_comprobante',
-																 '$num_comprobante',
+																 '$bord_mod',
+																 '$esta_mod',
+																 '$manu_mod',
 																 '$fecha_hora',
-																 '$impuesto',
 																 '$total_cotizacion',
-																 'POR APROBAR')";
+																 'por aprobar')";
 		//return ejecutarConsulta($sql);
 		$idcotizacionnew=ejecutarConsulta_retornarID($sql);
 
@@ -94,9 +88,37 @@ Class Cotizacion
 
 
 	//Implementamos un método para anular la cotizacion
-	public function anular($idcotizacion)
+	public function rechazar($idcotizacion)
 	{
-		$sql="UPDATE cotizacion SET estado='Anulado' WHERE idcotizacion='$idcotizacion'";
+		$sql="UPDATE cotizacion SET estado='rechazado' WHERE idcotizacion='$idcotizacion'";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para anular la cotizacion
+	public function aprobar($idcotizacion,$idusuario)
+	{
+		$sql="UPDATE cotizacion SET estado='aprobado',editable='0',vb_cotizacion='$idusuario' WHERE idcotizacion='$idcotizacion'";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para anular la cotizacion
+	public function editar($idcotizacion)
+	{
+		$sql="UPDATE cotizacion SET editable='1', estado='por aprobar' WHERE idcotizacion='$idcotizacion'";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para anular la cotizacion
+	public function noeditar($idcotizacion)
+	{
+		$sql="UPDATE cotizacion SET editable='0', editable='por aprobar' WHERE idcotizacion='$idcotizacion'";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para anular la cotizacion
+	public function eliminar($idcotizacion)
+	{
+		$sql="DELETE FROM cotizacion WHERE idcotizacion='$idcotizacion'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -116,7 +138,7 @@ Class Cotizacion
 									UPPER(u.nombre) AS desarrollador,
 									c.total_cotizacion,
 									c.vb_cotizacion,
-									(SELECT nombre FROM usuario u WHERE u.idusuario=c.vb_cotizacion) AS vb,
+									(SELECT UPPER(nombre) FROM usuario u WHERE u.idusuario=c.vb_cotizacion) AS vb,
 									c.estado,
 									c.editable,
 									c.empresa,

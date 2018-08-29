@@ -46,18 +46,30 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#idcliente").val("");
-	$("#cliente").val("");
-	$("#serie_comprobante").val("");
-	$("#num_comprobante").val("");
-	$("#impuesto").val("0");
 
-	$("#empresa").val("0");
+	$("#empresa").val("1");
 	$('#empresa').selectpicker('refresh');
 	$("#cod_mod").val("0");
 	$('#cod_mod').selectpicker('refresh');
 	$("#color_mod").val("");
-
+	$("#tallas_mod").val("");
+	$("#id_trab").val("0");
+	$('#id_trab').selectpicker('refresh');
+	$("#div_mod").val("");
+	$("#temp_mod").val("");
+	$("#dest_mod").val("");
+	$("#tela1_mod").val("0");
+	$('#tela1_mod').selectpicker('refresh');
+	$("#tela2_mod").val("0");
+	$('#tela2_mod').selectpicker('refresh');
+	$("#tela3_mod").val("0");
+	$('#tela3_mod').selectpicker('refresh');
+	$("#bord_mod").val("0");
+	$('#bord_mod').selectpicker('refresh');
+	$("#esta_mod").val("0");
+	$('#esta_mod').selectpicker('refresh');
+	$("#manu_mod").val("0");
+	$('#manu_mod').selectpicker('refresh');
 
 	$("#idcotizacion").val("");
 
@@ -72,9 +84,7 @@ function limpiar()
 	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
     $('#fecha_hora').val(today);
 
-    //Marcamos el primer tipo_documento
-    $("#tipo_comprobante").val("Boleta");
-	$("#tipo_comprobante").selectpicker('refresh');
+
 }
 
 //Función mostrar formulario
@@ -197,14 +207,6 @@ function mostrar(idcotizacion)
 		data = JSON.parse(data);
 		mostrarform(true);
 
-
-		$("#tipo_comprobante").val(data.tipo_comprobante);
-		$("#tipo_comprobante").selectpicker('refresh');
-		$("#serie_comprobante").val(data.serie_comprobante);
-		$("#num_comprobante").val(data.num_comprobante);
-		$("#fecha_hora").val(data.fecha);
-		$("#impuesto").val(data.impuesto);
-
 		$("#cod_mod").val(data.cod_mod);
 		$("#cod_mod").selectpicker('refresh');
 		$("#empresa").val(data.empresa);
@@ -243,18 +245,78 @@ function mostrar(idcotizacion)
 }
 
 //Función para anular registros
-function anular(idcotizacion)
+function rechazar(idcotizacion)
 {
-	bootbox.confirm("¿Está Seguro de anular la cotizacion?", function(result){
+	bootbox.confirm("¿Está Seguro de rechazar la cotizacion?", function(result){
 		if(result)
         {
-        	$.post("../ajax/cotizacion.php?op=anular", {idcotizacion : idcotizacion}, function(e){
+        	$.post("../ajax/cotizacion.php?op=rechazar", {idcotizacion : idcotizacion}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
         }
 	})
 }
+
+//Función para anular registros
+function aprobar(idcotizacion,idusuario)
+{
+	bootbox.confirm("¿Está Seguro de aprobar la cotizacion?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/cotizacion.php?op=aprobar", {idcotizacion : idcotizacion}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
+
+
+//Función para anular registros
+function noeditar(idcotizacion)
+{
+	bootbox.confirm("¿Está Seguro de cerrar la cotizacion?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/cotizacion.php?op=noeditar", {idcotizacion : idcotizacion}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
+
+//Función para anular registros
+function editar(idcotizacion)
+{
+	bootbox.confirm("¿Está Seguro de editar la cotizacion?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/cotizacion.php?op=editar", {idcotizacion : idcotizacion}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
+
+//Función para anular registros
+function eliminar(idcotizacion)
+{
+	bootbox.confirm("¿Está Seguro de eliminar la cotizacion?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/cotizacion.php?op=eliminar", {idcotizacion : idcotizacion}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
+
+
+
 
 //Declaración de variables necesarias para trabajar con las compras y
 //sus detalles

@@ -95,12 +95,15 @@ Class Modelo
 
 	public function selectMod()
 	{
-		$sql="SELECT 	m.id_modelo,
-									m.cod_mod,
-									CONCAT(m.cod_mod,' ',m.nom_mod,' - ',ma.nombre) as modelo
-									FROM modelojf m
-									LEFT JOIN marcas ma
-									ON m.id_marca=ma.id_marca";
+		$sql="SELECT 		m.id_modelo,
+										m.cod_mod,
+										CONCAT(m.cod_mod,' ',m.nom_mod,' - ',ma.nombre) AS modelo
+										FROM modelojf m
+										LEFT JOIN marcas ma
+										ON m.id_marca=ma.id_marca
+										LEFT JOIN cotizacion c
+										ON m.cod_mod=c.cod_mod
+										WHERE c.cod_mod IS NULL";
 
 		return ejecutarConsulta($sql);
 	}

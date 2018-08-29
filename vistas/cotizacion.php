@@ -40,7 +40,7 @@ if ($_SESSION['udp']==1)
                             <th>Elaborado Por</th>
                             <th>Costo Mp</th>
                             <th>Fecha de Creación</th>
-                            <th>VB</th>
+                            <th>Visto Bueno</th>
                             <th>Estado</th>
                             <th>Opciones</th>
                             <th>Corregir</th>
@@ -56,7 +56,7 @@ if ($_SESSION['udp']==1)
                             <th>Elaborado Por</th>
                             <th>Costo Mp</th>
                             <th>Fecha de Creación</th>
-                            <th>VB</th>
+                            <th>Visto Bueno</th>
                             <th>Estado</th>
                             <th>Opciones</th>
                             <th>Corregir</th>

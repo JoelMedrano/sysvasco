@@ -21,31 +21,69 @@ $dest_mod=isset($_POST["dest_mod"])? limpiarCadena($_POST["dest_mod"]):"";
 $tela1_mod=isset($_POST["tela1_mod"])? limpiarCadena($_POST["tela1_mod"]):"";
 $tela2_mod=isset($_POST["tela2_mod"])? limpiarCadena($_POST["tela2_mod"]):"";
 $tela3_mod=isset($_POST["tela3_mod"])? limpiarCadena($_POST["tela3_mod"]):"";
-
-
-$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
-$tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
-$serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
-$num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
-$impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
-
-
-
+$bord_mod=isset($_POST["bord_mod"])? limpiarCadena($_POST["bord_mod"]):"";
+$esta_mod=isset($_POST["esta_mod"])? limpiarCadena($_POST["esta_mod"]):"";
+$manu_mod=isset($_POST["manu_mod"])? limpiarCadena($_POST["manu_mod"]):"";
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($idcotizacion)){
-			$rspta=$cotizacion->insertar($idcliente,$idusuario,$empresa,$cod_mod,$color_mod,$tallas_mod,$id_trab,$div_mod,$temp_mod,$dest_mod,$tela1_mod,$tela2_mod,$tela3_mod,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_cotizacion,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_cotizacion"],$_POST["descuento"]);
+			$rspta=$cotizacion->insertar($idusuario,
+                                   $empresa,
+                                   $cod_mod,
+                                   $color_mod,
+                                   $tallas_mod,
+                                   $id_trab,
+                                   $div_mod,
+                                   $temp_mod,
+                                   $dest_mod,
+                                   $tela1_mod,
+                                   $tela2_mod,
+                                   $tela3_mod,
+                                   $bord_mod,
+                                   $esta_mod,
+                                   $manu_mod,
+                                   $fecha_hora,
+                                   $total_cotizacion,
+                                   $_POST["idarticulo"],
+                                   $_POST["cantidad"],
+                                   $_POST["precio_cotizacion"],
+                                   $_POST["descuento"]);
 			echo $rspta ? "Cotizacion registrada" : "No se pudieron registrar todos los datos de la cotizacion";
 		}
 		else {
 		}
 	break;
 
-	case 'anular':
-		$rspta=$cotizacion->anular($idcotizacion);
- 		echo $rspta ? "Cotizacion anulada" : "Cotizacion no se puede anular";
+	case 'rechazar':
+		$rspta=$cotizacion->rechazar($idcotizacion);
+ 		echo $rspta ? "Cotizacion rechazada" : "Cotizacion no se puede rechazar";
 	break;
+
+  case 'aprobar':
+    $rspta=$cotizacion->aprobar($idcotizacion,$idusuario);
+    echo $rspta ? "Cotizacion aprobada" : "Cotizacion no se puede aprobar";
+  break;
+
+
+
+
+  case 'noeditar':
+    $rspta=$cotizacion->noeditar($idcotizacion);
+    echo $rspta ? "Cotizacion cerrada" : "Cotizacion no se puede cerrar";
+  break;
+
+  case 'editar':
+    $rspta=$cotizacion->editar($idcotizacion);
+    echo $rspta ? "Cotizacion lista para editar" : "Cotizacion no se puede editar";
+  break;
+
+
+  case 'eliminar':
+    $rspta=$cotizacion->eliminar($idcotizacion);
+    echo $rspta ? "Cotizacion lista para eliminar" : "Cotizacion no se puede eliminar";
+  break;
+
 
 	case 'mostrar':
 		$rspta=$cotizacion->mostrar($idcotizacion);
@@ -102,15 +140,15 @@ switch ($_GET["op"]){
           "6"=>$reg->total_cotizacion,
           "7"=>$reg->fecha,
           "8"=>$reg->vb,
-          "9"=>($reg->estado=='POR APROBAR')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='RECHAZADO')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
-          "10"=>($reg->estado=='POR APROBAR')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
-                                              ' <button class="btn btn-primary" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'):
-                 (($reg->estado=='RECHAZADO')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
-                                              ' <button class="btn btn-primary" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'.
-                                              ' <button class="btn btn-danger" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-trash"></i></button>'):
-                                             ('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
-                                              ' <button class="btn btn-danger" onclick="rechazar('.$reg->idcotizacion.')"><i class="fa fa-close"></i></button>')),
-          "11"=>($reg->editable=='1')?'<button class="btn btn-success" onclick="editar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>':' <button class="btn btn-danger" onclick="noeditar('.$reg->idcotizacion.')"><i class="fa fa-close"></i></button>'
+          "9"=>($reg->estado=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
+          "10"=>($reg->estado=='por aprobar')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
+                                               ' <button class="btn btn-success" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'):
+                 (($reg->estado=='rechazado')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
+                                               ' <button class="btn btn-success" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'.
+                                               ' <button class="btn btn-danger" onclick="eliminar('.$reg->idcotizacion.')"><i class="fa fa-trash"></i></button>'):
+                                             ( '<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
+                                               ' <button class="btn btn-danger" onclick="rechazar('.$reg->idcotizacion.')"><i class="fa fa-close"></i></button>')),
+          "11"=>($reg->editable=="0")?'<button class="btn btn-danger" onclick="editar('.$reg->idcotizacion.')"><i class="fa fa-folder"></i></button>':' <button class="btn btn-primary" onclick="noeditar('.$reg->idcotizacion.')"><i class="fa fa-folder-open-o"></i></button>'
 
         );
 
@@ -126,7 +164,7 @@ switch ($_GET["op"]){
           "6"=>$reg->total_cotizacion,
           "7"=>$reg->fecha,
           "8"=>$reg->vb,
-          "9"=>($reg->estado=='POR APROBAR')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='RECHAZADO')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
+          "9"=>($reg->estado=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
           "10"=>($reg->estado)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>':' <button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>',
           "11"=>($reg->editable=='1')?'<span class="label bg-green">PARA CORREGIR</span>':'<span class="label bg-red"></span>'
 

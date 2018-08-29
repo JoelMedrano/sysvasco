@@ -162,7 +162,8 @@ Class ConsultasJ
 										tmd.des_corta AS cod_linea,
 										lin.linea,
 										und.unidad,
-										pre.precio
+										pre.precio,
+										CONCAT(SUBSTRING(pro.codfab,1,6),' / ',tmd.des_corta,' / ',lin.linea,' / ',tmd.des_larga,' / ',und.unidad,' / ',IFNULL(pre.precio,0)) AS mp
 										FROM producto pro
 										LEFT JOIN tabla_m_detalle AS tmd
 										ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
@@ -211,6 +212,30 @@ Class ConsultasJ
 
 				return	ejecutarConsulta($sql);
 	}
+
+	public function precioMP($idarticulo)
+	{
+		$sql="SELECT	SUBSTRING(pro.codfab,1,6) AS idarticulo,
+									MAX(GREATEST(
+									CASE
+									WHEN pmp.monprov1='DOLARES AMERICANOS' THEN pmp.preprov1*3.3
+									ELSE pmp.preprov1 END,
+									CASE
+									WHEN pmp.monprov2='DOLARES AMERICANOS' THEN pmp.preprov2*3.3
+									ELSE pmp.preprov2 END,
+									CASE
+									WHEN pmp.monprov3='DOLARES AMERICANOS' THEN pmp.preprov3*3.3
+									ELSE pmp.preprov3 END)) AS precio_cotizacion
+									FROM preciomp pmp
+									LEFT JOIN producto pro
+									ON pmp.codpro=pro.codpro
+									WHERE pro.estpro='1' AND SUBSTRING(pro.codfab,1,6) = '$idarticulo'
+									GROUP BY SUBSTRING(pro.CodFab,1,6)";
+
+									return ejecutarConsulta($sql);
+
+	}
+
 
 }
 
