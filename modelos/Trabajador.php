@@ -156,6 +156,10 @@ Class Trabajador
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
+
+
+
+
 		
 
 	//Implementar un método para listar los registros

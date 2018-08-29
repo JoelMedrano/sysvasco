@@ -23,7 +23,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Trabajador 
+                          <h1 class="box-title">Trabajador
                           <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> 
                           <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
@@ -238,7 +238,7 @@ if ($_SESSION['almacen']==1)
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
                                 <div class="col-lg-2">
                                 <input type="text" class="form-control" name="asig_trab" id="asig_trab">
-                                </div>
+                                </div>  
                             </div>
                      
                             
@@ -321,6 +321,15 @@ if ($_SESSION['almacen']==1)
                             </div>
 
 
+                             <div class="form-group  col-xs-12">
+                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Prueba Visibilidad:</label>
+                                    <div class="col-lg-2">
+                                      <input type="text" class="form-control" name="prueba" id="prueba">
+                                    </div>
+                            </div>
+
+
+
 
 
 
@@ -335,6 +344,73 @@ if ($_SESSION['almacen']==1)
                       <div class="box-header with-border">
 
                       </div>
+
+
+
+                        
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                          </div>
+                        </form>
+                    </div>
+                    <!--Fin centro -->
+
+
+
+
+
+
+                    <div class="panel-body" id="formularioregistrosdatos">
+                        <form name="formulariodatos" id="formulariodatos" method="POST">
+
+                        <div class="box-header with-border">
+                           <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nombre(*):</label>
+                                <div class="col-lg-2">
+                                   <input type="hidden" name="idarticulo" id="idarticulo">
+                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
+                                <div class="col-lg-1">
+                                   <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
+                                </div>
+                             
+                           </div>
+
+
+                             <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Direccion(*):</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="dir_trab" id="dir_trab" >
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Urbanizacion(*):</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="urb_trab" id="urb_trab" >
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Distrito(*):</label>
+                                <div class="col-lg-2">
+                                  <select id="id_distrito" name="id_distrito" class="form-control selectpicker" data-live-search="true"></select>
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento:</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control" name="departamento" id="departamento" >
+                                </div>
+                            </div>
+
+
+                       </div>
 
 
 

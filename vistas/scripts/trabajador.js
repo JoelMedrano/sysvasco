@@ -5,6 +5,7 @@ function init(){
 	mostrarform(false);
 
 
+
 	listar();
 
 	$("#formulario").on("submit",function(e)
@@ -12,10 +13,16 @@ function init(){
 		guardaryeditar(e);	
 	})
 
+	$("#formulariodatos").on("submit",function(e)
+	{
+		guardaryeditardatos(e);	
+	})
+
+
 
 	//Cargamos los items al select funcion del trabajador
 	$.post("../ajax/consultasD.php?op=selectFuncion", function(r){
-	            $("#id_funcion").html(r);
+	            $("#id_funcion").html(r);  
 	            $('#id_funcion').selectpicker('refresh');
 
 	});
@@ -185,6 +192,7 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
+		$("#formularioregistrosdatos").hide();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 	}
@@ -192,10 +200,10 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
+		$("#formularioregistrosdatos").hide();
 		$("#btnagregar").show();
 	}
 }
-
 
 
 
@@ -243,6 +251,32 @@ function guardaryeditar(e)
 	e.preventDefault(); //No se activará la acción predeterminada del evento
 	$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
+
+	$.ajax({
+		url: "../ajax/trabajador.php?op=guardaryeditar",
+	    type: "POST",
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+
+	    success: function(datos)
+	    {                    
+	          bootbox.alert(datos);	          
+	          mostrarform(false);
+	          tabla.ajax.reload();
+	    }
+
+	});
+	limpiar();
+}
+
+
+
+function guardaryeditardatos(e)
+{
+	e.preventDefault(); //No se activará la acción predeterminada del evento
+	$("#btnGuardar").prop("disabled",true);
+	var formData = new FormData($("#formulariodatos")[0]);
 
 	$.ajax({
 		url: "../ajax/trabajador.php?op=guardaryeditar",
@@ -358,6 +392,104 @@ function mostrar(id_trab)
 
  	})
 }
+
+
+
+
+function mostrardatos(id_trab)
+{
+	$.post("../ajax/trabajador.php?op=mostrar",{id_trab : id_trab}, function(data, status)
+	{
+		data = JSON.parse(data);		
+		mostrarform(true);
+
+		$("#id_funcion").val(data.id_funcion);
+		$('#id_funcion').selectpicker('refresh'); 
+
+        $("#id_genero").val(data.id_genero);
+		$('#id_genero').selectpicker('refresh'); 
+
+		$("#id_tip_doc").val(data.id_tip_doc);
+		$('#id_tip_doc').selectpicker('refresh'); 
+
+		$("#id_tip_plan").val(data.id_tip_plan);
+		$('#id_tip_plan').selectpicker('refresh');
+
+		$("#id_sucursal").val(data.id_sucursal);
+		$('#id_sucursal').selectpicker('refresh');
+
+		$("#id_area").val(data.id_area);
+		$('#id_area').selectpicker('refresh'); 
+
+		$("#id_cen_cost").val(data.id_cen_cost);
+		$('#id_cen_cost').selectpicker('refresh'); 
+
+		$("#id_tip_man_ob").val(data.id_tip_man_ob);
+		$('#id_tip_man_ob').selectpicker('refresh'); 
+
+		$("#id_categoria").val(data.id_categoria);
+		$('#id_categoria').selectpicker('refresh');
+
+		$("#id_form_pag").val(data.id_form_pag);
+		$('#id_form_pag').selectpicker('refresh');
+
+		$("#id_tip_cont").val(data.id_tip_cont);
+		$('#id_tip_cont').selectpicker('refresh');
+
+		$("#id_est_civil").val(data.id_est_civil);
+		$('#id_est_civil').selectpicker('refresh');
+
+		$("#id_reg_pen").val(data.id_reg_pen);
+		$('#id_reg_pen').selectpicker('refresh');
+
+		$("#id_com_act").val(data.id_com_act);
+		$('#id_com_act').selectpicker('refresh');
+
+		$("#id_t_registro").val(data.id_t_registro);
+		$('#id_t_registro').selectpicker('refresh');
+
+		$("#id_turno").val(data.id_turno);
+		$('#id_turno').selectpicker('refresh');
+
+		$("#id_distrito").val(data.id_distrito);
+		$('#id_distrito').selectpicker('refresh');
+
+
+		$("#id_tip_doc").val(data.id_tip_doc);
+		$('#id_tip_doc').selectpicker('refresh');
+
+
+		$("#id_trab").val(data.id_trab);
+		$("#nom_trab").val(data.nom_trab);
+		$("#apepat_trab").val(data.apepat_trab);
+		$("#apemat_trab").val(data.apemat_trab);
+		$("#num_doc_trab").val(data.num_doc_trab);
+		$("#dir_trab").val(data.dir_trab);
+		$("#urb_trab").val(data.urb_trab);
+		$("#fec_nac_trab").val(data.fec_nac_trab);
+		$("#lug_nac_trab").val(data.lug_nac_trab);
+		$("#num_tlf_dom").val(data.num_tlf_dom);
+		$("#num_tlf_cel").val(data.num_tlf_cel);
+		$("#email_trab").val(data.email_trab);
+		$("#fec_ing_trab").val(data.fec_ing_trab);
+		$("#fec_cese_trab").val(data.fec_cese_trab);
+		$("#sueldo_trab").val(data.sueldo_trab);
+		$("#bono_trab").val(data.bono_trab);
+		$("#asig_trab").val(data.asig_trab);
+		$("#obs_trab").val(data.obs_trab);
+		$("#fecfin_con_ant").val(data.fecfin_con_ant);
+		$("#fecfin_con_act").val(data.fecfin_con_act);
+		$("#cusp_trab").val(data.cusp_trab);
+		$("#nacionalidad").val(data.nacionalidad);
+		$("#departamento").val(data.departamento);
+		$("#edad_trab").val(data.edad_trab);
+
+		
+
+
+ 	})
+}
+
 
 
 

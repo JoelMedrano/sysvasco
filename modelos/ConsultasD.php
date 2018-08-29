@@ -208,7 +208,9 @@ Class ConsultasD
 	// Vacaciones - Implementar un método para listar los registros y mostrar en el select
 	public function selectTrabajadorVacaciones()
 	{
-		$sql="SELECT id_trab, num_doc_trab As id_nomtrab,  CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab)    AS apellidosynombres FROM Trabajador";
+		$sql="SELECT id_trab, num_doc_trab As id_nomtrab,  CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab)    AS apellidosynombres 
+		FROM Trabajador
+		where id_tip_plan='1'";
 		return ejecutarConsulta($sql);		
 	}
 
