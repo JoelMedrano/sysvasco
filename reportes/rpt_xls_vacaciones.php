@@ -126,9 +126,8 @@ $objPHPExcel->getActiveSheet()->getStyle("T$fila:V$fila")->getFont()->setBold(tr
 $fila+=1;
 
   //// Inmovilizar paneles
-    $objPHPExcel->getActiveSheet(0)->freezePane('D5');
-    $objPHPExcel->getActiveSheet(0)->freezePaneByColumnAndRow(1, 40);
-
+    
+    $objPHPExcel->getActiveSheet()->freezePane('D');
 
  
 

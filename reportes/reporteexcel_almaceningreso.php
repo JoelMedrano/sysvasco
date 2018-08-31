@@ -13,9 +13,10 @@ $id = $_GET["id"];
  
 //ajuntar la libreria excel
 include "Classes/PHPExcel.php";
+include "../library/consulSQL.php";
  
-$conexion=mysql_connect("192.168.1.24","admin","vasco123");
-    mysql_select_db("db_corpvasco",$conexion);   
+ $conexion=mysql_connect("localhost","root","");
+    mysql_select_db("vasco",$conexion);   
 
    
          $fecha=date("d/m/Y");
@@ -138,7 +139,16 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 	
-    $sqlPro=mysql_query("SELECT * from cotizacion where id_cotizacion= $id " );
+    $sqlPro=mysql_query("SELECT distinct Nea.tNea, Nea.sNea, Nea.nNea,  (SELECT DISTINCT tb.Des_Larga FROM Tabla_M_Detalle  AS tb WHERE tb.Cod_Tabla='TEMI'AND tb.Cod_Argumento= Nea.TrGuia) AS TipDocGuia, Nea.SerGuia, Nea.NroGuia, Nea.TipOc, Nea.SerOc,DATE_FORMAT(Nea.FecEmi, '%d/%m/%Y') AS FecEmi , 
+        Nea.Mo,(SELECT  distinct tb.Des_Larga FROM Tabla_M_Detalle  AS tb where tb.Cod_Tabla='TMON'and tb.Cod_Argumento= Nea.Mo) as moneda,
+         Nea.trDcto, Nea.srDcto, Nea.nrDcto, Nea.EstReg, 
+        pro.UbiPro,IFNULL((SELECT distinct ubi.Distrito FROM Ubigeo  AS ubi where ubi.Codigo= pro.UbiPro),'') as distrito,
+          Nea.CodRuc, (SELECT distinct tb.Des_Larga FROM Tabla_M_Detalle  AS tb where tb.Cod_Tabla='TEMI'and tb.Cod_Argumento= Nea.trDcto) as TipDoc,
+           pro.RazPro, CONCAT(pro.Telpro1 , ' - ', pro.TelPro2) AS telefono, pro.RucPro,  pro.DirPro AS DirPro, Nea.NroOc, Nea.UsuReg
+    FROM    Nea As Nea,Proveedor As pro
+    where  Nea.CodRuc = pro.CodRuc
+    
+            and Nea.nNea= $id " );
     
      
               
