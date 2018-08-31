@@ -200,7 +200,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
                                 c.tallas_mod,
                                 c.tela1_mod,
                                 m.imagen,
-                                CONCAT(t.apepat_trab,t.apemat_trab,t.nom_trab) AS diseñador
+                                CONCAT(t.apepat_trab,t.apemat_trab,t.nom_trab) AS disenador
                                 FROM cotizacion c
                                 LEFT JOIN modelojf m
                                 ON c.cod_mod=m.cod_mod
