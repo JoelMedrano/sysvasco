@@ -91,7 +91,7 @@ Class Modelo
 		return ejecutarConsulta($sql);
 	}
 
-	//select modelo
+	//select modelo para cotizacion
 
 	public function selectMod()
 	{
@@ -104,6 +104,23 @@ Class Modelo
 										LEFT JOIN cotizacion c
 										ON m.cod_mod=c.cod_mod
 										WHERE c.cod_mod IS NULL";
+
+		return ejecutarConsulta($sql);
+	}
+
+	//select para detalle_cotizacion
+
+	public function selectModDC()
+	{
+		$sql="SELECT	c.cod_mod,
+									CONCAT(m.cod_mod,' - ',m.nom_mod) AS nombre
+									FROM cotizacion c
+									LEFT JOIN detalle_cotizacion dc
+									ON c.idcotizacion=dc.idcotizacion
+									LEFT JOIN modelojf m
+									ON c.cod_mod=m.cod_mod
+									WHERE c.editable='1'
+									GROUP BY c.cod_mod";
 
 		return ejecutarConsulta($sql);
 	}

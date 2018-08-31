@@ -39,7 +39,7 @@ if ($_SESSION['udp']==1)
                             <th>Diseñado Por</th>
                             <th>Elaborado Por</th>
                             <th>Costo Mp</th>
-                            <th>Fecha de Creación</th>
+                            <th>F. Creación</th>
                             <th>Visto Bueno</th>
                             <th>Estado</th>
                             <th>Opciones</th>
@@ -55,7 +55,7 @@ if ($_SESSION['udp']==1)
                             <th>Diseñado Por</th>
                             <th>Elaborado Por</th>
                             <th>Costo Mp</th>
-                            <th>Fecha de Creación</th>
+                            <th>F. Creación</th>
                             <th>Visto Bueno</th>
                             <th>Estado</th>
                             <th>Opciones</th>
