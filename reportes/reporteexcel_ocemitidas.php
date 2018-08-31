@@ -10,11 +10,11 @@ session_start();
 
    //ajuntar la libreria excel
 include "Classes/PHPExcel.php";
-include "../library/consulSQL.php";
 
 
- $conexion=mysql_connect("localhost","root","");
-    mysql_select_db("vasco",$conexion);   
+
+ $conexion=mysql_connect("192.168.1.7","admin","vasco123");
+    mysql_select_db("db_corpvasco",$conexion);   
 
 
    $fecha=date("d/m/Y");
@@ -158,59 +158,7 @@ $objPHPExcel->getActiveSheet()->getStyle("B$fila:S$fila")->getFont()->setBold(tr
 
    
   
-    $sql=mysql_query("SELECT DISTINCT  oComDet.Nro AS Nro,
- Proveedor.RazPro,
- CONCAT(Proveedor.Telpro1 , ' - ', Proveedor.TelPro2) AS Telefono,
- oComDet.Tip AS TipDoc,
- NULL SerDoc,
- NULL NroDoc,
- oComDet.Item, 
- oComDet.CodPro,
- oComDet.CodFab, 
- Producto.DesPro,
-Tabla_M_Detalle_1.Des_Larga AS Color,
- Tabla_M_Detalle_2.Des_Corta AS Unidad,
- oComDet.PrePro,
-DATE_FORMAT(oCompra.FecEmi, '%d/%m/%Y')  AS FecEmi,
-DATE_FORMAT(oCompra.Fecllegada, '%d/%m/%Y')  AS FecProg,
- NULL FecEnt,
- oComDet.CanPro AS CanPed, 
- IFNULL(nd.CanSol,0.000000) AS CanRec,
-(oComDet.CanPro - ( IFNULL(nd.CanSol,0.000000))) AS Saldo, 
- 'EMITIDO' AS Estado
-    FROM    oComDet
-     LEFT JOIN Producto ON 
-         oComDet.CodPro = Producto.CodPro
-     LEFT JOIN Tabla_M_Detalle AS Tabla_M_Detalle_1 ON 
-         Producto.ColPro = Tabla_M_Detalle_1.Cod_Argumento
-     LEFT JOIN  Tabla_M_Detalle AS Tabla_M_Detalle_2 ON 
-         Producto.UndPro = Tabla_M_Detalle_2.Cod_Argumento
-    LEFT JOIN Tabla_M_Detalle AS Tabla_M_Detalle_3 ON 
-         ColProv = Tabla_M_Detalle_3.Cod_Argumento
-         AND (Tabla_M_Detalle_3.Cod_Tabla = 'TCOL' OR Tabla_M_Detalle_3.Cod_Tabla IS NULL)
-    LEFT JOIN oCompra  ON 
-      oComDet.Nro = oCompra.Nro
-     AND oCompra.estac='ABI'
-     AND oCompra.EstOco='03'
-     AND oCompra.FecEmi LIKE '%2018%'
-    LEFT JOIN
-    (SELECT DISTINCT NeaDet.CanSol AS CanSol,NeaDet.CodPro AS CodPro,  oComDet.Nro 
-    FROM Nea, NeaDet, oComDet, oCompra 
-  WHERE Nea.nNea= NeaDet.nNea 
-  AND oComDet.Nro=Nea.NroOc
-  AND neadet.CodPro = oComDet.CodPro
-  AND neadet.FecReg LIKE '%2018%'
-  AND neadet.EstReg='P'
-  AND oCompra.estac='ABI'
-        AND oCompra.EstOco='03'
-        AND oCompra.FecEmi LIKE '%2018%'
-    )  nd  ON nd.CodPro= oComDet.CodPro
-      AND nd.Nro=oComDet.Nro
-   LEFT JOIN Proveedor  ON oCompra.CodRuc = Proveedor.CodRuc
-     WHERE (Tabla_M_Detalle_1.Cod_Tabla = 'TCOL'OR Tabla_M_Detalle_1.Cod_Tabla IS NULL) 
-     AND (Tabla_M_Detalle_2.Cod_Tabla = 'TUND' OR Tabla_M_Detalle_2.Cod_Tabla IS NULL)
-     AND oCompra.FecEmi LIKE '%2018%'
-ORDER BY oComDet.Nro DESC, oComDet.Item ASC
+    $sql=mysql_query("SELECT * FROM trabajador
  ");  
 
 
@@ -231,24 +179,24 @@ while($res=mysql_fetch_array($sql)){
  
   
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($res["Nro"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", utf8_encode($res["RazPro"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($res["Telefono"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($res["TipDoc"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($res["Item"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($res["CodPro"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", utf8_encode($res["CodFab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($res["DesPro"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($res["Color"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", utf8_encode($res["Unidad"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($res["PrePro"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", utf8_encode($res["FecEmi"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", utf8_encode($res["FecProg"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", utf8_encode($res["FecEnt"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", utf8_encode($res["CanPed"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", utf8_encode($res["CanRec"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("R$fila", utf8_encode($res["Saldo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("S$fila", utf8_encode($res["Estado"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("R$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("S$fila", utf8_encode($res["nom_trab"]));
   
 
   //Establecer estilo

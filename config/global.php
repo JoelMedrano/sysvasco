@@ -1,6 +1,6 @@
 <?php
 //Ip de la pc servidor de base de datos
-define("DB_HOST","192.168.1.7");
+define("DB_HOST","192.168.1.24");
 
 //Nombre de la base de datos
 define("DB_NAME", "db_corpvasco");

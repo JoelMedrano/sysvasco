@@ -386,7 +386,7 @@ if ($_SESSION['almacen']==1)
                                    <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
                                 </div>
                              
-                           </div>
+                          </div>
 
 
                              <!-- fila 1 -->
