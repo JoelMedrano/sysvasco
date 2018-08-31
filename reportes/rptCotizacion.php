@@ -3,6 +3,20 @@
    session_start();
 // $id=$_GET['nrooc'];
 // $id=$_POST['nrooc'];
+<<<<<<< HEAD
+=======
+
+// echo $id;
+
+
+
+// header("Content-Type: text/html;charset=utf-8");
+
+// <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+// header("Content-Type: text/html;charset=ISO-8859-1");
+
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
 // echo $id;
 
@@ -13,9 +27,16 @@ $id = $_GET["id"];
  
 //ajuntar la libreria excel
 include "Classes/PHPExcel.php";
+<<<<<<< HEAD
  
 $conexion=mysql_connect("192.168.1.24","admin","vasco123");
     mysql_select_db("db_corpvasco",$conexion);   
+=======
+//include "../library/consulSQL.php";
+
+ $conexion=mysql_connect("192.168.1.24","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
+    mysql_select_db("db_corpvasco",$conexion);
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
    
          $fecha=date("d/m/Y");
@@ -136,6 +157,7 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
 //establecer titulos de impresion en cada hoja
 $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 10);
 
+<<<<<<< HEAD
 
 	
     $sqlPro=mysql_query("SELECT * from cotizacion where id_cotizacion= $id " );
@@ -153,10 +175,44 @@ $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", 'Tipo:');
 $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $resPro["tNea"]);   
 $objPHPExcel->getActiveSheet() ->getStyle("H$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo1, "G$fila");
+=======
+ $sqlPro=mysql_query("SELECT
+c.idcotizacion,
+c.cod_mod,
+m.nom_mod,
+c.tallas_mod,
+c.id_trab,
+c.tela1_mod,
+m.imagen,
+CONCAT(t.nom_trab,' ',t.apepat_trab,' ',SUBSTRING(t.apemat_trab,1,1),'.') AS disenador,
+DATE(fecha_hora) AS fecha
+FROM cotizacion c
+LEFT JOIN modelojf m
+ON c.cod_mod=m.cod_mod
+LEFT JOIN trabajador t
+ON t.id_trab=c.id_trab
+where c.idcotizacion=$idcotizacion" ) or die(mysql_error());
 
 
 
 
+
+  $resPro=mysql_fetch_array($sqlPro);
+
+  $fila=2;
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", 'HOJA DE COTIZACION');
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", 'Fecha de Creación:');
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $resPro["fecha"]);
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "J$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo, "D$fila:E$fila"); //establecer estilo
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
+
+
+
+  $fila=3;
+
+<<<<<<< HEAD
 
 $fila=2;
 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'Local:');
@@ -166,6 +222,11 @@ $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $resPro["sNea"]);
 $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getNumberFormat()->setFormatCode('0000');    
 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo1, "G$fila");
  
+=======
+  $fila=4;
+
+  $fila=5;
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
 $fila=3;
 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'Registrado por:');
@@ -180,6 +241,7 @@ $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getNumberFormat()->setFormat
 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "");
 			
 
+<<<<<<< HEAD
 $fila=5;
 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'T.Documento');  
 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", 'Serie');  
@@ -295,8 +357,80 @@ while($res=mysql_fetch_array($sql)){
 
  
  
+=======
+  $fila=6;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "Código :");
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["cod_mod"]));
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo2, "D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
+  //incluir una imagen
+  $objDrawing = new PHPExcel_Worksheet_Drawing();
+  $objDrawing->setPath('../files/modelos/'.$resPro["imagen"].''); //ruta
+  $objDrawing->setWidthAndHeight(300,200);
+  //$objDrawing->setWeight(100); //altura
+  $objDrawing->setCoordinates('G6');
+  $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
+  //fin: incluir una imagen
+
+  $fila=7;
+
+  $fila=8;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "Nombre :");
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["nom_mod"]));
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo2, "D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $fila=9;
+
+  $fila=10;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "Tallas :");
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["tallas_mod"]));
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo2, "D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $fila=11;
+
+  $fila=12;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "Descripción :");
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["tela1_mod"]));
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo2, "D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $fila=13;
+
+  $fila=14;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "Diseñadora :");
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["disenador"]));
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo2, "D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $fila=15;
+
+  $fila=16;
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", "1.- DATOS TEXTILES");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "D$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "D$fila:E$fila"); //establecer estilo
+
+  $fila=16;
+
+  $fila=17;
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
+
+  //titulos de columnas
   $fila+=1;
+<<<<<<< HEAD
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila",  utf8_encode($res["Item"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("C$fila",  utf8_encode($res["CodPro"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("D$fila",  utf8_encode($res["DesPro"]));
@@ -312,6 +446,118 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet() ->getStyle("C$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT); 
   $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT); 
   $objPHPExcel->getActiveSheet() ->getStyle("F$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT); 
+=======
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'Código');
+  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", 'Precio MP');
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", 'Descripción');
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", '');
+  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", '');
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:F$fila");
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", 'Unidad');
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", 'Linea');
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", 'Consumo');
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", '');
+  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", 'Costo Primo');
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "B$fila:K$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila:K$fila")->getFont()->setBold(true); //negrita
+
+  //  <td style="mso-number-format:'0.00';">12346579.00</td>
+  //  Exportar de PHP a Excel y dar formato a celdas
+
+  // //rellenar con contenido
+
+
+
+      $sql=mysql_query("SELECT
+dc.idcotizacion,
+dc.idarticulo,
+mp.nombre,
+dc.cantidad,
+ROUND(dc.precio_cotizacion,6) AS precio_cotizacion,
+dc.descuento,
+ROUND((dc.cantidad*dc.precio_cotizacion-dc.descuento),6) AS subtotal,
+unidad,
+linea
+FROM detalle_cotizacion dc
+LEFT JOIN
+(SELECT
+SUBSTRING(pro.codfab,1,6) AS id_articulo,
+tmd.des_larga AS nombre,
+tmd.des_corta AS cod_linea,
+lin.linea,
+und.unidad,
+pre.precio
+FROM producto pro
+LEFT JOIN tabla_m_detalle AS tmd
+ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
+LEFT JOIN
+(SELECT
+SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
+tmd.des_larga AS linea,
+tmd.des_corta AS cod_linea
+FROM producto pro
+LEFT JOIN tabla_m_detalle AS tmd
+ON LEFT(pro.codfab,3)=tmd.des_corta
+WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
+GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
+ON SUBSTRING(pro.codfab,1,6)=cod_sublinea
+LEFT JOIN
+(SELECT
+SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
+tmd.des_corta AS unidad
+FROM producto pro
+LEFT JOIN tabla_m_detalle AS tmd
+ON pro.undpro=tmd.cod_argumento
+WHERE pro.estpro='1' AND tmd.cod_tabla='tund'
+GROUP BY SUBSTRING(pro.CodFab,1,6)) AS und
+ON SUBSTRING(pro.codfab,1,6)=und.cod_sublinea
+LEFT JOIN
+(SELECT
+SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
+MAX(GREATEST(
+CASE
+WHEN pmp.monprov1='DOLARES AMERICANOS' THEN pmp.preprov1*3.3
+ELSE pmp.preprov1 END,
+CASE
+WHEN pmp.monprov2='DOLARES AMERICANOS' THEN pmp.preprov2*3.3
+ELSE pmp.preprov2 END,
+CASE
+WHEN pmp.monprov3='DOLARES AMERICANOS' THEN pmp.preprov3*3.3
+ELSE pmp.preprov3 END)) AS precio
+FROM preciomp pmp
+LEFT JOIN producto pro
+ON pmp.codpro=pro.codpro
+WHERE pro.estpro='1'
+GROUP BY SUBSTRING(pro.CodFab,1,6)) AS pre
+ON SUBSTRING(pro.codfab,1,6)=pre.cod_sublinea
+WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea
+GROUP BY SUBSTRING(pro.CodFab,1,6)) AS mp
+ON dc.idarticulo=mp.id_articulo
+WHERE dc.idcotizacion=$idcotizacion") or die(mysql_error());
+
+
+
+
+  while($res=mysql_fetch_array($sql)){
+
+
+  $fila+=1;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $res["idarticulo"]);
+  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $res["precio_cotizacion"]);
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($res["nombre"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", '');
+  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", '');
+  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:F$fila");
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($res["unidad"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", utf8_encode($res["linea"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($res["cantidad"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($res["descuento"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", utf8_encode($res["subtotal"]));
+
+
+
+
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
 
  }
@@ -336,6 +582,15 @@ $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $resTot["Total"]);
 
  
 
+<<<<<<< HEAD
+=======
+ $sql1=mysql_query("SELECT
+ dc.idcotizacion,
+ ROUND(SUM(dc.cantidad*dc.precio_cotizacion),6) AS total
+ FROM detalle_cotizacion dc
+ WHERE dc.idcotizacion=$idcotizacion
+ GROUP BY dc.idcotizacion") or die(mysql_error());
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
   $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
   $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
@@ -349,6 +604,7 @@ $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $resTot["Total"]);
 
 
 
+<<<<<<< HEAD
 
 $fila+=1;
 $fila+=1;
@@ -365,6 +621,15 @@ $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHori
 
 $objPHPExcel->getActiveSheet()->setSharedStyle($observaciones, "A$fila"); //establecer estilo
  
+=======
+  $fila+=1;
+
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", "TOTAL COSTO - MATERIA PRIMA S/");
+  $objPHPExcel->getActiveSheet()->mergeCells("E$fila:I$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo2, "E$fila:I$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
 
  $fila+=1;
@@ -390,6 +655,7 @@ $objPHPExcel->getActiveSheet()->setSharedStyle($observaciones, "A$fila"); //esta
  
 
 
+<<<<<<< HEAD
 
 $objPHPExcel->getActiveSheet()->setSharedStyle($observaciones, "A$fila"); //establecer estilo
 
@@ -420,6 +686,19 @@ header("Content-Type: application/vnd.ms-excel");
 
 
 
+=======
+  $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(5);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+>>>>>>> 2e70889ab78aa6023cef63e59f9d09270e4e5ff1
 
 
 
