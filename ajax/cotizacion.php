@@ -128,7 +128,10 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
 
+
       if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3') {
+
+        $url='../reportes/rptCotizacion.php?id=';
 
         $data[]=array(
           "0"=>$reg->idcotizacion,
@@ -142,17 +145,22 @@ switch ($_GET["op"]){
           "8"=>$reg->vb,
           "9"=>($reg->estado=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
           "10"=>($reg->estado=='por aprobar')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
-                                               ' <button class="btn btn-success" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'):
+                                               ' <button class="btn btn-success" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'.
+                                               '<a target="_blank" href="'.$url.$reg->idcotizacion.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'):
                  (($reg->estado=='rechazado')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
                                                ' <button class="btn btn-success" onclick="aprobar('.$reg->idcotizacion.')"><i class="fa fa-check"></i></button>'.
-                                               ' <button class="btn btn-danger" onclick="eliminar('.$reg->idcotizacion.')"><i class="fa fa-trash"></i></button>'):
+                                               ' <button class="btn btn-danger" onclick="eliminar('.$reg->idcotizacion.')"><i class="fa fa-trash"></i></button>'.
+                                               '<a target="_blank" href="'.$url.$reg->idcotizacion.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'):
                                              ( '<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.
-                                               ' <button class="btn btn-danger" onclick="rechazar('.$reg->idcotizacion.')"><i class="fa fa-close"></i></button>')),
+                                               ' <button class="btn btn-danger" onclick="rechazar('.$reg->idcotizacion.')"><i class="fa fa-close"></i></button>'.
+                                               '<a target="_blank" href="'.$url.$reg->idcotizacion.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>')),
           "11"=>($reg->editable=="0")?'<button class="btn btn-danger" onclick="editar('.$reg->idcotizacion.')"><i class="fa fa-folder"></i></button>':' <button class="btn btn-primary" onclick="noeditar('.$reg->idcotizacion.')"><i class="fa fa-folder-open-o"></i></button>'
 
         );
 
       }else {
+
+        $url='../reportes/rptCotizacion.php?id=';
 
         $data[]=array(
           "0"=>$reg->idcotizacion,
@@ -165,7 +173,7 @@ switch ($_GET["op"]){
           "7"=>$reg->fecha,
           "8"=>$reg->vb,
           "9"=>($reg->estado=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
-          "10"=>($reg->estado)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>':' <button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>',
+          "10"=>($reg->estado)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.'<a target="_blank" href="'.$url.$reg->idcotizacion.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>':' <button class="btn btn-warning" onclick="mostrar('.$reg->idcotizacion.')"><i class="fa fa-eye"></i></button>'.'<a target="_blank" href="'.$url.$reg->idcotizacion.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
           "11"=>($reg->editable=='1')?'<span class="label bg-green">PARA CORREGIR</span>':'<span class="label bg-red"></span>'
 
           );

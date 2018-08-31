@@ -12,18 +12,19 @@ $iddetalle_cotizacion=isset($_POST["iddetalle_cotizacion"])? limpiarCadena($_POS
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $cantidad=isset($_POST["cantidad"])? limpiarCadena($_POST["cantidad"]):"";
 $precio_cotizacion=isset($_POST["precio_cotizacion"])? limpiarCadena($_POST["precio_cotizacion"]):"";
-
+$cod_mod=isset($_POST["cod_mod"])? limpiarCadena($_POST["cod_mod"]):"";
+$idcotizacion=isset($_POST["idcotizacion"])? limpiarCadena($_POST["idcotizacion"]):"";
 
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		if (empty($iddetalle_cotizacion)){
-			$rspta=$detalle_cotizacion->insertar($idarticulo,$cantidad);
+			$rspta=$detalle_cotizacion->insertar($idcotizacion,$idarticulo,$cantidad,$precio_cotizacion);
 			echo $rspta ? "Detalle registrado" : "Detalle no se pudo registrar";
 		}
 		else {
-			$rspta=$detalle_cotizacion->editar($iddetalle_cotizacion,$idarticulo,$cantidad);
+			$rspta=$detalle_cotizacion->editar($iddetalle_cotizacion,$idarticulo,$cantidad,$precio_cotizacion);
 			echo $rspta ? "Detalle actualizado" : "Detalle no se pudo actualizar";
 		}
 	break;
@@ -113,6 +114,34 @@ switch ($_GET["op"]){
 				}
 
 	break;
+
+  case 'selectModDC':
+    require_once "../modelos/Modelo.php";
+    $mp = new Modelo();
+
+    $rspta = $mp->selectModDC();
+
+        while ($reg = $rspta->fetch_object())
+
+        {
+        echo '<option value=' . $reg->cod_mod . '>' . $reg->nombre . '</option>';
+        }
+
+  break;
+
+  case 'selectCot':
+    require_once "../modelos/Cotizacion.php";
+    $cot = new Cotizacion();
+
+    $rspta = $cot->selectCot();
+
+        while ($reg = $rspta->fetch_object())
+
+        {
+        echo '<option value=' . $reg->idcotizacion . '>' . $reg->nombre . '</option>';
+        }
+
+  break;
 
 }
 ?>

@@ -56,6 +56,16 @@ if ($_SESSION['udp']==1)
                         <form name="formulario" id="formulario" method="POST">
 
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Cotizacion N°(*):</label>
+                            <select id="idcotizacion" name="idcotizacion" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Modelo(*):</label>
+                            <select id="cod_mod" name="cod_mod" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>MATERIA PRIMA(*):</label>
                             <input name="iddetalle_cotizacion" id="iddetalle_cotizacion">
                             <select id="idarticulo" name="idarticulo" class="form-control selectpicker" data-live-search="true" required></select>
@@ -63,7 +73,7 @@ if ($_SESSION['udp']==1)
 
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>CONSUMO(*):</label>
-                            <input type="number" class="form-control" name="cantidad" id="cantidad" any="step" required>
+                            <input type="number" class="form-control" name="cantidad" id="cantidad" step="any" required>
                           </div>
 
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
