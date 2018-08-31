@@ -238,7 +238,7 @@ Class Cotizacion
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT	c.idcotizacion,
+		$sql="SELECT 	c.idcotizacion,
 									DATE(c.fecha_hora) AS fecha,
 									m.id_marca,
 									ma.nombre AS marca,
@@ -248,7 +248,9 @@ Class Cotizacion
 									CONCAT(t.apepat_trab,' ',t.apemat_trab,' ',t.nom_trab) AS diseñador,
 									c.idusuario,
 									UPPER(u.nombre) AS desarrollador,
-									c.total_cotizacion,
+									CASE
+									WHEN c.total_cotizacion=np.subtotal THEN ROUND(c.total_cotizacion,6)
+									ELSE ROUND(np.subtotal,6) END AS total_cotizacion,
 									c.vb_cotizacion,
 									(SELECT nombre FROM usuario u WHERE u.idusuario=c.vb_cotizacion) AS vb,
 									c.estado,
@@ -261,7 +263,14 @@ Class Cotizacion
 									LEFT JOIN usuario u
 									ON C.idusuario=u.idusuario
 									LEFT JOIN trabajador t
-									ON C.id_trab=t.id_trab";
+									ON C.id_trab=t.id_trab
+									LEFT JOIN
+										(SELECT
+										idcotizacion,
+										SUM(cantidad*precio_cotizacion) AS subtotal
+										FROM detalle_cotizacion dc
+										GROUP BY idcotizacion) AS np
+									ON c.idcotizacion=np.idcotizacion";
 		return ejecutarConsulta($sql);
 	}
 
@@ -273,6 +282,24 @@ Class Cotizacion
 	public function cotizaciondetalle($idcotizacion){
 		$sql="SELECT a.nombre as articulo,a.codigo,d.cantidad,d.precio_cotizacion,d.descuento,(d.cantidad*d.precio_cotizacion-d.descuento) as subtotal FROM detalle_cotizacion d INNER JOIN articulo a ON d.idarticulo=a.idarticulo WHERE d.idcotizacion='$idcotizacion'";
 		return ejecutarConsulta($sql);
+	}
+
+
+	public function selectCot()
+	{
+		$sql="SELECT  c.idcotizacion,
+									CONCAT('Cotizacion N°: ',c.idcotizacion,' - ',m.cod_mod) AS nombre
+									FROM cotizacion c
+									LEFT JOIN detalle_cotizacion dc
+									ON c.idcotizacion=dc.idcotizacion
+									LEFT JOIN modelojf m
+									ON c.cod_mod=m.cod_mod
+									WHERE c.editable='1'
+									GROUP BY c.cod_mod";
+
+		return ejecutarConsulta($sql);
+
+
 	}
 
 }

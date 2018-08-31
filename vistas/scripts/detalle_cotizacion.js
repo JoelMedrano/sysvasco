@@ -17,7 +17,17 @@ function init(){
 			precioMP();
 	});
 
+	//Cargamos los items al select cliente
+	$.post("../ajax/detalle_cotizacion.php?op=selectModDC", function(r){
+							$("#cod_mod").html(r);
+							$('#cod_mod').selectpicker('refresh');
+	});
 
+	//Cargamos los items al select cliente
+	$.post("../ajax/detalle_cotizacion.php?op=selectCot", function(r){
+							$("#idcotizacion").html(r);
+							$('#idcotizacion').selectpicker('refresh');
+	});
 
 }
 
@@ -28,7 +38,12 @@ function limpiar()
 	$("#idarticulo").val("0");
 	$('#idarticulo').selectpicker('refresh');
 	$("#cantidad").val("");
-
+	$("#precio_cotizacion").val("0");
+	$('#precio_cotizacion').selectpicker('refresh');
+	$("#cod_mod").val("0");
+	$('#cod_mod').selectpicker('refresh');
+	$("#idcotizacion").val("0");
+	$('#idcotizacion').selectpicker('refresh');
 }
 
 //Función mostrar formulario
@@ -123,6 +138,11 @@ function mostrar(iddetalle_cotizacion)
 		$("#cantidad").val(data.cantidad);
 		$("#precio_cotizacion").val(data.precio_cotizacion);
 		$("#precio_cotizacion").selectpicker('refresh');
+		$("#cod_mod").val(data.cod_mod);
+		$("#cod_mod").selectpicker('refresh');
+		$("#idcotizacion").val(data.idcotizacion);
+		$("#idcotizacion").selectpicker('refresh');
+
  		$("#iddetalle_cotizacion").val(data.iddetalle_cotizacion);
 
  	})
@@ -150,12 +170,12 @@ function selectMP()
 	$.post("../ajax/detalle_cotizacion.php?op=selectMP", function(r){
 	            $("#idarticulo").html(r);
 
+
 	});
 }
 
 function precioMP()
 {
-
 	//Cargamos los items al combobox departamento
 	idarticulo=$("#idarticulo").val();
 
