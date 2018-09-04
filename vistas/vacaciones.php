@@ -57,7 +57,7 @@ if ($_SESSION['ventas']==1)
                           </tfoot>
                         </table>
                     </div>
-                    <div class="panel-body" style="height: 400px;" id="formularioregistros">
+                    <div class="panel-body" style="height: 620px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <label>Trabajador(*):</label>

@@ -25,7 +25,7 @@ mysql_select_db("db_corpvasco",$conexion);
 $objPHPExcel = new PHPExcel(); //nueva instancia
  
 $objPHPExcel->getProperties()->setCreator("Leydi Godos"); //autor
-$objPHPExcel->getProperties()->setTitle("E - Reporte de Stock Actual"); //titulo
+$objPHPExcel->getProperties()->setTitle("Vacaciones"); //titulo
  
 //inicio estilos
 $titulo = new PHPExcel_Style(); //nuevo estilo
@@ -125,17 +125,9 @@ $objPHPExcel->getActiveSheet()->getStyle("T$fila:V$fila")->getFont()->setBold(tr
 //titulos de columnas
 $fila+=1;
 
-  //// Inmovilizar paneles
-    
-    $objPHPExcel->getActiveSheet()->freezePane('D');
-
  
 
-    $objPHPExcel->getActiveSheet()
-    ->getStyle('C3:C100')
-    ->getAlignment()
-    ->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
-
+ 
  
 
 $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'ITEM');
@@ -169,12 +161,6 @@ $objPHPExcel->getActiveSheet()->getStyle("A$fila:W$fila")->getFont()->setBold(tr
 
 
 
-    $objPHPExcel->getActiveSheet()
-    ->getStyle('C4:C100')
-    ->getAlignment()
-    ->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
- 
- 
 
 
 
@@ -487,11 +473,7 @@ $objPHPExcel->getActiveSheet()->getStyle("A$fila:X$fila")->getFont()->setBold(tr
 
 
 
-    $objPHPExcel->getActiveSheet()
-    ->getStyle('C4:C100')
-    ->getAlignment()
-    ->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
- 
+  
  
 
 
