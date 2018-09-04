@@ -162,9 +162,18 @@ $bordes->applyFromArray(
 ));
 //fin estilos
 
+$sqlTit=mysql_query("SELECT
+c.cod_mod
+
+FROM cotizacion c
+
+where c.idcotizacion=$idcotizacion" ) or die(mysql_error());
+
+$resTit=mysql_fetch_array($sqlTit);
+
 $objPHPExcel->createSheet(0); //crear hoja
 $objPHPExcel->setActiveSheetIndex(0); //seleccionar hora
-$objPHPExcel->getActiveSheet()->setTitle("COTIZACION"); //establecer titulo de hoja
+$objPHPExcel->getActiveSheet()->setTitle($resTit["cod_mod"]); //establecer titulo de hoja
 
 //orientacion hoja
 $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
@@ -192,10 +201,10 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
 
 //incluir una imagen
 $objDrawing = new PHPExcel_Worksheet_Drawing();
-$objDrawing->setPath('img/jackyform.png'); //ruta
+$objDrawing->setPath('img/jacky01.png'); //ruta
 $objDrawing->setHeight(70); //altura
 // $objDrawing->setWeight(10); //altura
-$objDrawing->setCoordinates('B2');
+$objDrawing->setCoordinates('A1');
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
 //fin: incluir una imagen
 

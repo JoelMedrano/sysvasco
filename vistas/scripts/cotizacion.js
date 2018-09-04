@@ -144,7 +144,7 @@ function listar()
 				},
 		"bDestroy": true,
 		"iDisplayLength": 20,//Paginación
-	    "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
+	    "order": [[ 2, "asc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
 

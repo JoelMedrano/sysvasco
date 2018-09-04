@@ -32,6 +32,7 @@ if ($_SESSION['udp']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Id</th>
+                            <th>Modelo</th>
                             <th>MP</th>
                             <th>Nombre</th>
                             <th>Consumo</th>
@@ -43,6 +44,7 @@ if ($_SESSION['udp']==1)
                           </tbody>
                           <tfoot>
                             <th>Id</th>
+                            <th>Modelo</th>
                             <th>MP</th>
                             <th>Nombre</th>
                             <th>Consumo</th>

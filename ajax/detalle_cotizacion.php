@@ -52,12 +52,13 @@ switch ($_GET["op"]){
 				 			$data[]=array(
 
 												"0"=>$reg->iddetalle_cotizacion,
-								        "1"=>$reg->idarticulo,
-								        "2"=>$reg->nombre,
-								        "3"=>$reg->cantidad,
-								        "4"=>$reg->precio_cotizacion,
-								        "5"=>$reg->subtotal,
-												"6"=>($reg->editable=='1')?'<button class="btn btn-info" onclick="mostrar('.$reg->iddetalle_cotizacion.')"><i class="fa fa-pencil"></i></button>'.
+                        "1"=>$reg->cod_mod,
+								        "2"=>$reg->idarticulo,
+								        "3"=>$reg->nombre,
+								        "4"=>$reg->cantidad,
+								        "5"=>$reg->precio_cotizacion,
+								        "6"=>$reg->subtotal,
+												"7"=>($reg->editable=='1')?'<button class="btn btn-info" onclick="mostrar('.$reg->iddetalle_cotizacion.')"><i class="fa fa-pencil"></i></button>'.
 								 					' <button class="btn btn-danger" onclick="eliminar('.$reg->iddetalle_cotizacion.')"><i class="fa fa-trash"></i></button>':
 								 					'<button class="btn btn-info" onclick="mostrar('.$reg->iddetalle_cotizacion.')"><i class="fa fa-pencil"></i></button>'
 				 				);
@@ -67,12 +68,13 @@ switch ($_GET["op"]){
 				 			$data[]=array(
 
 												"0"=>$reg->iddetalle_cotizacion,
-								        "1"=>$reg->idarticulo,
-								        "2"=>$reg->nombre,
-								        "3"=>$reg->cantidad,
-								        "4"=>$reg->precio_cotizacion,
-								        "5"=>$reg->subtotal,
-												"6"=>($reg->editable=='1')?'<span class="label bg-green">PARA CORREGIR</span>':'<span class="label bg-red"></span>'
+                        "1"=>$reg->cod_mod,
+                        "2"=>$reg->idarticulo,
+								        "3"=>$reg->nombre,
+								        "4"=>$reg->cantidad,
+								        "5"=>$reg->precio_cotizacion,
+								        "6"=>$reg->subtotal,
+												"7"=>($reg->editable=='1')?'<span class="label bg-green">PARA CORREGIR</span>':'<span class="label bg-red"></span>'
 				 				);
 			}
 
