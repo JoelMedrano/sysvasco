@@ -231,6 +231,7 @@ Class Cotizacion
 									GROUP BY SUBSTRING(pro.CodFab,1,6)) AS mp
 									ON dc.idarticulo=mp.id_articulo
 									where dc.idcotizacion='$idcotizacion'";
+									
 
 		return ejecutarConsulta($sql);
 	}
