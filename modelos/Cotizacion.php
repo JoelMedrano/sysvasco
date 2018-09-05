@@ -236,7 +236,7 @@ Class Cotizacion
 		return ejecutarConsulta($sql);
 	}
 
-	//Implementar un método para listar los registros
+	//Implementar un método para listar los registros JOEL
 	public function listar()
 	{
 		$sql="SELECT 	c.idcotizacion,
