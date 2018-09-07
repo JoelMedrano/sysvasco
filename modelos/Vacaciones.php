@@ -44,12 +44,15 @@ Class Vacaciones
 
 		while ($num_elementos < count($correlativo))
 		{
-			$sql_detalle = "INSERT INTO vacaciones(nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES ('$nro_doc', '$correlativo[$num_elementos]','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]'))";
+			$sql_detalle = "UPDATE  vacaciones  SET nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES ('$nro_doc', '$correlativo[$num_elementos]','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]'))";
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 		}
 
 		return $sw;
+
+		$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
+		return ejecutarConsulta($sql);
 
 
 

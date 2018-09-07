@@ -237,15 +237,15 @@ function agregarDetalle(id_periodo,periodo)
     	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
     	'<td><input type="text" size="1" name="correlativo[]" ></td>'+
     	'<td><input type="hidden" size="5" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
-    	'<td><input type="date" size="3" name="fec_del[]" ></td>'+
-    	'<td><input type="date" size="3" name="fec_al[]" ></td>'+
+    	'<td><input type="text" size="3" name="fec_del[]" ></td>'+
+    	'<td><input type="text" size="3" name="fec_al[]" ></td>'+
     	'<td><input type="text" size="2" name="tot_dias[]" ></td>'+
     	'<td><input type="text" size="2" name="pen_dias[]" ></td>'+
     	'<td><input type="text" size="50" name="obser_detalle[]" ></td>'+
     	'<td><input type="text" size="2" name="vencidas[]" ></td>'+
     	'<td><input type="text" size="2" name="truncas[]" ></td>'+
-    	'<td><input type="date" size="3" name="fec_del_dec[]" ></td>'+
-    	'<td><input type="date" size="3" name="fec_al_dec[]" ></td>'+
+    	'<td><input type="text" size="3" name="fec_del_dec[]" ></td>'+
+    	'<td><input type="text" size="3" name="fec_al_dec[]" ></td>'+
     	'<td><input type="text" size="2" name="tot_dias_dec[]" ></td>'+
     	'<td><input type="text" size="2" name="pen_dias_dec[]" ></td>'+
     	'<td><input type="text" size="20" name="obser[]" ></td>'+

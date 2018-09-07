@@ -44,6 +44,24 @@ Class Trabajador
 		return ejecutarConsulta($sql);
 	}
 
+	//Implementamos un método para insertar registros
+	public function insertar_datos($prueba, $usu_reg, $pc_reg, $fec_reg )
+	{
+
+		$sql="INSERT INTO trabajador_familia (id_trab, usu_reg, pc_reg, fec_reg )
+		VALUES ('$prueba', '$usu_reg,', '$pc_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function editar_datos($prueba, $usu_reg, $pc_reg, $fec_reg )
+	{
+		$sql="UPDATE trabajador_familia SET usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg'
+		 WHERE id_trab='$prueba'";
+		return ejecutarConsulta($sql);
+	}
+
 	//Implementamos un método para desactivar registros
 	public function desactivar($id_trab, $usu_reg, $pc_reg, $fec_reg )
 	{

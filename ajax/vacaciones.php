@@ -52,6 +52,7 @@ switch ($_GET["op"]){
 
 		$rspta = $vacaciones->listarDetalle($id);
 		$total=0;
+		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
 									<th width="40px">Item</th>
                                     <th width="100px">Periodo</th>
@@ -67,13 +68,17 @@ switch ($_GET["op"]){
                                     <th width="40px">Tot.Dias</th>
                                     <th width="40px">Dias Pend</th>
                                     <th width="150px" >Observaciones</th>
+                                    <th width="50px">Editar</th>
                                     <th width="50px">Opciones</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<tr class="filas"><td>'.$reg->correlativo.'</td><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->vencidas.'</td><td>'.$reg->truncas.'</td><td>'.$reg->fec_del_dec.'</td><td>'.$reg->fec_al_dec.'</td><td>'.$reg->tot_dias_dec.'</td><td>'.$reg->pen_dias_dec.'</td><td>'.$reg->obser.'</td><td></td></tr>';
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td>'.$reg->correlativo.'</td><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->vencidas.'</td><td>'.$reg->truncas.'</td><td>'.$reg->fec_del_dec.'</td><td>'.$reg->fec_al_dec.'</td><td>'.$reg->tot_dias_dec.'</td><td>'.$reg->pen_dias_dec.'</td><td>'.$reg->obser.'</td><td><a data-toggle="modal" href="#myModal">
+                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
+                            </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
 					$total=$periodo;
+					$cont++;
 				}
 		echo '<tfoot>
                                     

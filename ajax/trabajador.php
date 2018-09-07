@@ -5,6 +5,17 @@ session_start();
 
 $trabajador=new Trabajador();
 
+
+//Campos de Seguridad//
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+//Campos de Seguridad//
+
+
+//INICIO - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR
+
 $nom_trab=isset($_POST["nom_trab"])? limpiarCadena($_POST["nom_trab"]):"";
 $apepat_trab=isset($_POST["apepat_trab"])? limpiarCadena($_POST["apepat_trab"]):"";
 $apemat_trab=isset($_POST["apemat_trab"])? limpiarCadena($_POST["apemat_trab"]):"";
@@ -45,30 +56,93 @@ $id_t_registro=isset($_POST["id_t_registro"])? limpiarCadena($_POST["id_t_regist
 $fecfin_con_ant=isset($_POST["fecfin_con_ant"])? limpiarCadena($_POST["fecfin_con_ant"]):"";
 $fecfin_con_act=isset($_POST["fecfin_con_act"])? limpiarCadena($_POST["fecfin_con_act"]):"";
 $cusp_trab=isset($_POST["cusp_trab"])? limpiarCadena($_POST["cusp_trab"]):"";
-
+$fec_nac_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_nac_trab)));
+$fec_ing_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_ing_trab)));
+$fec_cese_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_cese_trab)));
+$fecfin_con_act = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_act)));
+$fecfin_con_ant = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_ant)));
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 
-//Agregado el 30/07/2018
-$fec_nac_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_nac_trab)));
-
-$fec_ing_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_ing_trab)));
-$fec_cese_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_cese_trab)));
-
-$fecfin_con_act = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_act)));
-$fecfin_con_ant = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_ant)));
-//Agregado el 30/07/2018
+//FIN - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR
 
 
-//Campos de Seguridad//
-$usu_reg=$_SESSION['login'];
-$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
-$fec_emi =  date("d/m/Y H:i:s");
-$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
-//Campos de Seguridad//
+//INICIO - DATOS DE FAMILIARES DE TRABAJADOR
+$viv_pad=isset($_POST["viv_pad"])? limpiarCadena($_POST["viv_pad"]):"";
+$nom_pad=isset($_POST["nom_pad"])? limpiarCadena($_POST["nom_pad"]):"";
+$ocu_pad=isset($_POST["ocu_pad"])? limpiarCadena($_POST["ocu_pad"]):"";
+$dep_pad=isset($_POST["dep_pad"])? limpiarCadena($_POST["dep_pad"]):"";
+$fec_rec_dat=isset($_POST["fec_rec_dat"])? limpiarCadena($_POST["fec_rec_dat"]):"";
+$viv_mad=isset($_POST["viv_mad"])? limpiarCadena($_POST["viv_mad"]):"";
+$nom_mad=isset($_POST["nom_mad"])? limpiarCadena($_POST["nom_mad"]):"";
+$ocu_mad=isset($_POST["ocu_mad"])? limpiarCadena($_POST["ocu_mad"]):"";
+$dep_mad=isset($_POST["dep_mad"])? limpiarCadena($_POST["dep_mad"]):"";
+$viv_con=isset($_POST["viv_con"])? limpiarCadena($_POST["viv_con"]):"";
+$nom_con=isset($_POST["nom_con"])? limpiarCadena($_POST["nom_con"]):"";
+$ocu_con=isset($_POST["ocu_con"])? limpiarCadena($_POST["ocu_con"]):"";
+$dep_con=isset($_POST["dep_con"])? limpiarCadena($_POST["dep_con"]):"";
+$eda_hij1=isset($_POST["eda_hij1"])? limpiarCadena($_POST["eda_hij1"]):"";
+$nom_hij1=isset($_POST["nom_hij1"])? limpiarCadena($_POST["nom_hij1"]):"";
+$ocu_hij1=isset($_POST["ocu_hij1"])? limpiarCadena($_POST["ocu_hij1"]):"";
+$dep_hij1=isset($_POST["dep_hij1"])? limpiarCadena($_POST["dep_hij1"]):"";
+$eda_hij2=isset($_POST["eda_hij2"])? limpiarCadena($_POST["eda_hij2"]):"";
+$nom_hij2=isset($_POST["nom_hij2"])? limpiarCadena($_POST["nom_hij2"]):"";
+$ocu_hij2=isset($_POST["ocu_hij2"])? limpiarCadena($_POST["ocu_hij2"]):"";
+$dep_hij2=isset($_POST["dep_hij2"])? limpiarCadena($_POST["dep_hij2"]):"";
+$eda_hij3=isset($_POST["eda_hij3"])? limpiarCadena($_POST["eda_hij3"]):"";
+$nom_hij3=isset($_POST["nom_hij3"])? limpiarCadena($_POST["nom_hij3"]):"";
+$ocu_hij3=isset($_POST["ocu_hij3"])? limpiarCadena($_POST["ocu_hij3"]):"";
+$dep_hij3=isset($_POST["dep_hij3"])? limpiarCadena($_POST["dep_hij3"]):"";
+$eda_hij4=isset($_POST["eda_hij4"])? limpiarCadena($_POST["eda_hij4"]):"";
+$nom_hij4=isset($_POST["nom_hij4"])? limpiarCadena($_POST["nom_hij4"]):"";
+$ocu_hij4=isset($_POST["ocu_hij4"])? limpiarCadena($_POST["ocu_hij4"]):"";
+$dep_hij4=isset($_POST["dep_hij4"])? limpiarCadena($_POST["dep_hij4"]):"";
+$nom_fam_con=isset($_POST["nom_fam_con"])? limpiarCadena($_POST["nom_fam_con"]):"";
+$par_fam_con=isset($_POST["par_fam_con"])? limpiarCadena($_POST["par_fam_con"]):"";
+$are_fam_con=isset($_POST["are_fam_con"])? limpiarCadena($_POST["are_fam_con"]):"";
+//FIN - DATOS DE FAMILIARES DE TRABAJADOR
+
+
+//INICIO - ESTUDIOS REALIZADOS POR EL TRABAJADOR
+$cen_est_pri=isset($_POST["cen_est_pri"])? limpiarCadena($_POST["cen_est_pri"]):"";
+$grado_pri=isset($_POST["grado_pri"])? limpiarCadena($_POST["grado_pri"]):"";
+$fec_ini_pri=isset($_POST["fec_ini_pri"])? limpiarCadena($_POST["fec_ini_pri"]):"";
+$fec_fin_pri=isset($_POST["fec_fin_pri"])? limpiarCadena($_POST["fec_fin_pri"]):"";
+$cen_est_sec=isset($_POST["cen_est_sec"])? limpiarCadena($_POST["cen_est_sec"]):"";
+$grado_sec=isset($_POST["grado_sec"])? limpiarCadena($_POST["grado_sec"]):"";
+$fec_ini_sec=isset($_POST["fec_ini_sec"])? limpiarCadena($_POST["fec_ini_sec"]):"";
+$fec_fin_sec=isset($_POST["fec_fin_sec"])? limpiarCadena($_POST["fec_fin_sec"]):"";
+$cen_est_sup=isset($_POST["cen_est_sup"])? limpiarCadena($_POST["cen_est_sup"]):"";
+$carrera_sup=isset($_POST["carrera_sup"])? limpiarCadena($_POST["carrera_sup"]):"";
+$fec_des_sup=isset($_POST["fec_des_sup"])? limpiarCadena($_POST["fec_des_sup"]):"";
+$fec_has_sup=isset($_POST["fec_has_sup"])? limpiarCadena($_POST["fec_has_sup"]):"";
+$cen_est_tec=isset($_POST["cen_est_tec"])? limpiarCadena($_POST["cen_est_tec"]):"";
+$carrera_tec=isset($_POST["carrera_tec"])? limpiarCadena($_POST["carrera_tec"]):"";
+$fec_ini_tec=isset($_POST["fec_ini_tec"])? limpiarCadena($_POST["fec_ini_tec"]):"";
+$fec_fin_tec=isset($_POST["fec_fin_tec"])? limpiarCadena($_POST["fec_fin_tec"]):"";
+$cen_est_esp=isset($_POST["cen_est_esp"])? limpiarCadena($_POST["cen_est_esp"]):"";
+$especialidad=isset($_POST["especialidad"])? limpiarCadena($_POST["especialidad"]):"";
+$fec_ini_esp=isset($_POST["fec_ini_esp"])? limpiarCadena($_POST["fec_ini_esp"]):"";
+$fec_fin_esp=isset($_POST["fec_fin_esp"])? limpiarCadena($_POST["fec_fin_esp"]):"";
+$cen_est_otros=isset($_POST["cen_est_otros"])? limpiarCadena($_POST["cen_est_otros"]):"";
+$carrera_otros=isset($_POST["carrera_otros"])? limpiarCadena($_POST["carrera_otros"]):"";
+$fec_ini_otros=isset($_POST["fec_ini_otros"])? limpiarCadena($_POST["fec_ini_otros"]):"";
+$fec_fin_otros=isset($_POST["fec_fin_otros"])? limpiarCadena($_POST["fec_fin_otros"]):"";
+//FIN - ESTUDIOS REALIZADOS POR EL TRABAJADOR
 
 
 
+//INICIO - OTROS CONOCIMIENTOS DEL TRABAJADOR
+$des_idioma=isset($_POST["des_idioma"])? limpiarCadena($_POST["des_idioma"]):"";
+$cen_est_idioma=isset($_POST["cen_est_idioma"])? limpiarCadena($_POST["cen_est_idioma"]):"";
+$nivel_idioma=isset($_POST["nivel_idioma"])? limpiarCadena($_POST["nivel_idioma"]):"";
+$des_comp=isset($_POST["des_comp"])? limpiarCadena($_POST["des_comp"]):"";
+$cent_est_comp=isset($_POST["cent_est_comp"])? limpiarCadena($_POST["cent_est_comp"]):"";
+$nivel_comp=isset($_POST["nivel_comp"])? limpiarCadena($_POST["nivel_comp"]):"";
+//FIN - OTROS CONOCIMIENTOS DEL TRABAJADOR
+
+
+$prueba=isset($_POST["cusp_trab"])? limpiarCadena($_POST["prueba"]):"";
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
@@ -84,6 +158,21 @@ switch ($_GET["op"]){
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
 				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg  );
+			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
+		}
+
+	break;
+
+
+
+	case 'guardaryeditar_datos':
+
+		if (empty($id_trab)){
+			$rspta=$trabajador->insertar_datos($prueba, $usu_reg, $pc_reg, $fec_reg );
+			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
+		}
+		else {
+			$rspta=$trabajador->editar_datos($prueba, $usu_reg, $pc_reg, $fec_reg  );
 			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
 		}
 
@@ -108,7 +197,7 @@ switch ($_GET["op"]){
 	break;
 
 
-	case 'mostrardatos':
+	case 'mostrar_datos':
 		$rspta=$trabajador->mostrar($id_trab);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
@@ -119,6 +208,8 @@ switch ($_GET["op"]){
 		$rspta=$trabajador->listar();
  		//Vamos a declarar un array
  		$data= Array();
+
+ 		 $url='../vistas/trabajador_datos.php?id=';
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
@@ -132,7 +223,8 @@ switch ($_GET["op"]){
  				"7"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
  				"8"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"9"=>'<button class="btn btn-warning" onclick="mostrardatos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+ 				"9"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
  				"10"=>($reg->est_reg)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
