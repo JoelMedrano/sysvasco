@@ -142,7 +142,21 @@ $nivel_comp=isset($_POST["nivel_comp"])? limpiarCadena($_POST["nivel_comp"]):"";
 //FIN - OTROS CONOCIMIENTOS DEL TRABAJADOR
 
 
-$prueba=isset($_POST["cusp_trab"])? limpiarCadena($_POST["prueba"]):"";
+//INICIO - ENFERMEDADES DEL TRABAJADOR
+$tie_enf_car_onc=isset($_POST["tie_enf_car_onc"])? limpiarCadena($_POST["tie_enf_car_onc"]):"";
+$nom_enf_car_onc=isset($_POST["nom_enf_car_onc"])? limpiarCadena($_POST["nom_enf_car_onc"]):"";
+//FIN - ENFERMEDADES DEL TRABAJADOR
+
+
+//INICIO - AFILIACION DEL TRABAJADOR
+$afi_onp=isset($_POST["afi_onp"])? limpiarCadena($_POST["afi_onp"]):"";
+$afi_afp=isset($_POST["afi_afp"])? limpiarCadena($_POST["afi_afp"]):"";
+$nom_afi_afp=isset($_POST["nom_afi_afp"])? limpiarCadena($_POST["nom_afi_afp"]):"";
+//FIN - AFILIACION DEL TRABAJADOR
+
+
+
+$prueba=isset($_POST["prueba"])? limpiarCadena($_POST["prueba"]):"";
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
@@ -167,12 +181,12 @@ switch ($_GET["op"]){
 
 	case 'guardaryeditar_datos':
 
-		if (empty($id_trab)){
-			$rspta=$trabajador->insertar_datos($prueba, $usu_reg, $pc_reg, $fec_reg );
+		if (empty($prueba)){
+			$rspta=$trabajador->insertar_datos($prueba, $usu_reg, $pc_reg, $fec_reg, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, $fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad, $viv_con, $nom_con, $ocu_con, $dep_con );
 			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
 		}
 		else {
-			$rspta=$trabajador->editar_datos($prueba, $usu_reg, $pc_reg, $fec_reg  );
+			$rspta=$trabajador->editar_datos($prueba, $usu_reg, $pc_reg, $fec_reg, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, $fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad, $viv_con, $nom_con, $ocu_con, $dep_con  );
 			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
 		}
 

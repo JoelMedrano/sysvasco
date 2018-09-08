@@ -211,17 +211,18 @@ if ($_SESSION['almacen']==1)
                             
 
                             <div class="form-group  col-xs-12">
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">FechaIngreso:</label>
-                                <div class="col-lg-2">
-                                <input type="text" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
-                                </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Cese:</label>
-                                <div class="col-lg-2">
-                                <input type="text" class="form-control" name="fec_cese_trab" id="fec_cese_trab">
-                                </div>
+
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cond.Laboral:</label>
                                 <div class="col-lg-2">
                                 <select id="id_tip_plan" name="id_tip_plan" class="form-control selectpicker" data-live-search="true" ></select>
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">FechaIngreso:</label>
+                                <div class="col-lg-1">
+                                <input type="text" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Cese:</label>
+                                <div class="col-lg-1">
+                                <input type="text" class="form-control" name="fec_cese_trab" id="fec_cese_trab">
                                 </div>
                             </div>
 
@@ -231,15 +232,34 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-2">
                                 <input type="text" class="form-control" name="sueldo_trab" id="sueldo_trab">
                                 </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing Interno:</label>
+                                <div class="col-lg-1">
+                                <input type="text" class="form-control" name="fec_ing_interno" id="fec_ing_interno">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese Interno:</label>
+                                <div class="col-lg-1">
+                                <input type="text" class="form-control" name="fec_sal_interno" id="fec_sal_interno">
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Bono:</label>
                                 <div class="col-lg-2">
                                 <input type="text" class="form-control" name="bono_trab" id="bono_trab">
                                 </div>
+                            </div>
+
+                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
                                 <div class="col-lg-2">
                                 <input type="text" class="form-control" name="asig_trab" id="asig_trab">
                                 </div>  
                             </div>
+                     
+                     
                      
                             
 
@@ -439,7 +459,7 @@ if ($_SESSION['almacen']==1)
                                    <input type="text" class="form-control" name="viv_con" id="viv_con">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control">
+                                   <input type="text"  class="form-control"  readonly>
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_con" id="nom_con">
@@ -743,13 +763,13 @@ if ($_SESSION['almacen']==1)
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
+                                   <input type="text" class="form-control" name="des_idioma" id="des_idioma">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                   <input type="text" class="form-control" name="cen_est_idioma" id="cen_est_idioma">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab">
+                                   <input type="text" class="form-control" name="nivel_idioma" id="nivel_idioma">
                                 </div>
                                 
                              </div>
@@ -768,13 +788,13 @@ if ($_SESSION['almacen']==1)
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
+                                   <input type="text" class="form-control" name="des_comp" id="des_comp">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                   <input type="text" class="form-control" name="cen_est_comp" id="cen_est_comp">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="id_trab" id="id_trab">
+                                   <input type="text"  class="form-control" name="nivel_comp" id="nivel_comp">
                                 </div>
                                 
                                
@@ -792,7 +812,7 @@ if ($_SESSION['almacen']==1)
                              <div class="form-group  col-xs-12">
                                   <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Tiene antecedentes de enefermedades cardiacas y/o oncologicas? Mencionelas</label>
                                   <div class="col-lg-4">
-                                     <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
+                                     <input type="text" class="form-control" name="tie_enf_car_onc" id="tie_enf_car_onc">
                                   </div>
                                  
                              </div>
@@ -801,7 +821,7 @@ if ($_SESSION['almacen']==1)
                               <div class="form-group  col-xs-12">
                                   <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Actualmente sufre de alguna enfermedad cronica? Cual?</label>
                                   <div class="col-lg-4">
-                                     <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                     <input type="text" class="form-control" name="nom_enf_car_onc" id="nom_enf_car_onc">
                                   </div>
                               </div>
 
@@ -816,7 +836,7 @@ if ($_SESSION['almacen']==1)
                              <div class="form-group  col-xs-12">
                                   <label class="col-col-lg-2 col-md- col-sm-2 control-label">Esta afiliado a ONP?(SI/NO)</label>
                                   <div class="col-lg-1">
-                                     <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
+                                     <input type="text" class="form-control" name="afi_onp" id="afi_onp">
                                   </div>
                                  
                              </div>
@@ -825,16 +845,16 @@ if ($_SESSION['almacen']==1)
                               <div class="form-group  col-xs-12">
                                   <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">Esta afiliado a AFP?(SI/NO)</label>
                                   <div class="col-lg-1">
-                                     <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                     <input type="text" class="form-control" name="afi_afp" id="afi_afp">
                                   </div>
                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cual?</label>
                                   <div class="col-lg-2">
-                                     <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                     <input type="text" class="form-control" name="nom_afi_afp" id="nom_afi_afp">
                                   </div>
                               </div>
 
 
-                      </div>
+                        </div>
 
 
 

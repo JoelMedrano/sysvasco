@@ -429,11 +429,48 @@ function mostrar_datos(id_trab)
 		
 
 		$("#prueba").val(data.id_trab);
-		$("#prueba").val(data.id_trab);
-		$("#prueba").val(data.id_trab);
-		$("#prueba").val(data.id_trab);
-		$("#prueba").val(data.id_trab);
+		$("#viv_pad").val(data.viv_pad);
+		$("#nom_pad").val(data.nom_pad);
+		$("#ocu_pad").val(data.ocu_pad);
+		$("#dep_pad").val(data.dep_pad);
+		$("#fec_rec_dat").val(data.fec_rec_dat);
+				
+
+		$("#viv_mad").val(data.viv_mad);
+		$("#nom_mad").val(data.nom_mad);
+		$("#ocu_mad").val(data.ocu_mad);
+		$("#dep_mad").val(data.dep_mad);
+
+		$("#viv_con").val(data.viv_con);
+		$("#nom_con").val(data.nom_con);
+		$("#ocu_con").val(data.ocu_con);
+		$("#dep_con").val(data.dep_con);
+
+
+		$("#eda_hij1").val(data.eda_hij1);
+		$("#nom_hij1").val(data.nom_hij1);
+		$("#ocu_hij1").val(data.ocu_hij1);
+		$("#dep_hij1").val(data.dep_hij1);
+
+		$("#eda_hij2").val(data.eda_hij2);
+		$("#nom_hij2").val(data.nom_hij2);
+		$("#ocu_hij2").val(data.ocu_hij2);
+		$("#dep_hij2").val(data.dep_hij2);
+
+		$("#eda_hij3").val(data.eda_hij3);
+		$("#nom_hij3").val(data.nom_hij3);
+		$("#ocu_hij3").val(data.ocu_hij3);
+		$("#dep_hij3").val(data.dep_hij3);
+
+        $("#eda_hij4").val(data.eda_hij4);
+		$("#nom_hij4").val(data.nom_hij4);
+		$("#ocu_hij4").val(data.ocu_hij4);
+		$("#dep_hij4").val(data.dep_hij4);
 		
+		$("#nom_fam_con").val(data.nom_fam_con);
+		$("#par_fam_con").val(data.par_fam_con);
+		$("#are_fam_con").val(data.are_fam_con);
+
 
 
  	})
