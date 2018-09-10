@@ -466,11 +466,12 @@ function mostrar_datos(id_trab)
 		$("#nom_hij4").val(data.nom_hij4);
 		$("#ocu_hij4").val(data.ocu_hij4);
 		$("#dep_hij4").val(data.dep_hij4);
-		
+
 		$("#nom_fam_con").val(data.nom_fam_con);
 		$("#par_fam_con").val(data.par_fam_con);
 		$("#are_fam_con").val(data.are_fam_con);
 
+		
 
 
  	})

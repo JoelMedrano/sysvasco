@@ -729,7 +729,7 @@ if ($_SESSION['almacen']==1)
                                    <input type="text" class="form-control" name="carrera_otros" id="carrera_otros" >
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" readonly  >
+                                   <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" name="fec_ini_otros" id="fec_ini_otros">
