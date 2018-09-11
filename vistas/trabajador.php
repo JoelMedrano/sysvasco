@@ -491,12 +491,12 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_hij1" id="dep_hij1">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Subir Info:</label>
+                              <!--  <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Subir Info:</label>
                                 <div class="col-lg-3">
                                   <input type="file" class="form-control" name="dat_hij1" id="dat_hij1">
                                   <input type="hidden" name="dat_hij1_actual" id="dat_hij1_actual">
                                   <img src="" width="150px" height="120px" id="dat_hij1_muestra">
-                                </div>
+                                </div> -->
                             </div>
 
 
