@@ -116,10 +116,7 @@ switch ($_GET["op"]){
  				"5"=>$reg->nombres,
  				"6"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
  				'<span class="label bg-red">Anulado</span>',
- 				"7"=>(($reg->est_reg=='Aceptado')?'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>'.
- 					' <button class="btn btn-danger" onclick="anular('.$reg->nro_doc.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-eye"></i></button>').
- 					'<a target="_blank" href="'.$url.$reg->nro_doc.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+ 				"7"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-pencil"></i></button>',
  				);
  		}
  		$results = array(
