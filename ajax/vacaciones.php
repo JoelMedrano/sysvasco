@@ -111,7 +111,7 @@ switch ($_GET["op"]){
  				"0"=>$reg->id_trab,
  				"1"=>$reg->num_doc_trab,
  				"2"=>$reg->sucursal_anexo,
- 				"3"=>$reg->area,
+ 				"3"=>$reg->area_trab,
  				"4"=>$reg->funcion,
  				"5"=>$reg->nombres,
  				"6"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
