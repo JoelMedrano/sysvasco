@@ -68,7 +68,7 @@ if ($_SESSION['almacen']==1)
                         </table>
                     </div>
 
-                    <!--M,J,K,G,M -->
+                    
 
 
                     <div class="panel-body" id="formularioregistros">
@@ -94,7 +94,6 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-1">
                                    <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
                                 </div>
-                             
                            </div>
 
 

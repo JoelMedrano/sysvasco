@@ -256,8 +256,8 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="reloj.php"><i class="fa fa-circle-o"></i> Reloj</a></li>
-
-
+                <li><a href="reporte_diario_asistencia.php"><i class="fa fa-circle-o"></i> Reporte Diario Asistencia</a></li>
+                <li><a href="reporte_mensual_asistencia.php"><i class="fa fa-circle-o"></i> Reporte Mensual Asistencia</a></li>
               </ul>
             </li>';
             }

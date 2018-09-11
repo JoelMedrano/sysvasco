@@ -1,9 +1,9 @@
 <?php 
-require_once "../modelos/Trabajador.php";
+require_once "../modelos/Reporte_Diario_Asistencia.php";
 session_start();
 
 
-$trabajador=new Trabajador();
+$reporte_diario_asistencia=new Reporte_Diario_Asistencia();
 
 
 //Campos de Seguridad//
@@ -234,7 +234,7 @@ switch ($_GET["op"]){
 
 
 	case 'listar':
-		$rspta=$trabajador->listar();
+		$rspta=$reporte_diario_asistencia->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -250,13 +250,7 @@ switch ($_GET["op"]){
  				"5"=>$reg->area_trab,
  				"6"=>$reg->funcion,
  				"7"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>',
- 				"8"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"9"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"10"=>($reg->est_reg)?
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
+ 				'<span class="label bg-red">Desactivado</span>'
  				);
  		}
  		$results = array(

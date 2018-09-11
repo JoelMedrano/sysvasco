@@ -259,7 +259,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/trabajador.php?op=listar',
+					url: '../ajax/reporte_diario_asistencia.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){

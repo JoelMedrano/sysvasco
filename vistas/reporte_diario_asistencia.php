@@ -23,8 +23,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Trabajador
-                          <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> 
+                          <h1 class="box-title">Reporte Diario de Tardanzas, Inasistencias y Permisos
                           <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
                         <div class="box-tools pull-right">
                         </div>
@@ -41,10 +40,7 @@ if ($_SESSION['almacen']==1)
                             <th>Nombres</th>
                             <th>Area</th>
                             <th>Funcion</th>
-                            <th>Estado</th>
-                            <th>Editar</th>
-                            <th>Datos</th>
-                            <th>Anular</th>
+                            <th>Condicion</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -56,10 +52,7 @@ if ($_SESSION['almacen']==1)
                             <th>Nombres</th>
                             <th>Area</th>
                             <th>Funcion</th>
-                            <th>Estado</th>
-                            <th>Editar</th>
-                            <th>Datos</th>
-                            <th>Anular</th>
+                            <th>Condicion</th>
                           </tfoot>
                         </table>
                     </div>
@@ -899,7 +892,7 @@ require 'footer.php';
 ?>
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
-<script type="text/javascript" src="scripts/trabajador.js"></script>
+<script type="text/javascript" src="scripts/reporte_diario_asistencia.js"></script>
 <?php 
 }
 ob_end_flush();

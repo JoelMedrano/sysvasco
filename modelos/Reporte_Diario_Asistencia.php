@@ -2,7 +2,7 @@
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
-Class Trabajador
+Class Reporte_Diario_Asistencia
 {
 	//Implementamos nuestro constructor
 	public function __construct()
