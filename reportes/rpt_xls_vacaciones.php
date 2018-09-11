@@ -18,7 +18,7 @@ mysql_select_db("db_corpvasco",$conexion);
 
    $fecha=date("d/m/Y");
 
-                $UsuReg=$_SESSION['usuario']['Login'];
+              
 
 
 
@@ -276,7 +276,7 @@ $objPHPExcel->getActiveSheet()->getStyle("A$fila:W$fila")->getFont()->setBold(tr
         
 while($res=mysql_fetch_array($sql)){    
 
-  $CodPro=$res["CodPro"]; 
+ 
   
 
   $fila+=1;
@@ -539,7 +539,7 @@ $objPHPExcel->getActiveSheet()->getStyle("A$fila:X$fila")->getFont()->setBold(tr
         
 while($res=mysql_fetch_array($sql)){    
 
-  $CodPro=$res["CodPro"]; 
+
   
 
   $fila+=1;
