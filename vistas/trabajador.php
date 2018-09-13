@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['almacen']==1)
+if ($_SESSION['rrhh']==1)
 {
 ?>
 
@@ -42,8 +42,9 @@ if ($_SESSION['almacen']==1)
                             <th>Area</th>
                             <th>Funcion</th>
                             <th>Estado</th>
-                            <th>Editar</th>
+                            <th>Principal</th>
                             <th>Datos</th>
+                            <th>Data Adjunta</th>
                             <th>Anular</th>
                           </thead>
                           <tbody>                            
@@ -57,8 +58,9 @@ if ($_SESSION['almacen']==1)
                             <th>Area</th>
                             <th>Funcion</th>
                             <th>Estado</th>
-                            <th>Editar</th>
+                            <th>Principal</th>
                             <th>Datos</th>
+                            <th>Data Adjunta</th>
                             <th>Anular</th>
                           </tfoot>
                         </table>
@@ -129,7 +131,7 @@ if ($_SESSION['almacen']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Nac.:</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="fec_nac_trab" id="fec_nac_trab">
+                                  <input type="date" class="form-control" name="fec_nac_trab" id="fec_nac_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Lugar Nac:</label>
                                 <div class="col-lg-1">
@@ -213,50 +215,84 @@ if ($_SESSION['almacen']==1)
                             <div class="form-group  col-xs-12">
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cond.Laboral:</label>
-                                <div class="col-lg-2">
+                                <div class="col-lg-1">
                                 <select id="id_tip_plan" name="id_tip_plan" class="form-control selectpicker" data-live-search="true" ></select>
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">FechaIngreso:</label>
-                                <div class="col-lg-1">
-                                <input type="text" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Actual:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Cese:</label>
-                                <div class="col-lg-1">
-                                <input type="text" class="form-control" name="fec_cese_trab" id="fec_cese_trab">
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_cese_trab" id="fec_cese_trab">
                                 </div>
                             </div>
 
 
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Remuneracion:</label>
-                                <div class="col-lg-2">
+                                <div class="col-lg-1">
                                 <input type="text" class="form-control" name="sueldo_trab" id="sueldo_trab">
                                 </div>
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Ant2:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_re_ing" id="fec_re_ing">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese.Ant2:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_re_sal" id="fec_re_sal">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Motivo Salida:</label>
+                                <div class="col-lg-3">
+                                <input type="text" class="form-control" name="fec_re_sal" id="fec_re_sal">
+                                </div>
 
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing Interno:</label>
-                                <div class="col-lg-1">
-                                <input type="text" class="form-control" name="fec_ing_interno" id="fec_ing_interno">
-                                </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese Interno:</label>
-                                <div class="col-lg-1">
-                                <input type="text" class="form-control" name="fec_sal_interno" id="fec_sal_interno">
-                                </div>
+
                                 
                             </div>
 
 
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Bono:</label>
-                                <div class="col-lg-2">
+                                <div class="col-lg-1">
                                 <input type="text" class="form-control" name="bono_trab" id="bono_trab">
                                 </div>
+
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Ant1:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_re_ing" id="fec_re_ing">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese.Ant1:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_re_sal" id="fec_re_sal">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Motivo Salida:</label>
+                                <div class="col-lg-3">
+                                <input type="text" class="form-control" name="fec_re_sal" id="fec_re_sal">
+                                </div>
+
+
                             </div>
 
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
-                                <div class="col-lg-2">
+                                <div class="col-lg-1">
                                 <input type="text" class="form-control" name="asig_trab" id="asig_trab">
                                 </div>  
+
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing Interno:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_ing_interno" id="fec_ing_interno">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese Interno:</label>
+                                <div class="col-lg-2">
+                                <input type="date" class="form-control" name="fec_sal_interno" id="fec_sal_interno">
+                                </div>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Motivo Salida:</label>
+                                <div class="col-lg-3">
+                                <input type="text" class="form-control" name="fec_sal_interno" id="fec_sal_interno">
+                                </div>
                             </div>
                      
                      
@@ -321,17 +357,14 @@ if ($_SESSION['almacen']==1)
                             </div>
 
                             <div class="form-group  col-xs-12">
-                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">T - Registro:</label>
-                                    <div class="col-lg-2">
-                                      <select id="id_t_registro" name="id_t_registro" class="form-control selectpicker" data-live-search="true"></select>
-                                    </div>
+                                    
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fin.ContratoAnterior:</label>
                                     <div class="col-lg-2">
-                                      <input type="text" class="form-control" name="fecfin_con_ant" id="fecfin_con_ant">
+                                      <input type="date" class="form-control" name="fecfin_con_ant" id="fecfin_con_ant">
                                     </div>
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fin.ContratoActual:</label>
                                     <div class="col-lg-2">
-                                      <input type="text" class="form-control" name="fecfin_con_act" id="fecfin_con_act">
+                                      <input type="date" class="form-control" name="fecfin_con_act" id="fecfin_con_act">
                                     </div>
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Codigo.Cusp:</label>
                                     <div class="col-lg-2">
@@ -449,6 +482,12 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_mad" id="dep_mad">
                                 </div>
+
+                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label" ALIGN="center">COD.TRAB</label>
+                              
+
+
                             </div>
 
 
@@ -469,6 +508,10 @@ if ($_SESSION['almacen']==1)
                                 </div>
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_con" id="dep_con">
+                                </div>
+                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
+                                <div class="col-lg-2">
+                                    <input type="text" class="form-control" readonly name="prueba" id="prueba">
                                 </div>
                             </div>
 
@@ -581,10 +624,7 @@ if ($_SESSION['almacen']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" name="are_fam_con" id="are_fam_con">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Pruebaaa Visibilidad:</label>
-                                <div class="col-lg-2">
-                                    <input type="text" class="form-control" name="prueba" id="prueba">
-                                </div>
+                                
                             </div>
 
                        </div>
@@ -804,6 +844,7 @@ if ($_SESSION['almacen']==1)
 
 
 
+
                       </div>
 
 
@@ -858,6 +899,29 @@ if ($_SESSION['almacen']==1)
                         </div>
 
 
+                          <div class="form-group  col-xs-12">
+                          </div>
+
+
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Código:</label>
+                            <input type="text" class="form-control" name="codigo" id="codigo" readonly placeholder="Código Barras">
+                            <button class="btn btn-success" type="button" onclick="generarbarcode()">Generar</button>
+                            <button class="btn btn-info" type="button" onclick="imprimir()">Imprimir</button>
+                            <div id="print">
+                              <svg id="barcode"></svg>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group  col-xs-12">
+                          </div>
+                          <div class="form-group  col-xs-12">
+                          </div>
+
+
+
+
 
 
 
@@ -872,6 +936,121 @@ if ($_SESSION['almacen']==1)
                         </form>
                     </div>
                     <!--Fin centro -->
+
+
+
+
+                    <div class="panel-body" id="formularioregistros_data_adjunta">
+                        <form name="formulario_data_adjunta" id="formulario_data_adjunta" method="POST">
+
+                
+
+                            
+                                <input type="text" class="form-control" name="prueba_data_adjunta" id="prueba_data_adjunta" >
+                             
+
+
+                            
+
+
+                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                               <label>Hijo1:</label>
+                               <input type="file" class="form-control" name="dat_hij1" id="dat_hij1">
+                               <input type="hidden" name="imagenactual_dat_hij1" id="imagenactual_dat_hij1">
+                               <img src="" width="150px" height="120px" id="dat_hij1_muestra">
+                             </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                              <label>Hij2:</label>
+                              <input type="file" class="form-control" name="dat_hij2" id="dat_hij2">
+                              <input type="hidden" name="imagenactual_dat_hij2" id="imagenactual_dat_hij2">
+                              <img src="" width="150px" height="120px" id="dat_hij2_muestra">
+                            </div>
+
+
+                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                             <label>Hijo3:</label>
+                             <input type="file" class="form-control" name="dat_hij3" id="dat_hij3">
+                             <input type="hidden" name="imagenactual_dat_hij3" id="imagenactual_dat_hij3">
+                             <img src="" width="150px" height="120px" id="dat_hij3_muestra">
+                           </div>
+
+                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                             <label>Hijo4:</label>
+                             <input type="file" class="form-control" name="dat_hij4" id="dat_hij4">
+                             <input type="hidden" name="imagenactual_dat_hij4" id="imagenactual_dat_hij4">
+                             <img src="" width="150px" height="120px" id="dat_hij4_muestra">
+                           </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Data Conyuge:</label>
+                                <input type="file" class="form-control" name="dat_con" id="dat_con">
+                                <input type="hidden" name="imagenactual_dat_con" id="imagenactual_dat_con">
+                                <img src="" width="150px" height="120px" id="dat_con_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Recibo Luz y/o Agua:</label>
+                                <input type="file" class="form-control" name="dat_luz_agua" id="dat_luz_agua">
+                                <input type="hidden" name="imagenactual_dat_luz_agua" id="imagenactual_dat_luz_agua">
+                                <img src="" width="150px" height="120px" id="dat_luz_agua_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Antecedentes Policiales:</label>
+                                <input type="file" class="form-control" name="dat_ant_pol" id="dat_ant_pol">
+                                <input type="hidden" name="imagenactual_dat_ant_pol" id="imagenactual_dat_ant_pol">
+                                <img src="" width="150px" height="120px" id="dat_ant_pol_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Medico:</label>
+                                <input type="file" class="form-control" name="dat_cer_med" id="dat_cer_med">
+                                <input type="hidden" name="imagenactual_dat_cer_med" id="imagenactual_dat_cer_med">
+                                <img src="" width="150px" height="120px" id="dat_cer_med_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Declaracion Jurada Domicilio:</label>
+                                <input type="file" class="form-control" name="dat_dec_dom" id="dat_dec_dom">
+                                <input type="hidden" name="imagenactual_dat_dec_dom" id="imagenactual_dat_dec_dom">
+                                <img src="" width="150px" height="120px" id="dat_dec_dom_muestra">
+                            </div>
+
+                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Curriculum Vitae:</label>
+                                <input type="file" class="form-control" name="dat_cv" id="dat_cv">
+                                <input type="hidden" name="imagenactual_dat_cv" id="imagenactual_dat_cv">
+                                <img src="" width="150px" height="120px" id="dat_cv_muestra">
+                            </div>
+
+
+
+
+
+
+
+                         
+
+
+                     
+
+                        
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+
+                              <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                           </div>
+                        </form>
+                    </div>
+                    <!--Fin centro -->
+
 
 
 

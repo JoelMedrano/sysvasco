@@ -56,15 +56,38 @@ $id_t_registro=isset($_POST["id_t_registro"])? limpiarCadena($_POST["id_t_regist
 $fecfin_con_ant=isset($_POST["fecfin_con_ant"])? limpiarCadena($_POST["fecfin_con_ant"]):"";
 $fecfin_con_act=isset($_POST["fecfin_con_act"])? limpiarCadena($_POST["fecfin_con_act"]):"";
 $cusp_trab=isset($_POST["cusp_trab"])? limpiarCadena($_POST["cusp_trab"]):"";
-$fec_nac_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_nac_trab)));
-$fec_ing_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_ing_trab)));
-$fec_cese_trab = date("Y-m-d",strtotime(str_replace('/','-',$fec_cese_trab)));
-$fecfin_con_act = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_act)));
-$fecfin_con_ant = date("Y-m-d",strtotime(str_replace('/','-',$fecfin_con_ant)));
+
+$fec_sal_interno=isset($_POST["fec_sal_interno"])? limpiarCadena($_POST["fec_sal_interno"]):"";
+$fec_ing_interno=isset($_POST["fec_ing_interno"])? limpiarCadena($_POST["fec_ing_interno"]):"";
+
+
+$dat_hij1=isset($_POST["dat_hij1"])? limpiarCadena($_POST["dat_hij1"]):"";
+$dat_hij2=isset($_POST["dat_hij2"])? limpiarCadena($_POST["dat_hij2"]):"";
+$dat_hij3=isset($_POST["dat_hij3"])? limpiarCadena($_POST["dat_hij3"]):"";
+$dat_hij4=isset($_POST["dat_hij4"])? limpiarCadena($_POST["dat_hij4"]):"";
+$dat_con=isset($_POST["dat_con"])? limpiarCadena($_POST["dat_con"]):"";
+
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 
 //FIN - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR
+
+//INICIO - DATA ADJUNTADA  DEL TRABAJADOR
+
+$dat_luz_agua=isset($_POST["dat_luz_agua"])? limpiarCadena($_POST["dat_luz_agua"]):"";
+$dat_ant_pol=isset($_POST["dat_ant_pol"])? limpiarCadena($_POST["dat_ant_pol"]):"";
+$dat_cer_med=isset($_POST["dat_cer_med"])? limpiarCadena($_POST["dat_cer_med"]):"";
+$dat_dec_dom=isset($_POST["dat_dec_dom"])? limpiarCadena($_POST["dat_dec_dom"]):"";
+$dat_cv=isset($_POST["dat_cv"])? limpiarCadena($_POST["dat_cv"]):"";
+
+
+//INICIO - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR
+
+
+
+
+//FIN - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR
+
 
 
 //INICIO - DATOS DE FAMILIARES DE TRABAJADOR
@@ -85,9 +108,6 @@ $eda_hij1=isset($_POST["eda_hij1"])? limpiarCadena($_POST["eda_hij1"]):"";
 $nom_hij1=isset($_POST["nom_hij1"])? limpiarCadena($_POST["nom_hij1"]):"";
 $ocu_hij1=isset($_POST["ocu_hij1"])? limpiarCadena($_POST["ocu_hij1"]):"";
 $dep_hij1=isset($_POST["dep_hij1"])? limpiarCadena($_POST["dep_hij1"]):"";
-
-$dat_hij1=isset($_POST["dat_hij1"])? limpiarCadena($_POST["dat_hij1"]):"";
-
 $eda_hij2=isset($_POST["eda_hij2"])? limpiarCadena($_POST["eda_hij2"]):"";
 $nom_hij2=isset($_POST["nom_hij2"])? limpiarCadena($_POST["nom_hij2"]):"";
 $ocu_hij2=isset($_POST["ocu_hij2"])? limpiarCadena($_POST["ocu_hij2"]):"";
@@ -163,20 +183,27 @@ $nom_afi_afp=isset($_POST["nom_afi_afp"])? limpiarCadena($_POST["nom_afi_afp"]):
 
 $prueba=isset($_POST["prueba"])? limpiarCadena($_POST["prueba"]):"";
 
+
+
+$prueba_data_adjunta=isset($_POST["prueba_data_adjunta"])? limpiarCadena($_POST["prueba_data_adjunta"]):"";
+
+
+
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		if (empty($id_trab)){
 			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
 				$num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $asig_trab, $obs_trab, $id_cen_cost,
-				 $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg );
+				 $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
+				 $fec_ing_interno, $fec_sal_interno );
 			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
 		}
 		else {
 			$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab, $id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
-				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg  );
+				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno  );
 			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
 		}
 
@@ -207,6 +234,188 @@ switch ($_GET["op"]){
 
 	break;
 
+
+	case 'guardaryeditar_data_adjunta':
+
+
+		if (!file_exists($_FILES['dat_hij1']['tmp_name']) || !is_uploaded_file($_FILES['dat_hij1']['tmp_name']))
+		{
+			$dat_hij1=$_POST["imagenactual_dat_hij1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_hij1"]["name"]);
+			if ($_FILES['dat_hij1']['type'] == "image/jpg" || $_FILES['dat_hij1']['type'] == "image/jpeg" || $_FILES['dat_hij1']['type'] == "image/png")
+			{
+				$dat_hij1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_hij1"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij1);
+			}
+		}
+
+
+
+
+		if (!file_exists($_FILES['dat_hij2']['tmp_name']) || !is_uploaded_file($_FILES['dat_hij2']['tmp_name']))
+		{
+			$dat_hij2=$_POST["imagenactual_dat_hij2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_hij2"]["name"]);
+			if ($_FILES['dat_hij2']['type'] == "image/jpg" || $_FILES['dat_hij2']['type'] == "image/jpeg" || $_FILES['dat_hij2']['type'] == "image/png")
+			{
+				$dat_hij2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_hij2"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij2);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_hij3']['tmp_name']) || !is_uploaded_file($_FILES['dat_hij3']['tmp_name']))
+		{
+			$dat_hij3=$_POST["imagenactual_dat_hij3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_hij3"]["name"]);
+			if ($_FILES['dat_hij3']['type'] == "image/jpg" || $_FILES['dat_hij3']['type'] == "image/jpeg" || $_FILES['dat_hij3']['type'] == "image/png")
+			{
+				$dat_hij2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_hij3"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij3);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_hij4']['tmp_name']) || !is_uploaded_file($_FILES['dat_hij4']['tmp_name']))
+		{
+			$dat_hij4=$_POST["imagenactual_dat_hij4"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_hij4"]["name"]);
+			if ($_FILES['dat_hij4']['type'] == "image/jpg" || $_FILES['dat_hij4']['type'] == "image/jpeg" || $_FILES['dat_hij4']['type'] == "image/png")
+			{
+				$dat_hij4 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_hij4"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij4);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_con']['tmp_name']) || !is_uploaded_file($_FILES['dat_con']['tmp_name']))
+		{
+			$dat_con=$_POST["imagenactual_dat_con"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_con"]["name"]);
+			if ($_FILES['dat_con']['type'] == "image/jpg" || $_FILES['dat_con']['type'] == "image/jpeg" || $_FILES['dat_con']['type'] == "image/png")
+			{
+				$dat_con = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_con"]["tmp_name"], "../files/trabajador_familia/" . $dat_con);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_luz_agua']['tmp_name']) || !is_uploaded_file($_FILES['dat_luz_agua']['tmp_name']))
+		{
+			$dat_luz_agua=$_POST["imagenactual_dat_luz_agua"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_luz_agua"]["name"]);
+			if ($_FILES['dat_luz_agua']['type'] == "image/jpg" || $_FILES['dat_luz_agua']['type'] == "image/jpeg" || $_FILES['dat_luz_agua']['type'] == "image/png")
+			{
+				$dat_luz_agua = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_luz_agua"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_luz_agua);
+			}
+		}
+
+
+
+
+
+
+		if (!file_exists($_FILES['dat_ant_pol']['tmp_name']) || !is_uploaded_file($_FILES['dat_ant_pol']['tmp_name']))
+		{
+			$dat_ant_pol=$_POST["imagenactual_dat_ant_pol"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_ant_pol"]["name"]);
+			if ($_FILES['dat_ant_pol']['type'] == "image/jpg" || $_FILES['dat_ant_pol']['type'] == "image/jpeg" || $_FILES['dat_ant_pol']['type'] == "image/png")
+			{
+				$dat_ant_pol = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_ant_pol"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_ant_pol);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_cer_med']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_med']['tmp_name']))
+		{
+			$dat_cer_med=$_POST["imagenactual_dat_cer_med"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cer_med"]["name"]);
+			if ($_FILES['dat_cer_med']['type'] == "image/jpg" || $_FILES['dat_cer_med']['type'] == "image/jpeg" || $_FILES['dat_cer_med']['type'] == "image/png")
+			{
+				$dat_cer_med = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_med"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_med);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_dec_dom']['tmp_name']) || !is_uploaded_file($_FILES['dat_dec_dom']['tmp_name']))
+		{
+			$dat_dec_dom=$_POST["imagenactual_dat_dec_dom"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_dec_dom"]["name"]);
+			if ($_FILES['dat_dec_dom']['type'] == "image/jpg" || $_FILES['dat_dec_dom']['type'] == "image/jpeg" || $_FILES['dat_dec_dom']['type'] == "image/png")
+			{
+				$dat_dec_dom = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_dec_dom"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_dec_dom);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_cv']['tmp_name']) || !is_uploaded_file($_FILES['dat_cv']['tmp_name']))
+		{
+			$dat_cv=$_POST["imagenactual_dat_cv"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cv"]["name"]);
+			if ($_FILES['dat_cv']['type'] == "image/jpg" || $_FILES['dat_cv']['type'] == "image/jpeg" || $_FILES['dat_cv']['type'] == "image/png")
+			{
+				$dat_cv = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cv"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cv);
+			}
+		}
+
+
+
+
+
+		if (empty($prueba_data_adjunta)){
+			$rspta=$trabajador->insertar_data_adjunta($prueba_data_adjunta, $usu_reg, $pc_reg, $fec_reg, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, $fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad, $viv_con, $nom_con, $ocu_con, $dep_con );
+			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
+		}
+		else {
+			$rspta=$trabajador->editar_data_adjunta($prueba_data_adjunta, $dat_cv, $usu_reg, $pc_reg, $fec_reg );
+			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
+		}
+
+	break;
+
+
 	
 
 	case 'desactivar':
@@ -227,6 +436,12 @@ switch ($_GET["op"]){
 
 
 	case 'mostrar_datos':
+		$rspta=$trabajador->mostrar($id_trab);
+ 		//Codificar el resultado utilizando json
+ 		echo json_encode($rspta);
+	break;
+
+	case 'mostrar_data_adjunta':
 		$rspta=$trabajador->mostrar($id_trab);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
@@ -254,7 +469,8 @@ switch ($_GET["op"]){
  				"8"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"9"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"10"=>($reg->est_reg)?
+ 				"10"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"11"=>($reg->est_reg)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
  				);

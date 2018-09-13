@@ -14,16 +14,17 @@ Class Trabajador
 	public function insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
 		                     $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion,$id_area, $id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,$bono_trab, $asig_trab, 
 		                     $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro, 
-				             $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg )
+				             $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno  )
 	{
 		$sql="INSERT INTO trabajador (nom_trab,apepat_trab,apemat_trab,dir_trab,urb_trab,id_distrito, departamento, fec_nac_trab,lug_nac_trab,nacionalidad, id_est_civil , id_tip_doc, num_doc_trab,
 			                          num_tlf_dom,num_tlf_cel, email_trab, id_sucursal, id_funcion ,id_area, id_turno, fec_ing_trab, fec_cese_trab, id_tip_plan, sueldo_trab, bono_trab, asig_trab,
 			                          obs_trab, id_cen_cost, id_tip_man_ob, id_categoria, id_form_pag, id_tip_cont, id_reg_pen,id_com_act, id_genero, id_t_registro, 
-				 fecfin_con_ant, fecfin_con_act, cusp_trab, est_reg, usu_reg, pc_reg, fec_reg )
+				 fecfin_con_ant, fecfin_con_act, cusp_trab, est_reg, usu_reg, pc_reg, fec_reg,  fec_ing_interno, fec_sal_interno  )
 		VALUES ('$nom_trab','$apepat_trab','$apemat_trab','$dir_trab','$urb_trab', '$id_distrito', '$departamento', '$fec_nac_trab', '$lug_nac_trab', '$nacionalidad', '$id_est_civil', 
 			    '$id_tip_doc', '$num_doc_trab', '$num_tlf_dom' ,'$num_tlf_cel', '$email_trab', '$id_sucursal', '$id_funcion', '$id_area', '$id_turno','$fec_ing_trab','$fec_cese_trab', 
 			    '$id_tip_plan', '$sueldo_trab', '$bono_trab', '$asig_trab', '$obs_trab', '$id_cen_cost', '$id_tip_man_ob', '$id_categoria', '$id_form_pag', '$id_tip_cont',
-			    '$id_reg_pen','$id_com_act', '$id_genero', '$id_t_registro', '$fecfin_con_ant', '$fecfin_con_act', '$cusp_trab', '1', '$usu_reg', '$pc_reg', '$fec_reg' )";
+			    '$id_reg_pen','$id_com_act', '$id_genero', '$id_t_registro', '$fecfin_con_ant', '$fecfin_con_act', '$cusp_trab', '1', '$usu_reg', '$pc_reg', '$fec_reg',
+			    '$fec_ing_interno', '$fec_sal_interno' )";
 		return ejecutarConsulta($sql);
 	}
 
@@ -31,7 +32,7 @@ Class Trabajador
 	public function editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_cese_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
-				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg )
+				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg ,  $fec_ing_interno, $fec_sal_interno)
 	{
 		$sql="UPDATE trabajador SET nom_trab='$nom_trab',apepat_trab='$apepat_trab',apemat_trab='$apemat_trab',dir_trab='$dir_trab',urb_trab='$urb_trab', id_distrito='$id_distrito',
 		        departamento='$departamento',fec_nac_trab='$fec_nac_trab',lug_nac_trab='$lug_nac_trab',nacionalidad='$nacionalidad',id_est_civil='$id_est_civil',id_tip_doc='$id_tip_doc',
@@ -39,9 +40,15 @@ Class Trabajador
 				id_area='$id_area',id_turno='$id_turno',fec_ing_trab='$fec_ing_trab',fec_cese_trab='$fec_cese_trab',id_tip_plan='$id_tip_plan',sueldo_trab='$sueldo_trab',
 				bono_trab='$bono_trab', asig_trab='$asig_trab', obs_trab='$obs_trab',id_cen_cost='$id_cen_cost', id_tip_man_ob='$id_tip_man_ob',id_categoria='$id_categoria',
 				id_form_pag='$id_form_pag', id_tip_cont='$id_tip_cont', id_reg_pen='$id_reg_pen',id_com_act='$id_com_act', id_genero='$id_genero',id_t_registro='$id_t_registro',
-				fecfin_con_ant='$fecfin_con_ant', fecfin_con_act='$fecfin_con_act', cusp_trab='$cusp_trab', usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg'
+				fecfin_con_ant='$fecfin_con_ant', fecfin_con_act='$fecfin_con_act', cusp_trab='$cusp_trab', usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg',
+				fec_ing_interno='$fec_ing_interno', fec_sal_interno='$fec_sal_interno'
 		 WHERE id_trab='$id_trab'";
 		return ejecutarConsulta($sql);
+
+
+	
+
+
 	}
 
 	//Implementamos un método para insertar registros
@@ -98,6 +105,27 @@ Class Trabajador
 		return ejecutarConsulta($sql);
 	}
 
+
+	//Implementamos un método para insertar registros
+	public function insertar_data_adjunta($prueba, $usu_reg, $pc_reg, $fec_reg )
+	{
+
+		$sql="INSERT INTO trabajador_familia (id_trab, usu_reg, pc_reg, fec_reg )
+		VALUES ('$prueba', '$usu_reg,', '$pc_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function editar_data_adjunta($prueba_data_adjunta, $dat_cv, $usu_reg, $pc_reg, $fec_reg)
+	{
+		$sql="UPDATE trabajador_data_adjunta  AS tda
+		 		SET  tda.dat_cv='$dat_cv', 
+		 WHERE tda.id_trab='$prueba_data_adjunta'";
+		return ejecutarConsulta($sql);
+	}
+
+
 	//Implementamos un método para desactivar registros
 	public function desactivar($id_trab, $usu_reg, $pc_reg, $fec_reg )
 	{
@@ -136,20 +164,22 @@ Class Trabajador
 		tr.dir_trab,
 		tr.urb_trab,
 		tr.departamento,
-		DATE_FORMAT(tr.fec_nac_trab, '%d/%m/%Y')   AS fec_nac_trab,
+		DATE(tr.fec_nac_trab) AS fec_nac_trab,
 		tr.lug_nac_trab,
 		tr.num_tlf_cel,
 		tr.num_tlf_dom,
 		tr.email_trab,
 		tr.id_turno, ttur.des_larga AS turno,
-		DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y')   AS fec_ing_trab,
-		DATE_FORMAT(tr.fec_cese_trab, '%d/%m/%Y')   AS fec_cese_trab,
+		DATE(tr.fec_ing_trab) AS fec_ing_trab,
+		DATE(tr.fec_cese_trab) AS fec_cese_trab,
+		DATE(tr.fec_ing_interno) AS fec_ing_interno,
+		DATE(tr.fec_sal_interno) AS fec_sal_interno,
 		tr.sueldo_trab,
 		tr.bono_trab,
 		tr.asig_trab,
 		tr.obs_trab,
-		DATE_FORMAT(tr.fecfin_con_act, '%d/%m/%Y')   AS fecfin_con_act,
-		DATE_FORMAT(tr.fecfin_con_ant, '%d/%m/%Y')   AS fecfin_con_ant,
+		DATE(tr.fecfin_con_act) AS fecfin_con_act,
+		DATE(tr.fecfin_con_ant) AS fecfin_con_ant,
 		tr.cusp_trab,
 		YEAR(CURDATE())-YEAR(tr.fec_nac_trab) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tr.fec_nac_trab,'%m-%d'), 0 , -1 ) AS edad_trab,
 		tr.id_distrito , ubi.Distrito AS distrito,
@@ -223,7 +253,11 @@ Class Trabajador
 		ts.nom_enf_car_onc,
 		ta.afi_onp,
 		ta.afi_afp,
-		ta.nom_afi_afp
+		ta.nom_afi_afp,
+		tda.dat_ant_pol,
+		tda.dat_luz_agua,
+		tda.dat_cer_med,
+		tda.dat_cv
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
 				tpla.cod_argumento= tr.id_tip_plan
@@ -287,6 +321,8 @@ Class Trabajador
 				ts.id_trab= tr.id_trab
 				LEFT JOIN trabajador_afiliacion AS ta ON
 				ta.id_trab= tr.id_trab
+				LEFT JOIN trabajador_data_adjunta AS tda ON
+				tda.id_trab= tr.id_trab
 			 WHERE tr.id_trab='$id_trab'";
 		return ejecutarConsultaSimpleFila($sql);
 	}

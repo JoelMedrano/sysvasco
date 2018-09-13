@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['almacen']==1)
+if ($_SESSION['reloj']==1)
 {
 ?>
 
@@ -36,11 +36,12 @@ if ($_SESSION['almacen']==1)
                             <th>Cod.</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
-                            <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Condicion</th>
+                            <th>Hora.Entrada</th>
+                            <th>Hora.Salida</th>
+                            <th>Situación</th>
+                            <th>Detalle</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -48,11 +49,12 @@ if ($_SESSION['almacen']==1)
                             <th>Cod.</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
-                            <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Condicion</th>
+                            <th>Hora.Entrada</th>
+                            <th>Hora.Salida</th>
+                            <th>Situación</th>
+                            <th>Detalle</th>
                           </tfoot>
                         </table>
                     </div>

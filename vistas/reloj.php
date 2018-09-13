@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['almacen']==1)
+if ($_SESSION['reloj']==1)
 {
 
 

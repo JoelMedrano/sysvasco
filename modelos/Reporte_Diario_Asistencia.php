@@ -300,21 +300,58 @@ Class Reporte_Diario_Asistencia
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
-				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab
-				FROM trabajador tr
+		$sql="SELECT
+				t.id_trab,
+				CONCAT_WS(' ',  t.apepat_trab, t.apemat_trab,  t.nom_trab ) AS nombres,
+				 tpla.des_larga AS tipo_planilla,
+				 tsua.des_larga AS sucursal_anexo,
+				 tfun.des_larga AS funcion,
+				 tare.des_larga AS area_trab,
+				 t.est_reg,
+				 t.num_doc_trab,
+				 r.hor_ent,
+				 r.hor_sal,
+				 tp.motivo,
+				 CASE 
+					WHEN  r.hor_ent>'08:00:00'  AND tp.tipo_permiso   IS NULL THEN 'TARDANZA' 
+					WHEN  tp.tipo_permiso!= '' THEN tp.tipo_permiso 
+					WHEN  r.hor_ent IS NULL     AND tp.tipo_permiso   IS NULL THEN 'INASISTENCIA' 
+					WHEN  r.hor_ent<'08:00:00'  THEN 'NORMAL'
+				 END AS resultado 
+				FROM trabajador t
+				LEFT JOIN reloj r
+				ON t.id_trab=r.id_trab AND r.fecha=CURDATE()
+				LEFT JOIN
+					(SELECT 
+					pp.id_trab, 
+					DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,
+					DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, 
+					DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, 
+					tr.apepat_trab, IFNULL(tbm.des_larga, '') AS tipo_permiso, 
+					pp.tip_permiso, 
+					pp.hora_ing, 
+					pp.hora_sal, 
+					pp.motivo
+					FROM permiso_personal pp
+					LEFT JOIN Trabajador tr 
+					ON tr.id_trab= pp.id_trab
+					LEFT JOIN tabla_maestra_detalle tbm 
+					ON tbm.des_corta= pp.tip_permiso AND tbm.cod_tabla='TPER'
+					WHERE  pp.fecha_procede=CURDATE()
+					ORDER BY pp.id_permiso DESC) AS tp ON 
+					t.id_trab=tp.id_trab
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
-				tpla.cod_argumento= tr.id_tip_plan
-				AND tpla.cod_tabla='TPLA'
+					tpla.cod_argumento= t.id_tip_plan
+					AND tpla.cod_tabla='TPLA'
 				LEFT JOIN tabla_maestra_detalle AS tsua ON
-				tsua.cod_argumento= tr.id_sucursal
-				AND tsua.cod_tabla='TSUA'
+					tsua.cod_argumento= t.id_sucursal
+					AND tsua.cod_tabla='TSUA'
 				LEFT JOIN tabla_maestra_detalle AS tfun ON
-				tfun.cod_argumento= tr.id_funcion
-				AND tfun.cod_tabla='TFUN'
+					tfun.cod_argumento= t.id_funcion
+					AND tfun.cod_tabla='TFUN'
 				LEFT JOIN tabla_maestra_detalle AS tare ON
-				tare.cod_argumento= tr.id_area
-				AND tare.cod_tabla='TARE'
+					tare.cod_argumento= t.id_area
+					AND tare.cod_tabla='TARE'
 	";
 		return ejecutarConsulta($sql);		
 	}

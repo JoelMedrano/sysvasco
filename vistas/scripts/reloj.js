@@ -25,6 +25,8 @@ function init(){
 function limpiar()
 {
 	$("#id_trab").val("");
+	$("#id_trab").focus();
+
 }
 
 //Función mostrar formulario
@@ -45,6 +47,7 @@ function mostrarform(flag)
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
+		$('#id_trab').focus();
 	}
 }
 
@@ -88,7 +91,7 @@ function listar()
 function guardaryeditar(e)
 {
 	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
@@ -98,12 +101,7 @@ function guardaryeditar(e)
 	    contentType: false,
 	    processData: false,
 
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
-	          mostrarform(true);
-	          tabla.ajax.reload();
-	    }
+	    
 
 	});
 	limpiar();
