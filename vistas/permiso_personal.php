@@ -43,10 +43,12 @@ if ($_SESSION['rrhh']==1)
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
-                            <th>Estado de Aprobacion</th>
-                            <th>Estado de Registro</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
+                            <th>Est.Reg</th>
                             <th>Visualizar</th>
-                            <th>Aprobar</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
                             <th>Anular</th>
                           </thead>
                           <tbody>                            
@@ -57,10 +59,12 @@ if ($_SESSION['rrhh']==1)
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
-                            <th>Estado de Aprobacion</th>
-                            <th>Estado de Registro</th>
-                            <th>Opciones</th>
-                            <th>Aprobar</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
+                            <th>Est.Reg</th>
+                            <th>Visualizar</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
                             <th>Anular</th>
                           </tfoot>
                         </table>

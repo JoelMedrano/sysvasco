@@ -55,6 +55,22 @@ Class Permiso_Personal
 	}
 
 
+	//Implementamos un método para aprobar registros
+	public function aprobarRRHH($id_permiso, $fec_reg, $pc_reg, $usu_reg)
+	{
+		$sql="UPDATE permiso_personal SET est_apro_rrhh='1',  fec_apro='$fec_reg', pc_apro='$pc_reg', usu_apro='$usu_reg'   WHERE id_permiso='$id_permiso'";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para desaprobar registros
+	public function desaprobarRRHH($id_permiso, $fec_reg, $pc_reg, $usu_reg)
+	{
+		$sql="UPDATE permiso_personal SET est_apro_rrhh='0',  fec_desapro='$fec_reg', pc_desapro='$pc_reg', usu_desapro='$usu_reg'  WHERE id_permiso='$id_permiso'";
+		return ejecutarConsulta($sql);
+	} 
+
+
+
 
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_permiso)
@@ -66,7 +82,7 @@ Class Permiso_Personal
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,   DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro 
+		$sql="SELECT DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,   DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro , pp.est_apro_rrhh
 		 FROM permiso_personal pp
 		 LEFT JOIN Trabajador tr ON
 		 tr.id_trab= pp.id_trab

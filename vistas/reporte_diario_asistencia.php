@@ -23,8 +23,7 @@ if ($_SESSION['reloj']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Reporte Diario de Tardanzas, Inasistencias y Permisos
-                          <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Reporte Diario de Tardanzas, Inasistencias y Permisos </h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>

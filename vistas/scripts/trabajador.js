@@ -176,7 +176,7 @@ function init(){
 
 
 
-
+    $("#foto_trab_muestra").hide();
 	$("#dat_hij1_muestra").hide();
 	$("#dat_hij2_muestra").hide();
     $("#dat_hij3_muestra").hide();
@@ -188,6 +188,18 @@ function init(){
 	$("#dat_cer_med_muestra").hide();
 	$("#dat_dec_dom_muestra").hide();
 	$("#dat_cv_muestra").hide();
+
+
+	$("#dat_gra_tit_muestra").hide();
+	$("#dat_idi_muestra").hide();
+	$("#dat_cer_tec_muestra").hide();
+	$("#dat_adi_muestra").hide();
+	$("#dat_cer_tra_muestra").hide();
+	$("#dat_pas_muestra").hide();
+	$("#dat_bre_muestra").hide();
+	$("#dat_liq_muestra").hide();
+	$("#dat_cts_muestra").hide();
+	$("#dat_car_ren_muestra").hide();
 
 
 
@@ -474,22 +486,32 @@ function mostrar(id_trab)
 		$("#num_tlf_dom").val(data.num_tlf_dom);
 		$("#num_tlf_cel").val(data.num_tlf_cel);
 		$("#email_trab").val(data.email_trab);
-		$("#fec_ing_trab").val(data.fec_ing_trab);
-		$("#fec_cese_trab").val(data.fec_cese_trab);
 		$("#sueldo_trab").val(data.sueldo_trab);
 		$("#bono_trab").val(data.bono_trab);
 		$("#asig_trab").val(data.asig_trab);
 		$("#obs_trab").val(data.obs_trab);
-		$("#fecfin_con_ant").val(data.fecfin_con_ant);
-		$("#fecfin_con_act").val(data.fecfin_con_act);
 		$("#cusp_trab").val(data.cusp_trab);
 		$("#nacionalidad").val(data.nacionalidad);
 		$("#departamento").val(data.departamento);
 		$("#edad_trab").val(data.edad_trab);
 
+        $("#fec_ing_trab").val(data.fec_ing_trab);
+		$("#fec_sal_trab").val(data.fec_sal_trab);
+
+		$("#fec_ing2").val(data.fec_ing2);
+		$("#fec_sal2").val(data.fec_sal2);
+		$("#mot_sal2").val(data.mot_sal2);
+
+		$("#fec_ing1").val(data.fec_ing1);
+		$("#fec_sal1").val(data.fec_sal1);
+		$("#mot_sal1").val(data.mot_sal1);
 
 		$("#fec_sal_interno").val(data.fec_sal_interno);
 		$("#fec_ing_interno").val(data.fec_ing_interno);
+		$("#mot_sal_interno").val(data.mot_sal_interno);
+
+		$("#fecfin_con_ant").val(data.fecfin_con_ant);
+		$("#fecfin_con_act").val(data.fecfin_con_act);
 
 
 		
@@ -632,8 +654,11 @@ function mostrar_data_adjunta(id_trab)
 		mostrarform_data_adjunta(true);
 
 
-		$("#prueba_data_adjunta").val(data.id_trab);
+		$("#id_trab_data_adjunta").val(data.id_trab);
 
+		$("#foto_trab_muestra").show();
+		$("#foto_trab_muestra").attr("src","../files/trabajador_data_adjunta/"+data.foto_trab);
+		$("#imagenactual_foto_trab").val(data.foto_trab);
 
 		$("#dat_hij1_muestra").show();
 		$("#dat_hij1_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij1);
@@ -643,16 +668,13 @@ function mostrar_data_adjunta(id_trab)
 		$("#dat_hij2_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij2);
 		$("#imagenactual_dat_hij2").val(data.dat_hij2);
 
-
 		$("#dat_hij3_muestra").show();
 		$("#dat_hij3_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij3);
 		$("#imagenactual_dat_hij3").val(data.dat_hij3);
 
-
 		$("#dat_hij4_muestra").show();
 		$("#dat_hij4_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij4);
 		$("#imagenactual_dat_hij4").val(data.dat_hij4);
-
 
 		$("#dat_con_muestra").show();
 		$("#dat_con_muestra").attr("src","../files/trabajador_familia/"+data.dat_con);
@@ -662,11 +684,9 @@ function mostrar_data_adjunta(id_trab)
 		$("#dat_luz_agua_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_luz_agua);
 		$("#imagenactual_dat_luz_agua").val(data.dat_luz_agua);
 
-
 		$("#dat_ant_pol_muestra").show();
-		$("#dat_ant_pol_muestra").attr("src","../files/trabajador_data_adjunta/"+data.at_ant_pol);
+		$("#dat_ant_pol_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_ant_pol);
 		$("#imagenactual_dat_ant_pol").val(data.dat_ant_pol);
-
 
 		$("#dat_cer_med_muestra").show();
 		$("#dat_cer_med_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cer_med);
@@ -675,13 +695,53 @@ function mostrar_data_adjunta(id_trab)
 		$("#dat_dec_dom_muestra").show();
 		$("#dat_dec_dom_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_dec_dom);
 		$("#imagenactual_dat_dec_dom").val(data.dat_dec_dom);
-
+	
 		$("#dat_cv_muestra").show();
 		$("#dat_cv_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cv);
 		$("#imagenactual_dat_cv").val(data.dat_cv);
 
+		$("#dat_gra_tit_muestra").show();
+		$("#dat_gra_tit_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_gra_tit);
+		$("#imagenactual_dat_gra_tit").val(data.dat_gra_tit);
+
+		$("#dat_idi_muestra").show();
+		$("#dat_idi_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_idi);
+		$("#imagenactual_dat_idi").val(data.dat_idi);
+
+		$("#dat_cer_tec_muestra").show();
+		$("#dat_cer_tec_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cer_tec);
+		$("#imagenactual_dat_cer_tec").val(data.dat_cer_tec);
+
+		$("#dat_cer_tra_muestra").show();
+		$("#dat_cer_tra_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cer_tra);
+		$("#imagenactual_dat_cer_tra").val(data.dat_cer_tra);
+
+		$("#dat_adi_muestra").show();
+		$("#dat_adi_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_adi);
+		$("#imagenactual_dat_adi").val(data.dat_adi);
 
 
+		$("#dat_pas_muestra").show();
+		$("#dat_pas_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_pas);
+		$("#imagenactual_dat_pas").val(data.dat_pas);
+
+		$("#dat_bre_muestra").show();
+		$("#dat_bre_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_bre);
+		$("#imagenactual_dat_bre").val(data.dat_bre);
+
+		$("#dat_liq_muestra").show();
+		$("#dat_liq_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_liq);
+		$("#imagenactual_dat_liq").val(data.dat_liq);
+
+		$("#dat_cts_muestra").show();
+		$("#dat_cts_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cts);
+		$("#imagenactual_dat_cts").val(data.dat_cts);
+
+		$("#dat_car_ren_muestra").show();
+		$("#dat_car_ren_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_car_ren);
+		$("#imagenactual_dat_car_ren").val(data.dat_car_ren);
+
+		
 
  	})
 }
