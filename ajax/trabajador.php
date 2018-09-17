@@ -186,7 +186,7 @@ $des_idioma=isset($_POST["des_idioma"])? limpiarCadena($_POST["des_idioma"]):"";
 $cen_est_idioma=isset($_POST["cen_est_idioma"])? limpiarCadena($_POST["cen_est_idioma"]):"";
 $nivel_idioma=isset($_POST["nivel_idioma"])? limpiarCadena($_POST["nivel_idioma"]):"";
 $des_comp=isset($_POST["des_comp"])? limpiarCadena($_POST["des_comp"]):"";
-$cent_est_comp=isset($_POST["cent_est_comp"])? limpiarCadena($_POST["cent_est_comp"]):"";
+$cen_est_comp=isset($_POST["cen_est_comp"])? limpiarCadena($_POST["cen_est_comp"]):"";
 $nivel_comp=isset($_POST["nivel_comp"])? limpiarCadena($_POST["nivel_comp"]):"";
 //FIN - OTROS CONOCIMIENTOS DEL TRABAJADOR
 
@@ -223,6 +223,16 @@ switch ($_GET["op"]){
 				$num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $asig_trab, $obs_trab, $id_cen_cost,
 				 $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
 				 $fec_ing_interno, $fec_sal_interno );
+
+			$rspta=$trabajador->insertar_trabajador_familia( $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_estudios( $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_conocimiento( $fec_reg, $usu_reg, $pc_reg );
+            $rspta=$trabajador->insertar_trabajador_salud( $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_afiliacion( $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_data_adjunta( $fec_reg, $usu_reg, $pc_reg );
+
+			
+
 			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
 		}
 		else {

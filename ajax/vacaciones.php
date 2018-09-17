@@ -56,25 +56,19 @@ switch ($_GET["op"]){
 		echo '<thead style="background-color:#A9D0F5">
 									<th width="40px">Item</th>
                                     <th width="100px">Periodo</th>
-                                    <th width="70px">Del</th>
-                                    <th width="70px">Al</th>
-                                    <th width="40px">Total Dias</th>
-                                    <th width="40px">Dias Pend</th>
-                                    <th width="150px">Obser Detalle</th>
-                                    <th width="50px">Vencidas</th>
-                                    <th width="50px">Truncas</th>
-                                    <th width="50px">Inicio</th>
-                                    <th width="50px">Salida</th>
-                                    <th width="40px">Tot.Dias</th>
-                                    <th width="40px">Dias Pend</th>
-                                    <th width="150px" >Observaciones</th>
+                                    <th width="100px">Del</th>
+                                    <th width="100px">Al</th>
+                                    <th width="50px">Total Dias</th>
+                                    <th width="50px">Dias Pend</th>
+                                    <th width="700px">Obser Detalle</th>
+                                    <th width="200px" >Observaciones</th>
                                     <th width="50px">Editar</th>
                                     <th width="50px">Opciones</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td>'.$reg->correlativo.'</td><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->vencidas.'</td><td>'.$reg->truncas.'</td><td>'.$reg->fec_del_dec.'</td><td>'.$reg->fec_al_dec.'</td><td>'.$reg->tot_dias_dec.'</td><td>'.$reg->pen_dias_dec.'</td><td>'.$reg->obser.'</td><td><a data-toggle="modal" href="#myModal">
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td>'.$reg->correlativo.'</td><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->obser.'</td><td><a data-toggle="modal" href="#myModal">
                               <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
                             </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
 					$total=$periodo;

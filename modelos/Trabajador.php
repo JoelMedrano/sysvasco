@@ -24,9 +24,72 @@ Class Trabajador
 			    '$id_tip_doc', '$num_doc_trab', '$num_tlf_dom' ,'$num_tlf_cel', '$email_trab', '$id_sucursal', '$id_funcion', '$id_area', '$id_turno','$fec_ing_trab',
 			    '$id_tip_plan', '$sueldo_trab', '$bono_trab', '$asig_trab', '$obs_trab', '$id_cen_cost', '$id_tip_man_ob', '$id_categoria', '$id_form_pag', '$id_tip_cont',
 			    '$id_reg_pen','$id_com_act', '$id_genero', '$id_t_registro', '$fecfin_con_ant', '$fecfin_con_act', '$cusp_trab', '1', '$usu_reg', '$pc_reg', '$fec_reg',
-			    '$fec_ing_interno', '$fec_sal_interno' )";
+			    '$fec_ing_interno', '$fec_sal_interno')";
 		return ejecutarConsulta($sql);
+
 	}
+
+	 //Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_trabajador_familia($fec_reg, $usu_reg, $pc_reg )
+	{
+		$sql="INSERT INTO trabajador_familia(usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_trabajador_estudios($fec_reg, $usu_reg, $pc_reg )
+	{
+		$sql="INSERT INTO trabajador_estudios (usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_trabajador_conocimiento($fec_reg, $usu_reg, $pc_reg )
+	{
+		$sql="INSERT INTO trabajador_conocimiento(usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_trabajador_salud($fec_reg, $usu_reg, $pc_reg )
+	{
+		$sql="INSERT INTO trabajador_salud(usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_trabajador_afiliacion($fec_reg, $usu_reg, $pc_reg )
+	{
+		$sql="INSERT INTO trabajador_afiliacion(usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_trabajador_data_adjunta($fec_reg, $usu_reg, $pc_reg )
+	{
+		$sql="INSERT INTO trabajador_data_adjunta (usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+   
+
+
+
+
+
+	
+
+
 
 	//Implementamos un método para editar registros
 	public function editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
@@ -195,7 +258,7 @@ Class Trabajador
 		tf.viv_pad,
 		tf.ocu_pad,
 		tf.dep_pad,
-		tf.fec_rec_dat,
+		DATE(tf.fec_rec_dat) AS fec_rec_dat,
 		tf.viv_mad,
 		tf.nom_mad,
 		tf.ocu_mad,

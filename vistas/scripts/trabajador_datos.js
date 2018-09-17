@@ -3,8 +3,6 @@ var tabla;
 //Función que se ejecuta al inicio
 function init(){
 	mostrarform(false);
-	mostrarform_datos(false);
-	mostrarform_data_adjunta(false);
 
 
 
@@ -18,12 +16,6 @@ function init(){
 	$("#formulariodatos").on("submit",function(e)
 	{
 		guardaryeditardatos(e);	
-	})
-
-
-	$("#formulario_data_adjunta").on("submit",function(e)
-	{
-		guardaryeditar_data_adjunta(e);	
 	})
 
 
@@ -176,34 +168,7 @@ function init(){
 
 
 
-    $("#foto_trab_muestra").hide();
-	$("#dat_hij1_muestra").hide();
-	$("#dat_hij2_muestra").hide();
-    $("#dat_hij3_muestra").hide();
-	$("#dat_hij4_muestra").hide();
-	$("#dat_con_muestra").hide();
-
-	$("#dat_ant_pol_muestra").hide();
-    $("#dat_luz_agua_muestra").hide();
-	$("#dat_cer_med_muestra").hide();
-	$("#dat_dec_dom_muestra").hide();
-	$("#dat_cv_muestra").hide();
-
-
-	$("#dat_gra_tit_muestra").hide();
-	$("#dat_idi_muestra").hide();
-	$("#dat_cer_tec_muestra").hide();
-	$("#dat_adi_muestra").hide();
-	$("#dat_cer_tra_muestra").hide();
-	$("#dat_pas_muestra").hide();
-	$("#dat_bre_muestra").hide();
-	$("#dat_liq_muestra").hide();
-	$("#dat_cts_muestra").hide();
-	$("#dat_car_ren_muestra").hide();
-
-
-
-
+	$("#imagenmuestra").hide();
 }
 
 //Función limpiar
@@ -228,7 +193,6 @@ function mostrarform(flag)
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
 		$("#formularioregistrosdatos").hide();
-		$("#formularioregistros_data_adjunta").hide();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 	}
@@ -237,59 +201,9 @@ function mostrarform(flag)
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#formularioregistrosdatos").hide();
-		$("#formularioregistros_data_adjunta").hide();
 		$("#btnagregar").show();
 	}
 }
-
-
-//Función mostrar formulario
-function mostrarform_datos(flag)
-{
-	limpiar();
-	if (flag)
-	{
-		$("#listadoregistros").hide();
-		$("#formularioregistros").hide();
-		$("#formularioregistrosdatos").show();
-		$("#formularioregistros_data_adjunta").hide();
-		$("#btnGuardar").prop("disabled",false);
-		$("#btnagregar").hide();
-	}
-	else
-	{
-		$("#listadoregistros").show();
-		$("#formularioregistros").hide();
-		$("#formularioregistrosdatos").hide();
-		$("#formularioregistros_data_adjunta").hide();
-		$("#btnagregar").show();
-	}
-}
-
-
-//Función mostrar formulario
-function mostrarform_data_adjunta(flag)
-{
-	limpiar(); 
-	if (flag)
-	{
-		$("#listadoregistros").hide();
-		$("#formularioregistros").hide();
-		$("#formularioregistrosdatos").hide();
-		$("#formularioregistros_data_adjunta").show();
-		$("#btnGuardar").prop("disabled",false);
-		$("#btnagregar").hide();
-	}
-	else
-	{
-		$("#listadoregistros").show();
-		$("#formularioregistros").hide();
-		$("#formularioregistrosdatos").hide();
-		$("#formularioregistros_data_adjunta").hide();
-		$("#btnagregar").show();
-	}
-}
-
 
 
 
@@ -318,7 +232,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/trabajador.php?op=listar',
+					url: '../ajax/trabajador_datos.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -365,33 +279,7 @@ function guardaryeditardatos(e)
 	var formData = new FormData($("#formulariodatos")[0]);
 
 	$.ajax({
-		url: "../ajax/trabajador.php?op=guardaryeditar_datos",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
-	          mostrarform(false);
-	          tabla.ajax.reload();
-	    }
-
-	});
-	limpiar();
-}
-
-
-
-function guardaryeditar_data_adjunta(e)
-{
-	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
-	var formData = new FormData($("#formulario_data_adjunta")[0]);
-
-	$.ajax({
-		url: "../ajax/trabajador.php?op=guardaryeditar_data_adjunta",
+		url: "../ajax/trabajador.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -486,266 +374,121 @@ function mostrar(id_trab)
 		$("#num_tlf_dom").val(data.num_tlf_dom);
 		$("#num_tlf_cel").val(data.num_tlf_cel);
 		$("#email_trab").val(data.email_trab);
+		$("#fec_ing_trab").val(data.fec_ing_trab);
+		$("#fec_cese_trab").val(data.fec_cese_trab);
 		$("#sueldo_trab").val(data.sueldo_trab);
 		$("#bono_trab").val(data.bono_trab);
 		$("#asig_trab").val(data.asig_trab);
 		$("#obs_trab").val(data.obs_trab);
+		$("#fecfin_con_ant").val(data.fecfin_con_ant);
+		$("#fecfin_con_act").val(data.fecfin_con_act);
 		$("#cusp_trab").val(data.cusp_trab);
 		$("#nacionalidad").val(data.nacionalidad);
 		$("#departamento").val(data.departamento);
 		$("#edad_trab").val(data.edad_trab);
 
-        $("#fec_ing_trab").val(data.fec_ing_trab);
-		$("#fec_sal_trab").val(data.fec_sal_trab);
+		
 
-		$("#fec_ing2").val(data.fec_ing2);
-		$("#fec_sal2").val(data.fec_sal2);
-		$("#mot_sal2").val(data.mot_sal2);
 
-		$("#fec_ing1").val(data.fec_ing1);
-		$("#fec_sal1").val(data.fec_sal1);
-		$("#mot_sal1").val(data.mot_sal1);
+ 	})
+}
 
-		$("#fec_sal_interno").val(data.fec_sal_interno);
-		$("#fec_ing_interno").val(data.fec_ing_interno);
-		$("#mot_sal_interno").val(data.mot_sal_interno);
 
+
+
+function mostrardatos(id_trab)
+{
+	$.post("../ajax/trabajador.php?op=mostrar",{id_trab : id_trab}, function(data, status)
+	{
+		data = JSON.parse(data);		
+		mostrarform(true);
+
+		$("#id_funcion").val(data.id_funcion);
+		$('#id_funcion').selectpicker('refresh'); 
+
+        $("#id_genero").val(data.id_genero);
+		$('#id_genero').selectpicker('refresh'); 
+
+		$("#id_tip_doc").val(data.id_tip_doc);
+		$('#id_tip_doc').selectpicker('refresh'); 
+
+		$("#id_tip_plan").val(data.id_tip_plan);
+		$('#id_tip_plan').selectpicker('refresh');
+
+		$("#id_sucursal").val(data.id_sucursal);
+		$('#id_sucursal').selectpicker('refresh');
+
+		$("#id_area").val(data.id_area);
+		$('#id_area').selectpicker('refresh'); 
+
+		$("#id_cen_cost").val(data.id_cen_cost);
+		$('#id_cen_cost').selectpicker('refresh'); 
+
+		$("#id_tip_man_ob").val(data.id_tip_man_ob);
+		$('#id_tip_man_ob').selectpicker('refresh'); 
+
+		$("#id_categoria").val(data.id_categoria);
+		$('#id_categoria').selectpicker('refresh');
+
+		$("#id_form_pag").val(data.id_form_pag);
+		$('#id_form_pag').selectpicker('refresh');
+
+		$("#id_tip_cont").val(data.id_tip_cont);
+		$('#id_tip_cont').selectpicker('refresh');
+
+		$("#id_est_civil").val(data.id_est_civil);
+		$('#id_est_civil').selectpicker('refresh');
+
+		$("#id_reg_pen").val(data.id_reg_pen);
+		$('#id_reg_pen').selectpicker('refresh');
+
+		$("#id_com_act").val(data.id_com_act);
+		$('#id_com_act').selectpicker('refresh');
+
+		$("#id_t_registro").val(data.id_t_registro);
+		$('#id_t_registro').selectpicker('refresh');
+
+		$("#id_turno").val(data.id_turno);
+		$('#id_turno').selectpicker('refresh');
+
+		$("#id_distrito").val(data.id_distrito);
+		$('#id_distrito').selectpicker('refresh');
+
+
+		$("#id_tip_doc").val(data.id_tip_doc);
+		$('#id_tip_doc').selectpicker('refresh');
+
+
+		$("#id_trab").val(data.id_trab);
+		$("#nom_trab").val(data.nom_trab);
+		$("#apepat_trab").val(data.apepat_trab);
+		$("#apemat_trab").val(data.apemat_trab);
+		$("#num_doc_trab").val(data.num_doc_trab);
+		$("#dir_trab").val(data.dir_trab);
+		$("#urb_trab").val(data.urb_trab);
+		$("#fec_nac_trab").val(data.fec_nac_trab);
+		$("#lug_nac_trab").val(data.lug_nac_trab);
+		$("#num_tlf_dom").val(data.num_tlf_dom);
+		$("#num_tlf_cel").val(data.num_tlf_cel);
+		$("#email_trab").val(data.email_trab);
+		$("#fec_ing_trab").val(data.fec_ing_trab);
+		$("#fec_cese_trab").val(data.fec_cese_trab);
+		$("#sueldo_trab").val(data.sueldo_trab);
+		$("#bono_trab").val(data.bono_trab);
+		$("#asig_trab").val(data.asig_trab);
+		$("#obs_trab").val(data.obs_trab);
 		$("#fecfin_con_ant").val(data.fecfin_con_ant);
 		$("#fecfin_con_act").val(data.fecfin_con_act);
+		$("#cusp_trab").val(data.cusp_trab);
+		$("#nacionalidad").val(data.nacionalidad);
+		$("#departamento").val(data.departamento);
+		$("#edad_trab").val(data.edad_trab);
 
-
-		
-
-
-
-
-	
 		
 
 
  	})
 }
-
-
-
-
-function mostrar_datos(id_trab)
-{
-	$.post("../ajax/trabajador.php?op=mostrar",{id_trab : id_trab}, function(data, status)
-	{
-		
-		data = JSON.parse(data);		
-		mostrarform_datos(true);
-
-
-		
-
-		$("#prueba").val(data.id_trab);
-		$("#codigo").val(data.id_trab);
-
-		$("#viv_pad").val(data.viv_pad);
-		$("#nom_pad").val(data.nom_pad);
-		$("#ocu_pad").val(data.ocu_pad);
-		$("#dep_pad").val(data.dep_pad);
-		$("#fec_rec_dat").val(data.fec_rec_dat);
-				
-
-		$("#viv_mad").val(data.viv_mad);
-		$("#nom_mad").val(data.nom_mad);
-		$("#ocu_mad").val(data.ocu_mad);
-		$("#dep_mad").val(data.dep_mad);
-
-		$("#viv_con").val(data.viv_con);
-		$("#nom_con").val(data.nom_con);
-		$("#ocu_con").val(data.ocu_con);
-		$("#dep_con").val(data.dep_con);
-
-
-		$("#eda_hij1").val(data.eda_hij1);
-		$("#nom_hij1").val(data.nom_hij1);
-		$("#ocu_hij1").val(data.ocu_hij1);
-		$("#dep_hij1").val(data.dep_hij1);
-
-		$("#dat_hij1_muestra").show();
-		$("#dat_hij1_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij1);
-		$("#dat_hij1_actual").val(data.dat_hij1);
-
-
-
-		$("#eda_hij2").val(data.eda_hij2);
-		$("#nom_hij2").val(data.nom_hij2);
-		$("#ocu_hij2").val(data.ocu_hij2);
-		$("#dep_hij2").val(data.dep_hij2);
-
-		$("#eda_hij3").val(data.eda_hij3);
-		$("#nom_hij3").val(data.nom_hij3);
-		$("#ocu_hij3").val(data.ocu_hij3);
-		$("#dep_hij3").val(data.dep_hij3);
-
-        $("#eda_hij4").val(data.eda_hij4);
-		$("#nom_hij4").val(data.nom_hij4);
-		$("#ocu_hij4").val(data.ocu_hij4);
-		$("#dep_hij4").val(data.dep_hij4);
-
-		$("#nom_fam_con").val(data.nom_fam_con);
-		$("#par_fam_con").val(data.par_fam_con);
-		$("#are_fam_con").val(data.are_fam_con);
-
-		$("#cen_est_pri").val(data.cen_est_pri);
-		$("#grado_pri").val(data.grado_pri);
-		$("#fec_ini_pri").val(data.fec_ini_pri);
-		$("#fec_fin_pri").val(data.fec_fin_pri);
-		$("#cen_est_sec").val(data.cen_est_sec);
-		$("#grado_sec").val(data.grado_sec);
-		$("#fec_ini_sec").val(data.fec_ini_sec);
-		$("#fec_fin_sec").val(data.fec_fin_sec);
-		$("#cen_est_sup").val(data.cen_est_sup);
-		$("#carrera_sup").val(data.carrera_sup);
-		$("#fec_des_sup").val(data.fec_des_sup);
-		$("#fec_has_sup").val(data.fec_has_sup);
-		$("#cen_est_tec").val(data.cen_est_tec);
-		$("#carrera_tec").val(data.carrera_tec);
-		$("#fec_ini_tec").val(data.fec_ini_tec);
-		$("#fec_fin_tec").val(data.fec_fin_tec);
-
-
-		$("#cen_est_esp").val(data.cen_est_esp);
-        $("#especialidad").val(data.especialidad);
-		$("#fec_ini_esp").val(data.fec_ini_esp);
-		$("#fec_fin_esp").val(data.fec_fin_esp);
-		$("#cen_est_otros").val(data.cen_est_otros);
-		$("#carrera_otros").val(data.carrera_otros);
-		$("#fec_ini_otros").val(data.fec_ini_otros);
-		$("#fec_fin_otros").val(data.fec_fin_otros);
-
-
-		$("#des_idioma").val(data.des_idioma);
-		$("#cen_est_idioma").val(data.cen_est_idioma);
-		$("#nivel_idioma").val(data.nivel_idioma);
-
-		$("#des_comp").val(data.des_comp);
-		$("#cen_est_comp").val(data.cen_est_comp);
-		$("#nivel_comp").val(data.nivel_comp);
-
-
-		$("#tie_enf_car_onc").val(data.tie_enf_car_onc);
-		$("#nom_enf_car_onc").val(data.nom_enf_car_onc);
-		
-
-		$("#afi_onp").val(data.afi_onp);
-		$("#afi_afp").val(data.afi_afp);
-		$("#nom_afi_afp").val(data.nom_afi_afp);
-
-
-
- 	})
-}
-
-
-
-
-
-function mostrar_data_adjunta(id_trab)
-{
-	$.post("../ajax/trabajador.php?op=mostrar",{id_trab : id_trab}, function(data, status)
-	{
-		
-		data = JSON.parse(data);		
-		mostrarform_data_adjunta(true);
-
-
-		$("#id_trab_data_adjunta").val(data.id_trab);
-
-		$("#foto_trab_muestra").show();
-		$("#foto_trab_muestra").attr("src","../files/trabajador_data_adjunta/"+data.foto_trab);
-		$("#imagenactual_foto_trab").val(data.foto_trab);
-
-		$("#dat_hij1_muestra").show();
-		$("#dat_hij1_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij1);
-		$("#imagenactual_dat_hij1").val(data.dat_hij1);
-
-		$("#dat_hij2_muestra").show();
-		$("#dat_hij2_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij2);
-		$("#imagenactual_dat_hij2").val(data.dat_hij2);
-
-		$("#dat_hij3_muestra").show();
-		$("#dat_hij3_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij3);
-		$("#imagenactual_dat_hij3").val(data.dat_hij3);
-
-		$("#dat_hij4_muestra").show();
-		$("#dat_hij4_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij4);
-		$("#imagenactual_dat_hij4").val(data.dat_hij4);
-
-		$("#dat_con_muestra").show();
-		$("#dat_con_muestra").attr("src","../files/trabajador_familia/"+data.dat_con);
-		$("#imagenactual_dat_con").val(data.dat_con);
-
-		$("#dat_luz_agua_muestra").show();
-		$("#dat_luz_agua_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_luz_agua);
-		$("#imagenactual_dat_luz_agua").val(data.dat_luz_agua);
-
-		$("#dat_ant_pol_muestra").show();
-		$("#dat_ant_pol_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_ant_pol);
-		$("#imagenactual_dat_ant_pol").val(data.dat_ant_pol);
-
-		$("#dat_cer_med_muestra").show();
-		$("#dat_cer_med_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cer_med);
-		$("#imagenactual_dat_cer_med").val(data.dat_cer_med);
-
-		$("#dat_dec_dom_muestra").show();
-		$("#dat_dec_dom_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_dec_dom);
-		$("#imagenactual_dat_dec_dom").val(data.dat_dec_dom);
-	
-		$("#dat_cv_muestra").show();
-		$("#dat_cv_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cv);
-		$("#imagenactual_dat_cv").val(data.dat_cv);
-
-		$("#dat_gra_tit_muestra").show();
-		$("#dat_gra_tit_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_gra_tit);
-		$("#imagenactual_dat_gra_tit").val(data.dat_gra_tit);
-
-		$("#dat_idi_muestra").show();
-		$("#dat_idi_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_idi);
-		$("#imagenactual_dat_idi").val(data.dat_idi);
-
-		$("#dat_cer_tec_muestra").show();
-		$("#dat_cer_tec_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cer_tec);
-		$("#imagenactual_dat_cer_tec").val(data.dat_cer_tec);
-
-		$("#dat_cer_tra_muestra").show();
-		$("#dat_cer_tra_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cer_tra);
-		$("#imagenactual_dat_cer_tra").val(data.dat_cer_tra);
-
-		$("#dat_adi_muestra").show();
-		$("#dat_adi_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_adi);
-		$("#imagenactual_dat_adi").val(data.dat_adi);
-
-
-		$("#dat_pas_muestra").show();
-		$("#dat_pas_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_pas);
-		$("#imagenactual_dat_pas").val(data.dat_pas);
-
-		$("#dat_bre_muestra").show();
-		$("#dat_bre_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_bre);
-		$("#imagenactual_dat_bre").val(data.dat_bre);
-
-		$("#dat_liq_muestra").show();
-		$("#dat_liq_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_liq);
-		$("#imagenactual_dat_liq").val(data.dat_liq);
-
-		$("#dat_cts_muestra").show();
-		$("#dat_cts_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_cts);
-		$("#imagenactual_dat_cts").val(data.dat_cts);
-
-		$("#dat_car_ren_muestra").show();
-		$("#dat_car_ren_muestra").attr("src","../files/trabajador_data_adjunta/"+data.dat_car_ren);
-		$("#imagenactual_dat_car_ren").val(data.dat_car_ren);
-
-		
-
- 	})
-}
-
 
 
 

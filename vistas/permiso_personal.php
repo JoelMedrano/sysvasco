@@ -38,15 +38,16 @@ if ($_SESSION['rrhh']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                           
-                            <th>Fecha Emision</th>
-                            <th>Fecha Procede</th>
+                            <th>Fec.Emision</th>
+                            <th>Fec.Procede</th>
+                            <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
                             <th>JEF.OPE</th>
                             <th>RR.HH</th>
                             <th>Est.Reg</th>
-                            <th>Visualizar</th>
+                            <th>Ver</th>
                             <th>JEF.OPE</th>
                             <th>RR.HH</th>
                             <th>Anular</th>
@@ -54,15 +55,16 @@ if ($_SESSION['rrhh']==1)
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Fecha Emision</th>
-                            <th>Fecha Procede</th>
+                            <th>Fec.Emision</th>
+                            <th>Fec.Procede</th>
+                            <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
                             <th>JEF.OPE</th>
                             <th>RR.HH</th>
                             <th>Est.Reg</th>
-                            <th>Visualizar</th>
+                            <th>Ver</th>
                             <th>JEF.OPE</th>
                             <th>RR.HH</th>
                             <th>Anular</th>

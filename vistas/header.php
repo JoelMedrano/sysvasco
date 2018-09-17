@@ -241,6 +241,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>
                 <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajador</a></li>
                 <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i> Refrigerio</a></li>
+                <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i> Regimen Pensionario</a></li>
               </ul>
             </li>';
             }

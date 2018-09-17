@@ -457,7 +457,7 @@ if ($_SESSION['rrhh']==1)
                                 <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
 
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="fec_rec_dat" id="fec_rec_dat">
+                                   <input type="date"  class="form-control" name="fec_rec_dat" id="fec_rec_dat">
                                 </div>
                                
                                
@@ -644,9 +644,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">GRADO</label>
                                
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">DESDE(MES/AÑO)</label>
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">DESDE(MES/AÑO)</label>
                                
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">HASTA(MES/AÑO)</label>
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">HASTA(MES/AÑO)</label>
 
                           </div>
 
@@ -662,11 +662,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  name="grado_pri" id="grado_pri"   >
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_ini_pri" id="fec_ini_pri">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_pri" id="fec_ini_pri">
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_fin_pri" id="fec_fin_pri">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_pri" id="fec_fin_pri">
                                 </div>
                                
                           </div>
@@ -683,11 +683,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  name="grado_sec" id="grado_sec"  >
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_ini_sec" id="fec_ini_sec">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_sec" id="fec_ini_sec">
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_fin_sec" id="fec_fin_sec">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_sec" id="fec_fin_sec">
                                 </div>
                                
                           </div>
@@ -705,11 +705,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_des_sup" id="fec_des_sup">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_des_sup" id="fec_des_sup">
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_has_sup" id="fec_has_sup">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_has_sup" id="fec_has_sup">
                                 </div>
                                
                           </div>
@@ -728,11 +728,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_ini_tec" id="fec_ini_tec">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_tec" id="fec_ini_tec">
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_fin_tec" id="fec_fin_tec">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_tec" id="fec_fin_tec">
                                 </div>
                                
                           </div>
@@ -751,11 +751,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_ini_esp" id="fec_ini_esp">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_esp" id="fec_ini_esp">
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_fin_esp" id="fec_fin_esp">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_esp" id="fec_fin_esp">
                                 </div>
                                
                           </div>
@@ -773,11 +773,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_ini_otros" id="fec_ini_otros">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_otros" id="fec_ini_otros">
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="fec_fin_otros" id="fec_fin_otros">
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_otros" id="fec_fin_otros">
                                 </div>
                                
                           </div>
@@ -797,7 +797,7 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">CENTRO DE ESTUDIO</label>
 
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">NIVEL(BASICO, INTERMEDIO o AVANZADO)</label>
+                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label">NIVEL(BASICO, INTERMEDIO o AVANZADO)</label>
 
                                 
                           </div>
@@ -823,7 +823,7 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">CENTRO DE ESTUDIO</label>
 
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">NIVEL(BASICO, INTERMEDIO o AVANZADO)</label>
+                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label">NIVEL(BASICO, INTERMEDIO o AVANZADO)</label>
 
                           </div>
 
@@ -947,7 +947,7 @@ if ($_SESSION['rrhh']==1)
                 
 
                             
-                            <input type="text" class="form-control" name="id_trab_data_adjunta" id="id_trab_data_adjunta" >
+                            <input type="hidden" class="form-control" name="id_trab_data_adjunta" id="id_trab_data_adjunta" >
                              
 
                              <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -1105,22 +1105,6 @@ if ($_SESSION['rrhh']==1)
                                 <input type="hidden" name="imagenactual_dat_car_ren" id="imagenactual_dat_car_ren">
                                 <img src="" width="37px" height="30px" id="dat_car_ren_muestra">
                             </div>
-
-
-
-                            
-
-
-
-
-
-
-
-
-                         
-
-
-                     
 
                         
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
