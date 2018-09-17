@@ -140,6 +140,7 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="articulo.php"><i class="fa fa-circle-o"></i> Artículos</a></li>
                 <li><a href="categoria.php"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                <li><a href="importar_movimientos.php"><i class="fa fa-circle-o"></i> Importar Movimientos</a></li>
               </ul>
             </li>';
             }
