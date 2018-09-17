@@ -11,7 +11,7 @@ else
 {
 require 'header.php';
 
-if ($_SESSION['ventas']==1)
+if ($_SESSION['rrhh']==1)
 {
 ?>
 <!--Contenido-->
@@ -106,22 +106,10 @@ if ($_SESSION['ventas']==1)
                                     <th>Total Dias</th>
                                     <th>Dias Pend</th>
                                     <th>Obser Detalle</th>
-                                    <th>Vencidas</th>
-                                    <th>Truncas</th>
-                                    <th>Inicio</th>
-                                    <th>Salida</th>
-                                    <th>Tot.Dias</th>
-                                    <th>Dias Pend</th>
                                     <th>Observaciones</th>
                                     <th>Opciones</th>
                                 </thead>
                                 <tfoot>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -186,6 +174,42 @@ if ($_SESSION['ventas']==1)
     </div>
   </div>  
   <!-- Fin modal -->
+
+   <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width: 65% !important;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Seleccione un Periodo</h4>
+        </div>
+        <div class="modal-body">
+          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+                <th>Opciones</th>
+                <th>Id.Periodo</th>
+                <th>Periodo</th>
+            </thead>
+            <tbody>
+              
+            </tbody>
+            <tfoot>
+              <th>Opciones</th>
+                <th>Id.Periodo</th>
+                <th>Periodo</th>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>        
+      </div>
+    </div>
+  </div>  
+  <!-- Fin modal -->
+
+  
+
 <?php
 }
 else

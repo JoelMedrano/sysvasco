@@ -90,7 +90,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectTipoPlanilla()
 	{
-		$sql="SELECT cod_argumento AS id_tip_plan , des_larga AS  tipo_planilla FROM tabla_maestra_detalle where cod_tabla='TPLA' ";
+		$sql="SELECT cod_argumento AS id_tip_plan , des_larga AS  tipo_planilla FROM tabla_maestra_detalle where cod_tabla='TPLA' ORDER BY cod_argumento DESC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -99,7 +99,7 @@ Class ConsultasD
    //  Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectCentroCostos()
 	{
-		$sql="SELECT cod_argumento AS id_cen_cost , des_larga AS  centro_costos FROM tabla_maestra_detalle where cod_tabla='TCCO' ";
+		$sql="SELECT cod_argumento AS id_cen_cost , des_larga AS  centro_costos FROM tabla_maestra_detalle where cod_tabla='TCCO' ORDER BY cod_argumento ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -124,7 +124,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectCategoriaLaboral()
 	{
-		$sql="SELECT cod_argumento AS id_categoria , des_larga AS  categoria_laboral FROM tabla_maestra_detalle where cod_tabla='TCAL' ";
+		$sql="SELECT cod_argumento AS id_categoria , des_larga AS  categoria_laboral FROM tabla_maestra_detalle where cod_tabla='TCAL' ORDER BY cod_argumento DESC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -140,7 +140,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectTipoContrato()
 	{
-		$sql="SELECT cod_argumento AS id_tip_cont , des_larga AS  tipo_contrato FROM tabla_maestra_detalle where cod_tabla='TCON' ";
+		$sql="SELECT cod_argumento AS id_tip_cont , des_larga AS  tipo_contrato FROM tabla_maestra_detalle where cod_tabla='TCON' ORDER BY cod_argumento ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -148,7 +148,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectEstadoCivil()
 	{
-		$sql="SELECT cod_argumento AS id_est_civil, des_larga AS  estado_civil FROM tabla_maestra_detalle where cod_tabla='TECI' ";
+		$sql="SELECT cod_argumento AS id_est_civil, des_larga AS  estado_civil FROM tabla_maestra_detalle where cod_tabla='TECI' ORDER BY cod_argumento ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -157,7 +157,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectRegimenPensionario()
 	{
-		$sql="SELECT cod_argumento AS id_reg_pen, des_larga AS  regimen_pensionario FROM tabla_maestra_detalle where cod_tabla='TREP' ";
+		$sql="SELECT cod_argumento AS id_reg_pen, des_larga AS  regimen_pensionario FROM tabla_maestra_detalle where cod_tabla='TREP' ORDER BY cod_argumento ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -165,7 +165,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectComisionActual()
 	{
-		$sql="SELECT cod_argumento AS id_com_act, des_larga AS  comision_actual FROM tabla_maestra_detalle where cod_tabla='TTCA' ";
+		$sql="SELECT cod_argumento AS id_com_act, des_larga AS  comision_actual FROM tabla_maestra_detalle where cod_tabla='TTCA' ORDER BY cod_argumento ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -183,7 +183,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectTRegistro()
 	{
-		$sql="SELECT cod_argumento AS id_t_registro, des_larga AS  t_registro FROM tabla_maestra_detalle where cod_tabla='TTRE' ";
+		$sql="SELECT cod_argumento AS id_t_registro, des_larga AS  t_registro FROM tabla_maestra_detalle where cod_tabla='TTRE' ORDER BY cod_argumento ASC ";
 		return ejecutarConsulta($sql);		
 	}
 

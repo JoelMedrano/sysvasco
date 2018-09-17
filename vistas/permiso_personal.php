@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['almacen']==1)
+if ($_SESSION['rrhh']==1)
 {
 
  $fecha=date("d/m/Y");
@@ -38,29 +38,35 @@ if ($_SESSION['almacen']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                           
-                            <th>Fecha Emision</th>
-                            <th>Fecha Procede</th>
+                            <th>Fec.Emision</th>
+                            <th>Fec.Procede</th>
+                            <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
-                            <th>Estado de Aprobacion</th>
-                            <th>Estado de Registro</th>
-                            <th>Visualizar</th>
-                            <th>Aprobar</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
+                            <th>Est.Reg</th>
+                            <th>Ver</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
                             <th>Anular</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Fecha Emision</th>
-                            <th>Fecha Procede</th>
+                            <th>Fec.Emision</th>
+                            <th>Fec.Procede</th>
+                            <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
-                            <th>Estado de Aprobacion</th>
-                            <th>Estado de Registro</th>
-                            <th>Opciones</th>
-                            <th>Aprobar</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
+                            <th>Est.Reg</th>
+                            <th>Ver</th>
+                            <th>JEF.OPE</th>
+                            <th>RR.HH</th>
                             <th>Anular</th>
                           </tfoot>
                         </table>

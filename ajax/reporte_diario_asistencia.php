@@ -245,12 +245,12 @@ switch ($_GET["op"]){
  				"0"=>$reg->id_trab,
  				"1"=>$reg->tipo_planilla,
  				"2"=>$reg->sucursal_anexo,
- 				"3"=>$reg->num_doc_trab,
- 				"4"=>$reg->nombres,
- 				"5"=>$reg->area_trab,
- 				"6"=>$reg->funcion,
- 				"7"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>'
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->area_trab,
+ 				"5"=>$reg->hor_ent,
+ 				"6"=>$reg->hor_sal,
+ 				"7"=>$reg->resultado,
+ 				"8"=>$reg->motivo
  				);
  		}
  		$results = array(

@@ -101,7 +101,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 10,//Paginación
+		"iDisplayLength": 15,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -231,6 +231,37 @@ function aprobar(id_permiso)
         }
 	})
 }
+
+
+//Función para desactivar registros
+function desaprobarRRHH(id_permiso)
+{
+	bootbox.confirm("¿Está seguro de desaprobar el permiso?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/permiso_personal.php?op=desaprobarRRHH", {id_permiso : id_permiso}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
+}
+
+//Función para activar registros
+function aprobarRRHH(id_permiso)
+{
+	bootbox.confirm("¿Está seguro de aprobar el permiso?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/permiso_personal.php?op=aprobarRRHH", {id_permiso : id_permiso}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
+}
+
+
 
 
 

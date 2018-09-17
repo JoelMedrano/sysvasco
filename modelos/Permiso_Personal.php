@@ -55,6 +55,22 @@ Class Permiso_Personal
 	}
 
 
+	//Implementamos un método para aprobar registros
+	public function aprobarRRHH($id_permiso, $fec_reg, $pc_reg, $usu_reg)
+	{
+		$sql="UPDATE permiso_personal SET est_apro_rrhh='1',  fec_apro_rrhh='$fec_reg', pc_apro_rrhh='$pc_reg', usu_apro_rrhh='$usu_reg'   WHERE id_permiso='$id_permiso'";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para desaprobar registros
+	public function desaprobarRRHH($id_permiso, $fec_reg, $pc_reg, $usu_reg)
+	{
+		$sql="UPDATE permiso_personal SET est_apro_rrhh='0',  fec_desapro_rrhh='$fec_reg', pc_desapro_rrhh='$pc_reg', usu_desapro_rrhh='$usu_reg'  WHERE id_permiso='$id_permiso'";
+		return ejecutarConsulta($sql);
+	} 
+
+
+
 
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_permiso)
@@ -66,17 +82,46 @@ Class Permiso_Personal
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,   DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro 
+		$sql="SELECT   CONCAT_WS(' ',  tr1.apepat_trab,  SUBSTRING_INDEX(tr1.nom_trab, ' ',1) ) AS solicitante,
+		 CONCAT_WS(' ',     SUBSTRING_INDEX(tr.nom_trab, ' ',1) , tr.apepat_trab ) AS nombres,
+		    DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,  DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro , pp.est_apro_rrhh, NULL AS ninguno
 		 FROM permiso_personal pp
 		 LEFT JOIN Trabajador tr ON
 		 tr.id_trab= pp.id_trab
 		 LEFT JOIN tabla_maestra_detalle  tbm ON
 		 tbm.des_corta= pp.tip_permiso
 		 AND tbm.cod_tabla='TPER'
+		 INNER JOIN usuario usu ON
+		 usu.login= pp.usu_reg
+		 LEFT JOIN Trabajador tr1 ON
+		 tr1.id_trab= usu.id_trab
+		 ORDER BY pp.id_permiso DESC
+		 ";
+		return ejecutarConsulta($sql);	
+	}
+
+	//Implementar un método para listar los registros
+	public function listarfiltrado($idusuario)
+	{
+		$sql="SELECT  CONCAT_WS(' ',  tr1.apepat_trab,  SUBSTRING_INDEX(tr1.nom_trab, ' ',1) ) AS solicitante,
+		 CONCAT_WS(' ',   SUBSTRING_INDEX(tr.nom_trab, ' ',1) , tr.apepat_trab ) AS nombres,
+		    DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,  DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro , pp.est_apro_rrhh, null as ninguno
+		 FROM permiso_personal pp
+		 LEFT JOIN Trabajador tr ON
+		 tr.id_trab= pp.id_trab
+		 LEFT JOIN tabla_maestra_detalle  tbm ON
+		 tbm.des_corta= pp.tip_permiso
+		 AND tbm.cod_tabla='TPER'
+		 INNER JOIN usuario usu ON
+		 usu.login= pp.usu_reg
+		 LEFT JOIN Trabajador tr1 ON
+		 tr1.id_trab= usu.id_trab
+		 WHERE usu.idusuario='$idusuario' 
 		 order by pp.id_permiso DESC
 		 ";
 		return ejecutarConsulta($sql);	
 	}
+
 
 
 	//Implementar un método para listar los registros

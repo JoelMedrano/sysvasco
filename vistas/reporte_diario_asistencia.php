@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['almacen']==1)
+if ($_SESSION['reloj']==1)
 {
 ?>
 
@@ -23,8 +23,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Reporte Diario de Tardanzas, Inasistencias y Permisos
-                          <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
+                          <h1 class="box-title">Reporte Diario de Tardanzas, Inasistencias y Permisos </h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -36,11 +35,12 @@ if ($_SESSION['almacen']==1)
                             <th>Cod.</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
-                            <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Condicion</th>
+                            <th>Hora.Entrada</th>
+                            <th>Hora.Salida</th>
+                            <th>Situación</th>
+                            <th>Detalle</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -48,11 +48,12 @@ if ($_SESSION['almacen']==1)
                             <th>Cod.</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
-                            <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Condicion</th>
+                            <th>Hora.Entrada</th>
+                            <th>Hora.Salida</th>
+                            <th>Situación</th>
+                            <th>Detalle</th>
                           </tfoot>
                         </table>
                     </div>

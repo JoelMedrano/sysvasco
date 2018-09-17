@@ -155,13 +155,107 @@ switch ($_GET["op"]){
 	break;
 
 
+
+	case 'aprobarRRHH':
+		$rspta=$permiso_personal->aprobarRRHH($id_permiso, $fec_reg, $pc_reg, $usu_reg);
+ 		echo $rspta ? "Permiso aprobado" : "Permiso no se puede aprobar";
+	break;
+
+
+	case 'desaprobarRRHH':
+		$rspta=$permiso_personal->desaprobarRRHH($id_permiso, $fec_reg, $pc_reg, $usu_reg);
+ 		echo $rspta ? "Permiso desaprobado" : "Permiso no se puede desaprobar";
+	break;
+
+
 	case 'listar':
-		$rspta=$permiso_personal->listar();
+
+
+		$idusuario=$_SESSION["idusuario"];
+
+		if ($idusuario==1 || $idusuario==2 || $idusuario==7  || $idusuario==8 ) {
+			
+            $rspta=$permiso_personal->listar();
+
+
+		}else{
+			$rspta=$permiso_personal->listarfiltrado($idusuario);
+		}
+
+		
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
- 			$data[]=array(
+
+
+    		if ( $_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='2' || $_SESSION["idusuario"]=='7') {
+
+
+ 			   $data[]=array(
+ 				
+ 				"0"=>$reg->fecha_emision,
+ 				"1"=>$reg->fecha_procede,
+ 				"2"=>$reg->solicitante,
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->tipo_permiso,
+ 				"5"=>$reg->motivo,
+
+ 				"6"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
+ 				'<span class="label bg-red">Desaprobado</span>',
+
+ 				"7"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				'<span class="label bg-red">Desaprobado</span>',
+
+ 				"8"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				'<span class="label bg-red">Desactivado</span>',
+
+ 				"9"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
+
+ 				"10"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+
+ 				"11"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+
+ 				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+ 						
+ 				);
+
+ 			  }else  if ($_SESSION["idusuario"]=='8')  {
+
+
+ 			   $data[]=array(
+ 				
+ 				"0"=>$reg->fecha_emision,
+ 				"1"=>$reg->fecha_procede,
+ 				"2"=>$reg->apepat_trab,
+ 				"3"=>$reg->tipo_permiso,
+ 				"4"=>$reg->motivo,
+ 				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
+ 				'<span class="label bg-red">Desaprobado</span>',
+ 				"6"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				'<span class="label bg-red">Desaprobado</span>',
+ 				"7"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				'<span class="label bg-red">Desactivado</span>',
+ 				"8"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
+ 				"9"=>$reg->ninguno,
+ 				"10"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+ 				"11"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+ 						
+ 				);
+
+
+            }else  {
+
+
+
+             $data[]=array(
  				
  				"0"=>$reg->fecha_emision,
  				"1"=>$reg->fecha_procede,
@@ -172,20 +266,22 @@ switch ($_GET["op"]){
  				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"6"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				"6"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				'<span class="label bg-red">Desaprobado</span>',
+
+ 				"7"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
 
- 				"7"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 				"8"=>($reg->est_reg)?'<button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
-
- 				"8"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
-
- 				"9"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
- 					
- 						
+ 				"9"=>$reg->ninguno,
+ 				"10"=>$reg->ninguno,
+ 				"11"=>$reg->ninguno	
  				);
+
+			 }
+
+
  		}
  		$results = array(
  			"sEcho"=>1, //Información para el datatables

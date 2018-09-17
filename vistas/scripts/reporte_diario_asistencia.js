@@ -267,7 +267,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 10,//Paginación
+		"iDisplayLength": 20,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
