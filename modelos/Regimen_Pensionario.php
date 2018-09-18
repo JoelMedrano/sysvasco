@@ -49,7 +49,10 @@ Class Regimen_Pensionario
 													$hab_apo_mix,
 													$sj_apo_obl,
 													$sj_com_men_rem,
-													$sj_apo_mix)
+													$sj_apo_mix,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg)
 	{
 		$sql="INSERT INTO regimen_pensionario (id_ano,
 				obs_reg_pen,
@@ -91,7 +94,10 @@ Class Regimen_Pensionario
 			    sj_apo_obl,
 			    sj_com_men_rem,
 			    sj_apo_mix,
-			    est_reg_pen)
+			    est_reg_pen,
+			    fec_reg,
+			    usu_reg,
+			    pc_reg)
 		VALUES ('$id_ano',
 			    '$obs_reg_pen',
 			    '$onp_apo_obl',
@@ -132,7 +138,11 @@ Class Regimen_Pensionario
 		     	'$sj_apo_obl',
 		     	'$sj_com_men_rem',
 		     	'$sj_apo_mix',
-		     	'1')";
+		     	'1',
+		     	'$fec_reg',
+		     	'$usu_reg',
+		     	'$pc_reg'
+		     	)";
 		return ejecutarConsulta($sql);
 
 
@@ -177,7 +187,10 @@ Class Regimen_Pensionario
 													$hab_apo_mix,
 													$sj_apo_obl,
 													$sj_com_men_rem,
-													$sj_apo_mix)
+													$sj_apo_mix,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg)
 	{
 		$sql="UPDATE regimen_pensionario SET  id_ano='$id_ano',
 											  obs_reg_pen='$obs_reg_pen',
@@ -219,21 +232,24 @@ Class Regimen_Pensionario
 											  sj_apo_obl='$sj_apo_obl',
 											  sj_com_men_rem='$sj_com_men_rem',
 											  sj_apo_mix='$sj_apo_mix'
+											  fec_mod='$fec_reg',
+											  usu_mod='$usu_reg',
+											  pc_mod='$pc_reg'
 											  WHERE id_reg_pen='$id_reg_pen'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para desactivar registros
-	public function desactivar($id_reg_pen)
+	public function desactivar($id_reg_pen, $fec_reg, $usu_reg, $pc_reg)
 	{
-		$sql="UPDATE regimen_pensionario SET est_reg_pen='0' WHERE id_reg_pen='$id_reg_pen'";
+		$sql="UPDATE regimen_pensionario SET est_reg_pen='0', fec_anu='$fec_reg', usu_anu='$usu_reg', pc_anu='$pc_reg' WHERE id_reg_pen='$id_reg_pen'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar registros
-	public function activar($id_reg_pen)
+	public function activar($id_reg_pen, $fec_reg, $usu_reg, $pc_reg)
 	{
-		$sql="UPDATE regimen_pensionario SET est_reg_pen='1' WHERE id_reg_pen='$id_reg_pen'";
+		$sql="UPDATE regimen_pensionario SET est_reg_pen='1', fec_act='$fec_reg', usu_act='$usu_reg', pc_act='$pc_reg'  WHERE id_reg_pen='$id_reg_pen'";
 		return ejecutarConsulta($sql);
 	}
 

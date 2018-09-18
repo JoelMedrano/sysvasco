@@ -107,7 +107,7 @@ require 'footer.php';
 ?>
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
-<script type="text/javascript" src="scripts/descuentos_judiciales.js"></script>
+<script type="text/javascript" src="scripts/prestamos.js"></script>
 <?php 
 }
 ob_end_flush();

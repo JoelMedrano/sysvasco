@@ -11,7 +11,14 @@ $stock=isset($_POST["stock"])? limpiarCadena($_POST["stock"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 
+//Campos de Seguridad//
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+//Campos de Seguridad//
 
+//INICIO//
 $id_reg_pen=isset($_POST["id_reg_pen"])? limpiarCadena($_POST["id_reg_pen"]):"";
 
 $id_ano=isset($_POST["id_ano"])? limpiarCadena($_POST["id_ano"]):"";  
@@ -55,6 +62,10 @@ $hab_apo_mix=isset($_POST["hab_apo_mix"])? limpiarCadena($_POST["hab_apo_mix"]):
 $sj_apo_obl=isset($_POST["sj_apo_obl"])? limpiarCadena($_POST["sj_apo_obl"]):"";
 $sj_com_men_rem=isset($_POST["sj_com_men_rem"])? limpiarCadena($_POST["sj_com_men_rem"]):"";
 $sj_apo_mix=isset($_POST["sj_apo_mix"])? limpiarCadena($_POST["sj_apo_mix"]):"";
+
+//FIN
+
+
 
 
 
@@ -102,7 +113,10 @@ switch ($_GET["op"]){
 													$hab_apo_mix,
 													$sj_apo_obl,
 													$sj_com_men_rem,
-													$sj_apo_mix
+													$sj_apo_mix,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg
 													);
 			echo $rspta ? "Regimen pensionario registrado" : "Regimen pensionario no se pudo registrar";
 		}
@@ -146,19 +160,22 @@ switch ($_GET["op"]){
 													$hab_apo_mix,
 													$sj_apo_obl,
 													$sj_com_men_rem,
-													$sj_apo_mix);
+													$sj_apo_mix,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg);
 			echo $rspta ? "Regimen pensionario actualizado" : "Regimen pensionario no se pudo actualizar";
 		}
 		
 	break;
 
 	case 'desactivar':
-		$rspta=$regimen_pensionario->desactivar($id_reg_pen);
+		$rspta=$regimen_pensionario->desactivar($id_reg_pen, $fec_reg, $usu_reg, $pc_reg);
  		echo $rspta ? "Regimen pensionario Desactivado" : "Regimen pensionario no se puede desactivar";
 	break;
 
 	case 'activar':
-		$rspta=$regimen_pensionario->activar($id_reg_pen);
+		$rspta=$regimen_pensionario->activar($id_reg_pen, $fec_reg, $usu_reg, $pc_reg);
  		echo $rspta ? "Regimen pensionario activado" : "Regimen pensionario no se puede activar";
 	break;
 

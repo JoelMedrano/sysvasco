@@ -11,7 +11,7 @@ function init(){
 	})
 
 	//Cargamos los items al select categoria
-	$.post("../ajax/descuentos_judiciales.php?op=selectTrabajador", function(r){
+	$.post("../ajax/prestamos.php?op=selectTrabajador", function(r){
 	            $("#id_trab").html(r);
 	            $('#id_trab').selectpicker('refresh');
 
@@ -92,7 +92,7 @@ function listar()
 //Función para guardar o editar
 
 function guardaryeditar(e)
-{
+{ 
 	e.preventDefault(); //No se activará la acción predeterminada del evento
 	$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
