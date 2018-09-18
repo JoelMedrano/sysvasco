@@ -13,7 +13,7 @@ Class Movimientos
 	public function movsfecha($fecha_inicio,$fecha_fin)
 	{
 		$sql="SELECT	m.fecha AS id_fecha,
-						m.fecha AS fecha,
+						m.fecha,
 						CASE
 						WHEN MONTH(m.fecha)='1' THEN 'ENERO'
 						WHEN MONTH(m.fecha)='2' THEN 'FEBRERO'
@@ -32,6 +32,14 @@ Class Movimientos
 						FROM movimientosjf m
 						WHERE DATE(m.fecha)>='$fecha_inicio' AND DATE(m.fecha)<='$fecha_fin'
 						GROUP BY m.fecha";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para anular la cotizacion
+	public function eliminar($fecha)
+	{
+		$sql="DELETE FROM movimientosjf WHERE fecha='$fecha'";
 		return ejecutarConsulta($sql);
 	}
 

@@ -36,10 +36,23 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 22,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
 
+//Función para anular registros
+function eliminar(fecha)
+{
+	bootbox.confirm("¿Está Seguro de eliminar la cotizacion?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/movimientos.php?op=eliminar", {fecha : fecha}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
 
 init();

@@ -3,6 +3,8 @@ require_once "../modelos/Movimientos.php";
 
 $movimiento=new Movimientos();
 
+$fecha=isset($_POST["fecha"])? limpiarCadena($_POST["fecha"]):"";
+
 
 switch ($_GET["op"]){
 	case 'movsfecha':
@@ -15,9 +17,10 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>$reg->id_fecha,
- 				"1"=>$reg->fecha,
- 				"2"=>$reg->mes
+ 				"0"=>$reg->fecha,
+ 				"1"=>$reg->mes,
+        "2"=>($reg->mes)?'<button class="btn btn-danger" onclick="eliminar(\''.$reg->fecha.'\')"><i class="fa fa-trash"></i></button>':' <button class="btn btn-danger" onclick="eliminar('.$reg->fecha.')"><i class="fa fa-trash"></i></button>'
+
  				);
  		}
  		$results = array(
@@ -28,6 +31,11 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 
 	break;
+
+	case 'eliminar':
+    $rspta=$movimiento->eliminar($fecha);
+    echo $rspta ? "Cotizacion lista para eliminar" : "Cotizacion no se puede eliminar";
+  break;
 
 
 }

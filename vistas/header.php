@@ -147,6 +147,24 @@ if (strlen(session_id()) < 1)
             ?>
 
             <?php
+            if ($_SESSION['almacen']==1)
+            {
+              echo '<li class="treeview">
+              <a href="#">
+                <i class="fa fa-rocket"></i>
+                <span>Almacén</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="importar_movimientos.php"><i class="fa fa-circle-o"></i> Importar Movimientos</a></li>
+                <li><a href="movimientos_fecha.php"><i class="fa fa-circle-o"></i> Fecha de Movimientos</a></li>
+                <li><a href="importar_movimientos.php"><i class="fa fa-circle-o"></i> Consultar Movimientos</a></li>
+              </ul>
+            </li>';
+            }
+            ?>
+
+            <?php
             if ($_SESSION['compras']==1)
             {
               echo '<li class="treeview">
