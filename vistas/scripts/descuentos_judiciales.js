@@ -77,7 +77,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/regimen_pensionario.php?op=listar',
+					url: '../ajax/descuentos_judiciales.php?op=listar',
 					type : "get",
 					dataType : "json",
 					error: function(e){
@@ -98,7 +98,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/regimen_pensionario.php?op=guardaryeditar",
+		url: "../ajax/articulo.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -115,67 +115,35 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_reg_pen)
+function mostrar(idarticulo)
 {
-	$.post("../ajax/regimen_pensionario.php?op=mostrar",{id_reg_pen : id_reg_pen}, function(data, status)
+	$.post("../ajax/articulo.php?op=mostrar",{idarticulo : idarticulo}, function(data, status)
 	{
 		data = JSON.parse(data);
 		mostrarform(true);
 
-		
-
-		$("#id_reg_pen").val(data.id_reg_pen);
-		$("#id_ano").val(data.id_ano);
-		$("#obs_reg_pen").val(data.obs_reg_pen);
-		$("#onp_apo_obl").val(data.onp_apo_obl);
-		$("#onp_com_men_rem").val(data.onp_com_men_rem);
-		$("#onp_com_anu").val(data.onp_com_anu);
- 		$("#onp_com_men").val(data.onp_com_men);
- 		$("#onp_pri_seg").val(data.onp_pri_seg);
- 		$("#onp_apo_act").val(data.onp_apo_act);
- 		$("#onp_apo_mix").val(data.onp_apo_mix);
- 		$("#int_apo_obl").val(data.int_apo_obl);
- 		$("#int_com_men_rem").val(data.int_com_men_rem);
- 		$("#int_com_anu").val(data.int_com_anu);
- 		$("#int_com_men").val(data.int_com_men);
- 		$("#int_pri_seg").val(data.int_pri_seg);
- 		$("#int_apo_act").val(data.int_apo_act);
- 		$("#int_apo_mix").val(data.int_apo_mix);
- 		$("#pri_apo_obl").val(data.pri_apo_obl);
- 		$("#pri_com_men_rem").val(data.pri_com_men_rem);
- 		$("#pri_com_anu").val(data.pri_com_anu);
- 		$("#pri_com_men").val(data.pri_com_men);
- 		$("#pri_pri_seg").val(data.pri_pri_seg);
- 		$("#pri_apo_act").val(data.pri_apo_act);
- 		$("#pri_apo_mix").val(data.pri_apo_mix);
- 		$("#pro_apo_obl").val(data.pro_apo_obl);
- 		$("#pro_com_men_rem").val(data.pro_com_men_rem);
- 		$("#pro_com_anu").val(data.pro_com_anu);
- 		$("#pro_com_men").val(data.pro_com_men);
- 		$("#pro_pri_seg").val(data.pro_pri_seg);
- 		$("#pro_apo_act").val(data.pro_apo_act);
- 		$("#pro_apo_mix").val(data.pro_apo_mix);
- 		$("#hab_apo_obl").val(data.hab_apo_obl);
- 		$("#hab_com_men_rem").val(data.hab_com_men_rem);
- 		$("#hab_com_anu").val(data.hab_com_anu);
- 		$("#hab_com_men").val(data.hab_com_men);
- 		$("#hab_pri_seg").val(data.hab_pri_seg);
- 		$("#hab_apo_act").val(data.hab_apo_act);
- 		$("#hab_apo_mix").val(data.hab_apo_mix);
- 		$("#sj_apo_obl").val(data.sj_apo_obl);
- 		$("#sj_com_men_rem").val(data.sj_com_men_rem);
- 		$("#sj_apo_mix").val(data.sj_apo_mix);
+		$("#idcategoria").val(data.idcategoria);
+		$('#idcategoria').selectpicker('refresh');
+		$("#codigo").val(data.codigo);
+		$("#nombre").val(data.nombre);
+		$("#stock").val(data.stock);
+		$("#descripcion").val(data.descripcion);
+		$("#imagenmuestra").show();
+		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+		$("#imagenactual").val(data.imagen);
+ 		$("#idarticulo").val(data.idarticulo);
+ 		generarbarcode();
 
  	})
 }
 
 //Función para desactivar registros
-function desactivar(id_reg_pen)
+function desactivar(idarticulo)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el regimen pensionario?", function(result){
+	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/regimen_pensionario.php?op=desactivar", {id_reg_pen : id_reg_pen}, function(e){
+        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -184,12 +152,12 @@ function desactivar(id_reg_pen)
 }
 
 //Función para activar registros
-function activar(id_reg_pen)
+function activar(idarticulo)
 {
-	bootbox.confirm("¿Está Seguro de activar el regimen pensionario?", function(result){
+	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/regimen_pensionario.php?op=activar", {id_reg_pen : id_reg_pen}, function(e){
+        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
