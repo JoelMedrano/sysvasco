@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "../modelos/Consultas.php";
 
 $consulta=new Consultas();

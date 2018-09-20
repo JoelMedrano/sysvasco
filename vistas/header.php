@@ -158,7 +158,8 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="importar_movimientos.php"><i class="fa fa-circle-o"></i> Importar Movimientos</a></li>
                 <li><a href="movimientos_fecha.php"><i class="fa fa-circle-o"></i> Fecha de Movimientos</a></li>
-                <li><a href="importar_movimientos.php"><i class="fa fa-circle-o"></i> Consultar Movimientos</a></li>
+                <li><a href="movimientos_detalle.php"><i class="fa fa-circle-o"></i> Consultar Movimientos</a></li>
+                <li><a href="movs_facturas.php"><i class="fa fa-circle-o"></i> Detalle de Pesos</a></li>
               </ul>
             </li>';
             }

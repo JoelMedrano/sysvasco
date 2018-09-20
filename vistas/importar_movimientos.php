@@ -16,12 +16,12 @@ if ($_SESSION['almacen']==1)
 
 <?php
 
- 
-  if (isset($_POST["enviar"])) {//nos permite recepcionar una variable que si 
+
+  if (isset($_POST["enviar"])) {//nos permite recepcionar una variable que si
 
     require_once("importar_xls/conexion.php");
     require_once("importar_xls/imp_mov_fun.php");
-  
+
     $archivo = $_FILES["archivo"]["name"];
     $archivo_copiado= $_FILES["archivo"]["tmp_name"];
     $archivo_guardado = "importar_xls/copia_".$archivo;
@@ -52,7 +52,7 @@ if ($_SESSION['almacen']==1)
         $fp = fopen($archivo_guardado,"r");//abrir un archivo
         $rows = 0;
         $borrar = borrar_datos();
-        while ($datos = fgetcsv($fp , 1500 , ";")) {
+        while ($datos = fgetcsv($fp , 5000 , ";")) {
           $rows ++;
             //echo $datos[0] ." ".$datos[1] ." ".$datos[2]." ".$datos[3] ." ".$datos[4] ." ".$datos[5] ." ".$datos[6] ." ".$datos[7] ." ".$datos[8] ." ".$datos[9] ." ".$datos[10] ." ".$datos[11] ." ".$datos[12] ." ".$datos[13] ." ".$datos[14] ." ".$datos[15] ."<br/>";
 
@@ -60,37 +60,42 @@ if ($_SESSION['almacen']==1)
 
             $resultado = insertar_datos($datos[0],$datos[1],$datos[2],$datos[3],$datos[4],$datos[5],$datos[6],$datos[7],$datos[8],$datos[9],$datos[10],$datos[11],$datos[12],$datos[13],$datos[14],$datos[15]);
 
-                  if ($resultado) {
-                    echo'<script>
 
-                          swal({
-                            type: "success",
-                            title: "La carga se realizo correctamente",
-                            showConfirmButton: true,
-                            confirmButtonText: "Cerrar"
-                            }).then(function(result){
-                                if (result.value) {
-
-                                window.location = "cotizacion.php";
-
-                                }
-                              })
-
-                        </script>';
-
-                  } else {
-                    echo "no se inserto";
-                  }
 
           }
-          
+
         }
+
+        if ($resultado) {
+          echo'<script>
+
+                swal({
+                  type: "success",
+                  title: "La carga se realizo correctamente",
+                  showConfirmButton: true,
+                  confirmButtonText: "Cerrar"
+                  }).then(function(result){
+                      if (result.value) {
+
+                      window.location = "movimientos_detalle.php";
+
+                      }
+                    })
+
+              </script>';
+
+        } else {
+          echo "no se inserto";
+        }
+
+
+
 
       }else{
         echo "no existe el archivo copiado <br/>";
       }
-    
-  } 
+
+  }
 
 ?>
 
