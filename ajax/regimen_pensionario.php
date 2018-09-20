@@ -1,5 +1,7 @@
 <?php
 require_once "../modelos/Regimen_Pensionario.php";
+session_start();
+
 
 $regimen_pensionario=new Regimen_Pensionario();
 

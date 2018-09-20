@@ -10,14 +10,46 @@ function init(){
 		guardaryeditar(e);
 	})
 
-	//Cargamos los items al select categoria
-	$.post("../ajax/prestamos.php?op=selectTrabajador", function(r){
-	            $("#id_trab").html(r);
-	            $('#id_trab').selectpicker('refresh');
+	//Cargamos los items al select Trabajadores Activos
+	$.post("../ajax/prestamos.php?op=selectTrabajadoresActivos", function(r){
+	            $("#solicitante").html(r);
+	            $('#solicitante').selectpicker('refresh');
 
 	});
 
-	$("#imagenmuestra").hide();
+
+	//Cargamos los items al select Trabajadores Activos
+	$.post("../ajax/prestamos.php?op=selectTrabajadorPermisoAprobacion", function(r){
+	            $("#aprob_por").html(r);
+	            $('#aprob_por').selectpicker('refresh');
+
+	});
+
+
+	
+
+
+	//Cargamos los items al select Tipo de Descuento (Por planilla o interno)
+	$.post("../ajax/prestamos.php?op=selectTipoDsctoPrestamo", function(r){
+	            $("#tip_dscto").html(r);
+	            $('#tip_dscto').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select Tipo de Descuento (Por planilla o interno)
+	$.post("../ajax/prestamos.php?op=selectModalidadPrestamo", function(r){
+	            $("#modalidad").html(r);
+	            $('#modalidad').selectpicker('refresh');
+
+	});
+
+
+
+
+	$("#data_adjunta_muestra").hide();
+
+
 }
 
 //Función limpiar
@@ -77,7 +109,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/descuentos_judiciales.php?op=listar',
+					url: '../ajax/prestamos.php?op=listar',
 					type : "get",
 					dataType : "json",
 					error: function(e){
@@ -98,7 +130,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/descuentos_judiciales.php?op=guardaryeditar",
+		url: "../ajax/prestamos.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -115,34 +147,58 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_des_jud)
+function mostrar(id_pre)
 {
-	$.post("../ajax/descuentos_judiciales.php?op=mostrar",{id_des_jud : id_des_jud}, function(data, status)
+	$.post("../ajax/prestamos.php?op=mostrar",{id_pre : id_pre}, function(data, status)
 	{
 		data = JSON.parse(data);
 		mostrarform(true);
 
-		$("#id_des_jud").val(data.id_des_jud);
-		$("#obs_des_jud").val(data.obs_des_jud);
-		$("#fec_ini").val(data.fec_ini);
-		$("#fec_fin").val(data.fec_fin);
- 		$("#mon_men").val(data.mon_men);
-
- 		$("#id_trab").val(data.id_trab);
-		$('#id_trab').selectpicker('refresh');
+		$("#registrante").val(data.registrante);
+		$("#fec_sol").val(data.fec_sol);
 
 
+		$("#id_pre").val(data.id_pre);
+		$("#motivo").val(data.motivo);
+ 		$("#num_cuotas").val(data.num_cuotas);
+ 		$("#cantidad").val(data.cantidad);
+ 		$("#pagado").val(data.pagado);
+ 		$("#saldo").val(data.saldo);
+ 		$("#data_adjunta").val(data.data_adjunta);
 
+ 		$("#solicitante").val(data.solicitante);
+		$('#solicitante').selectpicker('refresh');
+
+
+		//$("#aprob_por").val(data.apro_apellidosynombres);
+
+		$("#aprob_por").val(data.aprob_por);
+		$('#aprob_por').selectpicker('refresh');
+
+
+		$("#tip_dscto").val(data.tip_dscto);
+		$('#tip_dscto').selectpicker('refresh');
+
+		$("#modalidad").val(data.modalidad);
+		$('#modalidad').selectpicker('refresh');
+
+
+		$("#data_adjunta_muestra").show();
+		$("#data_adjunta_muestra").attr("src","../files/prestamos/"+data.data_adjunta);
+		$("#data_adjunta_actual").val(data.data_adjunta);
+
+
+ 
  	})
 }
 
 //Función para desactivar registros
-function desactivar(idarticulo)
+function desaprobar(id_pre)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
+	bootbox.confirm("¿Está Seguro de desaprobar el prestamo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/prestamos.php?op=desaprobar", {id_pre : id_pre}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -151,12 +207,12 @@ function desactivar(idarticulo)
 }
 
 //Función para activar registros
-function activar(idarticulo)
+function aprobar(id_pre)
 {
-	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
+	bootbox.confirm("¿Está Seguro de aprobar el prestamo?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/prestamos.php?op=aprobar", {id_pre : id_pre}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
