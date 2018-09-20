@@ -264,7 +264,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i> Regimen Pensionario</a></li>
                 <li><a href="descuentos_judiciales.php"><i class="fa fa-circle-o"></i> Descuentos Judiciales</a></li>
                 <li><a href="prestamos.php"><i class="fa fa-circle-o"></i> Prestamos</a></li>
-                <li><a href="descuentos_insumos.php"><i class="fa fa-circle-o"></i> Descuentos Insumos/Destajeros</a></li>
+                <li><a href="descuentos_insumos_destajeros.php"><i class="fa fa-circle-o"></i> Descuentos Insumos/Destajeros</a></li>
                 <li><a href="descuentos_varios.php"><i class="fa fa-circle-o"></i> Descuentos Varios(Prendas)</a></li>
                 <li><a href="descuentos_menu.php"><i class="fa fa-circle-o"></i> Descuento Menu</a></li>
                 <li><a href="anticipo_adelanto.php"><i class="fa fa-circle-o"></i> Anticipo adelanto</a></li>

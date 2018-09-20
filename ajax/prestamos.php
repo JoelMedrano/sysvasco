@@ -1,7 +1,10 @@
 <?php
-require_once "../modelos/Descuentos_Judiciales.php";
+require_once "../modelos/Prestamos.php";
+session_start();
 
-$descuentos_judiciales=new Descuentos_Judiciales();
+
+
+$prestamos=new Prestamos();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
@@ -9,7 +12,7 @@ $codigo=isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
 $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 $stock=isset($_POST["stock"])? limpiarCadena($_POST["stock"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
-$imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
+
 
 
 //Campos de Seguridad//
@@ -20,12 +23,18 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 //Campos de Seguridad//
 
 
-$id_des_jud=isset($_POST["id_des_jud"])? limpiarCadena($_POST["id_des_jud"]):"";
-$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
-$obs_des_jud=isset($_POST["obs_des_jud"])? limpiarCadena($_POST["obs_des_jud"]):"";
-$fec_ini=isset($_POST["fec_ini"])? limpiarCadena($_POST["fec_ini"]):"";
-$fec_fin=isset($_POST["fec_fin"])? limpiarCadena($_POST["fec_fin"]):"";
-$mon_men=isset($_POST["mon_men"])? limpiarCadena($_POST["mon_men"]):"";
+$id_pre=isset($_POST["id_pre"])? limpiarCadena($_POST["id_pre"]):"";
+$fec_sol=isset($_POST["fec_sol"])? limpiarCadena($_POST["fec_sol"]):"";
+$solicitante=isset($_POST["solicitante"])? limpiarCadena($_POST["solicitante"]):"";
+$aprob_por=isset($_POST["aprob_por"])? limpiarCadena($_POST["aprob_por"]):"";
+$motivo=isset($_POST["motivo"])? limpiarCadena($_POST["motivo"]):"";
+$num_cuotas=isset($_POST["num_cuotas"])? limpiarCadena($_POST["num_cuotas"]):"";
+$modalidad=isset($_POST["modalidad"])? limpiarCadena($_POST["modalidad"]):"";
+$tip_dscto=isset($_POST["modalidad"])? limpiarCadena($_POST["tip_dscto"]):"";
+$cantidad=isset($_POST["cantidad"])? limpiarCadena($_POST["cantidad"]):"";
+$pagado=isset($_POST["pagado"])? limpiarCadena($_POST["pagado"]):"";
+$saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
+$data_adjunta=isset($_POST["data_adjunta"])? limpiarCadena($_POST["data_adjunta"]):"";
 
 
 
@@ -33,57 +42,74 @@ switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		
-		if (empty($id_des_jud)){
-			$rspta=$descuentos_judiciales->insertar($id_trab,
-													$obs_des_jud,
-													$fec_ini,
-													$fec_fin,
-													$mon_men,
+		if (empty($id_pre)){
+			$rspta=$prestamos->insertar(			$fec_sol,	
+													$aprob_por,
+													$solicitante,
+													$motivo,
+													$num_cuotas,
+													$modalidad,
+													$tip_dscto,
+													$cantidad,
+													$pagado,
+													$saldo,
+													$data_adjunta,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-			echo $rspta ? "Descuento judicial registrado" : "El descuento judicial no se pudo registrar";
+			echo $rspta ? "Prestamo registrado" : "El prestamo no se pudo registrar";
 		}
 		else {
-			$rspta=$descuentos_judiciales->editar($id_des_jud,
-												  $id_trab,
-												  $obs_des_jud,
-												  $fec_ini,
-												  $fec_fin,
-												  $mon_men,
-												  $fec_reg,
-												  $usu_reg,
-												  $pc_reg);
-			echo $rspta ? "Descuento judicial actualizado" : "El descuento judicial no se pudo actualizar";
+			$rspta=$prestamos->editar(              	
+													$id_pre,
+													$fec_sol,
+													$aprob_por,
+													$solicitante,
+													$motivo,
+													$num_cuotas,
+													$modalidad,
+													$tip_dscto,
+													$cantidad,
+													$pagado,
+													$saldo,
+													$data_adjunta,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg);
+			echo $rspta ? "Prestamo actualizado" : "El prestamo no se pudo actualizar";
 		}
 		
 	break;
 
-	case 'desactivar':
-		$rspta=$descuentos_judiciales->desactivar($id_des_jud,
+	case 'desaprobar':
+		$rspta=$prestamos->desaprobar(            $id_pre,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg
 												  );
- 		echo $rspta ? "Descuento judicial desactivado" : "El descuento judicial no se puede desactivar";
+ 		echo $rspta ? "Prestamo desaprobado" : "El prestamo no se puede desaprobar";
 	break;
 
-	case 'activar':
-		$rspta=$descuentos_judiciales->activar($id_des_jud,
+	case 'aprobar':
+
+		$id='0';
+		$id=$prestamos->obtenerIdAprobador($usu_reg);
+
+		$rspta=$prestamos->aprobar(			   $id_pre,
 											   $fec_reg,
 											   $usu_reg,
 											   $pc_reg);
- 		echo $rspta ? "Descuento judicial activado" : "El descuento judicial no se puede activar";
+ 		echo $rspta ? "Prestamo aprobado" : "El prestamo no se puede aprobar";
 	break;
 
 	case 'mostrar':
-		$rspta=$descuentos_judiciales->mostrar($id_des_jud);
+		$rspta=$prestamos->mostrar($id_pre);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
 
 	case 'listar':
-		$rspta=$descuentos_judiciales->listar();
+		$rspta=$prestamos->listar();
 
 		//Vamos a declarar un array
  		$data= Array();
@@ -91,17 +117,20 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
 			$data[]=array(
- 				"0"=>$reg->id_trab,
- 				"1"=>$reg->nombres,
- 				"2"=>$reg->sucursal_anexo,
- 				"3"=>$reg->area_trab,
- 				"4"=>$reg->obs_des_jud,
- 				"5"=>($reg->est_des_jud)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>',
- 				"6"=>($reg->est_des_jud)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_jud.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_des_jud.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_jud.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_des_jud.')"><i class="fa fa-check"></i></button>'
+				"0"=>$reg->fec_sol,
+ 				"1"=>$reg->sol_apellidosynombres,
+ 				"2"=>$reg->apro_apellidosynombres,
+ 				"3"=>$reg->motivo,
+ 				"4"=>$reg->cantidad,
+ 				"5"=>$reg->des_modalidad,
+ 				"6"=>$reg->des_tip_dscto,
+ 				"7"=>($reg->est_pre)?'<span class="label bg-green">Aprobado</span>':
+ 				'<span class="label bg-red">Desaprobado</span>',
+ 				"8"=>($reg->est_pre)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>',
+ 				"9"=>($reg->est_pre)?
+ 					' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_pre.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_pre.')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(
@@ -113,17 +142,60 @@ switch ($_GET["op"]){
 
 	break;
 
-	case "selectTrabajador":
+	case "selectTrabajadoresActivos":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
 
-		$rspta = $consultasD->selectTrabajadorVacaciones();
+		$rspta = $consultasD->selectTrabajadoresActivos();
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->id_trab . '>' . $reg->apellidosynombres . '</option>';
+					echo '<option value=' . $reg->solicitante . '>' . $reg->sol_apellidosynombres . '</option>';
 				}
 	break;
+
+
+	case "selectTrabajadorPermisoAprobacion":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTrabajadorPermisoAprobacion();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->aprob_por . '>' . $reg->apro_apellidosynombres . '</option>';
+				}
+	break;
+
+
+
+	case "selectTipoDsctoPrestamo":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectTipoDsctoPrestamo();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->tip_dscto . '>' . $reg->des_tip_dscto . '</option>';
+				}
+	break;
+
+
+	case "selectModalidadPrestamo":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectModalidadPrestamo();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->modalidad . '>' . $reg->des_modalidad . '</option>';
+				}
+	break;
+
+
+
 
 
 

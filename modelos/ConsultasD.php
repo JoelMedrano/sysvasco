@@ -222,6 +222,48 @@ Class ConsultasD
 	}
 
 
+	// Prestamos - Implementar un método para listar los registros y mostrar en el select
+	public function selectTrabajadoresActivos()
+	{
+		$sql="SELECT id_trab AS solicitante,  CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS sol_apellidosynombres 
+		FROM Trabajador
+		where est_reg='1'";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Prestamos - Implementar un método para listar los registros y mostrar en el select
+	public function selectTrabajadorPermisoAprobacion()
+	{
+		$sql="SELECT id_trab AS aprob_por,   CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab   )    AS apro_apellidosynombres 
+		FROM Trabajador
+		where id_trab in ('11', '12' )";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Prestamos - Implementar un método para listar los registros y mostrar en el select
+	public function selectTipoDsctoPrestamo()
+	{
+		$sql="SELECT cod_argumento as tip_dscto,  des_larga AS des_tip_dscto  FROM tabla_maestra_detalle
+		where cod_tabla='TTPR'";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Prestamos - Implementar un método para listar los registros y mostrar en el select
+	public function selectModalidadPrestamo()
+	{
+		$sql="SELECT cod_argumento as modalidad,  des_larga AS des_modalidad  FROM tabla_maestra_detalle
+		where cod_tabla='TMOD'";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+
+
+
 
 
 

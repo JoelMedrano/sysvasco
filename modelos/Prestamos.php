@@ -2,7 +2,7 @@
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
-Class Descuentos_Judiciales
+Class Prestamos
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -11,122 +11,206 @@ Class Descuentos_Judiciales
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar(                      $id_trab,
-													$obs_des_jud,
-													$fec_ini,
-													$fec_fin,
-													$mon_men,
+	public function insertar(                       $fec_sol,
+	                                                $aprob_por,	
+													$solicitante,
+													$motivo,
+													$num_cuotas,
+													$modalidad,
+													$tip_dscto,
+													$cantidad,
+													$pagado,
+													$saldo,
+													$data_adjunta,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg)
 	{
-		$sql="INSERT INTO descuentos_judiciales (id_trab,
-												 obs_des_jud,
-												 fec_ini,
-												 fec_fin,
-												 mon_men,
+		$sql="INSERT INTO prestamos (            fec_sol,
+												 aprob_por,
+												 solicitante,
+												 motivo,
+												 num_cuotas,
+												 modalidad,
+												 tip_dscto,
+												 cantidad,
+												 pagado,
+												 saldo,
+												 data_adjunta,
+												 est_pre,
 												 fec_reg,
 												 usu_reg,
 												 pc_reg)
-										VALUES ('$id_trab',
-												'$obs_des_jud',
-												'$fec_ini',
-												'$fec_fin',
-												'$mon_men',
+										VALUES ('$fec_sol',	
+											    '$solicitante',
+												'$motivo',
+												'$num_cuotas',
+												'$modalidad',
+												'$tip_dscto',
+												'$cantidad',
+												'$pagado',
+												'$saldo',
+												'$data_adjunta',
+												'0'
 												'$fec_reg',
 												'$usu_reg',
-												'$pc_reg')";
+												'$pc_reg' )";
 		return ejecutarConsulta($sql);
 
 
 	}
 
 	//Implementamos un método para editar registros
-	public function editar(                       $id_des_jud,
-												  $id_trab,
-												  $obs_des_jud,
-												  $fec_ini,
-												  $fec_fin,
-												  $mon_men,
+	public function editar(                       $id_pre,
+												  $fec_sol,
+												  $aprob_por,
+												  $solicitante,
+												  $motivo,
+												  $num_cuotas,
+												  $modalidad,
+												  $tip_dscto,
+												  $cantidad,
+												  $pagado,
+												  $saldo,
+												  $data_adjunta,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg)
 	{
-		$sql="UPDATE descuentos_judiciales SET id_trab='$id_trab',
-											   obs_des_jud='$obs_des_jud',
-											   fec_ini='$fec_ini',
-											   fec_fin='$fec_fin',
-											   mon_men='$mon_men',
-											   fec_reg='$fec_reg',
-											   usu_reg='$usu_reg',
-											   pc_reg='$pc_reg'
-										 WHERE id_des_jud='$id_des_jud'";
+		$sql="UPDATE prestamos SET             fec_sol='$fec_sol',
+											   aprob_por='$aprob_por',
+		 									   solicitante='$solicitante',
+											   motivo='$motivo',
+											   num_cuotas='$num_cuotas',
+											   modalidad='$modalidad',
+											   tip_dscto='$tip_dscto',
+											   cantidad='$cantidad',
+											   pagado='$pagado',
+											   saldo='$saldo',
+											   data_adjunta='$data_adjunta',
+											   fec_mod='$fec_reg',
+											   usu_mod='$usu_reg',
+											   pc_mod='$pc_reg'
+										 WHERE id_pre='$id_pre'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para desactivar registros
-	public function desactivar(                   $id_des_jud,
+	public function desaprobar(                   $id_pre,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg)
 	{
-		$sql="UPDATE descuentos_judiciales SET est_des_jud='0',
+		$sql="UPDATE prestamos SET             est_pre='0',
 											   fec_anu='$fec_reg',
 											   usu_anu='$usu_reg',
 											   pc_anu='$pc_reg'
-									     WHERE id_des_jud='$id_des_jud'";
+									     WHERE id_pre='$id_pre'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar registros
-	public function activar(                      $id_des_jud,
+	public function aprobar(                      $id_pre,
 		                                          $fec_reg,
 												  $usu_reg,
 												  $pc_reg)
 	{
-		$sql="UPDATE descuentos_judiciales SET est_des_jud='1',
+		$sql="UPDATE prestamos SET             est_pre='1',
 			 								   fec_act='$fec_reg',
 			 								   usu_act='$usu_reg',
 			 								   pc_act='$pc_reg'
-			 							 WHERE id_des_jud='$id_des_jud'";
+			 							 WHERE id_pre='$id_pre'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($id_des_jud)
+	public function mostrar($id_pre)
 	{
-		$sql="SELECT  dj.id_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, 
-				tsua.des_larga AS sucursal_anexo, tare.des_larga AS area_trab, dj.obs_des_jud, dj.est_des_jud,
-				DATE(dj.fec_ini) AS fec_ini, DATE(dj.fec_fin) AS  fec_fin, dj.mon_men, dj.id_des_jud
-				FROM descuentos_judiciales dj
-				INNER JOIN trabajador tr ON
-				tr.id_trab= dj.id_trab
-				LEFT JOIN tabla_maestra_detalle AS tsua ON
-				tsua.cod_argumento= tr.id_sucursal
-				AND tsua.cod_tabla='TSUA'
-				LEFT JOIN tabla_maestra_detalle AS tare ON
-				tare.cod_argumento= tr.id_area
-				AND tare.cod_tabla='TARE'
-				WHERE dj.id_des_jud='$id_des_jud'";
+		$sql="SELECT     pr.id_pre,
+		                 DATE(pr.fec_sol) AS fec_sol,
+						 CONCAT(sol.nom_trab , ' ' ,  sol.apepat_trab, ' ' ,  sol.apemat_trab) AS sol_apellidosynombres, 
+				         CONCAT( apr.nom_trab , ' ' , apr.apepat_trab, ' ' ,  apr.apemat_trab )  AS apro_apellidosynombres, 
+				         pr.motivo,
+				         num_cuotas,
+				         modalidad,
+				         cantidad,
+				         pagado,
+				         saldo,
+				         data_adjunta,
+				         ttpr.`des_larga` AS des_tip_dscto,
+				         tmod.`des_larga` AS des_modalidad,
+				         modalidad,
+				         tip_dscto,
+				         solicitante,
+				         aprob_por,
+				         pr.usu_reg AS regis, 
+				         CONCAT( SUBSTRING_INDEX(tur.nom_trab, ' ', 1) , ' ' ,  tur.apepat_trab)  AS registrante
+				         FROM prestamos pr
+				INNER JOIN trabajador sol ON
+				sol.id_trab= pr.solicitante
+				LEFT JOIN trabajador apr ON
+				apr.id_trab= pr.aprob_por
+				LEFT JOIN tabla_maestra_detalle AS ttpr ON
+				ttpr.cod_argumento= pr.tip_dscto
+				AND ttpr.cod_tabla='TTPR'
+				LEFT JOIN tabla_maestra_detalle AS tmod ON
+				tmod.cod_argumento= pr.modalidad
+				AND tmod.cod_tabla='TMOD'
+				INNER JOIN usuario AS usu ON
+				usu.login= pr.usu_reg
+				LEFT JOIN trabajador AS tur ON
+				usu.id_trab= tur.id_trab
+				WHERE pr.id_pre='$id_pre'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT  dj.id_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, 
-				tsua.des_larga AS sucursal_anexo, tare.des_larga AS area_trab, dj.obs_des_jud, dj.est_des_jud, dj.id_des_jud
-				FROM descuentos_judiciales dj
-				INNER JOIN trabajador tr ON
-				tr.id_trab= dj.id_trab
-				LEFT JOIN tabla_maestra_detalle AS tsua ON
-				tsua.cod_argumento= tr.id_sucursal
-				AND tsua.cod_tabla='TSUA'
-				LEFT JOIN tabla_maestra_detalle AS tare ON
-				tare.cod_argumento= tr.id_area
-				AND tare.cod_tabla='TARE'";
+		$sql="SELECT     pr.id_pre,
+					     DATE_FORMAT(pr.fec_sol, '%d/%m/%Y')  AS fec_sol,
+						 CONCAT(SUBSTRING_INDEX(sol.nom_trab, ' ', 1) , ' ' ,  sol.apepat_trab, ' ' )  AS sol_apellidosynombres, 
+				         CONCAT(SUBSTRING_INDEX(apr.nom_trab, ' ', 1) , ' ' , apr.apepat_trab, ' ' )  AS apro_apellidosynombres, 
+				         pr.motivo,
+				         num_cuotas,
+				         modalidad,
+				         cantidad,
+				         pagado,
+				         saldo,
+				         data_adjunta,
+				         ttpr.`des_larga` AS des_tip_dscto,
+				         tmod.`des_larga` AS des_modalidad,
+				         modalidad,
+				         tip_dscto,
+				         solicitante,
+				         aprob_por,
+				         est_pre
+				         FROM prestamos pr
+				INNER JOIN trabajador sol ON
+				sol.id_trab= pr.solicitante
+				LEFT JOIN trabajador apr ON
+				apr.id_trab= pr.aprob_por
+				LEFT JOIN tabla_maestra_detalle AS ttpr ON
+				ttpr.cod_argumento= pr.tip_dscto
+				AND ttpr.cod_tabla='TTPR'
+				LEFT JOIN tabla_maestra_detalle AS tmod ON
+				tmod.cod_argumento= pr.modalidad
+				AND tmod.cod_tabla='TMOD'
+				order by   pr.id_pre desc";
 		return ejecutarConsulta($sql);
 	}
+
+
+	public function obtenerIdAprobador($id)
+	{
+		$sql="SELECT     tra.id_trab
+				         FROM trabajador tra
+				INNER JOIN usuario usu ON
+				usu.login= '$id'
+				AND usu.id_trab= tra.id_trab";
+		return ejecutarConsulta($sql);
+	}
+
 
 	//Implementar un método para listar los registros activos
 	public function listarActivos()

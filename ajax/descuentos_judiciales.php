@@ -1,5 +1,7 @@
 <?php
 require_once "../modelos/Descuentos_Judiciales.php";
+session_start();
+
 
 $descuentos_judiciales=new Descuentos_Judiciales();
 
@@ -115,7 +117,7 @@ switch ($_GET["op"]){
 
 	case "selectTrabajador":
 		require_once "../modelos/ConsultasD.php";
-		$consultasD = new ConsultasD();
+		$consultasD = new ConsultasD();									
 
 		$rspta = $consultasD->selectTrabajadorVacaciones();
 
@@ -123,7 +125,7 @@ switch ($_GET["op"]){
 				{
 					echo '<option value=' . $reg->id_trab . '>' . $reg->apellidosynombres . '</option>';
 				}
-	break;
+		break;
 
 
 
