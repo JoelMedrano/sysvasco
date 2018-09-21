@@ -5,25 +5,11 @@ function init(){
 	mostrarform(false);
 	listar();
 
-	$("#formulario").on("submit",function(e)
-	{
-		guardaryeditar(e);
-	});
-	//Cargamos los items al select cliente
-	$.post("../ajax/venta.php?op=selectCliente", function(r){
-	            $("#idcliente").html(r);
-	            $('#idcliente').selectpicker('refresh');
-	});
 }
 
 //Función limpiar
 function limpiar()
 {
-	$("#idcliente").val("");
-	$("#cliente").val("");
-	$("#serie_comprobante").val("");
-	$("#num_comprobante").val("");
-	$("#impuesto").val("0");
 
 	$("#total_venta").val("");
 	$(".filas").remove();
@@ -36,9 +22,7 @@ function limpiar()
 	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
     $('#fecha_hora').val(today);
 
-    //Marcamos el primer tipo_documento
-    $("#tipo_comprobante").val("Boleta");
-		$("#tipo_comprobante").selectpicker('refresh');
+
 }
 
 //Función mostrar formulario
@@ -51,7 +35,6 @@ function mostrarform(flag)
 		$("#formularioregistros").show();
 		//$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-		listarArticulos();
 
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
@@ -97,62 +80,13 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 20,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
 
 
-//Función ListarArticulos
-function listarArticulos()
-{
-	tabla=$('#tblarticulos').dataTable(
-	{
-		"aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
-	    buttons: [
 
-		        ],
-		"ajax":
-				{
-					url: '../ajax/venta.php?op=listarArticulosVenta',
-					type : "get",
-					dataType : "json",
-					error: function(e){
-						console.log(e.responseText);
-					}
-				},
-		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
-	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-	}).DataTable();
-}
-//Función para guardar o editar
-
-function guardaryeditar(e)
-{
-	e.preventDefault(); //No se activará la acción predeterminada del evento
-	//$("#btnGuardar").prop("disabled",true);
-	var formData = new FormData($("#formulario")[0]);
-
-	$.ajax({
-		url: "../ajax/venta.php?op=guardaryeditar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-
-	    success: function(datos)
-	    {
-	          bootbox.alert(datos);
-	          mostrarform(false);
-	          listar();
-	    }
-
-	});
-	limpiar();
-}
 
 function mostrar(documento)
 {
@@ -182,13 +116,13 @@ function mostrar(documento)
 	});
 }
 
-//Función para anular registros
-function anular(idventa)
+//Función para aprobar registros
+function aprobarPedido(documento,idusuario)
 {
-	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
+	bootbox.confirm("¿Está Seguro de aprobar el documento?", function(result){
 		if(result)
         {
-        	$.post("../ajax/venta.php?op=anular", {idventa : idventa}, function(e){
+        	$.post("../ajax/movimientos.php?op=aprobarPedido", {documento : documento}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -196,55 +130,21 @@ function anular(idventa)
 	})
 }
 
-//Declaración de variables necesarias para trabajar con las compras y
-//sus detalles
-var impuesto=18;
-var cont=0;
-var detalles=0;
-//$("#guardar").hide();
-$("#btnGuardar").hide();
-$("#tipo_comprobante").change(marcarImpuesto);
 
-function marcarImpuesto()
-  {
-  	var tipo_comprobante=$("#tipo_comprobante option:selected").text();
-  	if (tipo_comprobante=='Factura')
-    {
-        $("#impuesto").val(impuesto);
-    }
-    else
-    {
-        $("#impuesto").val("0");
-    }
-  }
+//Función para anular registros
+function rechazarPedido(documento,idusuario)
+{
+	bootbox.confirm("¿Está Seguro de rechazar el documento?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/movimientos.php?op=rechazarPedido", {documento : documento}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
 
-function agregarDetalle(idarticulo,articulo,precio_venta)
-  {
-  	var cantidad=1;
-    var descuento=0;
-
-    if (idarticulo!="")
-    {
-    	var subtotal=cantidad*precio_venta;
-    	var fila='<tr class="filas" id="fila'+cont+'">'+
-    	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-    	'<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
-    	'<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-    	'<td><input type="number" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
-    	'<td><input type="number" name="descuento[]" value="'+descuento+'"></td>'+
-    	'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
-    	'<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa fa-refresh"></i></button></td>'+
-    	'</tr>';
-    	cont++;
-    	detalles=detalles+1;
-    	$('#detalles').append(fila);
-    	modificarSubototales();
-    }
-    else
-    {
-    	alert("Error al ingresar el detalle, revisar los datos del artículo");
-    }
-  }
 
   function modificarSubototales()
   {

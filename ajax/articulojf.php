@@ -1,35 +1,35 @@
 <?php
-require_once "../modelos/Articulo.php";
+require_once "../modelos/Articulojf.php";
 
-$articulo=new Articulo();
+$articulojf=new Articulojf();
 
-$idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
-$idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
-$codigo=isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
-$nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
-$stock=isset($_POST["stock"])? limpiarCadena($_POST["stock"]):"";
-$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
-$imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
+$articulo=isset($_POST["articulo"])? limpiarCadena($_POST["articulo"]):"";
+$peso_art=isset($_POST["peso_art"])? limpiarCadena($_POST["peso_art"]):"";
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
-	
-		if (empty($idarticulo)){
-			$rspta=$articulo->insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
+		if (empty($articulo)){
+			$rspta=$articulojf->insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
 			echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";
 		}
 		else {
-			$rspta=$articulo->editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
+			$rspta=$articulojf->editar($articulo,$peso_art);
 			echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
 		}
 
 	break;
 
+	case 'mostrar':
+		$rspta=$articulojf->mostrar($articulo);
+		//Codificar el resultado utilizando json
+		echo json_encode($rspta);
+	break;
+
 
 
 	case 'listar':
-		$rspta=$articulo->listar();
+		$rspta=$articulojf->listar();
 
 		//Vamos a declarar un array
  		$data= Array();
@@ -37,17 +37,20 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
 			$data[]=array(
- 				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->idarticulo.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-primary" onclick="activar('.$reg->idarticulo.')"><i class="fa fa-check"></i></button>',
- 				"1"=>$reg->nombre,
- 				"2"=>$reg->categoria,
- 				"3"=>$reg->codigo,
- 				"4"=>$reg->stock,
- 				"5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px' >",
- 				"6"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>'
+
+ 				"0"=>$reg->articulo,
+ 				"1"=>$reg->marca,
+ 				"2"=>$reg->modelo,
+				"3"=>$reg->nombre,
+ 				"4"=>$reg->color,
+				"5"=>$reg->talla,
+				"6"=>$reg->peso_art,
+				"7"=>($reg->estado=='CAMPAÑAD')?('<span class="label bg-yellow">CAMPAÑA</span>'):(($reg->estado=='DESCONTINUADO')?('<span class="label bg-red">INACTIVO</span>'):('<span class="label bg-green">ACTIVO</span>')),
+				"8"=>($reg->estado=='ACTIVO')?'<button class="btn btn-warning" onclick="mostrar(\''.$reg->articulo.'\')"><i class="fa fa-search-plus"></i></button>'.
+ 					' <button class="btn btn-danger" onclick="desactivar(\''.$reg->articulo.'\')"><i class="fa fa-close"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar(\''.$reg->articulo.'\')"><i class="fa fa-search-plus"></i></button>'.
+ 					' <button class="btn btn-primary" onclick="activar(\''.$reg->articulo.'\')"><i class="fa fa-check"></i></button>',
+				//"7"=>($reg->estado=='CAMPAÑAD')?('<span class="label bg-yellow">CAMPAÑA</span>'):(($reg->estado=='DESCONTINUADO')?('<span class="label bg-red">INACTIVO</span>'):('<span class="label bg-green">ACTIVO</span>')),
  				);
  		}
  		$results = array(
@@ -59,6 +62,15 @@ switch ($_GET["op"]){
 
 	break;
 
+	case 'desactivar':
+		$rspta=$articulojf->desactivar($articulo);
+ 		echo $rspta ? "Artículo Desactivado" : "Artículo no se puede desactivar";
+	break;
+
+	case 'activar':
+		$rspta=$articulojf->activar($articulo);
+ 		echo $rspta ? "Artículo activado" : "Artículo no se puede activar";
+	break;
 
 
 

@@ -125,8 +125,8 @@ switch ($_GET["op"]){
 				"4"=>$reg->nom_cliente,
 				"5"=>($reg->peso>0)?'<span class="label bg-black">'.$reg->peso.' KG'.'</span>':'<span class="label bg-red"></span>',
 				"6"=>($reg->rev_doc=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->rev_doc=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
-				"7"=>($reg->rev_doc=='por aprobar')?('<button class="btn btn-success" onclick="aprobarPedido(\''.$reg->documento.'\')"><i class="fa fa-check"></i></button>'.' <button class="btn btn-danger" onclick="rechazarPedido(\''.$reg->documento.'\')"><i class="fa fa-ban"></i></button>'.'<button class="btn btn-warning" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-pencil"></i></button>'):
-							 (($reg->rev_doc=='rechazado')?('<button class="btn btn-success" onclick="aprobarPedido(\''.$reg->documento.'\')"><i class="fa fa-check"></i></button>'.'<button class="btn btn-warning" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-pencil"></i></button>'):('<button class="btn btn-danger" onclick="rechazarPedido(\''.$reg->documento.'\')"><i class="fa fa-ban"></i></button>'.'<button class="btn btn-warning" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-pencil"></i></button>'))
+				"7"=>($reg->rev_doc=='por aprobar')?('<button class="btn btn-success" onclick="aprobarPedido(\''.$reg->documento.'\')"><i class="fa fa-check"></i></button>'.' <button class="btn btn-danger" onclick="rechazarPedido(\''.$reg->documento.'\')"><i class="fa fa-ban"></i></button>'.' <button class="btn btn-info" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-search-plus"></i></button>'):
+							 (($reg->rev_doc=='rechazado')?('<button class="btn btn-success" onclick="aprobarPedido(\''.$reg->documento.'\')"><i class="fa fa-check"></i></button>'.' <button class="btn btn-info" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-search-plus"></i></button>'):('<button class="btn btn-danger" onclick="rechazarPedido(\''.$reg->documento.'\')"><i class="fa fa-ban"></i></button>'.' <button class="btn btn-info" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-search-plus"></i></button>'))
 
 
 
@@ -162,6 +162,7 @@ switch ($_GET["op"]){
                                     <th></th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                     <th>S</th>
                                     <th>M</th>
                                     <th>L</th>
@@ -174,6 +175,7 @@ switch ($_GET["op"]){
                                   </tr>
 
                                   <tr>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -191,6 +193,7 @@ switch ($_GET["op"]){
                                   <tr>
                                     <th>Opciones</th>
                                     <th>Modelo</th>
+                                    <th>Nombre</th>
                                     <th>Color</th>
                                     <th>3</th>
                                     <th>4</th>
@@ -206,7 +209,10 @@ switch ($_GET["op"]){
 
     while ($reg = $rspta->fetch_object())
         {
-          echo '<tr class="filas"><td></td><td>'.$reg->modelo.'</td>
+          echo '<tr class="filas">
+            <td></td>
+            <td>'.$reg->modelo.'</td>
+            <td>'.$reg->nombre.'</td>
             <td>'.$reg->color.'</td>
             <td><span class="label bg-blue">'.$reg->t1.'</span></td>
             <td><span class="label bg-blue">'.$reg->t2.'</span></td>
@@ -222,6 +228,7 @@ switch ($_GET["op"]){
         }
     echo '<tfoot>
                                     <th>TOTAL</th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
