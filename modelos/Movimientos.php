@@ -83,12 +83,14 @@ Class Movimientos
 	}
 
 	public function listarFacturas(){
+
 		$sql="SELECT		m.tipo,
 										m.documento,
 										m.fecha,
 										m.cliente as codigo,
 										m.nom_cliente,
-										pe.peso
+										pe.peso,
+										m.rev_doc
 										FROM movimientosjf m
 										LEFT JOIN
 											(SELECT
@@ -105,8 +107,65 @@ Class Movimientos
 											GROUP BY m.documento) AS pe
 										ON m.documento=pe.documento
 										WHERE m.tipo IN ('S02','S03','S70') AND (DAY(m.fecha) BETWEEN DAY(NOW())-2 AND DAY(NOW())) AND (MONTH(m.fecha)=MONTH(NOW())) AND vendedor NOT IN ('08','06')
-										GROUP BY m.tipo, m.documento, m.fecha, m.cliente, m.nom_cliente
+										GROUP BY m.tipo, m.documento, m.fecha, m.cliente, m.nom_cliente, m.rev_doc
 										ORDER BY m.fecha DESC, m.documento DESC";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function aprobarPedido($documento,$idusuario){
+
+		$sql="UPDATE movimientosjf m SET m.rev_doc='aprobado', m.vb_doc='$idusuario' WHERE m.documento='$documento'";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function rechazarPedido($documento,$idusuario){
+
+		$sql="UPDATE movimientosjf m SET m.rev_doc='rechazado', m.vb_doc='$idusuario' WHERE m.documento='$documento'";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function mostrar($documento){
+
+		$sql="SELECT			m.documento,
+											m.fecha,
+											m.cliente,
+											m.nom_cliente,
+											m.vendedor,
+											SUM(m.cantidad) AS und,
+											SUM(m.total)*1.18 AS soles
+											FROM movimientosjf m
+											WHERE m.tipo IN ('S02','S03','S70') AND m.documento='$documento'
+											GROUP BY m.documento,m.fecha,m.cliente,m.nom_cliente,m.vendedor";
+
+												return ejecutarConsultaSimpleFila($sql);
+
+	}
+
+
+	public function listarDetalle($documento){
+
+		$sql="SELECT		a.modelo,
+										a.nombre,
+										a.cod_color,
+										a.color,
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '1' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '1' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't1',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '2' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '2' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't2',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '3' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '3' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't3',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '4' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '4' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't4',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '5' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '5' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't5',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '6' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '6' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't6',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '7' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '7' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't7',
+										CASE WHEN (SUM(CASE WHEN a.cod_talla = '8' THEN m.cantidad ELSE 0 END))>0 THEN SUM(CASE WHEN a.cod_talla = '8' THEN m.cantidad ELSE 0 END) ELSE '' END AS 't8',
+										SUM(cantidad) AS subtotal
+										FROM movimientosjf m
+										LEFT JOIN articulojf a
+										ON m.articulo=a.articulo
+										WHERE m.documento='$documento' AND m.tipo IN ('S02','S03','S70')
+										GROUP BY m.documento,m.almacen,a.modelo,a.cod_color,a.color
+										ORDER BY m.fecha ASC, m.almacen ASC, m.taller ASC, a.modelo ASC, a.cod_color ASC";
 
 		return ejecutarConsulta($sql);
 	}

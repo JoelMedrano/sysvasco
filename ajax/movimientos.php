@@ -1,13 +1,32 @@
 <?php
+
+if (strlen(session_id()) < 1)
+  session_start();
+
+
 require_once "../modelos/Movimientos.php";
 
 $movimiento=new Movimientos();
 
 $fecha=isset($_POST["fecha"])? limpiarCadena($_POST["fecha"]):"";
 $tipo=isset($_POST["tipo"])? limpiarCadena($_POST["tipo"]):"";
-
+$documento=isset($_POST["documento"])? limpiarCadena($_POST["documento"]):"";
+$idusuario=$_SESSION["idusuario"];
+$cliente=isset($_POST["cliente"])? limpiarCadena($_POST["cliente"]):"";
+$nom_cliente=isset($_POST["nom_cliente"])? limpiarCadena($_POST["nom_cliente"]):"";
+$vendedor=isset($_POST["vendedor"])? limpiarCadena($_POST["vendedor"]):"";
+$und=isset($_POST["und"])? limpiarCadena($_POST["und"]):"";
+$soles=isset($_POST["soles"])? limpiarCadena($_POST["soles"]):"";
 
 switch ($_GET["op"]){
+
+  case 'mostrar':
+    $rspta=$movimiento->mostrar($documento);
+    //Codificar el resultado utilizando json
+    echo json_encode($rspta);
+  break;
+
+
 	case 'movsfecha':
 		$fecha_inicio=$_REQUEST["fecha_inicio"];
 		$fecha_fin=$_REQUEST["fecha_fin"];
@@ -104,7 +123,12 @@ switch ($_GET["op"]){
 				"2"=>$reg->fecha,
 				"3"=>$reg->codigo,
 				"4"=>$reg->nom_cliente,
-				"5"=>($reg->peso>0)?'<span class="label bg-black">'.$reg->peso.' KG'.'</span>':'<span class="label bg-red"></span>'
+				"5"=>($reg->peso>0)?'<span class="label bg-black">'.$reg->peso.' KG'.'</span>':'<span class="label bg-red"></span>',
+				"6"=>($reg->rev_doc=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->rev_doc=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
+				"7"=>($reg->rev_doc=='por aprobar')?('<button class="btn btn-success" onclick="aprobarPedido(\''.$reg->documento.'\')"><i class="fa fa-check"></i></button>'.' <button class="btn btn-danger" onclick="rechazarPedido(\''.$reg->documento.'\')"><i class="fa fa-ban"></i></button>'.'<button class="btn btn-warning" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-pencil"></i></button>'):
+							 (($reg->rev_doc=='rechazado')?('<button class="btn btn-success" onclick="aprobarPedido(\''.$reg->documento.'\')"><i class="fa fa-check"></i></button>'.'<button class="btn btn-warning" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-pencil"></i></button>'):('<button class="btn btn-danger" onclick="rechazarPedido(\''.$reg->documento.'\')"><i class="fa fa-ban"></i></button>'.'<button class="btn btn-warning" onclick="mostrar(\''.$reg->documento.'\')"><i class="fa fa-pencil"></i></button>'))
+
+
 
 				);
 		}
@@ -116,6 +140,102 @@ switch ($_GET["op"]){
 		echo json_encode($results);
 
 	break;
+
+	case 'aprobarPedido':
+		$rspta=$movimiento->aprobarPedido($documento,$idusuario);
+		echo $rspta ? "Documento aprobado" : "Documento no se puede aprobar";
+	break;
+
+	case 'rechazarPedido':
+		$rspta=$movimiento->rechazarPedido($documento,$idusuario);
+		echo $rspta ? "Documento rechazado" : "Documento no se puede rechazar";
+	break;
+
+  case 'listarDetalle':
+    //Recibimos el idingreso
+    $id=$_GET['id'];
+
+    $rspta = $movimiento->listarDetalle($id);
+    $total=0;
+    echo '<thead style="background-color:#A9D0F5">
+                                  <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>XXL</th>
+                                    <th>XS</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                  </tr>
+
+                                  <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>28</th>
+                                    <th>30</th>
+                                    <th>32</th>
+                                    <th>34</th>
+                                    <th>36</th>
+                                    <th>38</th>
+                                    <th>40</th>
+                                    <th>42</th>
+                                    <th></th>
+                                  </tr>
+
+                                  <tr>
+                                    <th>Opciones</th>
+                                    <th>Modelo</th>
+                                    <th>Color</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>6</th>
+                                    <th>8</th>
+                                    <th>10</th>
+                                    <th>12</th>
+                                    <th>14</th>
+                                    <th>16</th>
+                                    <th>Subtotal</th>
+                                  </tr>
+                                </thead>';
+
+    while ($reg = $rspta->fetch_object())
+        {
+          echo '<tr class="filas"><td></td><td>'.$reg->modelo.'</td>
+            <td>'.$reg->color.'</td>
+            <td><span class="label bg-blue">'.$reg->t1.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t2.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t3.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t4.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t5.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t6.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t7.'</span></td>
+            <td><span class="label bg-blue">'.$reg->t8.'</span></td>
+            <td><span class="label bg-black">'.$reg->subtotal.'</span></td>
+          </tr>';
+          $total=$total+($reg->t1+$reg->t2+$reg->t3+$reg->t4+$reg->t5+$reg->t6+$reg->t7+$reg->t8);
+        }
+    echo '<tfoot>
+                                    <th>TOTAL</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th><h4 id="total"><span class="label bg-black">'.$total.' Unidades</h4><input type="hidden" name="total_cotizacion" id="total_cotizacion"></th>
+                                </tfoot>';
+  break;
+
 
 
 }
