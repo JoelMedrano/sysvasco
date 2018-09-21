@@ -41,7 +41,7 @@ switch ($_GET["op"]){
 
 		
 		if (empty($id_ins_des)){
-			$rspta=$prestamos->insertar(			$id_trab,	
+			$rspta=$descuentos_insumos_destajeros->insertar(			$id_trab,	
 													$fec_suc,
 													$detalle,
 													$num_cuotas,
@@ -56,7 +56,7 @@ switch ($_GET["op"]){
 			echo $rspta ? "Prestamo registrado" : "El prestamo no se pudo registrar";
 		}
 		else {
-			$rspta=$prestamos->editar(              	
+			$rspta=$descuentos_insumos_destajeros->editar(              	
 													$id_ins_des,
 													$id_trab,	
 													$fec_suc,
@@ -76,7 +76,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'desaprobar':
-		$rspta=$prestamos->desaprobar(            $id_ins_des,
+		$rspta=$descuentos_insumos_destajeros->desaprobar(            $id_ins_des,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg
@@ -87,9 +87,9 @@ switch ($_GET["op"]){
 	case 'aprobar':
 
 		$id='0';
-		$id=$prestamos->obtenerIdAprobador($usu_reg);
+		$id=$descuentos_insumos_destajeros->obtenerIdAprobador($usu_reg);
 
-		$rspta=$prestamos->aprobar(			   $id_ins_des,
+		$rspta=$descuentos_insumos_destajeros->aprobar(			   $id_ins_des,
 											   $fec_reg,
 											   $usu_reg,
 											   $pc_reg);
@@ -97,7 +97,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'mostrar':
-		$rspta=$prestamos->mostrar($id_ins_des);
+		$rspta=$descuentos_insumos_destajeros->mostrar($id_ins_des);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -111,17 +111,19 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
 			$data[]=array(
-				"0"=>$reg->fec_sol,
- 				"1"=>$reg->sol_apellidosynombres,
- 				"2"=>$reg->apro_apellidosynombres,
- 				"3"=>$reg->motivo,
+				"0"=>$reg->fec_suc,
+ 				"1"=>$reg->trab_apellidosynombres,
+ 				"2"=>$reg->des_area,
+ 				"3"=>$reg->detalle,
  				"4"=>$reg->cantidad,
  				"5"=>$reg->des_modalidad,
  				"6"=>$reg->des_tip_dscto,
- 				"7"=>($reg->est_pre)?'<span class="label bg-green">Pendiente</span>':
+ 				"7"=>($reg->est_ins_des)?'<span class="label bg-green">Pendiente</span>':
  				'<span class="label bg-red">Cancelado</span>',
- 				"8"=>($reg->est_pre)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>'
+ 				"8"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
+ 				'<span class="label bg-red">Inactivo</span>',
+ 				"9"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ins_des.')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ins_des.')"><i class="fa fa-pencil"></i></button>'
  				);
  		}
  		$results = array(

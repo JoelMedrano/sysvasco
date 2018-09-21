@@ -24,7 +24,7 @@ Class Descuentos_Insumos_Destajeros
 													$usu_reg,
 													$pc_reg)
 	{
-		$sql="INSERT INTO prestamos (            id_trab,
+		$sql="INSERT INTO descuentos_insumos_destajeros (            id_trab,
 												 fec_suc,
 												 detalle,
 												 num_cuotas,
@@ -48,7 +48,7 @@ Class Descuentos_Insumos_Destajeros
 												'$pagado',
 												'$saldo',
 												'0',
-												'0'
+												'0',
 												'$fec_reg',
 												'$usu_reg',
 												'$pc_reg' )";
@@ -59,7 +59,7 @@ Class Descuentos_Insumos_Destajeros
 
 	//Implementamos un método para editar registros
 	public function editar(                         $id_ins_des,
-												    $id_trab,	
+													$id_trab,	
 													$fec_suc,
 													$detalle,
 													$num_cuotas,
@@ -75,7 +75,6 @@ Class Descuentos_Insumos_Destajeros
 		$sql="UPDATE descuentos_insumos_destajeros SET             id_trab='$id_trab',
 											   fec_suc='$fec_suc',
 		 									   detalle='$detalle',
-											   motivo='$motivo',
 											   num_cuotas='$num_cuotas',
 											   modalidad='$modalidad',
 											   tip_dscto='$tip_dscto',
@@ -131,7 +130,8 @@ Class Descuentos_Insumos_Destajeros
 				         did.saldo,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
-				         did.tip_dscto
+				         did.tip_dscto,
+				         did.est_reg
 				         FROM descuentos_insumos_destajeros did
 				INNER JOIN trabajador  tra ON
 				did.id_trab= tra.id_trab
@@ -148,36 +148,34 @@ Class Descuentos_Insumos_Destajeros
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT     pr.id_pre,
-					     DATE_FORMAT(pr.fec_sol, '%d/%m/%Y')  AS fec_sol,
-						 CONCAT(SUBSTRING_INDEX(sol.nom_trab, ' ', 1) , ' ' ,  sol.apepat_trab, ' ' )  AS sol_apellidosynombres, 
-				         CONCAT(SUBSTRING_INDEX(apr.nom_trab, ' ', 1) , ' ' , apr.apepat_trab, ' ' )  AS apro_apellidosynombres, 
-				         pr.motivo,
-				         num_cuotas,
-				         modalidad,
-				         cantidad,
-				         pagado,
-				         saldo,
-				         data_adjunta,
+		$sql="SELECT     did.id_ins_des,
+		                DATE_FORMAT(did.fec_suc, '%d/%m/%Y') AS fec_suc,
+					     CONCAT(tra.nom_trab , ' ' ,  tra.apepat_trab, ' ' ,  tra.apemat_trab) AS trab_apellidosynombres,  
+				         did.detalle,
+				         did.num_cuotas,
+				         did.modalidad,
+				         did.cantidad,
+				         did.pagado,
+				         did.saldo,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
-				         modalidad,
-				         tip_dscto,
-				         solicitante,
-				         aprob_por,
-				         est_pre
-				         FROM prestamos pr
-				INNER JOIN trabajador sol ON
-				sol.id_trab= pr.solicitante
-				LEFT JOIN trabajador apr ON
-				apr.id_trab= pr.aprob_por
+				         did.tip_dscto,
+				         tare.`des_larga` AS des_area,
+				         did.est_ins_des,
+				         did.est_reg
+				         FROM descuentos_insumos_destajeros did
+				INNER JOIN trabajador  tra ON
+				did.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS ttpr ON
-				ttpr.cod_argumento= pr.tip_dscto
+				ttpr.cod_argumento= did.tip_dscto
 				AND ttpr.cod_tabla='TTPR'
 				LEFT JOIN tabla_maestra_detalle AS tmod ON
-				tmod.cod_argumento= pr.modalidad
+				tmod.cod_argumento= did.modalidad
 				AND tmod.cod_tabla='TMOD'
-				order by   pr.id_pre desc";
+				LEFT JOIN tabla_maestra_detalle AS tare ON
+				tare.cod_argumento= tra.id_area
+				AND tare.cod_tabla='TARE'
+				order by   did.id_ins_des desc";
 		return ejecutarConsulta($sql);
 	}
 
