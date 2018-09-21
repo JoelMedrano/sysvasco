@@ -225,7 +225,8 @@ Class ConsultasD
 	// Prestamos - Implementar un método para listar los registros y mostrar en el select
 	public function selectTrabajadoresActivos()
 	{
-		$sql="SELECT id_trab AS solicitante,  CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS sol_apellidosynombres 
+		$sql="SELECT id_trab AS solicitante, id_trab, CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS sol_apellidosynombres ,
+		CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS trabajador 
 		FROM Trabajador
 		where est_reg='1'";
 		return ejecutarConsulta($sql);		
