@@ -1,10 +1,10 @@
 <?php
-require_once "../modelos/Descuentos_Insumos_Destajeros.php";
+require_once "../modelos/Anticipo_Adelanto.php";
 session_start();
 
 
 
-$descuentos_insumos_destajeros=new Descuentos_Insumos_Destajeros();
+$anticipo_adelanto=new Anticipo_Adelanto();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
@@ -23,7 +23,7 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 //Campos de Seguridad//
 
 
-$id_ins_des=isset($_POST["id_ins_des"])? limpiarCadena($_POST["id_ins_des"]):"";
+$id_ant_ade=isset($_POST["id_ant_ade"])? limpiarCadena($_POST["id_ant_ade"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $fec_suc=isset($_POST["fec_suc"])? limpiarCadena($_POST["fec_suc"]):"";
 $detalle=isset($_POST["detalle"])? limpiarCadena($_POST["detalle"]):"";
@@ -40,8 +40,8 @@ switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		
-		if (empty($id_ins_des)){
-			$rspta=$descuentos_insumos_destajeros->insertar(			$id_trab,	
+		if (empty($id_ant_ade)){
+			$rspta=$anticipo_adelanto->insertar(			$id_trab,	
 													$fec_suc,
 													$detalle,
 													$num_cuotas,
@@ -53,11 +53,11 @@ switch ($_GET["op"]){
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-			echo $rspta ? "Descuento registrado" : "El descuento no se pudo registrar";
+			echo $rspta ? "Registrado" : "No se pudo registrar";
 		}
 		else {
-			$rspta=$descuentos_insumos_destajeros->editar(              	
-													$id_ins_des,
+			$rspta=$anticipo_adelanto->editar(              	
+													$id_ant_ade,
 													$id_trab,	
 													$fec_suc,
 													$detalle,
@@ -70,40 +70,40 @@ switch ($_GET["op"]){
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-			echo $rspta ? "Descuento actualizado" : "El descuento no se pudo actualizar";
+			echo $rspta ? "Actualizado" : "No se pudo actualizar";
 		}
 		
 	break;
 
 	case 'desactivar':
-		$rspta=$descuentos_insumos_destajeros->desactivar(            $id_ins_des,
+		$rspta=$anticipo_adelanto->desactivar(            $id_ant_ade,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg
 												  );
- 		echo $rspta ? "Descuento desactivado" : "El descuento no se puede desactivar";
+ 		echo $rspta ? "Desactivado" : "No se puede desactivar";
 	break;
 
 	case 'activar':
 
 		$id='0';
-		$id=$descuentos_insumos_destajeros->obtenerIdAprobador($usu_reg);
+		$id=$anticipo_adelanto->obtenerIdAprobador($usu_reg);
 
-		$rspta=$descuentos_insumos_destajeros->activar(			   $id_ins_des,
+		$rspta=$anticipo_adelanto->activar(			   $id_ant_ade,
 											   $fec_reg,
 											   $usu_reg,
 											   $pc_reg);
- 		echo $rspta ? "Descuento activado" : "El descuento no se puede activar";
+ 		echo $rspta ? "Activado" : "No se puede activar";
 	break;
 
 	case 'mostrar':
-		$rspta=$descuentos_insumos_destajeros->mostrar($id_ins_des);
+		$rspta=$anticipo_adelanto->mostrar($id_ant_ade);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
 
 	case 'listar':
-		$rspta=$descuentos_insumos_destajeros->listar();
+		$rspta=$anticipo_adelanto->listar();
 
 		//Vamos a declarar un array
  		$data= Array();
@@ -118,15 +118,15 @@ switch ($_GET["op"]){
  				"4"=>$reg->cantidad,
  				"5"=>$reg->des_modalidad,
  				"6"=>$reg->des_tip_dscto,
- 				"7"=>($reg->est_ins_des)?'<span class="label bg-green">Pendiente</span>':
- 				'<span class="label bg-red">Cancelado</span>',
+ 				"7"=>($reg->est_ant_ade)?'<span class="label bg-green">Cancelado</span>':
+ 				'<span class="label bg-red">Pendiente</span>',
  				"8"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
  				'<span class="label bg-red">Inactivo</span>',
- 				"9"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ins_des.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ins_des.')"><i class="fa fa-pencil"></i></button>',
+ 				"9"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ant_ade.')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ant_ade.')"><i class="fa fa-pencil"></i></button>',
  				"10"=>($reg->est_reg)?
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_ins_des.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_ins_des.')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_ant_ade.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_ant_ade.')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(

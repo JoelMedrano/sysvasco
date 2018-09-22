@@ -100,10 +100,11 @@ switch ($_GET["op"]){
  				"4"=>$reg->obs_des_jud,
  				"5"=>($reg->est_des_jud)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"6"=>($reg->est_des_jud)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_jud.')"><i class="fa fa-pencil"></i></button>'.
+ 				"6"=>($reg->est_des_jud)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_jud.')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_jud.')"><i class="fa fa-pencil"></i></button>',
+ 				"7"=>($reg->est_des_jud)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_des_jud.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_jud.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_des_jud.')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_des_jud.')"><i class="fa fa-check"></i></button>'	
  				);
  		}
  		$results = array(

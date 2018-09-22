@@ -172,7 +172,7 @@ function mostrar(id_reg_pen)
 //Función para desactivar registros
 function desactivar(id_reg_pen)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el regimen pensionario?", function(result){
+	bootbox.confirm("¿Está seguro de desactivar el regimen pensionario?", function(result){
 		if(result)
         {
         	$.post("../ajax/regimen_pensionario.php?op=desactivar", {id_reg_pen : id_reg_pen}, function(e){
@@ -186,7 +186,7 @@ function desactivar(id_reg_pen)
 //Función para activar registros
 function activar(id_reg_pen)
 {
-	bootbox.confirm("¿Está Seguro de activar el regimen pensionario?", function(result){
+	bootbox.confirm("¿Está seguro de activar el regimen pensionario?", function(result){
 		if(result)
         {
         	$.post("../ajax/regimen_pensionario.php?op=activar", {id_reg_pen : id_reg_pen}, function(e){

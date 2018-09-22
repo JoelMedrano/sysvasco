@@ -137,12 +137,12 @@ function mostrar(id_des_jud)
 }
 
 //Función para desactivar registros
-function desactivar(idarticulo)
+function desactivar(id_des_jud)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
+	bootbox.confirm("¿Está seguro de desactivar el descuento judicial?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/descuentos_judiciales.php?op=desactivar", {id_des_jud : id_des_jud}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -151,12 +151,12 @@ function desactivar(idarticulo)
 }
 
 //Función para activar registros
-function activar(idarticulo)
+function activar(id_des_jud)
 {
-	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
+	bootbox.confirm("¿Está seguro de activar el descuento judicial?", function(result){
 		if(result)
         {
-        	$.post("../ajax/articulo.php?op=activar", {idarticulo : idarticulo}, function(e){
+        	$.post("../ajax/descuentos_judiciales.php?op=activar", {id_des_jud : id_des_jud}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});

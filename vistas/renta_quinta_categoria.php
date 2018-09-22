@@ -22,7 +22,7 @@ if ($_SESSION['almacen']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Descuentos Insumos Destajeros<button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Renta Quinta Categoria<button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -64,11 +64,10 @@ if ($_SESSION['almacen']==1)
                         <form name="formulario" id="formulario" method="POST">
 
                           
-                             
                         
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Fec.Suceso:</label>
-                            <input type="hidden" readonly class="form-control" name="id_ins_des" id="id_ins_des">
+                            <input type="hidden" readonly class="form-control" name="id_ren_qui_cat" id="id_ren_qui_cat">
                             <input type="date" class="form-control" name="fec_suc" id="fec_suc" required >
                           </div>
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -79,7 +78,7 @@ if ($_SESSION['almacen']==1)
                             <label>Modalidad:</label>
                             <select id="modalidad" name="modalidad" class="form-control selectpicker" data-live-search="true"></select>
                           </div>
-                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Tip.Dscto:</label>
                             <select id="tip_dscto" name="tip_dscto" class="form-control selectpicker" data-live-search="true"></select>
                           </div>
@@ -179,7 +178,7 @@ require 'footer.php';
 ?>
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
-<script type="text/javascript" src="scripts/descuentos_insumos_destajeros.js"></script>
+<script type="text/javascript" src="scripts/renta_quinta_categoria.js"></script>
 <?php 
 }
 ob_end_flush();

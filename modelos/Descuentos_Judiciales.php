@@ -25,6 +25,7 @@ Class Descuentos_Judiciales
 												 fec_ini,
 												 fec_fin,
 												 mon_men,
+												 est_des_jud,
 												 fec_reg,
 												 usu_reg,
 												 pc_reg)
@@ -33,6 +34,7 @@ Class Descuentos_Judiciales
 												'$fec_ini',
 												'$fec_fin',
 												'$mon_men',
+												'1',
 												'$fec_reg',
 												'$usu_reg',
 												'$pc_reg')";
@@ -124,7 +126,8 @@ Class Descuentos_Judiciales
 				AND tsua.cod_tabla='TSUA'
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tr.id_area
-				AND tare.cod_tabla='TARE'";
+				AND tare.cod_tabla='TARE'
+				order by  dj.id_des_jud desc";
 		return ejecutarConsulta($sql);
 	}
 

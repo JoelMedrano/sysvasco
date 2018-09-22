@@ -11,7 +11,7 @@ function init(){
 	})
 
 	//Cargamos los items al select Trabajadores Activos
-	$.post("../ajax/descuentos_insumos_destajeros.php?op=selectTrabajadoresActivos", function(r){
+	$.post("../ajax/anticipo_adelanto.php?op=selectTrabajadoresActivos", function(r){
 	            $("#id_trab").html(r);
 	            $('#id_trab').selectpicker('refresh');
 
@@ -19,7 +19,7 @@ function init(){
 
 
 	//Cargamos los items al select Tipo de Descuento (Por planilla o interno)
-	$.post("../ajax/descuentos_insumos_destajeros.php?op=selectTipoDsctoPrestamo", function(r){
+	$.post("../ajax/anticipo_adelanto.php?op=selectTipoDsctoPrestamo", function(r){
 	            $("#tip_dscto").html(r);
 	            $('#tip_dscto').selectpicker('refresh');
 
@@ -27,7 +27,7 @@ function init(){
 
 
 	//Cargamos los items al select Tipo de Descuento (Por planilla o interno)
-	$.post("../ajax/descuentos_insumos_destajeros.php?op=selectModalidadPrestamo", function(r){
+	$.post("../ajax/anticipo_adelanto.php?op=selectModalidadPrestamo", function(r){
 	            $("#modalidad").html(r);
 	            $('#modalidad').selectpicker('refresh');
 
@@ -75,6 +75,7 @@ function mostrarform(flag)
 	}
 }
 
+
 //Función cancelarform
 function cancelarform()
 {
@@ -98,7 +99,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/descuentos_insumos_destajeros.php?op=listar',
+					url: '../ajax/anticipo_adelanto.php?op=listar',
 					type : "get",
 					dataType : "json",
 					error: function(e){
@@ -119,7 +120,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/descuentos_insumos_destajeros.php?op=guardaryeditar",
+		url: "../ajax/anticipo_adelanto.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -136,14 +137,14 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_ins_des)
+function mostrar(id_ant_ade)
 {
-	$.post("../ajax/descuentos_insumos_destajeros.php?op=mostrar",{id_ins_des : id_ins_des}, function(data, status)
+	$.post("../ajax/anticipo_adelanto.php?op=mostrar",{id_ant_ade : id_ant_ade}, function(data, status)
 	{
 		data = JSON.parse(data);
 		mostrarform(true);
 
-		$("#id_ins_des").val(data.id_ins_des);
+		$("#id_ant_ade").val(data.id_ant_ade);
 		$("#fec_suc").val(data.fec_suc);
 		$("#detalle").val(data.detalle);
  		$("#num_cuotas").val(data.num_cuotas);
@@ -173,12 +174,12 @@ function mostrar(id_ins_des)
 }
 
 //Función para desactivar registros
-function desactivar(id_ins_des)
+function desactivar(id_ant_ade)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el descuento?", function(result){
+	bootbox.confirm("¿Está seguro de desactivar?", function(result){
 		if(result)
         {
-        	$.post("../ajax/descuentos_insumos_destajeros.php?op=desactivar", {id_ins_des : id_ins_des}, function(e){
+        	$.post("../ajax/anticipo_adelanto.php?op=desactivar", {id_ant_ade : id_ant_ade}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -187,12 +188,12 @@ function desactivar(id_ins_des)
 }
 
 //Función para activar registros
-function activar(id_ins_des)
+function activar(id_ant_ade)
 {
-	bootbox.confirm("¿Está Seguro de activar el descuento?", function(result){
+	bootbox.confirm("¿Está seguro de activar?", function(result){
 		if(result)
         {
-        	$.post("../ajax/descuentos_insumos_destajeros.php?op=activar", {id_ins_des : id_ins_des}, function(e){
+        	$.post("../ajax/anticipo_adelanto.php?op=activar", {id_ant_ade : id_ant_ade}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});

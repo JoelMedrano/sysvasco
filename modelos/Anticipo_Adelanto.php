@@ -2,7 +2,7 @@
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
-Class Descuentos_Insumos_Destajeros
+Class Anticipo_Adelanto
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -24,7 +24,7 @@ Class Descuentos_Insumos_Destajeros
 													$usu_reg,
 													$pc_reg)
 	{
-		$sql="INSERT INTO descuentos_insumos_destajeros (            id_trab,
+		$sql="INSERT INTO anticipo_adelanto (            id_trab,
 												 fec_suc,
 												 detalle,
 												 num_cuotas,
@@ -33,7 +33,7 @@ Class Descuentos_Insumos_Destajeros
 												 cantidad,
 												 pagado,
 												 saldo,
-												 est_ins_des,
+												 est_ant_ade,
 												 est_reg,
 												 fec_reg,
 												 usu_reg,
@@ -58,7 +58,7 @@ Class Descuentos_Insumos_Destajeros
 	}
 
 	//Implementamos un método para editar registros
-	public function editar(                         $id_ins_des,
+	public function editar(                         $id_ant_ade,
 													$id_trab,	
 													$fec_suc,
 													$detalle,
@@ -72,7 +72,7 @@ Class Descuentos_Insumos_Destajeros
 													$usu_reg,
 													$pc_reg)
 	{
-		$sql="UPDATE descuentos_insumos_destajeros SET             id_trab='$id_trab',
+		$sql="UPDATE anticipo_adelanto SET             id_trab='$id_trab',
 											   fec_suc='$fec_suc',
 		 									   detalle='$detalle',
 											   num_cuotas='$num_cuotas',
@@ -84,98 +84,106 @@ Class Descuentos_Insumos_Destajeros
 											   fec_mod='$fec_reg',
 											   usu_mod='$usu_reg',
 											   pc_mod='$pc_reg'
-										 WHERE id_ins_des='$id_ins_des'";
+										 WHERE id_ant_ade='$id_ant_ade'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para desactivar registros
-	public function desactivar(                   $id_ins_des,
+	public function desactivar(                   $id_ant_ade,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg)
 	{
-		$sql="UPDATE descuentos_insumos_destajeros SET est_reg='0',
+		$sql="UPDATE anticipo_adelanto SET est_reg='0',
 													   fec_anu='$fec_reg',
 													   usu_anu='$usu_reg',
 													   pc_anu='$pc_reg'
-									     WHERE id_ins_des='$id_ins_des'";
+									     WHERE id_ant_ade='$id_ant_ade'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar registros
-	public function activar(                      $id_ins_des,
+	public function activar(                      $id_ant_ade,
 		                                          $fec_reg,
 												  $usu_reg,
 												  $pc_reg)
 	{
-		$sql="UPDATE descuentos_insumos_destajeros SET   est_reg='1',
+		$sql="UPDATE anticipo_adelanto SET   est_reg='1',
 					 								     fec_act='$fec_reg',
 					 								     usu_act='$usu_reg',
 					 								     pc_act='$pc_reg'
-			 							 WHERE id_ins_des='$id_ins_des'";
+			 							 WHERE id_ant_ade='$id_ant_ade'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($id_ins_des)
+	public function mostrar($id_ant_ade)
 	{
-		$sql="SELECT     did.id_ins_des,
-		                 DATE(did.fec_suc) AS fec_suc,
+		$sql="SELECT     aa.id_ant_ade,
+		                 aa.id_trab,
+		                 DATE(aa.fec_suc) AS fec_suc,
 					     CONCAT(tra.nom_trab , ' ' ,  tra.apepat_trab, ' ' ,  tra.apemat_trab) AS trab_apellidosynombres,  
-				         did.detalle,
-				         did.num_cuotas,
-				         did.modalidad,
-				         did.cantidad,
-				         did.pagado,
-				         did.saldo,
+				         aa.detalle,
+				         aa.num_cuotas,
+				         aa.modalidad,
+				         aa.cantidad,
+				         aa.pagado,
+				         aa.saldo,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
-				         did.tip_dscto,
-				         did.est_reg
-				         FROM descuentos_insumos_destajeros did
+				         aa.tip_dscto,
+				         tare.`des_larga` AS des_area,
+				         aa.est_ant_ade,
+				         aa.est_reg
+				         FROM anticipo_adelanto aa
 				INNER JOIN trabajador  tra ON
-				did.id_trab= tra.id_trab
+				aa.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS ttpr ON
-				ttpr.cod_argumento= did.tip_dscto
+				ttpr.cod_argumento= aa.tip_dscto
 				AND ttpr.cod_tabla='TTPR'
 				LEFT JOIN tabla_maestra_detalle AS tmod ON
-				tmod.cod_argumento= did.modalidad
+				tmod.cod_argumento= aa.modalidad
 				AND tmod.cod_tabla='TMOD'
-				WHERE did.id_ins_des='$id_ins_des'";
+				LEFT JOIN tabla_maestra_detalle AS tare ON
+				tare.cod_argumento= tra.id_area
+				AND tare.cod_tabla='TARE'
+				WHERE aa.id_ant_ade='$id_ant_ade'
+				order by   aa.id_ant_ade DESC";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT     did.id_ins_des,
-		                DATE_FORMAT(did.fec_suc, '%d/%m/%Y') AS fec_suc,
+		$sql="SELECT     aa.id_ant_ade,
+		                 aa.id_trab,
+		                 DATE_FORMAT(aa.fec_suc, '%d/%m/%Y') AS fec_suc, 
 					     CONCAT(tra.nom_trab , ' ' ,  tra.apepat_trab, ' ' ,  tra.apemat_trab) AS trab_apellidosynombres,  
-				         did.detalle,
-				         did.num_cuotas,
-				         did.modalidad,
-				         did.cantidad,
-				         did.pagado,
-				         did.saldo,
+				         aa.detalle,
+				         aa.num_cuotas,
+				         aa.modalidad,
+				         aa.cantidad,
+				         aa.pagado,
+				         aa.saldo,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
-				         did.tip_dscto,
+				         aa.tip_dscto,
 				         tare.`des_larga` AS des_area,
-				         did.est_ins_des,
-				         did.est_reg
-				         FROM descuentos_insumos_destajeros did
+				         aa.est_ant_ade,
+				         aa.est_reg
+				         FROM anticipo_adelanto aa
 				INNER JOIN trabajador  tra ON
-				did.id_trab= tra.id_trab
+				aa.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS ttpr ON
-				ttpr.cod_argumento= did.tip_dscto
+				ttpr.cod_argumento= aa.tip_dscto
 				AND ttpr.cod_tabla='TTPR'
 				LEFT JOIN tabla_maestra_detalle AS tmod ON
-				tmod.cod_argumento= did.modalidad
+				tmod.cod_argumento= aa.modalidad
 				AND tmod.cod_tabla='TMOD'
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tra.id_area
 				AND tare.cod_tabla='TARE'
-				order by   did.id_ins_des desc";
+				order by   aa.id_ant_ade DESC";
 		return ejecutarConsulta($sql);
 	}
 

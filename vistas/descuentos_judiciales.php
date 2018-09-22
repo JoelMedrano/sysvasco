@@ -37,7 +37,8 @@ if ($_SESSION['almacen']==1)
                             <th>Area</th>
                             <th>Observacion</th>
                             <th>Estado</th>
-                            <th>Opciones</th>
+                            <th>Ver</th>
+                            <th>Estado</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -48,14 +49,15 @@ if ($_SESSION['almacen']==1)
                             <th>Area</th>
                             <th>Observacion</th>
                             <th>Estado</th>
-                            <th>Opciones</th>
+                            <th>Ver</th>
+                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
 
-                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Codigo:</label>
                              <input type="number" readonly class="form-control" name="id_des_jud" id="id_des_jud">
                           </div>
