@@ -237,6 +237,53 @@ Class ConsultasJ
 	}
 
 
+	public function prodMes(){
+
+		$sql="SELECT	FORMAT(SUM(m.cantidad),0) AS prod
+									FROM movimientosjf m
+									WHERE MONTH(m.fecha)=MONTH(NOW()) AND m.tipo='E20'
+									GROUP BY m.tipo";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function ventMes(){
+
+		$sql="SELECT		FORMAT(SUM(CASE WHEN m.tipo='e05' OR m.tipo='e21' THEN m.cantidad*-1 ELSE m.cantidad END),0) AS vent
+										FROM movimientosjf m
+										WHERE MONTH(m.fecha)=MONTH(NOW()) AND m.tipo IN ('E05','E21','S02','S03','S70')";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function versus(){
+
+		$sql="SELECT		m.codigo,
+										m.descripcion as fecha,
+										IFNULL(p.prod,0) AS prod,
+										IFNULL(v.vent,0) AS vent
+										FROM meses m
+										LEFT JOIN
+											(SELECT
+											MONTH(fecha) AS mes,
+											SUM(cantidad) AS prod
+											FROM movimientosjf
+											WHERE tipo IN ('e20')
+											GROUP BY MONTH(fecha)) AS p
+										ON m.codigo=p.mes
+										LEFT JOIN
+											(SELECT
+											MONTH(fecha) AS mes,
+											SUM(CASE WHEN tipo='e05' OR tipo='e21' THEN cantidad*-1 ELSE cantidad END) AS vent
+											FROM movimientosjf
+											WHERE tipo IN ('E05','E21','S02','S03','S70')
+											GROUP BY MONTH(fecha)) AS v
+										ON m.codigo=v.mes";
+
+    return ejecutarConsulta($sql);
+	}
+
+
 }
 
 ?>
