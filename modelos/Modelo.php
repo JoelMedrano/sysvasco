@@ -125,6 +125,23 @@ Class Modelo
 		return ejecutarConsulta($sql);
 	}
 
+	//select para 1era hoja mft
+
+	public function selectModelos(){
+
+		$sql="SELECT 		m.id_modelo,
+										m.cod_mod,
+										CONCAT((CASE WHEN mft.cod_mod IS NULL THEN m.cod_mod ELSE CONCAT(m.cod_mod,' - OK - ') END),' ',m.nom_mod,' - ',ma.nombre) AS modelo
+										FROM modelojf m
+										LEFT JOIN marcas ma
+										ON m.id_marca=ma.id_marca
+										LEFT JOIN maestro_ficha_tecnica mft
+										ON m.cod_mod=mft.cod_mod
+										ORDER BY m.cod_mod";
+
+		return ejecutarConsulta($sql);
+	}
+
 }
 
 ?>

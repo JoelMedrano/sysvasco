@@ -54,7 +54,7 @@ function limpiar()
 	$("#imagenmuestra").attr("src","");
 	$("#imagenactual").val("");
 	$("#idusuario").val("");
-	$('input[type=checkbox]').prop('checked', false);
+	
 	$("#id_trab").val("").trigger('change');
 	$('#cargo').prop('selectedIndex',0);
 	$("#area1").val("").trigger('change');

@@ -76,7 +76,7 @@ Class ConsultasJ
 	public function selectTela1()
 	{
 		$sql="SELECT		SUBSTRING(pro.codfab,1,6) AS tela1_mod,
-										tmd.des_larga AS tela,
+										CONCAT(SUBSTRING(pro.codfab,1,6),' - ',tmd.des_larga) AS tela,
 										tmd.des_corta AS cod_linea,
 										lin.linea
 										FROM producto pro
@@ -104,7 +104,7 @@ Class ConsultasJ
 	public function selectTela2()
 	{
 		$sql="SELECT		SUBSTRING(pro.codfab,1,6) AS tela2_mod,
-										tmd.des_larga AS tela,
+										CONCAT(SUBSTRING(pro.codfab,1,6),' - ',tmd.des_larga) AS tela,
 										tmd.des_corta AS cod_linea,
 										lin.linea
 										FROM producto pro
@@ -132,7 +132,7 @@ Class ConsultasJ
 	public function selectTela3()
 	{
 		$sql="SELECT		SUBSTRING(pro.codfab,1,6) AS tela3_mod,
-										tmd.des_larga AS tela,
+										CONCAT(SUBSTRING(pro.codfab,1,6),' - ',tmd.des_larga) AS tela,
 										tmd.des_corta AS cod_linea,
 										lin.linea
 										FROM producto pro
@@ -281,6 +281,17 @@ Class ConsultasJ
 										ON m.codigo=v.mes";
 
     return ejecutarConsulta($sql);
+	}
+
+	public function color(){
+
+		$sql="SELECT	RIGHT(cod_argumento,2) AS cod_color,
+									CONCAT((RIGHT(cod_argumento,2)),' - ',des_larga) AS color
+									FROM tabla_m_detalle
+									WHERE cod_tabla='tcol' AND cod_argumento < 100
+									ORDER BY cod_argumento";
+
+		return ejecutarConsulta($sql);
 	}
 
 
