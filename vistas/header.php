@@ -270,6 +270,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="descuentos_varios.php"><i class="fa fa-circle-o"></i> Descuentos Varios(Prendas)</a></li>
                 <li><a href="descuentos_menu.php"><i class="fa fa-circle-o"></i> Descuento Menu</a></li>
                 <li><a href="anticipo_adelanto.php"><i class="fa fa-circle-o"></i> Anticipo adelanto</a></li>
+                <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i> Abono - Regularización</a></li>
               </ul>
             </li>';
             }

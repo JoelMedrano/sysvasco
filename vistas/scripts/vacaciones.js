@@ -179,6 +179,10 @@ function mostrar(nro_doc)
 		$("#fec_ing_trab").val(data.fec_ing_trab);
 
 
+
+		$("#CantItems").val(data.CantItems);
+
+
 		//Ocultar y mostrar los botones
 		$("#btnGuardar").show();
 		$("#btnCancelar").show();

@@ -243,6 +243,8 @@ Class ConsultasD
 	}
 
 
+
+
 	// Prestamos - Implementar un método para listar los registros y mostrar en el select
 	public function selectTipoDsctoPrestamo()
 	{
@@ -250,6 +252,19 @@ Class ConsultasD
 		where cod_tabla='TTPR'";
 		return ejecutarConsulta($sql);		
 	}
+
+
+
+	// Prestamos - Implementar un método para listar los registros y mostrar en el select
+	public function selectTipoAbono()
+	{
+		$sql="SELECT cod_argumento as tip_abono,  des_larga AS des_tip_abono  FROM tabla_maestra_detalle
+		where cod_tabla='TTAB'";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
 
 
 	// Prestamos - Implementar un método para listar los registros y mostrar en el select

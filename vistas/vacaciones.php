@@ -67,6 +67,7 @@ if ($_SESSION['rrhh']==1)
                           <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
                             <label>Codigo.Trab:</label>
                             <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
+                            <input type="text" readonly class="form-control" name="CantItems" id="CantItems">
                           </div>
                            <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
                             <label>Dni:</label>

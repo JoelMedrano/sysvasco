@@ -21,6 +21,11 @@ $nro_doc=isset($_POST["nro_doc"])? limpiarCadena($_POST["nro_doc"]):"";
 $id_nomtrab=isset($_POST["id_nomtrab"])? limpiarCadena($_POST["id_nomtrab"]):"";
 
 
+$CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
+
+
+
+
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($nro_doc)){
@@ -30,7 +35,12 @@ switch ($_GET["op"]){
 			echo $rspta ? "Vacacion registrada" : "No se pudieron registrar todos los datos de la vacacion";
 		}
 		else {
-			$rspta=$vacaciones->editar($nro_doc,$_POST["correlativo"],$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"]);
+			
+			
+
+			//$rspta=$vacaciones->editar($nro_doc, $_POST["correlativo"],$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
+			$rspta=$vacaciones->insertar2($nro_doc, $CantItems, $_POST["correlativo"],$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
+			
 			echo $rspta ? "Vacaciones actualizadas" : "No se pudieron actualizar todos los datos de las vacaciones";
 		}
 	break;
@@ -66,9 +76,9 @@ switch ($_GET["op"]){
                                     <th width="50px">Opciones</th>
                                 </thead>';
 
-		while ($reg = $rspta->fetch_object())
+		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td>'.$reg->correlativo.'</td><td>'.$reg->PeridoAnual.'</td><td>'.$reg->fec_del.'</td><td>'.$reg->fec_al.'</td><td>'.$reg->tot_dias.'</td><td>'.$reg->pen_dias.'</td><td>'.$reg->obser_detalle.'</td><td>'.$reg->obser.'</td><td><a data-toggle="modal" href="#myModal">
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td><input type="text" size="1" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text" size="7" name="PeridoAnual[]" value="'.$reg->PeridoAnual.'" readonly></td><td><input type="date" size="8" name="fec_del[]" value="'.$reg->fec_del.'"></td><td><input type="date" size="8" name="fec_al[]" value="'.$reg->fec_al.'"></td><td><input type="text" size="1" name="tot_dias[]" value="'.$reg->tot_dias.'"></td><td><input type="text" size="1" name="pen_dias[]" value="'.$reg->pen_dias.'"></td><td><input type="text" size="100" name="obser_detalle[]" value="'.$reg->obser_detalle.'"></td><td><input type="text" size="25" name="obser[]" value="'.$reg->obser.'"></td><td><a data-toggle="modal" href="#myModal">
                               <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
                             </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
 					$total=$periodo;

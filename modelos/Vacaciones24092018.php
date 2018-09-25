@@ -36,42 +36,26 @@ Class Vacaciones
 
 
 	//Implementamos un método para editar registros
-	public function editar($nro_doc, $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser)
+	public function editar($nro_doc,$correlativo,$id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias)
 	{
 		
 		$num_elementos=0;
 		$sw=true;
 
 		while ($num_elementos < count($correlativo))
-		{			
-			$sql_detalle="UPDATE vacaciones SET  correlativo='$correlativo[$num_elementos]',    fec_del='$fec_del[$num_elementos]' ,fec_al='$fec_al[$num_elementos]' , tot_dias='$tot_dias[$num_elementos]' , pen_dias='$pen_dias[$num_elementos]', obser_detalle='$obser_detalle[$num_elementos]',  obser='$obser[$num_elementos]'   WHERE nro_doc='$nro_doc' AND correlativo='$correlativo[$num_elementos]'  ";
+		{
+			$sql_detalle = "UPDATE  vacaciones  SET nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES ('$nro_doc', '$correlativo[$num_elementos]','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]'))";
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 		}
 
 		return $sw;
-	}
+
+		$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
+		return ejecutarConsulta($sql);
 
 
-	public function insertar2($nro_doc, $CantItems,  $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser)
-	{
-		
 
-
-		
-
-
-		$num_elementos=1;
-		$sw=true;
-		//while ($num_elementos < count($correlativo) AND $correlativo > $cantidaditems)
-		while ($num_elementos <= count($correlativo))
-		{			
-			$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES ('$nro_doc', '$correlativo[$num_elementos]','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]') where  '$num_elementos' > '$CantItems'";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-		}
-
-			return $sw;
 
 	}
 
@@ -88,7 +72,7 @@ Class Vacaciones
 	public function mostrar($nro_doc)
 	{
 		$sql="SELECT Tra.id_trab, Tra.num_doc_trab AS nro_doc, Tra.num_doc_trab AS id_nomtrab ,  CONCAT(Tra.apepat_trab, ' ' , Tra.apemat_trab, ' ', Tra.nom_trab)   AS apellidosynombres ,   Tra.apemat_trab, Tra.apepat_trab, Tra.nom_trab, Tra.id_sucursal, Tra.id_area, TbAre.Des_Larga AS area_trab,
-              TbSua.des_larga AS sucursal, DATE_FORMAT(fec_ing_trab, '%d/%m/%Y')  AS fec_ing_trab, MAX(vac.correlativo) AS CantItems
+              TbSua.des_larga AS sucursal, DATE_FORMAT(fec_ing_trab, '%d/%m/%Y')  AS fec_ing_trab
 				FROM Trabajador Tra
 				LEFT JOIN tabla_maestra_detalle TbAre ON
 					TbAre.cod_tabla='TARE'
@@ -96,16 +80,14 @@ Class Vacaciones
 				LEFT JOIN tabla_maestra_detalle TbSua ON
 					TbSua.cod_tabla='TSUA'
 					AND TbSua.cod_argumento= Tra.id_sucursal
-				LEFT JOIN vacaciones vac ON
-					vac.nro_doc= tra.num_doc_trab
-				WHERE  num_doc_trab='$nro_doc' 
+				where num_doc_trab='$nro_doc' 
               ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	public function listarDetalle($nro_doc)
 	{
-		$sql="SELECT nro_doc, id_periodo, correlativo,TbPea.des_larga AS PeridoAnual, DATE(fec_del) AS  fec_del, DATE(fec_al) AS fec_al, tot_dias, pen_dias, vencidas, truncas, DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS   fec_del_dec, DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS  fec_al_dec, tot_dias_dec,
+		$sql="SELECT nro_doc, id_periodo, correlativo,TbPea.des_larga AS PeridoAnual, DATE_FORMAT(fec_del, '%d/%m/%Y') AS  fec_del, DATE_FORMAT(fec_al, '%d/%m/%Y') AS fec_al, tot_dias, pen_dias, vencidas, truncas, DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS   fec_del_dec, DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS  fec_al_dec, tot_dias_dec,
 				 pen_dias_dec, inicio_prog, salida_prog, tot_dias_prog, obser, obser_detalle
 				FROM Vacaciones vac
 				LEFT JOIN tabla_maestra_detalle  TbPea ON
@@ -147,19 +129,6 @@ Class Vacaciones
 		$sql="SELECT a.nombre as articulo,a.codigo,d.cantidad,d.precio_venta,d.descuento,(d.cantidad*d.precio_venta-d.descuento) as subtotal FROM detalle_venta d INNER JOIN articulo a ON d.idarticulo=a.idarticulo WHERE d.idventa='$idventa'";
 		return ejecutarConsulta($sql);
 	}
-
-	//Implementar un método para listar los registros
-	public function obtenercantidaditems($nro_doc)
-	{
-		$sql="SELECT MAX(correlativo)
-		 FROM vacaciones 
-		 WHERE nro_doc='$nro_doc' 
-		 ";
-		return ejecutarConsulta($sql);	
-	}
-
-
-
 	
 }
 ?>
