@@ -115,7 +115,7 @@ Class FT_hoja1
 																							tallas_mod='$tallas_mod',
 																							div_mod='$div_mod',
 																							temp_mod='$temp_mod',
-																							dest_mod=$dest_mod,
+																							dest_mod='$dest_mod',
 																							tela1_mod='$tela1_mod',
 																							tela2_mod='$tela2_mod',
 																							tela3_mod='$tela3_mod',
