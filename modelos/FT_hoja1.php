@@ -68,7 +68,7 @@ Class FT_hoja1
 																								'$bord_mod',
 																								'$esta_mod',
 																								'$manu_mod',
-																								'$imagen2',
+																								'$imagen',
 																								'$imagen2')";
 		//return ejecutarConsulta($sql);
 		$idmftnew=ejecutarConsulta_retornarID($sql);
