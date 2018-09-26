@@ -44,18 +44,48 @@ function init(){
               $('#tela3_mod').selectpicker('refresh');
   });
 
-  $("#imagenmuestra").hide();
-  $("#imagenmuestra2").hide();
+	$("#imagen_muestra").hide();
+	$("#imagen2_muestra").hide();
 
 }
 
 //Función limpiar
 function limpiar()
 {
-	$("#idcategoria").val("");
-	$('input[type=checkbox]').prop('checked', false);
-	$("#nombre").val("");
-	$("#descripcion").val("");
+
+
+	$("#empresa").val("1");
+	$('#empresa').selectpicker('refresh');
+	$("#cod_mod").val("0");
+	$('#cod_mod').selectpicker('refresh');
+	$("#color_mod").val("");
+	$("#tallas_mod").val("");
+	$("#id_trab").val("0");
+	$('#id_trab').selectpicker('refresh');
+	$("#div_mod").val("");
+	$("#temp_mod").val("");
+	$("#dest_mod").val("");
+	$("#tela1_mod").val("0");
+	$('#tela1_mod').selectpicker('refresh');
+	$("#tela2_mod").val("0");
+	$('#tela2_mod').selectpicker('refresh');
+	$("#tela3_mod").val("0");
+	$('#tela3_mod').selectpicker('refresh');
+	$("#bord_mod").val("0");
+	$('#bord_mod').selectpicker('refresh');
+	$("#esta_mod").val("0");
+	$('#esta_mod').selectpicker('refresh');
+	$("#manu_mod").val("0");
+	$('#manu_mod').selectpicker('refresh');
+
+	$("#idcotizacion").val("");
+
+	$("#imagen_muestra").attr("src","");
+	$("#imagenactual_imagen").val("");
+
+	$("#imagen2_muestra").attr("src","");
+	$("#imagenactual_imagen2").val("");
+
 
 	//Obtenemos la fecha actual
 	var now = new Date();
@@ -177,13 +207,13 @@ function mostrar(idmft)
 		$("#manu_mod").selectpicker('refresh');
 		$("#fecha_hora").val(data.fecha);
 
-    $("#imagenmuestra").show();
-    $("#imagenmuestra").attr("src","../files/fichas_tecnicas/"+data.imagen);
-    $("#imagenactual").val(data.imagen);
+		$("#imagen_muestra").show();
+		$("#imagen_muestra").attr("src","../files/fichas_tecnicas/"+data.imagen);
+		$("#imagenactual_imagen").val(data.imagen);
 
-    $("#imagenmuestra2").show();
-    $("#imagenmuestra2").attr("src","../files/fichas_tecnicas/"+data.imagen2);
-    $("#imagenactual2").val(data.imagen2);
+		$("#imagen2_muestra").show();
+		$("#imagen2_muestra").attr("src","../files/fichas_tecnicas/"+data.imagen2);
+		$("#imagenactual_imagen2").val(data.imagen2);
 
 
 		$("#idmft").val(data.idmft);

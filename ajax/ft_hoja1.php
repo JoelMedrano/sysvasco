@@ -33,7 +33,7 @@ switch ($_GET["op"]){
 
     if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
     {
-      $imagen=$_POST["imagenactual"];
+      $imagen=$_POST["imagenactual_imagen"];
     }
     else
     {
@@ -46,16 +46,18 @@ switch ($_GET["op"]){
     }
 
 
+
+
     if (!file_exists($_FILES['imagen2']['tmp_name']) || !is_uploaded_file($_FILES['imagen2']['tmp_name']))
     {
-      $imagen2=$_POST["imagenactual2"];
+      $imagen2=$_POST["imagenactual_imagen2"];
     }
     else
     {
       $ext = explode(".", $_FILES["imagen2"]["name"]);
       if ($_FILES['imagen2']['type'] == "image/jpg" || $_FILES['imagen2']['type'] == "image/jpeg" || $_FILES['imagen2']['type'] == "image/png")
       {
-        $imagen2 = round(microtime(true)) . '.' . end($ext);
+        $imagen2 = round(microtime(true)) .'2'. '.' . end($ext);
         move_uploaded_file($_FILES["imagen2"]["tmp_name"], "../files/fichas_tecnicas/" . $imagen2);
       }
     }
@@ -85,23 +87,23 @@ switch ($_GET["op"]){
       echo $rspta ? "FT registrada" : "No se pudieron registrar todos los datos de la FT";
     }
     else {
-      $rspta=$mft->editar(	   $idmft,
-    													$id_trab,
-    													$empresa,
-    													$color_mod,
-    													$tallas_mod,
-    													$div_mod,
-    													$temp_mod,
-    													$dest_mod,
-    													$tela1_mod,
-    													$tela2_mod,
-    													$tela3_mod,
-    													$bord_mod,
-    													$esta_mod,
-    													$manu_mod,
-    													$imagen,
-    													$imagen2,
-                              $_POST['color']);
+      $rspta=$mft->editar(	    $idmft,
+      													$id_trab,
+      													$empresa,
+      													$color_mod,
+      													$tallas_mod,
+      													$div_mod,
+      													$temp_mod,
+      													$dest_mod,
+      													$tela1_mod,
+      													$tela2_mod,
+      													$tela3_mod,
+      													$bord_mod,
+      													$esta_mod,
+      													$manu_mod,
+      													$imagen,
+      													$imagen2,
+                                $_POST['color']);
         echo $rspta ? "FT actualizada" : "FT no se pudo actualizar";
     }
   break;
@@ -117,7 +119,7 @@ switch ($_GET["op"]){
 
       if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3') {
 
-        $url='../reportes/rptCotizacion.php?id=';
+        $url='../reportes/rptFichaTecnica.php?id=';
 
         $data[]=array(
           "0"=>$reg->idmft,

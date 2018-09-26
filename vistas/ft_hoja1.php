@@ -151,18 +151,19 @@ if ($_SESSION['acceso']==1)
 
 
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                              <label>Imagen:</label>
+                              <label>Hijo1:</label>
                               <input type="file" class="form-control" name="imagen" id="imagen">
-                              <input type="hidden" name="imagenactual" id="imagenactual">
-                              <img src="" width="150px" height="120px" id="imagenmuestra">
+                              <input type="hidden" name="imagenactual_imagen" id="imagenactual_imagen">
+                              <img src="" width="150px" height="120px" id="imagen_muestra">
                             </div>
 
-                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                              <label>Imagen2:</label>
-                              <input type="file" class="form-control" name="imagen2" id="imagen2">
-                              <input type="hidden" name="imagenactual2" id="imagenactual2">
-                              <img src="" width="150px" height="120px" id="imagenmuestra2">
-                            </div>
+
+                           <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                             <label>Hij2:</label>
+                             <input type="file" class="form-control" name="imagen2" id="imagen2">
+                             <input type="hidden" name="imagenactual_imagen2" id="imagenactual_imagen2">
+                             <img src="" width="150px" height="120px" id="imagen2_muestra">
+                           </div>
 
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                               <label>Fecha(*):</label>
