@@ -384,12 +384,12 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
 
 
 //establecer margenes
-$margin = 0.5 / 3.54; // 0.5 centimetros
-$marginBottom = 1.2 / 3.54; //1.2 centimetros
+$margin = 1.75 / 3.54; // 0.5 centimetros
+$marginBottom = 1.625 / 3.54; //1.2 centimetros
 $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
-$objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
-$objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
-$objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($margin);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($marginBottom);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setRight($marginBottom);
 //fin: establecer margenes
 
 
@@ -408,7 +408,7 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
 
 
 //establecer titulos de impresion en cada hoja
-$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 10);
+//$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 10);
 
  $sqlPro=mysql_query(" SELECT 	mft.idmft,
                        DATE(mft.fecha_hora) AS fecha,
@@ -1334,17 +1334,13 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
    /*===PARA LOS COMBOS=====*/
 
-   $fila+=1;
-   $objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(67.79);
 
-   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
-   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes3, "B$fila:F$fila");
-
-   $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
-   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes3, "G$fila:N$fila");
 
    $fila=58;
    $objPHPExcel->getActiveSheet()->getRowDimension('58')->setRowHeight(67.79);
+
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
 
    $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "* LA MUESTRA ENVIADA AL SERVICIO SIRVE SOLO COMO REFERENCIA DE CONFECCIÓN. LOS DETALLES DE LA PRENDA SE ENCUENTRAN EN LA FICHA TECNICA.");
    $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila");
@@ -1354,6 +1350,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
    $fila=59;
    $objPHPExcel->getActiveSheet()->getRowDimension('59')->setRowHeight(67.79);
 
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
+
    $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "* EL SERVICIO ESTÁ EN LA OBLIGACIÓN DE CORRER UNA MUESTRA ANTES DE INICIO DE PRODUCCIÓN, PARA EVITAR PROBLEMAS EN EL PROCESO.");
    $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila");
    $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
@@ -1361,6 +1360,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
    $fila=60;
    $objPHPExcel->getActiveSheet()->getRowDimension('60')->setRowHeight(67.79);
+
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
 
    $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "* RESPETAR SEPARACIÓN DE BLOQUES DE CORTE, YA QUE SE COLOCA TELA CONTRASTE PARA DIFERENCIAR TONALIDAD EN CADA BLOQUE DE CORTE.");
    $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila");
@@ -1370,6 +1372,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
    $fila=61;
    $objPHPExcel->getActiveSheet()->getRowDimension('61')->setRowHeight(67.79);
 
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
+
    $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "* REGULAR TENSIONES SEGÚN TELA A TRABAJAR.");
    $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila");
    $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
@@ -1378,10 +1383,39 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
    $fila=62;
    $objPHPExcel->getActiveSheet()->getRowDimension('62')->setRowHeight(67.79);
 
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
+
    $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "* REVISAR E INSPECCIONAR TODAS LAS PRENDAS CUANDO SALEN DE LÍNEA DE COSTURA.");
    $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila");
    $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
    $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila:N$fila");
+
+   $fila=63;
+   $objPHPExcel->getActiveSheet()->getRowDimension('63')->setRowHeight(67.79);
+
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
+   $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila:N$fila");
+
+
+   $fila=64;
+   $objPHPExcel->getActiveSheet()->getRowDimension('64')->setRowHeight(67.79);
+
+   $objPHPExcel->getActiveSheet()->setSharedStyle($sub2, "B$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "F$fila");
+   $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
+   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "G$fila:N$fila");
+
+   $fila=65;
+   $objPHPExcel->getActiveSheet()->getRowDimension('65')->setRowHeight(67.79);
+
+   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
+   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes3, "B$fila:F$fila");
+   $objPHPExcel->getActiveSheet()->mergeCells("G$fila:N$fila");
+   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes3, "G$fila:N$fila");
+
 
 
 
@@ -1401,9 +1435,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(64.29);
 
 
-  
+
 //establecer pie de impresion en cada hoja
-$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+//$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
 
 //*************Guardar como excel 2003*********************************
 $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); //Escribir archivo
