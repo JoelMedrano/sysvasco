@@ -23,15 +23,15 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
-	$("#imagen").attr("src","");
+	$("#id_des_jud").val("");
+	$("#id_trab").val("");
+	$("#mon_men").val("");
+	$("#obs_des_jud").val("");
+	$("#fec_ini").val("");
+	$("#fec_fin").val("");
+
+
+
 }
 
 //Función mostrar formulario

@@ -42,6 +42,7 @@ Class Prestamos
 												 usu_reg,
 												 pc_reg)
 										VALUES ('$fec_sol',	
+	                                            '$aprob_por',	
 											    '$solicitante',
 												'$motivo',
 												'$num_cuotas',
@@ -51,7 +52,7 @@ Class Prestamos
 												'$pagado',
 												'$saldo',
 												'$data_adjunta',
-												'0'
+												'0',
 												'$fec_reg',
 												'$usu_reg',
 												'$pc_reg' )";

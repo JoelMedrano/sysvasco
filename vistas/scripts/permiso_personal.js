@@ -40,14 +40,32 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
+	$("#fecha_emision").val("");
+	$("#fecha_procede").val("");
+	$("#fecha_hasta").val("");
+	$("#id_permiso").val("");
+	$("#id_trab").val("");
+	$("#tip_permiso").val("");
+	$("#hora_ing").val("");
+	$("#hora_sal").val("");
+	$("#motivo").val("");
+
+
+
+
+	$("#imagenmuestra1").attr("src","");
+	$("#imagenactual1").val("");
+
+	$("#imagenmuestra2").attr("src","");
+	$("#imagenactual2").val("");
+
+	$("#imagenmuestra3").attr("src","");
+	$("#imagenactual3").val("");
+
+	$("#imagenmuestra4").attr("src","");
+	$("#imagenactual4").val("");
+
+
 }
 
 //Función mostrar formulario

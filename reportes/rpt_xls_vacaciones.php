@@ -378,7 +378,7 @@ while($res=mysql_fetch_array($sql)){
 
 
 
-//INICIO 1era HOJA
+//INICIO SEGUNDA HOJA
 $objPHPExcel->createSheet(0); //crear hoja
 $objPHPExcel->setActiveSheetIndex(0); //seleccionar hora
 $objPHPExcel->getActiveSheet()->setTitle("PRODUCCION"); //establecer titulo de hoja

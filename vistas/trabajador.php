@@ -414,6 +414,9 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body" id="formularioregistrosdatos">
                         <form name="formulariodatos" id="formulariodatos" method="POST">
 
+                        
+
+
                         <div class="box-header with-border">
 
                         <!-- fila 1 -->
@@ -430,7 +433,9 @@ if ($_SESSION['rrhh']==1)
                                 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">DEPENDE DE UD</label>
 
-                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">TELEFONO</label>
+
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">FECHA DE ENTREGA DE DATOS</label>
                           </div>
@@ -453,8 +458,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_pad" id="dep_pad">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_pad" id="tel_pad">
+                                </div>
 
-                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
 
                                 <div class="col-lg-2">
                                    <input type="date"  class="form-control" name="fec_rec_dat" id="fec_rec_dat">
@@ -483,8 +491,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_mad" id="dep_mad">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_mad" id="tel_mad">
+                                </div>
 
-                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label" ALIGN="center">COD.TRAB</label>
                               
 
@@ -510,7 +521,11 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_con" id="dep_con">
                                 </div>
-                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label"></label>
+                                 <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="tel_con" id="tel_con">
+                                </div>
+
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
                                 <div class="col-lg-2">
                                     <input type="text" class="form-control" readonly name="prueba" id="prueba">
                                 </div>
@@ -599,6 +614,26 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_hij4" id="dep_hij4">
+                                </div>
+                            </div>
+
+
+                               <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Otro:</label>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" readonly>
+                                </div>
+                                <div class="col-lg-1">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="nom_otro" id="nom_otro">
+                                </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="ocu_otro" id="ocu_otro">
+                                </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="dep_otro" id="dep_otro">
                                 </div>
                             </div>
 
@@ -848,6 +883,100 @@ if ($_SESSION['rrhh']==1)
 
                       </div>
 
+                      <div class="box-header with-border">
+
+
+                         <div class="form-group  col-xs-12">
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">EMPRESA</label>
+
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">CARGO</label>
+
+                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label">FUNCIONES</label>
+                               
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">DESDE(MES/AÑO)</label>
+                               
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">HASTA(MES/AÑO)</label>
+
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">MOTIVO DE CESE</label>
+
+                          </div>
+
+                           <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="nom_emp_exp1" id="nom_emp_exp1">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="car_exp1" id="car_exp1">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text"  class="form-control" name="fun_exp1" id="fun_exp1">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_exp1" id="fec_ini_exp1">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_exp1" id="fec_fin_exp1">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="mot_ces_exp1" id="mot_ces_exp1">
+                                </div>
+                          </div>
+
+
+                           <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="nom_emp_exp2" id="nom_emp_exp2">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="car_exp2" id="car_exp2">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text"  class="form-control" name="fun_exp2" id="fun_exp2">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_exp2" id="fec_ini_exp2">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_exp2" id="fec_fin_exp2">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="mot_ces_exp2" id="mot_ces_exp2">
+                                </div>
+                          </div>
+
+
+
+                           <!-- fila 1 -->
+                           <div class="form-group  col-xs-12">
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="nom_emp_exp3" id="nom_emp_exp3">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="car_exp3" id="car_exp3">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text"  class="form-control" name="fun_exp3" id="fun_exp3">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_ini_exp3" id="fec_ini_exp3">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="date" class="form-control" name="fec_fin_exp3" id="fec_fin_exp3">
+                                </div>
+                                <div class="col-lg-2">
+                                   <input type="text" class="form-control" name="mot_ces_exp3" id="mot_ces_exp3">
+                                </div>
+                            </div>
+
+
+
+
+
+
+                      </div>
+
 
                       <div class="box-header with-border">
 
@@ -857,7 +986,13 @@ if ($_SESSION['rrhh']==1)
                                   <div class="col-lg-4">
                                      <input type="text" class="form-control" name="tie_enf_car_onc" id="tie_enf_car_onc">
                                   </div>
-                                 
+                             </div>
+
+                             <div class="form-group  col-xs-12">
+                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Actualmente sufre de algun tipo de alergia/recurrente</label>
+                                  <div class="col-lg-4">
+                                     <input type="text" class="form-control" name="tie_enf_ale_rec" id="tie_enf_ale_rec">
+                                  </div>
                              </div>
 
 

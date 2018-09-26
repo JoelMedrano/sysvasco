@@ -23,15 +23,48 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
-	$("#imagen").attr("src","");
+	$("#id_ano").val("");
+	$("#obs_reg_pen").val("");
+	$("#id_reg_pen").val("");
+	$("#onp_apo_obl").val("");
+	$("#onp_com_men_rem").val("");
+	$("#onp_com_men").val("");
+	$("#onp_pri_seg").val("");
+	$("#onp_apo_act").val("");
+	$("#onp_apo_mix").val("");
+	$("#int_apo_obl").val("");
+	$("#int_com_men_rem").val("");
+	$("#int_com_anu").val("");
+	$("#int_com_men").val("");
+	$("#int_pri_seg").val("");
+	$("#int_apo_act").val("");
+	$("#int_apo_mix").val("");
+	$("#pri_apo_obl").val("");
+	$("#pri_com_men_rem").val("");
+	$("#pri_com_anu").val("");
+	$("#pri_com_men").val("");
+	$("#pri_pri_seg").val("");
+	$("#pri_apo_act").val("");
+	$("#pri_apo_mix").val("");
+	$("#pro_apo_obl").val("");
+	$("#pro_com_men_rem").val("");
+	$("#pro_com_anu").val("");
+	$("#pro_com_men").val("");
+	$("#pro_pri_seg").val("");
+	$("#pro_apo_act").val("");
+	$("#pro_apo_mix").val("");
+	$("#hab_apo_obl").val("");
+	$("#hab_com_men_rem").val("");
+	$("#hab_com_anu").val("");
+	$("#hab_com_men").val("");
+	$("#hab_pri_seg").val("");
+	$("#hab_apo_act").val("");
+	$("#hab_apo_mix").val("");
+	$("#sj_apo_obl").val("");
+	$("#sj_com_men_rem").val("");
+	$("#sj_apo_mix").val("");
+
+
 }
 
 //Función mostrar formulario

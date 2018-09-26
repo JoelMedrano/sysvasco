@@ -44,15 +44,21 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
-	$("#imagen").attr("src","");
+	$("#id_des_men").val("");
+	$("#fec_suc").val("");
+	$("#id_trab").val("");
+	$("#modalidad").val("");
+	$("#tip_dscto").val("");
+	$("#cantidad").val("");
+	$("#num_cuotas").val("");
+	$("#pagado").val("");
+	$("#saldo").val("");
+	$("#detalle").val("");
+
+
+
+
+
 }
 
 //Función mostrar formulario

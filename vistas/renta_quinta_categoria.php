@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['almacen']==1)
+if ($_SESSION['rrhh']==1)
 {
 ?>
 <!--Contenido-->
@@ -92,7 +92,7 @@ if ($_SESSION['almacen']==1)
                           </div>
                           <div class="form-group  col-xs-12">
                           </div>
-
+                          
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cantidad:</label>
                             <input type="number" class="form-control" name="cantidad" id="cantidad">

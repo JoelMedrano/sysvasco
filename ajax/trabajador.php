@@ -191,9 +191,37 @@ $nivel_comp=isset($_POST["nivel_comp"])? limpiarCadena($_POST["nivel_comp"]):"";
 //FIN - OTROS CONOCIMIENTOS DEL TRABAJADOR
 
 
+
+//INICIO - EXPERIENCIA LABORAL DEL TRABAJADOR
+$nom_emp_exp1=isset($_POST["nom_emp_exp1"])? limpiarCadena($_POST["nom_emp_exp1"]):"";
+$car_exp1=isset($_POST["car_exp1"])? limpiarCadena($_POST["car_exp1"]):"";
+$fun_exp1=isset($_POST["fun_exp1"])? limpiarCadena($_POST["fun_exp1"]):"";
+$fec_ini_exp1=isset($_POST["fec_ini_exp1"])? limpiarCadena($_POST["fec_ini_exp1"]):"";
+$fec_fin_exp1=isset($_POST["fec_fin_exp1"])? limpiarCadena($_POST["fec_fin_exp1"]):"";
+$mot_ces_exp1=isset($_POST["mot_ces_exp1"])? limpiarCadena($_POST["mot_ces_exp1"]):"";
+
+$nom_emp_exp2=isset($_POST["nom_emp_exp2"])? limpiarCadena($_POST["nom_emp_exp2"]):"";
+$car_exp2=isset($_POST["car_exp2"])? limpiarCadena($_POST["car_exp2"]):"";
+$fun_exp2=isset($_POST["fun_exp2"])? limpiarCadena($_POST["fun_exp2"]):"";
+$fec_ini_exp2=isset($_POST["fec_ini_exp2"])? limpiarCadena($_POST["fec_ini_exp2"]):"";
+$fec_fin_exp2=isset($_POST["fec_fin_exp2"])? limpiarCadena($_POST["fec_fin_exp2"]):"";
+$mot_ces_exp2=isset($_POST["mot_ces_exp2"])? limpiarCadena($_POST["mot_ces_exp2"]):"";
+
+$nom_emp_exp3=isset($_POST["nom_emp_exp3"])? limpiarCadena($_POST["nom_emp_exp3"]):"";
+$car_exp3=isset($_POST["car_exp3"])? limpiarCadena($_POST["car_exp3"]):"";
+$fun_exp3=isset($_POST["fun_exp3"])? limpiarCadena($_POST["fun_exp3"]):"";
+$fec_ini_exp3=isset($_POST["fec_ini_exp3"])? limpiarCadena($_POST["fec_ini_exp3"]):"";
+$fec_fin_exp3=isset($_POST["fec_fin_exp3"])? limpiarCadena($_POST["fec_fin_exp3"]):"";
+$mot_ces_exp3=isset($_POST["mot_ces_exp3"])? limpiarCadena($_POST["mot_ces_exp3"]):"";
+
+//FIN - EXPERIENCIA LABORAL DEL TRABAJADOR
+
+
+
 //INICIO - ENFERMEDADES DEL TRABAJADOR
 $tie_enf_car_onc=isset($_POST["tie_enf_car_onc"])? limpiarCadena($_POST["tie_enf_car_onc"]):"";
 $nom_enf_car_onc=isset($_POST["nom_enf_car_onc"])? limpiarCadena($_POST["nom_enf_car_onc"]):"";
+$tie_enf_ale_rec=isset($_POST["tie_enf_ale_rec"])? limpiarCadena($_POST["tie_enf_ale_rec"]):"";
 //FIN - ENFERMEDADES DEL TRABAJADOR
 
 
@@ -227,6 +255,7 @@ switch ($_GET["op"]){
 			$rspta=$trabajador->insertar_trabajador_familia( $fec_reg, $usu_reg, $pc_reg );
 			$rspta=$trabajador->insertar_trabajador_estudios( $fec_reg, $usu_reg, $pc_reg );
 			$rspta=$trabajador->insertar_trabajador_conocimiento( $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_exp_laboral( $fec_reg, $usu_reg, $pc_reg );
             $rspta=$trabajador->insertar_trabajador_salud( $fec_reg, $usu_reg, $pc_reg );
 			$rspta=$trabajador->insertar_trabajador_afiliacion( $fec_reg, $usu_reg, $pc_reg );
 			$rspta=$trabajador->insertar_trabajador_data_adjunta( $fec_reg, $usu_reg, $pc_reg );
@@ -265,7 +294,10 @@ switch ($_GET["op"]){
 				$fec_fin_sec, $cen_est_sup, $carrera_sup, $fec_des_sup, $fec_has_sup, $cen_est_tec, $carrera_tec,
 				$fec_ini_tec, $fec_fin_tec, $cen_est_esp, $especialidad, $fec_ini_esp, $fec_fin_esp, $cen_est_otros,
 				$carrera_otros, $fec_ini_otros, $fec_fin_otros, $des_idioma, $cen_est_idioma, $nivel_idioma, $des_comp,
-				$cen_est_comp, $nivel_comp, $tie_enf_car_onc, $nom_enf_car_onc, $afi_onp, $afi_afp, $nom_afi_afp,
+				$cen_est_comp, $nivel_comp, $nom_emp_exp1, $car_exp1, $fun_exp1, $fec_ini_exp1, $fec_fin_exp1, $mot_ces_exp1,
+				$nom_emp_exp2, $car_exp2, $fun_exp2, $fec_ini_exp2, $fec_fin_exp2, $mot_ces_exp2, 
+				$nom_emp_exp3, $car_exp3, $fun_exp3, $fec_ini_exp3, $fec_fin_exp3, $mot_ces_exp3,  
+				$tie_enf_car_onc, $nom_enf_car_onc, $tie_enf_ale_rec, $afi_onp, $afi_afp, $nom_afi_afp,
 				$usu_reg, $pc_reg, $fec_reg );
 			echo $rspta ? "Datos actualizados" : "Los datos no se pudieron actualizar";
 		}

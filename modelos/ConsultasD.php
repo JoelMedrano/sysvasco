@@ -238,7 +238,8 @@ Class ConsultasD
 	{
 		$sql="SELECT id_trab AS aprob_por,   CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab   )    AS apro_apellidosynombres 
 		FROM Trabajador
-		where id_trab in ('11', '12' )";
+		where id_trab in ('11', '12', '103' , '37' )
+		order by  apepat_trab DESC";
 		return ejecutarConsulta($sql);		
 	}
 

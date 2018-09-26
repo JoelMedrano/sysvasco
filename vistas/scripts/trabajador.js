@@ -209,14 +209,253 @@ function init(){
 //Función limpiar
 function limpiar()
 {
+	$("#nom_trab").val("");
+	$("#apepat_trab").val("");
+	$("#apemat_trab").val("");
+	$("#id_trab").val("");
+	$("#dir_trab").val("");
+	$("#urb_trab").val("");
+	$("#id_distrito").val("");
+	$("#departamento").val("");
+	$("#fec_nac_trab").val("");
+	$("#lug_nac_trab").val("");
+	$("#edad_trab").val("");
+	$("#nacionalidad").val("");
+	$("#id_est_civil").val("");
+	$("#id_tip_doc").val("");
+	$("#num_doc_trab").val("");
+	$("#num_tlf_dom").val("");
+	$("#num_tlf_cel").val("");
+	$("#email_trab").val("");
+	$("#id_sucursal").val("");
+	$("#id_funcion").val("");
+	$("#id_area").val("");
+	$("#id_turno").val("");
+	$("#id_tip_plan").val("");
+	$("#fec_ing_trab").val("");
+	$("#fec_sal_trab").val("");
+	$("#sueldo_trab").val("");
+	$("#fec_ing2").val("");
+	$("#fec_sal2").val("");
+	$("#mot_sal2").val("");
+	$("#bono_trab").val("");
+	$("#fec_ing1").val("");
+	$("#fec_sal1").val("");
+	$("#mot_sal1").val("");
+	$("#asig_trab").val("");
+	$("#fec_ing_interno").val("");
+	$("#fec_sal_interno").val("");
+	$("#mot_sal_interno").val("");
+	$("#obs_trab").val("");
+	$("#id_cen_cost").val("");
+	$("#id_tip_man_ob").val("");
+	$("#id_categoria").val("");
+	$("#id_form_pag").val("");
+	$("#id_tip_cont").val("");
+	$("#id_reg_pen").val("");
+	$("#id_com_act").val("");
+	$("#id_genero").val("");
+	$("#fecfin_con_ant").val("");
+	$("#fecfin_con_act").val("");
+	$("#cusp_trab").val("");
+	$("#viv_pad").val("");
+	$("#nom_pad").val("");
+	$("#ocu_pad").val("");
+	$("#dep_pad").val("");
+	$("#tel_pad").val("");
+	$("#fec_rec_dat").val("");
+	$("#viv_mad").val("");
+	$("#nom_mad").val("");
+	$("#ocu_mad").val("");
+	$("#dep_mad").val("");
+	$("#tel_mad").val("");
+	$("#viv_con").val("");
+	$("#nom_con").val("");
+	$("#ocu_con").val("");
+	$("#dep_con").val("");
+	$("#tel_con").val("");
+	$("#prueba").val("");
+	$("#eda_hij1").val("");
+	$("#nom_hij1").val("");
+	$("#ocu_hij1").val("");
+	$("#dep_hij1").val("");
+	$("#eda_hij2").val("");
+	$("#nom_hij2").val("");
+	$("#ocu_hij2").val("");
+	$("#dep_hij2").val("");
+	$("#eda_hij3").val("");
+	$("#nom_hij3").val("");
+	$("#ocu_hij3").val("");
+	$("#dep_hij3").val("");
+	$("#eda_hij4").val("");
+	$("#nom_hij4").val("");
+	$("#ocu_hij4").val("");
+	$("#dep_hij4").val("");
+	$("#nom_otro").val("");
+	$("#ocu_otro").val("");
+	$("#dep_otro").val("");
+	$("#nom_fam_con").val("");
+	$("#par_fam_con").val("");
+	$("#are_fam_con").val("");
+	$("#cen_est_pri").val("");
+	$("#grado_pri").val("");
+	$("#fec_ini_pri").val("");
+	$("#fec_fin_pri").val("");
+	$("#cen_est_sec").val("");
+	$("#grado_sec").val("");
+	$("#fec_ini_sec").val("");
+	$("#fec_fin_sec").val("");
+	$("#cen_est_sup").val("");
+	$("#carrera_sup").val("");
+	$("#fec_des_sup").val("");
+	$("#fec_has_sup").val("");
+	$("#cen_est_tec").val("");
+	$("#carrera_tec").val("");
+	$("#fec_ini_tec").val("");
+	$("#fec_fin_tec").val("");
+	$("#cen_est_esp").val("");
+	$("#especialidad").val("");
+	$("#fec_ini_esp").val("");
+	$("#fec_fin_esp").val("");
+	$("#cen_est_otros").val("");
+	$("#carrera_otros").val("");
+	$("#fec_ini_otros").val("");
+	$("#fec_fin_otros").val("");
+	$("#des_idioma").val("");
+	$("#cen_est_idioma").val("");
+	$("#nivel_idioma").val("");
+	$("#des_comp").val("");
+	$("#cen_est_comp").val("");
+	$("#nivel_comp").val("");
+
+	$("#nom_emp_exp1").val("");
+	$("#car_exp1").val("");
+	$("#fun_exp1").val("");
+	$("#fec_ini_exp1").val("");
+	$("#fec_fin_exp1").val("");
+	$("#mot_ces_exp1").val("");
+
+	$("#nom_emp_exp2").val("");
+	$("#car_exp2").val("");
+	$("#fun_exp2").val("");
+	$("#fec_ini_exp2").val("");
+	$("#fec_fin_exp2").val("");
+	$("#mot_ces_exp2").val("");
+
+	$("#nom_emp_exp3").val("");
+	$("#car_exp3").val("");
+	$("#fun_exp3").val("");
+	$("#fec_ini_exp3").val("");
+	$("#fec_fin_exp3").val("");
+	$("#mot_ces_exp3").val("");
+
+
+
+	$("#tie_enf_car_onc").val("");
+	$("#tie_enf_ale_rec").val("");
+	$("#nom_enf_car_onc").val("");
+	$("#afi_onp").val("");
+	$("#afi_afp").val("");
+	$("#nom_afi_afp").val("");
 	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
+	
+
+
+
+	$("#id_trab_data_adjunta").val("");
+
+
+
+	$("#foto_trab_muestra").attr("src","");
+	$("#imagenactual_foto_trab").val("");
+
+
+	$("#dat_hij1_muestra").attr("src","");
+	$("#imagenactual_dat_hij1").val("");
+
+
+	$("#dat_hij2_muestra").attr("src","");
+	$("#imagenactual_dat_hij2").val("");
+
+	$("#dat_hij3_muestra").attr("src","");
+	$("#imagenactual_dat_hij3").val("");
+
+
+	$("#dat_hij4_muestra").attr("src","");
+	$("#imagenactual_dat_hij4").val("");
+
+
+	$("#dat_con_muestra").attr("src","");
+	$("#imagenactual_dat_con").val("");
+
+
+	$("#dat_luz_agua_muestra").attr("src","");
+	$("#imagenactual_dat_luz_agua").val("");
+
+
+	$("#dat_cer_med_muestra").attr("src","");
+	$("#imagenactual_dat_cer_med").val("");
+
+
+	$("#dat_dec_dom_muestra").attr("src","");
+	$("#imagenactual_dat_dec_dom").val("");
+
+
+	$("#dat_cv_muestra").attr("src","");
+	$("#imagenactual_dat_cv").val("");
+
+	$("#dat_gra_tit_muestra").attr("src","");
+	$("#imagenactual_dat_gra_tit").val("");
+
+
+	$("#dat_idi_muestra").attr("src","");
+	$("#imagenactual_dat_idi").val("");
+
+	$("#dat_cer_tec_muestra").attr("src","");
+	$("#imagenactual_dat_cer_tec").val("");
+
+
+	$("#dat_adi_muestra").attr("src","");
+	$("#imagenactual_dat_adi").val("");
+
+
+	$("#dat_cer_tra_muestra").attr("src","");
+	$("#imagenactual_dat_cer_tra").val("");
+
+
+	$("#dat_pas_muestra").attr("src","");
+	$("#imagenactual_dat_pas").val("");
+
+
+	$("#dat_bre_muestra").attr("src","");
+	$("#imagenactual_dat_bre").val("");
+
+
+	$("#dat_liq_muestra").attr("src","");
+	$("#imagenactual_dat_liq").val("");
+
+
+	$("#dat_cts_muestra").attr("src","");
+	$("#imagenactual_dat_cts").val("");
+
+	$("#dat_car_ren_muestra").attr("src","");
+	$("#imagenactual_dat_car_ren").val("");
+
+	
+
+
 	$("#print").hide();
-	$("#idarticulo").val("");
+
+
+
+
+
+
+
+
+
+
+
 }
 
 //Función mostrar formulario
@@ -627,9 +866,35 @@ function mostrar_datos(id_trab)
 		$("#cen_est_comp").val(data.cen_est_comp);
 		$("#nivel_comp").val(data.nivel_comp);
 
+		$("#des_comp").val(data.des_comp);
+		$("#cen_est_comp").val(data.cen_est_comp);
+		$("#nivel_comp").val(data.nivel_comp);
 
-		$("#tie_enf_car_onc").val(data.tie_enf_car_onc);
-		$("#nom_enf_car_onc").val(data.nom_enf_car_onc);
+
+		
+
+
+
+		$("#nom_emp_exp1").val(data.nom_emp_exp1);
+		$("#car_exp1").val(data.car_exp1);
+		$("#fun_exp1").val(data.fun_exp1);
+		$("#fec_ini_exp1").val(data.fec_ini_exp1);
+		$("#fec_fin_exp1").val(data.fec_fin_exp1);
+		$("#mot_ces_exp1").val(data.mot_ces_exp1);
+		$("#nom_emp_exp2").val(data.nom_emp_exp2);
+		$("#car_exp2").val(data.car_exp2);
+		$("#fun_exp2").val(data.fun_exp2);
+		$("#fec_ini_exp2").val(data.fec_ini_exp2);
+		$("#fec_fin_exp2").val(data.fec_fin_exp2);
+		$("#mot_ces_exp2").val(data.mot_ces_exp2);
+		$("#nom_emp_exp3").val(data.nom_emp_exp3);
+		$("#car_exp3").val(data.car_exp3);
+		$("#fun_exp3").val(data.fun_exp3);
+		$("#fec_ini_exp3").val(data.fec_ini_exp3);
+		$("#fec_fin_exp3").val(data.fec_fin_exp3);
+		$("#mot_ces_exp3").val(data.mot_ces_exp3);
+
+		
 		
 
 		$("#afi_onp").val(data.afi_onp);
