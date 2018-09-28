@@ -76,12 +76,9 @@ $mot_sal_interno=isset($_POST["mot_sal_interno"])? limpiarCadena($_POST["mot_sal
 $fecfin_con_ant=isset($_POST["fecfin_con_ant"])? limpiarCadena($_POST["fecfin_con_ant"]):"";
 $fecfin_con_act=isset($_POST["fecfin_con_act"])? limpiarCadena($_POST["fecfin_con_act"]):"";
 
-
-
-
-
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
-//FIN - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR
+//FIN - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR 
+
 
 
 
@@ -101,12 +98,42 @@ $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 	$dat_idi=isset($_POST["dat_idi"])? limpiarCadena($_POST["dat_idi"]):"";
 	$dat_cer_tec=isset($_POST["dat_cer_tec"])? limpiarCadena($_POST["dat_cer_tec"]):"";
 	$dat_adi=isset($_POST["dat_adi"])? limpiarCadena($_POST["dat_adi"]):"";
-	$dat_cer_tra=isset($_POST["dat_cer_tra"])? limpiarCadena($_POST["dat_cer_tra"]):"";
+	
+	$dat_cer_tra1=isset($_POST["dat_cer_tra1"])? limpiarCadena($_POST["dat_cer_tra1"]):"";
+	$dat_cer_tra2=isset($_POST["dat_cer_tra2"])? limpiarCadena($_POST["dat_cer_tra2"]):"";
+	$dat_cer_tra3=isset($_POST["dat_cer_tra3"])? limpiarCadena($_POST["dat_cer_tra3"]):"";
+
+	$dat_cer_res1=isset($_POST["dat_cer_res1"])? limpiarCadena($_POST["dat_cer_res1"]):"";
+	$dat_cer_res2=isset($_POST["dat_cer_res2"])? limpiarCadena($_POST["dat_cer_res2"]):"";
+	$dat_cer_res3=isset($_POST["dat_cer_res3"])? limpiarCadena($_POST["dat_cer_res3"]):"";
+	
 	$dat_pas=isset($_POST["dat_pas"])? limpiarCadena($_POST["dat_pas"]):"";
 	$dat_bre=isset($_POST["dat_bre"])? limpiarCadena($_POST["dat_bre"]):"";
-	$dat_liq=isset($_POST["dat_liq"])? limpiarCadena($_POST["dat_liq"]):"";
-	$dat_cts=isset($_POST["dat_cts"])? limpiarCadena($_POST["dat_cts"]):"";
+
+	$dat_pla_liq1=isset($_POST["dat_pla_liq1"])? limpiarCadena($_POST["dat_pla_liq1"]):"";
+	$dat_pla_liq2=isset($_POST["dat_pla_liq2"])? limpiarCadena($_POST["dat_pla_liq2"]):"";
+	$dat_pla_liq3=isset($_POST["dat_pla_liq3"])? limpiarCadena($_POST["dat_pla_liq3"]):"";
+	
+	$dat_int_liq1=isset($_POST["dat_int_liq1"])? limpiarCadena($_POST["dat_int_liq1"]):"";
+	$dat_int_liq2=isset($_POST["dat_int_liq2"])? limpiarCadena($_POST["dat_int_liq2"]):"";
+	$dat_int_liq3=isset($_POST["dat_int_liq3"])? limpiarCadena($_POST["dat_int_liq3"]):"";
+		
+
+	$dat_car_ret_cts1=isset($_POST["dat_car_ret_cts1"])? limpiarCadena($_POST["dat_car_ret_cts1"]):"";
+    $dat_car_ret_cts2=isset($_POST["dat_car_ret_cts2"])? limpiarCadena($_POST["dat_car_ret_cts2"]):"";
+    $dat_car_ret_cts3=isset($_POST["dat_car_ret_cts3"])? limpiarCadena($_POST["dat_car_ret_cts3"]):"";
+    
+ 	$dat_alt_reg1=isset($_POST["dat_alt_reg1"])? limpiarCadena($_POST["dat_alt_reg1"]):"";
+    $dat_alt_reg2=isset($_POST["dat_alt_reg2"])? limpiarCadena($_POST["dat_alt_reg2"]):"";
+    $dat_alt_reg3=isset($_POST["dat_alt_reg3"])? limpiarCadena($_POST["dat_alt_reg3"]):"";
+    
+    $dat_baj_reg1=isset($_POST["dat_baj_reg1"])? limpiarCadena($_POST["dat_baj_reg1"]):"";
+    $dat_baj_reg2=isset($_POST["dat_baj_reg2"])? limpiarCadena($_POST["dat_baj_reg2"]):"";
+    $dat_baj_reg3=isset($_POST["dat_baj_reg3"])? limpiarCadena($_POST["dat_baj_reg3"]):"";
+    
+
     $dat_car_ren=isset($_POST["dat_car_ren"])? limpiarCadena($_POST["dat_car_ren"]):"";
+
 	//INICIO - DATA ADJUNTADA  DEL TRABAJADOR
 
 
@@ -121,31 +148,56 @@ $viv_pad=isset($_POST["viv_pad"])? limpiarCadena($_POST["viv_pad"]):"";
 $nom_pad=isset($_POST["nom_pad"])? limpiarCadena($_POST["nom_pad"]):"";
 $ocu_pad=isset($_POST["ocu_pad"])? limpiarCadena($_POST["ocu_pad"]):"";
 $dep_pad=isset($_POST["dep_pad"])? limpiarCadena($_POST["dep_pad"]):"";
+$tel_pad=isset($_POST["tel_pad"])? limpiarCadena($_POST["tel_pad"]):"";
+
 $fec_rec_dat=isset($_POST["fec_rec_dat"])? limpiarCadena($_POST["fec_rec_dat"]):"";
+
 $viv_mad=isset($_POST["viv_mad"])? limpiarCadena($_POST["viv_mad"]):"";
 $nom_mad=isset($_POST["nom_mad"])? limpiarCadena($_POST["nom_mad"]):"";
 $ocu_mad=isset($_POST["ocu_mad"])? limpiarCadena($_POST["ocu_mad"]):"";
 $dep_mad=isset($_POST["dep_mad"])? limpiarCadena($_POST["dep_mad"]):"";
+$tel_mad=isset($_POST["tel_mad"])? limpiarCadena($_POST["tel_mad"]):"";
+
+
 $viv_con=isset($_POST["viv_con"])? limpiarCadena($_POST["viv_con"]):"";
 $nom_con=isset($_POST["nom_con"])? limpiarCadena($_POST["nom_con"]):"";
 $ocu_con=isset($_POST["ocu_con"])? limpiarCadena($_POST["ocu_con"]):"";
 $dep_con=isset($_POST["dep_con"])? limpiarCadena($_POST["dep_con"]):"";
-$eda_hij1=isset($_POST["eda_hij1"])? limpiarCadena($_POST["eda_hij1"]):"";
+$tel_con=isset($_POST["tel_con"])? limpiarCadena($_POST["tel_con"]):"";
+
+$nac_hij1=isset($_POST["nac_hij1"])? limpiarCadena($_POST["nac_hij1"]):"";
 $nom_hij1=isset($_POST["nom_hij1"])? limpiarCadena($_POST["nom_hij1"]):"";
 $ocu_hij1=isset($_POST["ocu_hij1"])? limpiarCadena($_POST["ocu_hij1"]):"";
 $dep_hij1=isset($_POST["dep_hij1"])? limpiarCadena($_POST["dep_hij1"]):"";
-$eda_hij2=isset($_POST["eda_hij2"])? limpiarCadena($_POST["eda_hij2"]):"";
+$tel_hij1=isset($_POST["tel_hij1"])? limpiarCadena($_POST["tel_hij1"]):"";
+
+$nac_hij2=isset($_POST["nac_hij2"])? limpiarCadena($_POST["nac_hij2"]):"";
 $nom_hij2=isset($_POST["nom_hij2"])? limpiarCadena($_POST["nom_hij2"]):"";
 $ocu_hij2=isset($_POST["ocu_hij2"])? limpiarCadena($_POST["ocu_hij2"]):"";
 $dep_hij2=isset($_POST["dep_hij2"])? limpiarCadena($_POST["dep_hij2"]):"";
-$eda_hij3=isset($_POST["eda_hij3"])? limpiarCadena($_POST["eda_hij3"]):"";
+$tel_hij2=isset($_POST["tel_hij2"])? limpiarCadena($_POST["tel_hij2"]):"";
+
+$nac_hij3=isset($_POST["nac_hij3"])? limpiarCadena($_POST["nac_hij3"]):"";
 $nom_hij3=isset($_POST["nom_hij3"])? limpiarCadena($_POST["nom_hij3"]):"";
 $ocu_hij3=isset($_POST["ocu_hij3"])? limpiarCadena($_POST["ocu_hij3"]):"";
 $dep_hij3=isset($_POST["dep_hij3"])? limpiarCadena($_POST["dep_hij3"]):"";
-$eda_hij4=isset($_POST["eda_hij4"])? limpiarCadena($_POST["eda_hij4"]):"";
+$tel_hij3=isset($_POST["tel_hij3"])? limpiarCadena($_POST["tel_hij3"]):"";
+
+
+$nac_hij4=isset($_POST["nac_hij4"])? limpiarCadena($_POST["nac_hij4"]):"";
 $nom_hij4=isset($_POST["nom_hij4"])? limpiarCadena($_POST["nom_hij4"]):"";
 $ocu_hij4=isset($_POST["ocu_hij4"])? limpiarCadena($_POST["ocu_hij4"]):"";
 $dep_hij4=isset($_POST["dep_hij4"])? limpiarCadena($_POST["dep_hij4"]):"";
+$tel_hij4=isset($_POST["tel_hij4"])? limpiarCadena($_POST["tel_hij4"]):"";
+
+$nom_otro=isset($_POST["nom_otro"])? limpiarCadena($_POST["nom_otro"]):"";
+$ocu_otro=isset($_POST["ocu_otro"])? limpiarCadena($_POST["ocu_otro"]):"";
+$dep_otro=isset($_POST["dep_otro"])? limpiarCadena($_POST["dep_otro"]):"";
+$tel_otro=isset($_POST["tel_otro"])? limpiarCadena($_POST["tel_otro"]):"";
+
+
+
+
 $nom_fam_con=isset($_POST["nom_fam_con"])? limpiarCadena($_POST["nom_fam_con"]):"";
 $par_fam_con=isset($_POST["par_fam_con"])? limpiarCadena($_POST["par_fam_con"]):"";
 $are_fam_con=isset($_POST["are_fam_con"])? limpiarCadena($_POST["are_fam_con"]):"";
@@ -213,7 +265,6 @@ $fun_exp3=isset($_POST["fun_exp3"])? limpiarCadena($_POST["fun_exp3"]):"";
 $fec_ini_exp3=isset($_POST["fec_ini_exp3"])? limpiarCadena($_POST["fec_ini_exp3"]):"";
 $fec_fin_exp3=isset($_POST["fec_fin_exp3"])? limpiarCadena($_POST["fec_fin_exp3"]):"";
 $mot_ces_exp3=isset($_POST["mot_ces_exp3"])? limpiarCadena($_POST["mot_ces_exp3"]):"";
-
 //FIN - EXPERIENCIA LABORAL DEL TRABAJADOR
 
 
@@ -285,11 +336,11 @@ switch ($_GET["op"]){
 			echo $rspta ? "Datos registrados" : "Los datos no se pudieron registrar";
 		}
 		else {
-			$rspta=$trabajador->editar_datos($prueba, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, 
-				$fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad, $viv_con, $nom_con, 
-				$ocu_con, $dep_con, $eda_hij1, $nom_hij1, $ocu_hij1, $dep_hij1, $dat_hij1,  $eda_hij2, 
-				$nom_hij2, $ocu_hij2, $dep_hij2, $eda_hij3, $nom_hij3, $ocu_hij3, $dep_hij3,
-				$eda_hij4, $nom_hij4, $ocu_hij4, $dep_hij4, $nom_fam_con, $par_fam_con, $are_fam_con,
+			$rspta=$trabajador->editar_datos($prueba, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, $tel_pad,
+				$fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad,  $tel_mad, $viv_con, $nom_con, 
+				$ocu_con, $dep_con,  $tel_con, $nac_hij1, $nom_hij1, $ocu_hij1, $dep_hij1, $tel_hij1,  $dat_hij1,  $nac_hij2, 
+				$nom_hij2, $ocu_hij2, $dep_hij2, $tel_hij2, $nac_hij3, $nom_hij3, $ocu_hij3, $dep_hij3, $tel_hij3,
+				$nac_hij4, $nom_hij4, $ocu_hij4, $dep_hij4, $tel_hij4, $nom_otro, $ocu_otro, $dep_otro, $tel_otro,  $nom_fam_con, $par_fam_con, $are_fam_con,
 				$cen_est_pri, $grado_pri, $fec_ini_pri, $fec_fin_pri, $cen_est_sec, $grado_sec, $fec_ini_sec,
 				$fec_fin_sec, $cen_est_sup, $carrera_sup, $fec_des_sup, $fec_has_sup, $cen_est_tec, $carrera_tec,
 				$fec_ini_tec, $fec_fin_tec, $cen_est_esp, $especialidad, $fec_ini_esp, $fec_fin_esp, $cen_est_otros,
@@ -554,19 +605,105 @@ switch ($_GET["op"]){
 
 
 
-		if (!file_exists($_FILES['dat_cer_tra']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_tra']['tmp_name']))
+		if (!file_exists($_FILES['dat_cer_tra1']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_tra1']['tmp_name']))
 		{
-			$dat_cer_tra=$_POST["imagenactual_dat_cer_tra"];
+			$dat_cer_tra1=$_POST["imagenactual_dat_cer_tra1"];
 		}
 		else
 		{
-			$ext = explode(".", $_FILES["dat_cer_tra"]["name"]);
-			if ($_FILES['dat_cer_tra']['type'] == "image/jpg" || $_FILES['dat_cer_tra']['type'] == "image/jpeg" || $_FILES['dat_cer_tra']['type'] == "image/png")
+			$ext = explode(".", $_FILES["dat_cer_tra1"]["name"]);
+			if ($_FILES['dat_cer_tra1']['type'] == "image/jpg" || $_FILES['dat_cer_tra1']['type'] == "image/jpeg" || $_FILES['dat_cer_tra1']['type'] == "image/png")
 			{
-				$dat_cer_tra = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["dat_cer_tra"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra);
+				$dat_cer_tra1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_tra1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra1);
 			}
 		}
+
+
+		if (!file_exists($_FILES['dat_cer_tra2']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_tra2']['tmp_name']))
+		{
+			$dat_cer_tra2=$_POST["imagenactual_dat_cer_tra2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cer_tra2"]["name"]);
+			if ($_FILES['dat_cer_tra2']['type'] == "image/jpg" || $_FILES['dat_cer_tra2']['type'] == "image/jpeg" || $_FILES['dat_cer_tra2']['type'] == "image/png")
+			{
+				$dat_cer_tra2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_tra2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra2);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_cer_tra3']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_tra3']['tmp_name']))
+		{
+			$dat_cer_tra3=$_POST["imagenactual_dat_cer_tra3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cer_tra3"]["name"]);
+			if ($_FILES['dat_cer_tra3']['type'] == "image/jpg" || $_FILES['dat_cer_tra3']['type'] == "image/jpeg" || $_FILES['dat_cer_tra3']['type'] == "image/png")
+			{
+				$dat_cer_tra3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_tra3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra3);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_cer_res1']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_res1']['tmp_name']))
+		{
+			$dat_cer_res1=$_POST["imagenactual_dat_cer_res1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cer_res1"]["name"]);
+			if ($_FILES['dat_cer_res1']['type'] == "image/jpg" || $_FILES['dat_cer_res1']['type'] == "image/jpeg" || $_FILES['dat_cer_res1']['type'] == "image/png")
+			{
+				$dat_cer_res1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_res1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_res1);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_cer_res2']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_res2']['tmp_name']))
+		{
+			$dat_cer_res2=$_POST["imagenactual_dat_cer_res2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cer_res2"]["name"]);
+			if ($_FILES['dat_cer_res2']['type'] == "image/jpg" || $_FILES['dat_cer_res2']['type'] == "image/jpeg" || $_FILES['dat_cer_res2']['type'] == "image/png")
+			{
+				$dat_cer_res2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_res2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_res2);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_cer_res3']['tmp_name']) || !is_uploaded_file($_FILES['dat_cer_res3']['tmp_name']))
+		{
+			$dat_cer_res3=$_POST["imagenactual_dat_cer_res3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_cer_res3"]["name"]);
+			if ($_FILES['dat_cer_res3']['type'] == "image/jpg" || $_FILES['dat_cer_res3']['type'] == "image/jpeg" || $_FILES['dat_cer_res3']['type'] == "image/png")
+			{
+				$dat_cer_res3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_cer_res3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_res3);
+			}
+		}
+
+
+
+
+
+
+
+
+
+
 
 
 		if (!file_exists($_FILES['dat_pas']['tmp_name']) || !is_uploaded_file($_FILES['dat_pas']['tmp_name']))
@@ -601,33 +738,242 @@ switch ($_GET["op"]){
 
 
 
-		if (!file_exists($_FILES['dat_liq']['tmp_name']) || !is_uploaded_file($_FILES['dat_liq']['tmp_name']))
+		if (!file_exists($_FILES['dat_pla_liq1']['tmp_name']) || !is_uploaded_file($_FILES['dat_pla_liq1']['tmp_name']))
 		{
-			$dat_liq=$_POST["imagenactual_dat_liq"];
+			$dat_pla_liq1=$_POST["imagenactual_dat_pla_liq1"];
 		}
 		else
 		{
-			$ext = explode(".", $_FILES["dat_liq"]["name"]);
-			if ($_FILES['dat_liq']['type'] == "image/jpg" || $_FILES['dat_liq']['type'] == "image/jpeg" || $_FILES['dat_liq']['type'] == "image/png")
+			$ext = explode(".", $_FILES["dat_pla_liq1"]["name"]);
+			if ($_FILES['dat_pla_liq1']['type'] == "image/jpg" || $_FILES['dat_pla_liq1']['type'] == "image/jpeg" || $_FILES['dat_pla_liq1']['type'] == "image/png")
 			{
-				$dat_liq = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["dat_liq"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_liq);
+				$dat_pla_liq1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_pla_liq1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pla_liq1);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_pla_liq2']['tmp_name']) || !is_uploaded_file($_FILES['dat_pla_liq2']['tmp_name']))
+		{
+			$dat_pla_liq2=$_POST["imagenactual_dat_pla_liq2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_pla_liq2"]["name"]);
+			if ($_FILES['dat_pla_liq2']['type'] == "image/jpg" || $_FILES['dat_pla_liq2']['type'] == "image/jpeg" || $_FILES['dat_pla_liq2']['type'] == "image/png")
+			{
+				$dat_pla_liq2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_pla_liq2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pla_liq2);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_pla_liq3']['tmp_name']) || !is_uploaded_file($_FILES['dat_pla_liq3']['tmp_name']))
+		{
+			$dat_pla_liq3=$_POST["imagenactual_dat_pla_liq3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_pla_liq3"]["name"]);
+			if ($_FILES['dat_pla_liq3']['type'] == "image/jpg" || $_FILES['dat_pla_liq3']['type'] == "image/jpeg" || $_FILES['dat_pla_liq3']['type'] == "image/png")
+			{
+				$dat_pla_liq3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_pla_liq3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pla_liq3);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_int_liq1']['tmp_name']) || !is_uploaded_file($_FILES['dat_int_liq1']['tmp_name']))
+		{
+			$dat_int_liq1=$_POST["imagenactual_dat_int_liq1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_int_liq1"]["name"]);
+			if ($_FILES['dat_int_liq1']['type'] == "image/jpg" || $_FILES['dat_int_liq1']['type'] == "image/jpeg" || $_FILES['dat_int_liq1']['type'] == "image/png")
+			{
+				$dat_int_liq1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_int_liq1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_int_liq1);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_int_liq2']['tmp_name']) || !is_uploaded_file($_FILES['dat_int_liq2']['tmp_name']))
+		{
+			$dat_int_liq2=$_POST["imagenactual_dat_int_liq2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_int_liq2"]["name"]);
+			if ($_FILES['dat_int_liq2']['type'] == "image/jpg" || $_FILES['dat_int_liq2']['type'] == "image/jpeg" || $_FILES['dat_int_liq2']['type'] == "image/png")
+			{
+				$dat_int_liq2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_int_liq2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_int_liq2);
 			}
 		}
 
 
 
-		if (!file_exists($_FILES['dat_cts']['tmp_name']) || !is_uploaded_file($_FILES['dat_cts']['tmp_name']))
+		if (!file_exists($_FILES['dat_int_liq3']['tmp_name']) || !is_uploaded_file($_FILES['dat_int_liq3']['tmp_name']))
 		{
-			$dat_cts=$_POST["imagenactual_dat_cts"];
+			$dat_int_liq3=$_POST["imagenactual_dat_int_liq3"];
 		}
 		else
 		{
-			$ext = explode(".", $_FILES["dat_cts"]["name"]);
-			if ($_FILES['dat_cts']['type'] == "image/jpg" || $_FILES['dat_cts']['type'] == "image/jpeg" || $_FILES['dat_cts']['type'] == "image/png")
+			$ext = explode(".", $_FILES["dat_int_liq3"]["name"]);
+			if ($_FILES['dat_int_liq3']['type'] == "image/jpg" || $_FILES['dat_int_liq3']['type'] == "image/jpeg" || $_FILES['dat_int_liq3']['type'] == "image/png")
 			{
-				$dat_cts = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["dat_cts"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cts);
+				$dat_int_liq3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_int_liq3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_int_liq3);
+			}
+		}
+
+
+
+
+
+
+
+
+
+		if (!file_exists($_FILES['dat_car_ret_cts1']['tmp_name']) || !is_uploaded_file($_FILES['dat_car_ret_cts1']['tmp_name']))
+		{
+			$dat_car_ret_cts1=$_POST["imagenactual_dat_car_ret_cts1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_car_ret_cts1"]["name"]);
+			if ($_FILES['dat_car_ret_cts1']['type'] == "image/jpg" || $_FILES['dat_car_ret_cts1']['type'] == "image/jpeg" || $_FILES['dat_car_ret_cts1']['type'] == "image/png")
+			{
+				$dat_car_ret_cts1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_car_ret_cts1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ret_cts1);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_car_ret_cts2']['tmp_name']) || !is_uploaded_file($_FILES['dat_car_ret_cts2']['tmp_name']))
+		{
+			$dat_car_ret_cts2=$_POST["imagenactual_dat_car_ret_cts2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_car_ret_cts2"]["name"]);
+			if ($_FILES['dat_car_ret_cts2']['type'] == "image/jpg" || $_FILES['dat_car_ret_cts2']['type'] == "image/jpeg" || $_FILES['dat_car_ret_cts2']['type'] == "image/png")
+			{
+				$dat_car_ret_cts2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_car_ret_cts2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ret_cts2);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_car_ret_cts3']['tmp_name']) || !is_uploaded_file($_FILES['dat_car_ret_cts3']['tmp_name']))
+		{
+			$dat_car_ret_cts3=$_POST["imagenactual_dat_car_ret_cts3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_car_ret_cts3"]["name"]);
+			if ($_FILES['dat_car_ret_cts3']['type'] == "image/jpg" || $_FILES['dat_car_ret_cts3']['type'] == "image/jpeg" || $_FILES['dat_car_ret_cts3']['type'] == "image/png")
+			{
+				$dat_car_ret_cts3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_car_ret_cts3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ret_cts3);
+			}
+		}
+
+
+
+
+
+		if (!file_exists($_FILES['dat_alt_reg1']['tmp_name']) || !is_uploaded_file($_FILES['dat_alt_reg1']['tmp_name']))
+		{
+			$dat_alt_reg1=$_POST["imagenactual_dat_alt_reg1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_alt_reg1"]["name"]);
+			if ($_FILES['dat_alt_reg1']['type'] == "image/jpg" || $_FILES['dat_alt_reg1']['type'] == "image/jpeg" || $_FILES['dat_alt_reg1']['type'] == "image/png")
+			{
+				$dat_alt_reg1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_alt_reg1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_alt_reg1);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_alt_reg2']['tmp_name']) || !is_uploaded_file($_FILES['dat_alt_reg2']['tmp_name']))
+		{
+			$dat_alt_reg2=$_POST["imagenactual_dat_alt_reg2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_alt_reg2"]["name"]);
+			if ($_FILES['dat_alt_reg2']['type'] == "image/jpg" || $_FILES['dat_alt_reg2']['type'] == "image/jpeg" || $_FILES['dat_alt_reg2']['type'] == "image/png")
+			{
+				$dat_alt_reg2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_alt_reg2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_alt_reg2);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_alt_reg3']['tmp_name']) || !is_uploaded_file($_FILES['dat_alt_reg3']['tmp_name']))
+		{
+			$dat_alt_reg3=$_POST["imagenactual_dat_alt_reg3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_alt_reg3"]["name"]);
+			if ($_FILES['dat_alt_reg3']['type'] == "image/jpg" || $_FILES['dat_alt_reg3']['type'] == "image/jpeg" || $_FILES['dat_alt_reg3']['type'] == "image/png")
+			{
+				$dat_alt_reg3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_alt_reg3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_alt_reg3);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_baj_reg1']['tmp_name']) || !is_uploaded_file($_FILES['dat_baj_reg1']['tmp_name']))
+		{
+			$dat_baj_reg1=$_POST["imagenactual_dat_baj_reg1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_baj_reg1"]["name"]);
+			if ($_FILES['dat_alt_reg3']['type'] == "image/jpg" || $_FILES['dat_baj_reg1']['type'] == "image/jpeg" || $_FILES['dat_baj_reg1']['type'] == "image/png")
+			{
+				$dat_baj_reg1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_baj_reg1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_baj_reg1);
+			}
+		}
+
+
+
+		if (!file_exists($_FILES['dat_baj_reg2']['tmp_name']) || !is_uploaded_file($_FILES['dat_baj_reg2']['tmp_name']))
+		{
+			$dat_baj_reg2=$_POST["imagenactual_dat_baj_reg2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_baj_reg2"]["name"]);
+			if ($_FILES['dat_baj_reg2']['type'] == "image/jpg" || $_FILES['dat_baj_reg2']['type'] == "image/jpeg" || $_FILES['dat_baj_reg2']['type'] == "image/png")
+			{
+				$dat_baj_reg2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_baj_reg2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_baj_reg2);
+			}
+		}
+
+
+		if (!file_exists($_FILES['dat_baj_reg3']['tmp_name']) || !is_uploaded_file($_FILES['dat_baj_reg3']['tmp_name']))
+		{
+			$dat_baj_reg3=$_POST["imagenactual_dat_baj_reg3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["dat_baj_reg3"]["name"]);
+			if ($_FILES['dat_baj_reg3']['type'] == "image/jpg" || $_FILES['dat_baj_reg3']['type'] == "image/jpeg" || $_FILES['dat_baj_reg3']['type'] == "image/png")
+			{
+				$dat_baj_reg3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["dat_baj_reg3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_baj_reg3);
 			}
 		}
 
@@ -665,10 +1011,14 @@ switch ($_GET["op"]){
 			echo $rspta ? "Data adjunta registrada" : "Data adjunta no se pudo registrar";
 		}
 		else {
-			$rspta=$trabajador->editar_data_adjunta($id_trab_data_adjunta, $foto_trab,  $dat_hij1 ,$dat_hij2 ,$dat_hij3 ,$dat_hij4 ,
-				$dat_con, $dat_ant_pol,  $dat_luz_agua, $dat_cer_med, $dat_dec_dom, $dat_cv,
-				$dat_gra_tit, $dat_idi , $dat_cer_tec, $dat_adi,  $dat_cer_tra,  $dat_pas,
-				$dat_bre, $dat_liq, $dat_cts, $dat_car_ren, $usu_reg, $pc_reg, $fec_reg );
+			$rspta=$trabajador->editar_data_adjunta($id_trab_data_adjunta, $foto_trab,  $dat_hij1 ,
+				$dat_hij2 ,$dat_hij3 ,$dat_hij4 ,$dat_con, $dat_ant_pol,  $dat_luz_agua,
+				$dat_cer_med, $dat_dec_dom, $dat_cv, $dat_gra_tit, $dat_idi , $dat_cer_tec, $dat_adi,
+				$dat_cer_tra1,  $dat_cer_tra2,$dat_cer_tra3, $dat_cer_res1,  $dat_cer_res2, $dat_cer_res3,
+				$dat_pas,$dat_bre, $dat_pla_liq1, $dat_pla_liq2, $dat_pla_liq3,  $dat_int_liq1, $dat_int_liq2,
+				$dat_int_liq3, $dat_car_ret_cts1, $dat_car_ret_cts2, $dat_car_ret_cts3,$dat_alt_reg1, 
+				$dat_alt_reg2, $dat_alt_reg3,$dat_baj_reg1,  $dat_baj_reg2, $dat_baj_reg3,
+				$dat_car_ren, $usu_reg, $pc_reg, $fec_reg );
 			echo $rspta ? "Data adjunta actualizada" : "Data adjunta no se pudo actualizar";
 		}
 
@@ -716,20 +1066,21 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>$reg->id_trab,
+ 				"0"=>$reg->est_reg,
  				"1"=>$reg->tipo_planilla,
  				"2"=>$reg->sucursal_anexo,
- 				"3"=>$reg->num_doc_trab,
- 				"4"=>$reg->nombres,
- 				"5"=>$reg->area_trab,
- 				"6"=>$reg->funcion,
- 				"7"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
+ 				"3"=>$reg->id_trab, 
+ 				"4"=>$reg->num_doc_trab,
+ 				"5"=>$reg->nombres,
+ 				"6"=>$reg->area_trab,
+ 				"7"=>$reg->funcion,
+ 				"8"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"8"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"9"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"9"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"10"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"11"=>($reg->est_reg)?
+ 				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"12"=>($reg->est_reg)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
  				);

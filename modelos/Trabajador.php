@@ -138,11 +138,11 @@ Class Trabajador
 	}
 
 	//Implementamos un método para editar registros
-	public function editar_datos($prueba, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, 
-				$fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad, $viv_con, $nom_con, 
-				$ocu_con, $dep_con, $eda_hij1, $nom_hij1, $ocu_hij1, $dep_hij1, $dat_hij1,  $eda_hij2, 
-				$nom_hij2, $ocu_hij2, $dep_hij2, $eda_hij3, $nom_hij3, $ocu_hij3, $dep_hij3,
-				$eda_hij4, $nom_hij4, $ocu_hij4, $dep_hij4, $nom_fam_con, $par_fam_con, $are_fam_con,
+	public function editar_datos($prueba, $viv_pad, $nom_pad, $ocu_pad, $dep_pad, $tel_pad,
+				$fec_rec_dat, $viv_mad, $nom_mad, $ocu_mad, $dep_mad,  $tel_mad, $viv_con, $nom_con, 
+				$ocu_con, $dep_con,  $tel_con, $nac_hij1, $nom_hij1, $ocu_hij1, $dep_hij1, $tel_hij1,  $dat_hij1,  $nac_hij2, 
+				$nom_hij2, $ocu_hij2, $dep_hij2, $tel_hij2, $nac_hij3, $nom_hij3, $ocu_hij3, $dep_hij3, $tel_hij3,
+				$nac_hij4, $nom_hij4, $ocu_hij4, $dep_hij4, $tel_hij4, $nom_otro, $ocu_otro, $dep_otro, $tel_otro,  $nom_fam_con, $par_fam_con, $are_fam_con,
 				$cen_est_pri, $grado_pri, $fec_ini_pri, $fec_fin_pri, $cen_est_sec, $grado_sec, $fec_ini_sec,
 				$fec_fin_sec, $cen_est_sup, $carrera_sup, $fec_des_sup, $fec_has_sup, $cen_est_tec, $carrera_tec,
 				$fec_ini_tec, $fec_fin_tec, $cen_est_esp, $especialidad, $fec_ini_esp, $fec_fin_esp, $cen_est_otros,
@@ -151,7 +151,7 @@ Class Trabajador
 				$nom_emp_exp2, $car_exp2, $fun_exp2, $fec_ini_exp2, $fec_fin_exp2, $mot_ces_exp2, 
 				$nom_emp_exp3, $car_exp3, $fun_exp3, $fec_ini_exp3, $fec_fin_exp3, $mot_ces_exp3,  
 				$tie_enf_car_onc, $nom_enf_car_onc, $tie_enf_ale_rec, $afi_onp, $afi_afp, $nom_afi_afp,
-				$usu_reg, $pc_reg, $fec_reg)
+				$usu_reg, $pc_reg, $fec_reg )
 	{
 		$sql="UPDATE trabajador_familia   AS tf 
 				INNER JOIN trabajador_estudios AS te ON
@@ -164,28 +164,30 @@ Class Trabajador
 				ta.id_trab= tf.id_trab
 				INNER JOIN trabajador_exp_laboral AS tel ON
 				tel.id_trab= tf.id_trab
-		 		SET  tf.viv_pad='$viv_pad', tf.nom_pad='$nom_pad', tf.ocu_pad='$ocu_pad', tf.dep_pad='$dep_pad', 
-				tf.fec_rec_dat='$fec_rec_dat', tf.viv_mad='$viv_mad', tf.nom_mad='$nom_mad', tf.ocu_mad='$ocu_mad', tf.dep_mad='$dep_mad', tf.viv_con='$viv_con', 
-				tf.nom_con='$nom_con', tf.ocu_con='$ocu_con', tf.dep_con='$dep_con', tf.eda_hij1='$eda_hij1', tf.nom_hij1='$nom_hij1', tf.ocu_hij1='$ocu_hij1',
-				tf.dep_hij1='$dep_hij1', tf.dat_hij1='$dat_hij1', tf.eda_hij2='$eda_hij2', tf.nom_hij2='$nom_hij2', tf.ocu_hij2='$ocu_hij2', tf.dep_hij2='$dep_hij2', tf.eda_hij3='$eda_hij3', 
-				tf.nom_hij3='$nom_hij3', tf.ocu_hij3='$ocu_hij3', tf.dep_hij3='$dep_hij3', tf.eda_hij4='$eda_hij4', tf.nom_hij4='$nom_hij4', tf.ocu_hij4='$ocu_hij4',
-				tf.dep_hij4='$dep_hij4', tf.nom_fam_con='$nom_fam_con', tf.par_fam_con='$par_fam_con', tf.are_fam_con='$are_fam_con', te.cen_est_pri='$cen_est_pri', 
-				te.grado_pri='$grado_pri', te.fec_ini_pri='$fec_ini_pri', te.fec_fin_pri='$fec_fin_pri', te.cen_est_sec='$cen_est_sec', te.grado_sec='$grado_sec', 
-				te.fec_ini_sec='$fec_ini_sec', te.fec_fin_sec='$fec_fin_sec', te.cen_est_sup='$cen_est_sup', te.carrera_sup='$carrera_sup', te.fec_des_sup='$fec_des_sup', 
-				te.fec_has_sup='$fec_has_sup', te.cen_est_tec='$cen_est_tec', te.carrera_tec='$carrera_tec', te.fec_ini_tec='$fec_ini_tec', te.fec_fin_tec='$fec_fin_tec', 
-				te.cen_est_esp='$cen_est_esp', te.especialidad='$especialidad', te.fec_ini_esp='$fec_ini_esp', te.fec_fin_esp='$fec_fin_esp', te.cen_est_otros='$cen_est_otros',
+		 		SET  tf.viv_pad='$viv_pad', tf.nom_pad='$nom_pad', tf.ocu_pad='$ocu_pad', tf.dep_pad='$dep_pad', tf.tel_pad='$tel_pad', tf.fec_rec_dat='$fec_rec_dat',
+				tf.viv_mad='$viv_mad', tf.nom_mad='$nom_mad', tf.ocu_mad='$ocu_mad', tf.dep_mad='$dep_mad', tf.tel_mad='$tel_mad',  tf.viv_con='$viv_con', tf.nom_con='$nom_con', 
+				tf.ocu_con='$ocu_con', tf.dep_con='$dep_con', tf.tel_con='$tel_con', tf.nac_hij1='$nac_hij1', tf.nom_hij1='$nom_hij1', tf.ocu_hij1='$ocu_hij1',
+				tf.dep_hij1='$dep_hij1',  tf.tel_hij1='$tel_hij1', tf.dat_hij1='$dat_hij1', tf.nac_hij2='$nac_hij2', tf.nom_hij2='$nom_hij2', tf.ocu_hij2='$ocu_hij2',
+				tf.dep_hij2='$dep_hij2', tf.tel_hij2='$tel_hij2',  tf.nac_hij3='$nac_hij3', tf.nom_hij3='$nom_hij3', tf.ocu_hij3='$ocu_hij3', tf.dep_hij3='$dep_hij3', 
+				tf.tel_hij3='$tel_hij3',  tf.nac_hij4='$nac_hij4', tf.nom_hij4='$nom_hij4', tf.ocu_hij4='$ocu_hij4', tf.dep_hij4='$dep_hij4', tf.tel_hij4='$tel_hij4',
+				tf.nom_otro='$nom_otro',  tf.ocu_otro='$ocu_otro', tf.dep_otro='$dep_otro', tf.tel_otro='$tel_otro',
+				tf.nom_fam_con='$nom_fam_con', tf.par_fam_con='$par_fam_con', tf.are_fam_con='$are_fam_con', te.cen_est_pri='$cen_est_pri', te.grado_pri='$grado_pri',
+				te.fec_ini_pri='$fec_ini_pri', te.fec_fin_pri='$fec_fin_pri', te.cen_est_sec='$cen_est_sec', te.grado_sec='$grado_sec', te.fec_ini_sec='$fec_ini_sec',
+				te.fec_fin_sec='$fec_fin_sec', te.cen_est_sup='$cen_est_sup', te.carrera_sup='$carrera_sup', te.fec_des_sup='$fec_des_sup', te.fec_has_sup='$fec_has_sup',
+				te.cen_est_tec='$cen_est_tec', te.carrera_tec='$carrera_tec', te.fec_ini_tec='$fec_ini_tec', te.fec_fin_tec='$fec_fin_tec', te.cen_est_esp='$cen_est_esp', 
+				te.especialidad='$especialidad', te.fec_ini_esp='$fec_ini_esp', te.fec_fin_esp='$fec_fin_esp', te.cen_est_otros='$cen_est_otros',
 				te.carrera_otros='$carrera_otros', te.fec_ini_otros='$fec_ini_otros', te.fec_fin_otros='$fec_fin_otros', tc.des_idioma='$des_idioma',
 				tc.cen_est_idioma='$cen_est_idioma', tc.nivel_idioma='$nivel_idioma', tc.des_comp='$des_comp',	tc.cen_est_comp='$cen_est_comp', tc.nivel_comp='$nivel_comp', 
 				tel.nom_emp_exp1='$nom_emp_exp1', tel.car_exp1='$car_exp1', tel.fun_exp1='$fun_exp1', tel.fec_ini_exp1='$fec_ini_exp1', tel.fec_fin_exp1='$fec_fin_exp1',
 				tel.mot_ces_exp1='$mot_ces_exp1', tel.nom_emp_exp2='$nom_emp_exp2', tel.car_exp2='$car_exp2', tel.fun_exp2='$fun_exp2', tel.fec_ini_exp2='$fec_ini_exp2',
-				tel.fec_fin_exp2='$fec_fin_exp2', tel.nom_emp_exp3='$nom_emp_exp3', tel.car_exp3='$car_exp3', tel.fun_exp3='$fun_exp3', tel.fec_ini_exp3='$fec_ini_exp3',
-				tel.fec_fin_exp3='$fec_fin_exp3', tel.mot_ces_exp3='$mot_ces_exp3', ts.tie_enf_car_onc='$tie_enf_car_onc', ts.nom_enf_car_onc='$nom_enf_car_onc',
-				ts.tie_enf_ale_rec='$tie_enf_ale_rec',  ta.afi_onp='$afi_onp', ta.afi_afp='$afi_afp', 
+				tel.mot_ces_exp2='$mot_ces_exp2', tel.fec_fin_exp2='$fec_fin_exp2', tel.nom_emp_exp3='$nom_emp_exp3', tel.car_exp3='$car_exp3', tel.fun_exp3='$fun_exp3',
+				tel.fec_ini_exp3='$fec_ini_exp3', tel.fec_fin_exp3='$fec_fin_exp3', tel.mot_ces_exp3='$mot_ces_exp3', ts.tie_enf_car_onc='$tie_enf_car_onc',
+				ts.nom_enf_car_onc='$nom_enf_car_onc', ts.tie_enf_ale_rec='$tie_enf_ale_rec',  ta.afi_onp='$afi_onp', ta.afi_afp='$afi_afp', 
 				ta.nom_afi_afp='$nom_afi_afp', tf.usu_mod='$usu_reg', tf.pc_mod='$pc_reg', tf.fec_mod='$fec_reg'
 		 WHERE tf.id_trab='$prueba'
 		 AND te.id_trab='$prueba'
 		 AND tc.id_trab='$prueba'
-		 AND ts.id_trab='$prueba'
+		 AND ts.id_trab='$prueba' 
 		 AND ta.id_trab='$prueba'
 		 AND tel.id_trab='$prueba' ";
 		return ejecutarConsulta($sql);
@@ -203,16 +205,25 @@ Class Trabajador
 	}
 
 	//Implementamos un método para editar registros
-	public function editar_data_adjunta($id_trab_data_adjunta, $foto_trab,  $dat_hij1 ,$dat_hij2 ,$dat_hij3 ,$dat_hij4 ,
-				$dat_con, $dat_ant_pol,  $dat_luz_agua, $dat_cer_med, $dat_dec_dom, $dat_cv,
-				$dat_gra_tit, $dat_idi , $dat_cer_tec, $dat_adi,  $dat_cer_tra,  $dat_pas,
-				$dat_bre, $dat_liq, $dat_cts, $dat_car_ren, $usu_reg, $pc_reg, $fec_reg )
+	public function editar_data_adjunta($id_trab_data_adjunta, $foto_trab,  $dat_hij1 ,
+				$dat_hij2 ,$dat_hij3 ,$dat_hij4 ,$dat_con, $dat_ant_pol,  $dat_luz_agua,
+				$dat_cer_med, $dat_dec_dom, $dat_cv, $dat_gra_tit, $dat_idi , $dat_cer_tec, $dat_adi,
+				$dat_cer_tra1,  $dat_cer_tra2,$dat_cer_tra3, $dat_cer_res1,  $dat_cer_res2, $dat_cer_res3,
+				$dat_pas,$dat_bre, $dat_pla_liq1, $dat_pla_liq2, $dat_pla_liq3,  $dat_int_liq1, $dat_int_liq2,
+				$dat_int_liq3, $dat_car_ret_cts1, $dat_car_ret_cts2, $dat_car_ret_cts3,$dat_alt_reg1, 
+				$dat_alt_reg2, $dat_alt_reg3,$dat_baj_reg1,  $dat_baj_reg2, $dat_baj_reg3,
+				$dat_car_ren, $usu_reg, $pc_reg, $fec_reg )
 	{
 		$sql="UPDATE trabajador_data_adjunta  AS tda
 		 		SET   tda.foto_trab='$foto_trab', tda.dat_hij1='$dat_hij1', tda.dat_hij2='$dat_hij2', tda.dat_hij3='$dat_hij3', tda.dat_hij4='$dat_hij4', tda.dat_con='$dat_con',
 		 		tda.dat_ant_pol='$dat_ant_pol',  tda.dat_luz_agua='$dat_luz_agua',  tda.dat_cer_med='$dat_cer_med',  tda.dat_dec_dom='$dat_dec_dom', tda.dat_cv='$dat_cv',
-		 		tda.dat_gra_tit='$dat_gra_tit',  tda.dat_idi='$dat_idi',  tda.dat_cer_tec='$dat_cer_tec',  tda.dat_adi='$dat_adi',  tda.dat_cer_tra='$dat_cer_tra',
-		 		tda.dat_pas='$dat_pas',  tda.dat_bre='$dat_bre',  tda.dat_liq='$dat_liq',  tda.dat_cts='$dat_cts',  tda.dat_car_ren='$dat_car_ren'
+		 		tda.dat_gra_tit='$dat_gra_tit',  tda.dat_idi='$dat_idi',  tda.dat_cer_tec='$dat_cer_tec',  tda.dat_adi='$dat_adi',  tda.dat_cer_tra1='$dat_cer_tra1',
+		 		tda.dat_cer_tra2='$dat_cer_tra2', tda.dat_cer_tra3='$dat_cer_tra3', tda.dat_cer_res1='$dat_cer_res1', tda.dat_cer_res2='$dat_cer_res2',
+		 		tda.dat_cer_res3='$dat_cer_res3', tda.dat_pas='$dat_pas', tda.dat_bre='$dat_bre',  tda.dat_pla_liq1='$dat_pla_liq1', 
+		 		tda.dat_pla_liq2='$dat_pla_liq2', tda.dat_pla_liq3='$dat_pla_liq3',  tda.dat_int_liq1='$dat_int_liq1',  tda.dat_int_liq2='$dat_int_liq2', 
+		 		tda.dat_int_liq3='$dat_int_liq3', tda.dat_car_ret_cts1='$dat_car_ret_cts1', tda.dat_car_ret_cts2='$dat_car_ret_cts2',  tda.dat_car_ret_cts3='$dat_car_ret_cts3',
+				tda.dat_alt_reg1='$dat_alt_reg1', tda.dat_alt_reg2='$dat_alt_reg2',  tda.dat_alt_reg3='$dat_alt_reg3', tda.dat_baj_reg1='$dat_baj_reg1', 
+				tda.dat_baj_reg2='$dat_baj_reg2', tda.dat_baj_reg3='$dat_baj_reg3', tda.dat_car_ren='$dat_car_ren'
 		 WHERE tda.id_trab='$id_trab_data_adjunta'";
 		return ejecutarConsulta($sql);
 	}
@@ -264,8 +275,15 @@ Class Trabajador
 		tr.id_turno, ttur.des_larga AS turno,
 		DATE(tr.fec_ing_trab) AS fec_ing_trab,
 		DATE(tr.fec_sal_trab) AS fec_sal_trab,
+		DATE(tr.fec_ing2) AS fec_ing2,
+		DATE(tr.fec_sal2) AS fec_sal2,
+		tr.mot_sal2,
+		DATE(tr.fec_ing1) AS fec_ing1,
+		DATE(tr.fec_sal1) AS fec_sal1,
+		tr.mot_sal1,
 		DATE(tr.fec_ing_interno) AS fec_ing_interno,
 		DATE(tr.fec_sal_interno) AS fec_sal_interno,
+		tr.mot_sal_interno,
 		tr.sueldo_trab,
 		tr.bono_trab,
 		tr.asig_trab,
@@ -279,58 +297,69 @@ Class Trabajador
 		tf.viv_pad,
 		tf.ocu_pad,
 		tf.dep_pad,
+		tf.tel_pad,
 		DATE(tf.fec_rec_dat) AS fec_rec_dat,
 		tf.viv_mad,
 		tf.nom_mad,
 		tf.ocu_mad,
 		tf.dep_mad,
+		tf.tel_mad,
 		tf.viv_con,
 		tf.nom_con,
 		tf.ocu_con,
 		tf.dep_con,
-		tf.eda_hij1,
+		tf.tel_con,
+		DATE(tf.nac_hij1) AS nac_hij1,
 		tf.nom_hij1,
 		tf.ocu_hij1,
 		tf.dep_hij1,
-		tf.eda_hij2,
+		tf.tel_hij1,
+		DATE(tf.nac_hij2) AS nac_hij2,
 		tf.nom_hij2,
 		tf.ocu_hij2,
 		tf.dep_hij2,
-		tf.eda_hij3,
+		tf.tel_hij2,
+		DATE(tf.nac_hij3) AS nac_hij3,
 		tf.nom_hij3,
 		tf.ocu_hij3,
 		tf.dep_hij3,
-		tf.eda_hij4,
+		tf.tel_hij3,
+		DATE(tf.nac_hij4) AS nac_hij4,
 		tf.nom_hij4,
 		tf.ocu_hij4,
 		tf.dep_hij4,
+		tf.tel_hij4,
+		tf.nom_otro,
+		tf.ocu_otro,
+		tf.dep_otro,
+		tf.tel_otro,
 		tf.nom_fam_con,
 		tf.par_fam_con,
 		tf.are_fam_con,
 		te.cen_est_pri,
 		te.grado_pri,
-		DATE_FORMAT(te.fec_ini_pri, '%d/%m/%Y')   AS fec_ini_pri, 
-		DATE_FORMAT(te.fec_fin_pri, '%d/%m/%Y')   AS fec_fin_pri,
+		DATE(te.fec_ini_pri)   AS fec_ini_pri, 
+		DATE(te.fec_fin_pri)   AS fec_fin_pri,
 		te.cen_est_sec,
 		te.grado_sec,
-		DATE_FORMAT(te.fec_ini_sec, '%d/%m/%Y')   AS fec_ini_sec, 
-		DATE_FORMAT(te.fec_fin_sec, '%d/%m/%Y')   AS fec_fin_sec, 
+		DATE(te.fec_ini_sec) AS fec_ini_sec, 
+		DATE(te.fec_fin_sec)   AS fec_fin_sec, 
 		te.cen_est_sup,
 		te.carrera_sup,
-		DATE_FORMAT(te.fec_des_sup, '%d/%m/%Y')   AS fec_des_sup,  
-		DATE_FORMAT(te.fec_has_sup, '%d/%m/%Y')   AS fec_has_sup, 
+		DATE(te.fec_des_sup)  AS fec_des_sup,  
+		DATE(te.fec_has_sup)   AS fec_has_sup, 
 		te.cen_est_tec,
 		te.carrera_tec,
-		DATE_FORMAT(te.fec_ini_tec, '%d/%m/%Y')   AS fec_ini_tec,
-		DATE_FORMAT(te.fec_fin_tec, '%d/%m/%Y')   AS fec_fin_tec, 
+		DATE(te.fec_ini_tec)   AS fec_ini_tec,
+		DATE(te.fec_fin_tec)   AS fec_fin_tec, 
 		te.cen_est_esp,
 		te.especialidad,
-		DATE_FORMAT(te.fec_ini_esp, '%d/%m/%Y')   AS fec_ini_esp, 
-		DATE_FORMAT(te.fec_fin_esp, '%d/%m/%Y')   AS fec_fin_esp,
+		DATE(te.fec_ini_esp)   AS fec_ini_esp, 
+		DATE(te.fec_fin_esp)   AS fec_fin_esp,
 		te.cen_est_otros,
 		te.carrera_otros,
-		DATE_FORMAT(te.fec_ini_otros, '%d/%m/%Y')   AS fec_ini_otros, 
-		DATE_FORMAT(te.fec_fin_otros, '%d/%m/%Y')   AS fec_fin_otros,
+		DATE(te.fec_ini_otros)  AS fec_ini_otros, 
+		DATE(te.fec_fin_otros)  AS fec_fin_otros,
 		tc.des_idioma,
 		tc.cen_est_idioma,
 		tc.nivel_idioma,
@@ -340,8 +369,8 @@ Class Trabajador
 		tel.nom_emp_exp1,
 		tel.car_exp1,
 		tel.fun_exp1,
-		DATE(tel.fec_ini_exp1) AS fec_ini_exp2,
-		DATE(tel.fec_fin_exp1) AS fec_fin_exp2,
+		DATE(tel.fec_ini_exp1) AS fec_ini_exp1,
+		DATE(tel.fec_fin_exp1) AS fec_fin_exp1,
 		tel.mot_ces_exp1,
 		tel.nom_emp_exp2,
 		tel.car_exp2,
@@ -376,11 +405,29 @@ Class Trabajador
 		tda.dat_idi,
 		tda.dat_cer_tec,
 		tda.dat_adi,
-		tda.dat_cer_tra,
+		tda.dat_cer_tra1,
+		tda.dat_cer_tra2,
+		tda.dat_cer_tra3,
+		tda.dat_cer_res1,
+		tda.dat_cer_res2,
+		tda.dat_cer_res3,
 		tda.dat_pas,
 		tda.dat_bre,
-		tda.dat_liq,
-		tda.dat_cts,
+		tda.dat_pla_liq1,
+		tda.dat_pla_liq2,
+		tda.dat_pla_liq3,
+		tda.dat_int_liq1,
+		tda.dat_int_liq2,
+		tda.dat_int_liq3,
+		tda.dat_car_ret_cts1,
+		tda.dat_car_ret_cts2,
+		tda.dat_car_ret_cts3,
+		tda.dat_alt_reg1,
+		tda.dat_alt_reg2,
+		tda.dat_alt_reg3,
+		tda.dat_baj_reg1,
+		tda.dat_baj_reg2,
+		tda.dat_baj_reg3,
 		tda.dat_car_ren
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
@@ -463,7 +510,8 @@ Class Trabajador
 	public function listar()
 	{
 		$sql="SELECT tr.id_trab,CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
-				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab
+				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab,
+				'TR' AS TR
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
 				tpla.cod_argumento= tr.id_tip_plan
@@ -477,6 +525,7 @@ Class Trabajador
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tr.id_area
 				AND tare.cod_tabla='TARE'
+				order by tr.apepat_trab ASC,tr.est_reg ASC 
 	";
 		return ejecutarConsulta($sql);		
 	}

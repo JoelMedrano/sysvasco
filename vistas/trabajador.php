@@ -25,8 +25,8 @@ if ($_SESSION['rrhh']==1)
                     <div class="box-header with-border">
                           <h1 class="box-title">Trabajador
                           <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button> 
-                          <a href="../reportes/rptarticulos.php" target="_blank"><button class="btn btn-info">Reporte</button></a></h1>
-                        <div class="box-tools pull-right">
+                         <a href="../reportes/rpt_xls_trabajador.php" target="_blank"><button class="btn btn-info">Reporte</button></a> </h1>
+                         <div class="box-tools pull-right">
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -34,9 +34,10 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Cod.</th>
+                            <th>EST</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
+                            <th>Codigo</th>
                             <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
@@ -50,9 +51,10 @@ if ($_SESSION['rrhh']==1)
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Cod.</th>
+                            <th>EST</th>
                             <th>Tipo Planilla</th>
                             <th>Sucursal Anexo</th>
+                            <th>Cod.</th>
                             <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
@@ -78,19 +80,19 @@ if ($_SESSION['rrhh']==1)
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nombre(*):</label>
                                 <div class="col-lg-2">
                                    <input type="hidden" name="idarticulo" id="idarticulo">
-                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab">
+                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab" required>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab">
+                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab">
+                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
                                 <div class="col-lg-1">
-                                   <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
+                                   <input type="text" readonly class="form-control" name="id_trab" id="id_trab" >
                                 </div>
                              
                            </div>
@@ -157,11 +159,11 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tipo de Doc(*):</label>
                                 <div class="col-lg-2">
-                                  <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true"></select>
+                                  <select id="id_tip_doc" name="id_tip_doc" class="form-control selectpicker" data-live-search="true" required></select>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Dni(*):</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab">
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab" required>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tlf. Docimicilio:</label>
                                 <div class="col-lg-1">
@@ -194,7 +196,7 @@ if ($_SESSION['rrhh']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Sucursal(*):</label>
                                 <div class="col-lg-2">
-                                <select id="id_sucursal" name="id_sucursal" class="form-control selectpicker" data-live-search="true" ></select>
+                                <select id="id_sucursal" name="id_sucursal" class="form-control selectpicker" data-live-search="true" required ></select>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Funcion(*):</label>
                                 <div class="col-lg-2">
@@ -258,7 +260,7 @@ if ($_SESSION['rrhh']==1)
                                 <input type="text" class="form-control" name="bono_trab" id="bono_trab">
                                 </div>
 
-                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Ant1:</label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Ant1:</label>
                                 <div class="col-lg-2">
                                 <input type="date" class="form-control" name="fec_ing1" id="fec_ing1">
                                 </div>
@@ -270,11 +272,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-3">
                                 <input type="text" class="form-control" name="mot_sal1" id="mot_sal1">
                                 </div>
+                             </div>
 
-
-                            </div>
-
-                            <div class="form-group  col-xs-12">
+                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
                                 <div class="col-lg-1">
                                 <input type="text" class="form-control" name="asig_trab" id="asig_trab">
@@ -302,7 +302,7 @@ if ($_SESSION['rrhh']==1)
 
                             <div class="form-group  col-xs-12">
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Observaciones:</label>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-11">
                                     <input type="text" class="form-control" name="obs_trab" id="obs_trab">
                                     </div>
                             </div>
@@ -425,7 +425,7 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">VIVE</label>
 
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">EDAD</label>
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">FEC.NAC</label>
                                
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">APELLIDOS y NOMBRES</label>
                                
@@ -435,7 +435,7 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">TELEFONO</label>
 
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">FECHA DE ENTREGA DE DATOS</label>
                           </div>
@@ -446,7 +446,7 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" name="viv_pad" id="viv_pad">
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
@@ -462,13 +462,11 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text"  class="form-control" name="tel_pad" id="tel_pad">
                                 </div>
 
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
 
                                 <div class="col-lg-2">
                                    <input type="date"  class="form-control" name="fec_rec_dat" id="fec_rec_dat">
                                 </div>
-                               
-                               
                              
                           </div>
 
@@ -479,7 +477,7 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" name="viv_mad" id="viv_mad">
                                 </div>
-                                 <div class="col-lg-1">
+                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
@@ -495,7 +493,7 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text"  class="form-control" name="tel_mad" id="tel_mad">
                                 </div>
 
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label" ALIGN="center">COD.TRAB</label>
                               
 
@@ -509,7 +507,7 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" name="viv_con" id="viv_con">
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
                                 <div class="col-lg-2">
@@ -525,7 +523,7 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text" class="form-control" name="tel_con" id="tel_con">
                                 </div>
 
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label"></label>
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
                                 <div class="col-lg-2">
                                     <input type="text" class="form-control" readonly name="prueba" id="prueba">
                                 </div>
@@ -534,12 +532,12 @@ if ($_SESSION['rrhh']==1)
 
                              <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
-                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/ Edad:</label>
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/FecNac.</label>
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control"  readonly >
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="eda_hij1" id="eda_hij1">
+                                <div class="col-lg-2">
+                                   <input type="date"  class="form-control" name="nac_hij1" id="nac_hij1">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij1" id="nom_hij1">
@@ -550,6 +548,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_hij1" id="dep_hij1">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_hij1" id="tel_hij1">
+                                </div>
                                 
                             </div>
 
@@ -557,12 +558,12 @@ if ($_SESSION['rrhh']==1)
 
                                <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
-                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/ Edad:</label>
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/FecNac.</label>
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="eda_hij2" id="eda_hij2">
+                                <div class="col-lg-2">
+                                   <input type="date"  class="form-control" name="nac_hij2" id="nac_hij2">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij2" id="nom_hij2">
@@ -573,17 +574,20 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_hij2" id="dep_hij2">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_hij2" id="tel_hij2">
+                                </div>
                             </div>
 
 
                               <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
-                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/ Edad:</label>
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/FecNac.:</label>
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="eda_hij3" id="eda_hij3">
+                                <div class="col-lg-2">
+                                   <input type="date"  class="form-control" name="nac_hij3" id="nac_hij3">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij3" id="nom_hij3">
@@ -594,17 +598,20 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_hij3" id="dep_hij3">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_hij3" id="tel_hij3">
+                                </div>
                             </div>
 
 
                               <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
-                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/ Edad:</label>
+                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Hijos/FecNac.</label>
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" readonly>
                                 </div>
-                                <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="eda_hij4" id="eda_hij4">
+                                <div class="col-lg-2">
+                                   <input type="date"  class="form-control" name="nac_hij4" id="nac_hij4">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij4" id="nom_hij4">
@@ -615,6 +622,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_hij4" id="dep_hij4">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_hij4" id="tel_hij4">
+                                </div>
                             </div>
 
 
@@ -624,7 +634,7 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-1">
                                    <input type="text" class="form-control" readonly>
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_otro" id="nom_otro">
@@ -634,6 +644,9 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <div class="col-lg-1">
                                    <input type="text"  class="form-control" name="dep_otro" id="dep_otro">
+                                </div>
+                                <div class="col-lg-1">
+                                   <input type="text"  class="form-control" name="tel_otro" id="tel_otro">
                                 </div>
                             </div>
 
@@ -660,8 +673,7 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" name="are_fam_con" id="are_fam_con">
                                 </div>
-                                
-                            </div>
+                          </div>
 
                        </div>
 
@@ -704,7 +716,7 @@ if ($_SESSION['rrhh']==1)
                                    <input type="date" class="form-control" name="fec_fin_pri" id="fec_fin_pri">
                                 </div>
                                
-                          </div>
+                          </div> 
 
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
@@ -891,7 +903,7 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">CARGO</label>
 
-                                <label class="col-col-lg-3 col-md-3 col-sm-3 control-label">FUNCIONES</label>
+                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">FUNCIONES</label>
                                
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">DESDE(MES/AÑO)</label>
                                
@@ -1200,11 +1212,56 @@ if ($_SESSION['rrhh']==1)
                             </div>
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Certificado Trabajo:</label>
-                                <input type="file" class="form-control" name="dat_cer_tra" id="dat_cer_tra">
-                                <input type="hidden" name="imagenactual_dat_cer_tra" id="imagenactual_dat_cer_tra">
-                                <img src="" width="37px" height="30px" id="dat_cer_tra_muestra">
+                                <label>Certificado Trabajo1:</label>
+                                <input type="file" class="form-control" name="dat_cer_tra1" id="dat_cer_tra1">
+                                <input type="hidden" name="imagenactual_dat_cer_tra1" id="imagenactual_dat_cer_tra1">
+                                <img src="" width="37px" height="30px" id="dat_cer_tra1_muestra">
                             </div>
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Trabajo2:</label>
+                                <input type="file" class="form-control" name="dat_cer_tra2" id="dat_cer_tra2">
+                                <input type="hidden" name="imagenactual_dat_cer_tra2" id="imagenactual_dat_cer_tra2">
+                                <img src="" width="37px" height="30px" id="dat_cer_tra2_muestra">
+                            </div>
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Trabajo3:</label>
+                                <input type="file" class="form-control" name="dat_cer_tra3" id="dat_cer_tra3">
+                                <input type="hidden" name="imagenactual_dat_cer_tra3" id="imagenactual_dat_cer_tra3">
+                                <img src="" width="37px" height="30px" id="dat_cer_tra3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Responsabilides1:</label>
+                                <input type="file" class="form-control" name="dat_cer_res1" id="dat_cer_res1">
+                                <input type="hidden" name="imagenactual_dat_cer_res1" id="imagenactual_dat_cer_res1">
+                                <img src="" width="37px" height="30px" id="dat_cer_res1_muestra">
+                            </div>
+
+
+                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Responsabilides2:</label>
+                                <input type="file" class="form-control" name="dat_cer_res2" id="dat_cer_res2">
+                                <input type="hidden" name="imagenactual_dat_cer_res2" id="imagenactual_dat_cer_res2">
+                                <img src="" width="37px" height="30px" id="dat_cer_res2_muestra">
+                            </div>
+
+
+                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Responsabilides3:</label>
+                                <input type="file" class="form-control" name="dat_cer_res3" id="dat_cer_res3">
+                                <input type="hidden" name="imagenactual_dat_cer_res3" id="imagenactual_dat_cer_res3">
+                                <img src="" width="37px" height="30px" id="dat_cer_res3_muestra">
+                            </div>
+
+
+
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <label>Pasaporte:</label>
@@ -1221,19 +1278,127 @@ if ($_SESSION['rrhh']==1)
                             </div>
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Liquidacion:</label>
-                                <input type="file" class="form-control" name="dat_liq" id="dat_liq">
-                                <input type="hidden" name="imagenactual_dat_liq" id="imagenactual_dat_liq">
-                                <img src="" width="37px" height="30px" id="dat_liq_muestra">
+                                <label>Planilla -Hoja de resumen de liquidacion 1:</label>
+                                <input type="file" class="form-control" name="dat_pla_liq1" id="dat_pla_liq1">
+                                <input type="hidden" name="imagenactual_dat_pla_liq1" id="imagenactual_dat_pla_liq1">
+                                <img src="" width="37px" height="30px" id="dat_pla_liq1_muestra">
                             </div>
 
-                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Cts:</label>
-                                <input type="file" class="form-control" name="dat_cts" id="dat_cts">
-                                <input type="hidden" name="imagenactual_dat_cts" id="imagenactual_dat_cts">
-                                <img src="" width="37px" height="30px" id="dat_cts_muestra">
+                          
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Planilla -Hoja de resumen de liquidacion 2:</label>
+                                <input type="file" class="form-control" name="dat_pla_liq2" id="dat_pla_liq2">
+                                <input type="hidden" name="imagenactual_dat_pla_liq2" id="imagenactual_dat_pla_liq2">
+                                <img src="" width="37px" height="30px" id="dat_pla_liq2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Planilla -Hoja de resumen de liquidacion 3:</label>
+                                <input type="file" class="form-control" name="dat_pla_liq3" id="dat_pla_liq3">
+                                <input type="hidden" name="imagenactual_dat_pla_liq3" id="imagenactual_dat_pla_liq3">
+                                <img src="" width="37px" height="30px" id="dat_pla_liq3_muestra">
+                            </div>
+
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Interno -Hoja de resumen de liquidacion 1:</label>
+                                <input type="file" class="form-control" name="dat_int_liq1" id="dat_int_liq1">
+                                <input type="hidden" name="imagenactual_dat_int_liq1" id="imagenactual_dat_int_liq1">
+                                <img src="" width="37px" height="30px" id="dat_int_liq1_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Interno -Hoja de resumen de liquidacion 2:</label>
+                                <input type="file" class="form-control" name="dat_int_liq2" id="dat_int_liq2">
+                                <input type="hidden" name="imagenactual_dat_int_liq2" id="imagenactual_dat_int_liq2">
+                                <img src="" width="37px" height="30px" id="dat_int_liq2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Interno -Hoja de resumen de liquidacion 3:</label>
+                                <input type="file" class="form-control" name="dat_int_liq3" id="dat_int_liq3">
+                                <input type="hidden" name="imagenactual_dat_int_liq3" id="imagenactual_dat_int_liq3">
+                                <img src="" width="37px" height="30px" id="dat_int_liq3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Cts1:</label>
+                                <input type="file" class="form-control" name="dat_car_ret_cts1" id="dat_car_ret_cts1">
+                                <input type="hidden" name="imagenactual_dat_car_ret_cts1" id="imagenactual_dat_car_ret_cts1">
+                                <img src="" width="37px" height="30px" id="dat_car_ret_cts1_muestra">
                             </div>
                             
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Cts2:</label>
+                                <input type="file" class="form-control" name="dat_car_ret_cts2" id="dat_car_ret_cts2">
+                                <input type="hidden" name="imagenactual_dat_car_ret_cts2" id="imagenactual_dat_car_ret_cts2">
+                                <img src="" width="37px" height="30px" id="dat_car_ret_cts2_muestra">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Cts3:</label>
+                                <input type="file" class="form-control" name="dat_car_ret_cts3" id="dat_car_ret_cts3">
+                                <input type="hidden" name="imagenactual_dat_car_ret_cts3" id="imagenactual_dat_car_ret_cts3">
+                                <img src="" width="37px" height="30px" id="dat_car_ret_cts3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Alta de Registro1:</label>
+                                <input type="file" class="form-control" name="dat_alt_reg1" id="dat_alt_reg1">
+                                <input type="hidden" name="imagenactual_dat_alt_reg1" id="imagenactual_dat_alt_reg1">
+                                <img src="" width="37px" height="30px" id="dat_alt_reg1_muestra">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Alta de Registro2:</label>
+                                <input type="file" class="form-control" name="dat_alt_reg2" id="dat_alt_reg2">
+                                <input type="hidden" name="imagenactual_dat_alt_reg2" id="imagenactual_dat_alt_reg2">
+                                <img src="" width="37px" height="30px" id="dat_alt_reg2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Alta de Registro3:</label>
+                                <input type="file" class="form-control" name="dat_alt_reg3" id="dat_alt_reg3">
+                                <input type="hidden" name="imagenactual_dat_alt_reg3" id="imagenactual_dat_alt_reg3">
+                                <img src="" width="37px" height="30px" id="dat_alt_reg3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Baja de Registro1:</label>
+                                <input type="file" class="form-control" name="dat_baj_reg1" id="dat_baj_reg1">
+                                <input type="hidden" name="imagenactual_dat_baj_reg1" id="imagenactual_dat_baj_reg1">
+                                <img src="" width="37px" height="30px" id="dat_baj_reg1_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Baja de Registro2:</label>
+                                <input type="file" class="form-control" name="dat_baj_reg2" id="dat_baj_reg2">
+                                <input type="hidden" name="imagenactual_dat_baj_reg2" id="imagenactual_dat_baj_reg2">
+                                <img src="" width="37px" height="30px" id="dat_baj_reg2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Baja de Registro3:</label>
+                                <input type="file" class="form-control" name="dat_baj_reg3" id="dat_baj_reg3">
+                                <input type="hidden" name="imagenactual_dat_baj_reg3" id="imagenactual_dat_baj_reg3">
+                                <img src="" width="37px" height="30px" id="dat_baj_reg3_muestra">
+                            </div>
+
+
+
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <label>Carta Renuncia:</label>
                                 <input type="file" class="form-control" name="dat_car_ren" id="dat_car_ren">
@@ -1247,6 +1412,7 @@ if ($_SESSION['rrhh']==1)
 
                               <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                            </div>
+
                         </form>
                     </div>
                     <!--Fin centro -->

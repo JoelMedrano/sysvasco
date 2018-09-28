@@ -260,6 +260,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Maestros</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Registro</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>
+                <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i> Cronograma de Pagos</a></li>
                 <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>
                 <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajador</a></li>
                 <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i> Refrigerio</a></li>
