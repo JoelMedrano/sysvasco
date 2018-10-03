@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre"]))
 else
 {
 require 'header.php';
-if ($_SESSION['acceso']==1)
+if ($_SESSION['udp']==1)
 {
 ?>
 <!--Contenido-->
@@ -112,17 +112,17 @@ if ($_SESSION['acceso']==1)
 
                             <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                               <label>1era Tela Principal:</label>
-                            <select id="tela1_mod" name="tela1_mod" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="tela1_mod" name="tela1_mod" class="form-control selectpicker" data-live-search="true"></select>
                             </div>
 
                             <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                               <label>2da Tela Principal:</label>
-                            <select id="tela2_mod" name="tela2_mod" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="tela2_mod" name="tela2_mod" class="form-control selectpicker" data-live-search="true"></select>
                             </div>
 
                             <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                               <label>Tela Complemento:</label>
-                            <select id="tela3_mod" name="tela3_mod" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="tela3_mod" name="tela3_mod" class="form-control selectpicker" data-live-search="true"></select>
                             </div>
 
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -151,7 +151,7 @@ if ($_SESSION['acceso']==1)
 
 
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                              <label>Hijo1:</label>
+                              <label>Imagen 2:</label>
                               <input type="file" class="form-control" name="imagen" id="imagen">
                               <input type="hidden" name="imagenactual_imagen" id="imagenactual_imagen">
                               <img src="" width="150px" height="120px" id="imagen_muestra">
@@ -159,7 +159,7 @@ if ($_SESSION['acceso']==1)
 
 
                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                             <label>Hij2:</label>
+                             <label>Imagen 2:</label>
                              <input type="file" class="form-control" name="imagen2" id="imagen2">
                              <input type="hidden" name="imagenactual_imagen2" id="imagenactual_imagen2">
                              <img src="" width="150px" height="120px" id="imagen2_muestra">

@@ -1,39 +1,37 @@
 var tabla;
 
 //Función que se ejecuta al inicio
-function init(){
+function init() {
 	mostrarform(false);
 	listar();
 	selectMP();
 
 
-	$("#formulario").on("submit",function(e)
-	{
+	$("#formulario").on("submit", function (e) {
 		guardaryeditar(e);
 	})
 
 
-	$('#idarticulo').change(function() {
-			precioMP();
+	$('#idarticulo').change(function () {
+		precioMP();
 	});
 
 	//Cargamos los items al select cliente
-	$.post("../ajax/detalle_cotizacion.php?op=selectModDC", function(r){
-							$("#cod_mod").html(r);
-							$('#cod_mod').selectpicker('refresh');
+	$.post("../ajax/detalle_cotizacion.php?op=selectModDC", function (r) {
+		$("#cod_mod").html(r);
+		$('#cod_mod').selectpicker('refresh');
 	});
 
 	//Cargamos los items al select cliente
-	$.post("../ajax/detalle_cotizacion.php?op=selectCot", function(r){
-							$("#idcotizacion").html(r);
-							$('#idcotizacion').selectpicker('refresh');
+	$.post("../ajax/detalle_cotizacion.php?op=selectCot", function (r) {
+		$("#idcotizacion").html(r);
+		$('#idcotizacion').selectpicker('refresh');
 	});
 
 }
 
 //Función limpiar
-function limpiar()
-{
+function limpiar() {
 	$("#iddetalle_cotizacion").val("");
 	$("#idarticulo").val("0");
 	$('#idarticulo').selectpicker('refresh');
@@ -47,18 +45,14 @@ function limpiar()
 }
 
 //Función mostrar formulario
-function mostrarform(flag)
-{
+function mostrarform(flag) {
 	limpiar();
-	if (flag)
-	{
+	if (flag) {
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
-		$("#btnGuardar").prop("disabled",false);
+		$("#btnGuardar").prop("disabled", false);
 		$("#btnagregar").hide();
-	}
-	else
-	{
+	} else {
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
@@ -66,70 +60,66 @@ function mostrarform(flag)
 }
 
 //Función cancelarform
-function cancelarform()
-{
+function cancelarform() {
 	limpiar();
 	mostrarform(false);
 }
 
 //Función Listar
-function listar()
-{
-	tabla=$('#tbllistado').dataTable(
-	{
-		"aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
-	    buttons: [
-		            'copyHtml5',
-		            'excelHtml5',
-		            'csvHtml5',
-		            'pdf'
-		        ],
-		"ajax":
-				{
-					url: '../ajax/detalle_cotizacion.php?op=listar',
-					type : "get",
-					dataType : "json",
-					error: function(e){
-						console.log(e.responseText);
-					}
-				},
+function listar() {
+	tabla = $('#tbllistado').dataTable({
+		"aProcessing": true, //Activamos el procesamiento del datatables
+		"aServerSide": true, //Paginación y filtrado realizados por el servidor
+		dom: 'Bfrtip', //Definimos los elementos del control de tabla
+		buttons: [
+			'copyHtml5',
+			'excelHtml5',
+			'csvHtml5',
+			'pdf'
+		],
+		"ajax": {
+			url: '../ajax/detalle_cotizacion.php?op=listar',
+			type: "get",
+			dataType: "json",
+			error: function (e) {
+				console.log(e.responseText);
+			}
+		},
 		"bDestroy": true,
-		"iDisplayLength": 30,//Paginación
-	    "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
+		"iDisplayLength": 30, //Paginación
+		"order": [
+			[0, "asc"]
+		] //Ordenar (columna,orden)
 	}).DataTable();
 }
 //Función para guardar o editar
 
-function guardaryeditar(e)
-{
+function guardaryeditar(e) {
 	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+	$("#btnGuardar").prop("disabled", true);
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
 		url: "../ajax/detalle_cotizacion.php?op=guardaryeditar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
+		type: "POST",
+		data: formData,
+		contentType: false,
+		processData: false,
 
-	    success: function(datos)
-	    {
-	          bootbox.alert(datos);
-	          mostrarform(false);
-	          tabla.ajax.reload();
-	    }
+		success: function (datos) {
+			bootbox.alert(datos);
+			mostrarform(false);
+			tabla.ajax.reload();
+		}
 
 	});
 	limpiar();
 }
 
-function mostrar(iddetalle_cotizacion)
-{
-	$.post("../ajax/detalle_cotizacion.php?op=mostrar",{iddetalle_cotizacion : iddetalle_cotizacion}, function(data, status)
-	{
+function mostrar(iddetalle_cotizacion) {
+	$.post("../ajax/detalle_cotizacion.php?op=mostrar", {
+		iddetalle_cotizacion: iddetalle_cotizacion
+	}, function (data, status) {
 		data = JSON.parse(data);
 		mostrarform(true);
 
@@ -143,45 +133,45 @@ function mostrar(iddetalle_cotizacion)
 		$("#idcotizacion").val(data.idcotizacion);
 		$("#idcotizacion").selectpicker('refresh');
 
- 		$("#iddetalle_cotizacion").val(data.iddetalle_cotizacion);
+		$("#iddetalle_cotizacion").val(data.iddetalle_cotizacion);
 
- 	})
+	})
 }
 
 //Función para desactivar registros
-function eliminar(iddetalle_cotizacion)
-{
-	bootbox.confirm("¿Está Seguro de eliminar el detalle?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/detalle_cotizacion.php?op=eliminar", {iddetalle_cotizacion : iddetalle_cotizacion}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});
-        }
+function eliminar(iddetalle_cotizacion) {
+	bootbox.confirm("¿Está Seguro de eliminar el detalle?", function (result) {
+		if (result) {
+			$.post("../ajax/detalle_cotizacion.php?op=eliminar", {
+				iddetalle_cotizacion: iddetalle_cotizacion
+			}, function (e) {
+				bootbox.alert(e);
+				tabla.ajax.reload();
+			});
+		}
 	})
 }
 
 
 //CORREGIR
-function selectMP()
-{
+function selectMP() {
 	//Cargamos los items al combobox departamento
-	$.post("../ajax/detalle_cotizacion.php?op=selectMP", function(r){
-	            $("#idarticulo").html(r);
-
+	$.post("../ajax/detalle_cotizacion.php?op=selectMP", function (r) {
+		$("#idarticulo").html(r);
+		$('#idarticulo').selectpicker('refresh');
 
 	});
 }
 
-function precioMP()
-{
+function precioMP() {
 	//Cargamos los items al combobox departamento
-	idarticulo=$("#idarticulo").val();
+	idarticulo = $("#idarticulo").val();
 
-	$.post("../ajax/detalle_cotizacion.php?op=precioMP",{idarticulo: idarticulo}, function(r){
-	            $("#precio_cotizacion").html(r);
-							$('#precio_cotizacion').selectpicker('refresh');
+	$.post("../ajax/detalle_cotizacion.php?op=precioMP", {
+		idarticulo: idarticulo
+	}, function (r) {
+		$("#precio_cotizacion").html(r);
+		$('#precio_cotizacion').selectpicker('refresh');
 	});
 }
 

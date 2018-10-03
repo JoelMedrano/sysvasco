@@ -410,126 +410,182 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
 //establecer titulos de impresion en cada hoja
 //$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 10);
 
- $sqlPro=mysql_query(" SELECT 	mft.idmft,
-                       DATE(mft.fecha_hora) AS fecha,
-                       DATE(mft.fecha_mod) AS fecha_mod,
-                       m.id_marca,
-                       ma.nombre AS marca,
-                       mft.cod_mod,
-                       m.nom_mod,
-                       mft.id_trab,
-                       CONCAT(SUBSTRING_INDEX(nom_trab, ' ', 1),' ',t.apepat_trab,' ',SUBSTRING(t.apemat_trab,1,1),'.') AS disenador,
-                       mft.idusuario,
-                       UPPER(u.nombre) AS desarrollador,
-                       mft.total_mft,
-                       mft.vb_mft,
-                       SUBSTRING_INDEX((SELECT UPPER(nombre) FROM usuario u WHERE u.idusuario=mft.vb_mft),' ',2) AS vb,
-                       mft.estado,
-                       mft.editable,
-                       CASE
-       									WHEN mft.empresa='1' THEN 'CORPORACION VASCO'
-       									WHEN mft.empresa='2' THEN 'INSUSTRIAS VASQUEZ'
-       									ELSE 'JOSE VASQUEZ CORTEZ' END AS empresa,
-                       mft.color_mod,
-                       mft.tallas_mod,
-                       mft.div_mod,
-                       mft.temp_mod,
-                       mft.dest_mod,
-                       t1.tela1 AS tela1_mod,
-       									t2.tela2 AS tela2_mod,
-       									t3.tela3 AS tela3_mod,
-       									mft.tela1_mod AS t1,
-       									mft.tela2_mod AS t2,
-       									mft.tela3_mod AS t3,
-                       CASE
-                         WHEN mft.bord_mod='0' THEN 'NO'
-                         ELSE 'SI' END AS bord_mod,
-                         CASE
-                         WHEN mft.esta_mod='0' THEN 'NO'
-                         ELSE 'SI' END AS esta_mod,
-                         CASE
-                         WHEN mft.manu_mod='0' THEN 'NO'
-                         ELSE 'SI' END AS manu_mod,
-                       mft.imagen,
-                       mft.imagen2
-                       FROM maestro_ficha_tecnica mft
-                       LEFT JOIN modelojf m
-                       ON mft.cod_mod=m.cod_mod
-                       LEFT JOIN marcas ma
-                       ON m.id_marca=ma.id_marca
-                       LEFT JOIN usuario u
-                       ON mft.idusuario=u.idusuario
-                       LEFT JOIN trabajador t
-                       ON mft.id_trab=t.id_trab
-                       LEFT JOIN
-     									(SELECT		SUBSTRING(pro.codfab,1,6) AS tela1_mod,
-     										CONCAT(SUBSTRING(pro.codfab,1,6),' - ',tmd.des_larga) AS tela1,
-     										tmd.des_corta AS cod_linea,
-     										lin.linea
-     										FROM producto pro
-     										LEFT JOIN tabla_m_detalle AS tmd
-     										ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
-     										LEFT JOIN
-     										(SELECT
-     										SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-     										tmd.des_larga AS linea,
-     										tmd.des_corta AS cod_linea
-     										FROM producto pro
-     										LEFT JOIN tabla_m_detalle AS tmd
-     										ON LEFT(pro.codfab,3)=tmd.des_corta
-     										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
-     										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
-     										ON SUBSTRING(pro.codfab,1,6)=lin.cod_sublinea
-     										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%'
-     										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS t1
-     										ON mft.tela1_mod=t1.tela1_mod
-
-                      LEFT JOIN
-     									(SELECT		SUBSTRING(pro.codfab,1,6) AS tela2_mod,
-     										CONCAT(SUBSTRING(pro.codfab,1,6),' - ',tmd.des_larga) AS tela2,
-     										tmd.des_corta AS cod_linea,
-     										lin.linea
-     										FROM producto pro
-     										LEFT JOIN tabla_m_detalle AS tmd
-     										ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
-     										LEFT JOIN
-     										(SELECT
-     										SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-     										tmd.des_larga AS linea,
-     										tmd.des_corta AS cod_linea
-     										FROM producto pro
-     										LEFT JOIN tabla_m_detalle AS tmd
-     										ON LEFT(pro.codfab,3)=tmd.des_corta
-     										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
-     										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
-     										ON SUBSTRING(pro.codfab,1,6)=lin.cod_sublinea
-     										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%'
-     										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS t2
-     										ON mft.tela2_mod=t2.tela2_mod
-
-                      LEFT JOIN
-     									(SELECT		SUBSTRING(pro.codfab,1,6) AS tela3_mod,
-     										CONCAT(SUBSTRING(pro.codfab,1,6),' - ',tmd.des_larga) AS tela3,
-     										tmd.des_corta AS cod_linea,
-     										lin.linea
-     										FROM producto pro
-     										LEFT JOIN tabla_m_detalle AS tmd
-     										ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
-     										LEFT JOIN
-     										(SELECT
-     										SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-     										tmd.des_larga AS linea,
-     										tmd.des_corta AS cod_linea
-     										FROM producto pro
-     										LEFT JOIN tabla_m_detalle AS tmd
-     										ON LEFT(pro.codfab,3)=tmd.des_corta
-     										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
-     										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
-     										ON SUBSTRING(pro.codfab,1,6)=lin.cod_sublinea
-     										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%'
-     										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS t3
-     										ON mft.tela3_mod=t3.tela3_mod
-                       where mft.idmft=$idmft" ) or die(mysql_error());
+ $sqlPro=mysql_query(" SELECT         mft.idmft,
+                                      DATE(mft.fecha_hora) AS fecha,
+                                      DATE(mft.fecha_mod) AS fecha_mod,
+                                      m.id_marca,
+                                      ma.nombre AS marca,
+                                      mft.cod_mod,
+                                      m.nom_mod,
+                                      mft.id_trab,
+                                      CONCAT(
+                                        SUBSTRING_INDEX(nom_trab, ' ', 1),
+                                        ' ',
+                                        t.apepat_trab,
+                                        ' ',
+                                        SUBSTRING(t.apemat_trab, 1, 1),
+                                        '.'
+                                      ) AS disenador,
+                                      mft.idusuario,
+                                      UPPER(u.nombre) AS desarrollador,
+                                      mft.total_mft,
+                                      mft.vb_mft,
+                                      SUBSTRING_INDEX(
+                                        (SELECT 
+                                          UPPER(nombre) 
+                                        FROM
+                                          usuario u 
+                                        WHERE u.idusuario = mft.vb_mft),
+                                        ' ',
+                                        2
+                                      ) AS vb,
+                                      mft.estado,
+                                      mft.editable,
+                                      CASE
+                                        WHEN mft.empresa = '1' 
+                                        THEN 'CORPORACION VASCO' 
+                                        WHEN mft.empresa = '2' 
+                                        THEN 'INSUSTRIAS VASQUEZ' 
+                                        ELSE 'JOSE VASQUEZ CORTEZ' 
+                                      END AS empresa,
+                                      mft.color_mod,
+                                      mft.tallas_mod,
+                                      mft.div_mod,
+                                      mft.temp_mod,
+                                      mft.dest_mod,
+                                      t1.tela1 AS tela1_mod,
+                                      t2.tela2 AS tela2_mod,
+                                      t3.tela3 AS tela3_mod,
+                                      mft.tela1_mod AS t1,
+                                      mft.tela2_mod AS t2,
+                                      mft.tela3_mod AS t3,
+                                      CASE
+                                        WHEN mft.bord_mod = '0' 
+                                        THEN 'NO' 
+                                        ELSE 'SI' 
+                                      END AS bord_mod,
+                                      CASE
+                                        WHEN mft.esta_mod = '0' 
+                                        THEN 'NO' 
+                                        ELSE 'SI' 
+                                      END AS esta_mod,
+                                      CASE
+                                        WHEN mft.manu_mod = '0' 
+                                        THEN 'NO' 
+                                        ELSE 'SI' 
+                                      END AS manu_mod,
+                                      mft.imagen,
+                                      mft.imagen2 
+                                      FROM
+                                      maestro_ficha_tecnica mft 
+                                      LEFT JOIN modelojf m 
+                                        ON mft.cod_mod = m.cod_mod 
+                                      LEFT JOIN marcas ma 
+                                        ON m.id_marca = ma.id_marca 
+                                      LEFT JOIN usuario u 
+                                        ON mft.idusuario = u.idusuario 
+                                      LEFT JOIN trabajador t 
+                                        ON mft.id_trab = t.id_trab 
+                                      LEFT JOIN 
+                                        (SELECT 
+                                          SUBSTRING(pro.codfab, 1, 6) AS tela1_mod,
+                                          CONCAT(
+                                            SUBSTRING(pro.codfab, 1, 6),
+                                            ' - ',
+                                            tmd.des_larga
+                                          ) AS tela1,
+                                          tmd.des_corta AS cod_linea,
+                                          lin.linea 
+                                        FROM
+                                          producto pro 
+                                          LEFT JOIN tabla_m_detalle AS tmd 
+                                            ON SUBSTRING(pro.codfab, 4, 3) = tmd.valor_3 
+                                          LEFT JOIN 
+                                            (SELECT 
+                                              SUBSTRING(pro.codfab, 1, 6) AS cod_sublinea,
+                                              tmd.des_larga AS linea,
+                                              tmd.des_corta AS cod_linea 
+                                            FROM
+                                              producto pro 
+                                              LEFT JOIN tabla_m_detalle AS tmd 
+                                                ON LEFT(pro.codfab, 3) = tmd.des_corta 
+                                            WHERE pro.estpro = '1' 
+                                              AND tmd.cod_tabla = 'tlin' 
+                                            GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS lin 
+                                            ON SUBSTRING(pro.codfab, 1, 6) = lin.cod_sublinea 
+                                        WHERE pro.estpro = '1' 
+                                          AND tmd.cod_tabla = 'tsub' 
+                                          AND tmd.des_corta = lin.cod_linea 
+                                          AND linea LIKE '%tela%' OR  linea LIKE '%blonda%' 
+                                        GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS t1 
+                                        ON mft.tela1_mod = t1.tela1_mod 
+                                      LEFT JOIN 
+                                        (SELECT 
+                                          SUBSTRING(pro.codfab, 1, 6) AS tela2_mod,
+                                          CONCAT(
+                                            SUBSTRING(pro.codfab, 1, 6),
+                                            ' - ',
+                                            tmd.des_larga
+                                          ) AS tela2,
+                                          tmd.des_corta AS cod_linea,
+                                          lin.linea 
+                                        FROM
+                                          producto pro 
+                                          LEFT JOIN tabla_m_detalle AS tmd 
+                                            ON SUBSTRING(pro.codfab, 4, 3) = tmd.valor_3 
+                                          LEFT JOIN 
+                                            (SELECT 
+                                              SUBSTRING(pro.codfab, 1, 6) AS cod_sublinea,
+                                              tmd.des_larga AS linea,
+                                              tmd.des_corta AS cod_linea 
+                                            FROM
+                                              producto pro 
+                                              LEFT JOIN tabla_m_detalle AS tmd 
+                                                ON LEFT(pro.codfab, 3) = tmd.des_corta 
+                                            WHERE pro.estpro = '1' 
+                                              AND tmd.cod_tabla = 'tlin' 
+                                            GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS lin 
+                                            ON SUBSTRING(pro.codfab, 1, 6) = lin.cod_sublinea 
+                                        WHERE pro.estpro = '1' 
+                                          AND tmd.cod_tabla = 'tsub' 
+                                          AND tmd.des_corta = lin.cod_linea 
+                                          AND linea LIKE '%tela%' OR  linea LIKE '%blonda%' 
+                                        GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS t2 
+                                        ON mft.tela2_mod = t2.tela2_mod 
+                                      LEFT JOIN 
+                                        (SELECT 
+                                          SUBSTRING(pro.codfab, 1, 6) AS tela3_mod,
+                                          CONCAT(
+                                            SUBSTRING(pro.codfab, 1, 6),
+                                            ' - ',
+                                            tmd.des_larga
+                                          ) AS tela3,
+                                          tmd.des_corta AS cod_linea,
+                                          lin.linea 
+                                        FROM
+                                          producto pro 
+                                          LEFT JOIN tabla_m_detalle AS tmd 
+                                            ON SUBSTRING(pro.codfab, 4, 3) = tmd.valor_3 
+                                          LEFT JOIN 
+                                            (SELECT 
+                                              SUBSTRING(pro.codfab, 1, 6) AS cod_sublinea,
+                                              tmd.des_larga AS linea,
+                                              tmd.des_corta AS cod_linea 
+                                            FROM
+                                              producto pro 
+                                              LEFT JOIN tabla_m_detalle AS tmd 
+                                                ON LEFT(pro.codfab, 3) = tmd.des_corta 
+                                            WHERE pro.estpro = '1' 
+                                              AND tmd.cod_tabla = 'tlin' 
+                                            GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS lin 
+                                            ON SUBSTRING(pro.codfab, 1, 6) = lin.cod_sublinea 
+                                        WHERE pro.estpro = '1' 
+                                          AND tmd.cod_tabla = 'tsub' 
+                                          AND tmd.des_corta = lin.cod_linea 
+                                          AND linea LIKE '%tela%' OR  linea LIKE '%blonda%' 
+                                        GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS t3 
+                                        ON mft.tela3_mod = t3.tela3_mod 
+                                      WHERE mft.idmft = $idmft" ) or die(mysql_error());
 
 
 

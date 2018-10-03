@@ -93,7 +93,7 @@ Class ConsultasJ
 										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
 										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
 										ON SUBSTRING(pro.codfab,1,6)=lin.cod_sublinea
-										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%'
+										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%' OR  linea LIKE '%BLONDA%'
 										GROUP BY SUBSTRING(pro.CodFab,1,6)";
 
 		return ejecutarConsulta($sql);
@@ -121,7 +121,7 @@ Class ConsultasJ
 										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
 										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
 										ON SUBSTRING(pro.codfab,1,6)=lin.cod_sublinea
-										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%'
+										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%' OR  linea LIKE '%BLONDA%'
 										GROUP BY SUBSTRING(pro.CodFab,1,6)";
 
 		return ejecutarConsulta($sql);
@@ -149,7 +149,7 @@ Class ConsultasJ
 										WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
 										GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
 										ON SUBSTRING(pro.codfab,1,6)=lin.cod_sublinea
-										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%'
+										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea AND linea LIKE '%tela%' OR  linea LIKE '%BLONDA%'
 										GROUP BY SUBSTRING(pro.CodFab,1,6)";
 
 		return ejecutarConsulta($sql);
@@ -157,58 +157,87 @@ Class ConsultasJ
 
 	public function selectMP()
 	{
-		$sql="SELECT		SUBSTRING(pro.codfab,1,6) AS idarticulo,
-										tmd.des_larga AS nombre,
-										tmd.des_corta AS cod_linea,
-										lin.linea,
-										und.unidad,
-										pre.precio,
-										CONCAT(SUBSTRING(pro.codfab,1,6),' / ',tmd.des_corta,' / ',lin.linea,' / ',tmd.des_larga,' / ',und.unidad,' / ',IFNULL(pre.precio,0)) AS mp
-										FROM producto pro
-										LEFT JOIN tabla_m_detalle AS tmd
-										ON SUBSTRING(pro.codfab,4,3)=tmd.valor_3
-										LEFT JOIN
-											(SELECT
-											SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-											tmd.des_larga AS linea,
-											tmd.des_corta AS cod_linea
-											FROM producto pro
-											LEFT JOIN tabla_m_detalle AS tmd
-											ON LEFT(pro.codfab,3)=tmd.des_corta
-											WHERE pro.estpro='1' AND tmd.cod_tabla='tlin'
-											GROUP BY SUBSTRING(pro.CodFab,1,6)) AS lin
-										ON SUBSTRING(pro.codfab,1,6)=cod_sublinea
-										LEFT JOIN
-											(SELECT
-											SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-											tmd.des_corta AS unidad
-											FROM producto pro
-											LEFT JOIN tabla_m_detalle AS tmd
-											ON pro.undpro=tmd.cod_argumento
-											WHERE pro.estpro='1' AND tmd.cod_tabla='tund'
-											GROUP BY SUBSTRING(pro.CodFab,1,6)) AS und
-										ON SUBSTRING(pro.codfab,1,6)=und.cod_sublinea
-										LEFT JOIN
-											(SELECT
-											SUBSTRING(pro.codfab,1,6) AS cod_sublinea,
-											MAX(GREATEST(
-											CASE
-											WHEN pmp.monprov1='DOLARES AMERICANOS' THEN pmp.preprov1*3.3
-											ELSE pmp.preprov1 END,
-											CASE
-											WHEN pmp.monprov2='DOLARES AMERICANOS' THEN pmp.preprov2*3.3
-											ELSE pmp.preprov2 END,
-											CASE
-											WHEN pmp.monprov3='DOLARES AMERICANOS' THEN pmp.preprov3*3.3
-											ELSE pmp.preprov3 END)) AS precio
-											FROM preciomp pmp
-											LEFT JOIN producto pro
-											ON pmp.codpro=pro.codpro
-											WHERE pro.estpro='1'
-											GROUP BY SUBSTRING(pro.CodFab,1,6)) AS pre
-										ON SUBSTRING(pro.codfab,1,6)=pre.cod_sublinea
-										WHERE pro.estpro='1' AND tmd.cod_tabla='tsub' AND tmd.des_corta=lin.cod_linea
-										GROUP BY SUBSTRING(pro.CodFab,1,6)";
+		$sql="SELECT 	SUBSTRING(pro.codfab, 1, 6) AS idarticulo,
+						CONCAT(SUBSTRING(pro.codfab, 1, 6),' - ',tmd.des_larga) AS nombre,
+						tmd.des_corta AS cod_linea,
+						lin.linea,
+						und.unidad,
+						pre.precio,
+						CONCAT(
+						SUBSTRING(pro.codfab, 1, 6),
+						' / ',
+						tmd.des_corta,
+						' / ',
+						lin.linea,
+						' / ',
+						tmd.des_larga,
+						' / ',
+						und.unidad,
+						' / ',
+						IFNULL(pre.precio, 0)
+						) AS mp 
+					FROM
+						producto pro 
+						LEFT JOIN tabla_m_detalle AS tmd 
+						ON SUBSTRING(pro.codfab, 4, 3) = tmd.valor_3 
+						LEFT JOIN 
+						(SELECT 
+							SUBSTRING(pro.codfab, 1, 6) AS cod_sublinea,
+							tmd.des_larga AS linea,
+							tmd.des_corta AS cod_linea 
+						FROM
+							producto pro 
+							LEFT JOIN tabla_m_detalle AS tmd 
+							ON LEFT(pro.codfab, 3) = tmd.des_corta 
+						WHERE pro.estpro = '1' 
+							AND tmd.cod_tabla = 'tlin' 
+						GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS lin 
+						ON SUBSTRING(pro.codfab, 1, 6) = cod_sublinea 
+						LEFT JOIN 
+						(SELECT 
+							SUBSTRING(pro.codfab, 1, 6) AS cod_sublinea,
+							tmd.des_corta AS unidad 
+						FROM
+							producto pro 
+							LEFT JOIN tabla_m_detalle AS tmd 
+							ON pro.undpro = tmd.cod_argumento 
+						WHERE pro.estpro = '1' 
+							AND tmd.cod_tabla = 'tund' 
+						GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS und 
+						ON SUBSTRING(pro.codfab, 1, 6) = und.cod_sublinea 
+						LEFT JOIN 
+						(SELECT 
+							SUBSTRING(pro.codfab, 1, 6) AS cod_sublinea,
+							MAX(
+							GREATEST(
+								CASE
+								WHEN pmp.monprov1 = 'DOLARES AMERICANOS' 
+								THEN pmp.preprov1 * 3.3 
+								ELSE pmp.preprov1 
+								END,
+								CASE
+								WHEN pmp.monprov2 = 'DOLARES AMERICANOS' 
+								THEN pmp.preprov2 * 3.3 
+								ELSE pmp.preprov2 
+								END,
+								CASE
+								WHEN pmp.monprov3 = 'DOLARES AMERICANOS' 
+								THEN pmp.preprov3 * 3.3 
+								ELSE pmp.preprov3 
+								END
+							)
+							) AS precio 
+						FROM
+							preciomp pmp 
+							LEFT JOIN producto pro 
+							ON pmp.codpro = pro.codpro 
+						WHERE pro.estpro = '1' 
+						GROUP BY SUBSTRING(pro.CodFab, 1, 6)) AS pre 
+						ON SUBSTRING(pro.codfab, 1, 6) = pre.cod_sublinea 
+					WHERE pro.estpro = '1' 
+						AND tmd.cod_tabla = 'tsub' 
+						AND tmd.des_corta = lin.cod_linea 
+					GROUP BY SUBSTRING(pro.CodFab, 1, 6)";
 
 				return	ejecutarConsulta($sql);
 	}

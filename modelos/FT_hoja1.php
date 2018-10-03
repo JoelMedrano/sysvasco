@@ -250,6 +250,26 @@ Class FT_hoja1
 		return ejecutarConsulta($sql);
 	}
 
+	public function selectFT(){
+		$sql="	SELECT 
+					mft.idmft as idmft1,
+					mft.cod_mod,
+					m.nom_mod,
+					CONCAT(
+					mft.idmft,
+					' - ',
+					mft.cod_mod,
+					' - ',
+					m.nom_mod
+					) AS modelo 
+				FROM
+					maestro_ficha_tecnica mft 
+					LEFT JOIN modelojf m 
+					ON mft.cod_mod = m.cod_mod";
+
+		return ejecutarConsulta($sql);
+	}
+
 
 
 }

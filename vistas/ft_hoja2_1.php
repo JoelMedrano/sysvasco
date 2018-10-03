@@ -23,7 +23,7 @@ if ($_SESSION['udp']==1)
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h1 class="box-title">FICHAS TECNICAS - Combinaciones - Especificaciones <button class="btn btn-success" id="btnagregar"
+            <h1 class="box-title">FICHAS TECNICAS - Combinaciones - Combinaciones <button class="btn btn-success" id="btnagregar"
                 onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
             <div class="box-tools pull-right">
             </div>
@@ -74,17 +74,11 @@ if ($_SESSION['udp']==1)
                 </select>
               </div>
 
-              <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <label>Molde:</label>
-                <input type="file" class="form-control" name="molde" id="molde">
-                <input type="hidden" name="moldeactual_molde" id="moldeactual_molde">
-                <img src="" width="150px" height="180px" id="molde_muestra">
-              </div>
-
               <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
                 <a data-toggle="modal" href="#myModal">
                   <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span>
-                    Agregar Materia Prima</button>
+                    Agregar Combos</button>
                 </a>
               </div>
 
@@ -92,29 +86,23 @@ if ($_SESSION['udp']==1)
                 <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                   <thead style="background-color:#A9D0F5">
                     <th>Opciones</th>
-                    <th>Telas</th>
-                    <th>Desc. Pieza</th>
-                    <th>Cantidad</th>
-                    <th>Sentido Tela</th>
-                    <th>Tapete</th>
-                    <th>Collareta</th>
-                    <th>Consumo</th>
-                    <th>Tonalidad</th>
-                    <th>Observaciones</th>
-                    <th>Cons Por Prenda</th>
+                    <th>Combo Color</th>
+                    <th>Tela 1</th>
+                    <th>Color 1</th>
+                    <th>Tela 2</th>
+                    <th>Color 2</th>
+                    <th>Tela 3</th>
+                    <th>Color 3</th>
                   </thead>
                   <tfoot>
                     <th>Opciones</th>
-                    <th>Telas</th>
-                    <th>Desc. Pieza</th>
-                    <th>Cantidad</th>
-                    <th>Sentido Tela</th>
-                    <th>Tapete</th>
-                    <th>Collareta</th>
-                    <th>Consumo</th>
-                    <th>Tonalidad</th>
-                    <th>Observaciones</th>
-                    <th>Cons Por Prenda</th>
+                    <th>Combo Color</th>
+                    <th>Tela 1</th>
+                    <th>Color 1</th>
+                    <th>Tela 2</th>
+                    <th>Color 2</th>
+                    <th>Tela 3</th>
+                    <th>Color 3</th>
                   </tfoot>
                   <tbody>
 
@@ -151,22 +139,22 @@ if ($_SESSION['udp']==1)
         <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
           <thead>
             <th>Opciones</th>
-            <th>Materia Prima</th>
-            <th>Linea</th>
-            <th>Unidad</th>
-            <th>Codigo</th>
-            <th>Precio S/</th>
+            <th>Id</th>
+            <th>Modelo</th>
+            <th>Nombre</th>
+            <th>Cod. Color</th>
+            <th>Color</th>
           </thead>
           <tbody>
 
           </tbody>
           <tfoot>
             <th>Opciones</th>
-            <th>Materia Prima</th>
-            <th>Linea</th>
-            <th>Unidad</th>
-            <th>Codigo</th>
-            <th>Precio S/</th>
+            <th>Id</th>
+            <th>Modelo</th>
+            <th>Nombre</th>
+            <th>Cod. Color</th>
+            <th>Color</th>
           </tfoot>
         </table>
       </div>
@@ -186,7 +174,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/ft_hoja2.js"></script>
+<script type="text/javascript" src="scripts/ft_hoja2_1.js"></script>
 <?php
 }
 ob_end_flush();

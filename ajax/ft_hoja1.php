@@ -210,6 +210,8 @@ switch ($_GET["op"]){
     $tela1 = new ConsultasJ();
 
     $rspta = $tela1->selectTela1();
+    
+        echo '<option value="">SELECIONE</option>';
 
         while ($reg = $rspta->fetch_object())
 
@@ -224,6 +226,7 @@ switch ($_GET["op"]){
 
     $rspta = $tela2->selectTela2();
 
+        echo '<option value="">SELECIONE</option>';
         while ($reg = $rspta->fetch_object())
 
         {
@@ -236,6 +239,8 @@ switch ($_GET["op"]){
     $tela3 = new ConsultasJ();
 
     $rspta = $tela3->selectTela3();
+
+        echo '<option value="">SELECIONE</option>';
 
         while ($reg = $rspta->fetch_object())
 

@@ -2,9 +2,9 @@
 if (strlen(session_id()) < 1)
   session_start();
 
-require_once "../modelos/FT_hoja2.php";
+require_once "../modelos/FT_hoja2_1.php";
 
-$mft=new FT_hoja2();
+$mft=new FT_hoja2_1();
 
 $idmft=isset($_POST["idmft"])? limpiarCadena($_POST["idmft"]):"";
 $cod_mod=isset($_POST["cod_mod"])? limpiarCadena($_POST["cod_mod"]):"";
@@ -139,66 +139,55 @@ case 'listarDetalle':
 		
     echo '<thead style="background-color:#A9D0F5">
                                     <th>Opciones</th>
-                                    <th>Telas</th>
-                                    <th>Desc. Pieza</th>
-                                    <th>Cantidad</th>
-                                    <th>Sentido Tela</th>
-                                    <th>Tapete</th>
-                                    <th>Collareta</th>
-                                    <th>Consumo</th>
-                                    <th>Tonalidad</th>
-                                    <th>Observaciones</th>
-                                    <th>Consumo Por Prenda</th>
+                                    <th>Combo Color</th>
+                                    <th>Tela 1</th>
+                                    <th>Color 1</th>
+                                    <th>Tela 2</th>
+                                    <th>Color 2</th>
+                                    <th>Tela 3</th>
+                                    <th>Color 3</th>
           </thead>';
 
 		while ($reg = $rspta->fetch_object())
 				{
           echo '<tr class="filas">
                   <td></td>
-                  <td>'.$reg->nombre.'</td>
-                  <td>'.$reg->desc_pieza.'</td>
-                  <td>'.$reg->cant_pieza.'</td>
-                  <td>'.$reg->sent_tela.'</td>
-                  <td>'.$reg->tapete.'</td>
-                  <td>'.$reg->collareta.'</td>
-                  <td>'.$reg->consumo.'</td>
-                  <td>'.$reg->tono.'</td>
-                  <td>'.$reg->observaciones.'</td>
-                  <td>'.$reg->subtotal.'</td>
+                  <td>'.$reg->com_color.'</td>
+                  <td>'.$reg->tela1.'</td>
+                  <td>'.$reg->color1.'</td>
+                  <td>'.$reg->tela2.'</td>
+                  <td>'.$reg->color2.'</td>
+                  <td>'.$reg->tela3.'</td>
+                  <td>'.$reg->color3.'</td>
                 </tr>';
 					
 				}
     echo '<tfoot>
-                                    <th>Opciones</th>
-                                    <th>Telas</th>
-                                    <th>Desc. Pieza</th>
-                                    <th>Cantidad</th>
-                                    <th>Sentido Tela</th>
-                                    <th>Tapete</th>
-                                    <th>Collareta</th>
-                                    <th>Consumo</th>
-                                    <th>Tonalidad</th>
-                                    <th>Observaciones</th>
-                                    <th>Consumo Por Prenda</th>
+                                  <th>Opciones</th>
+                                  <th>Combo Color</th>
+                                  <th>Tela 1</th>
+                                  <th>Color 1</th>
+                                  <th>Tela 2</th>
+                                  <th>Color 2</th>
+                                  <th>Tela 3</th>
+                                  <th>Color 3</th>
             </tfoot>';
   break;
   
-  case 'listarArticulosFicha':
-  require_once "../modelos/ConsultasJ.php";
-  $mp=new ConsultasJ();
-
-  $rspta=$mp->selectMP();
+  case 'listarCombos':
+   
+  $rspta=$mft->listarCombos();
    //Vamos a declarar un array
    $data= Array();
 
    while ($reg=$rspta->fetch_object()){
      $data[]=array(
-       "0"=>'<button class="btn btn-success" onclick="agregarDetalle(\''.$reg->idarticulo.'\',\''.$reg->nombre.'\')"><span class="fa fa-plus"></span></button>',
-       "1"=>$reg->nombre,
-       "2"=>$reg->linea,
-       "3"=>$reg->unidad,
-       "4"=>$reg->idarticulo,
-       "5"=>$reg->precio
+       "0"=>'<button class="btn btn-success" onclick="agregarDetalle(\''.$reg->cod_color.'\',\''.$reg->detalle.'\')"><span class="fa fa-plus"></span></button>',
+       "1"=>$reg->idmft,
+       "2"=>$reg->cod_mod,
+       "3"=>$reg->nom_mod,
+       "4"=>$reg->cod_color,
+       "5"=>$reg->color
        );
    }
    $results = array(
@@ -212,6 +201,17 @@ break;
 case 'eliminar':
 $rspta=$mft->eliminar($idmft);
 echo $rspta ? "FT lista para eliminar" : "FT no se puede eliminar";
+break;
+
+case 'selectTela1':
+
+$rspta = $mft->selectTela1();
+
+while ($reg = $rspta->fetch_object())
+
+    {
+    echo '<option value=' . $reg->tela1 . '>' . $reg->nom_tela1 . '</option>';
+    }
 break;
 
 

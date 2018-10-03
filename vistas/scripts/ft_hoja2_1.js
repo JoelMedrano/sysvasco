@@ -46,7 +46,7 @@ function mostrarform(flag) {
 		$("#formularioregistros").show();
 		//$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-		listarArticulos();
+		listarCombos();
 
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
@@ -78,7 +78,7 @@ function listar() {
 			'pdf'
 		],
 		"ajax": {
-			url: '../ajax/ft_hoja2.php?op=listar',
+			url: '../ajax/ft_hoja2_1.php?op=listar',
 			type: "get",
 			dataType: "json",
 			error: function (e) {
@@ -95,7 +95,7 @@ function listar() {
 
 
 //Función ListarArticulos
-function listarArticulos() {
+function listarCombos() {
 	tabla = $('#tblarticulos').dataTable({
 		"aProcessing": true, //Activamos el procesamiento del datatables
 		"aServerSide": true, //Paginación y filtrado realizados por el servidor
@@ -104,7 +104,7 @@ function listarArticulos() {
 
 		],
 		"ajax": {
-			url: '../ajax/ft_hoja2.php?op=listarArticulosFicha',
+			url: '../ajax/ft_hoja2_1.php?op=listarCombos',
 			type: "get",
 			dataType: "json",
 			error: function (e) {
@@ -126,7 +126,7 @@ function guardaryeditar(e) {
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/ft_hoja2.php?op=guardaryeditar",
+		url: "../ajax/ft_hoja2_1.php?op=guardaryeditar",
 		type: "POST",
 		data: formData,
 		contentType: false,
@@ -143,7 +143,7 @@ function guardaryeditar(e) {
 }
 
 function mostrar(idmft) {
-	$.post("../ajax/ft_hoja2.php?op=mostrar", {
+	$.post("../ajax/ft_hoja2_1.php?op=mostrar", {
 		idmft: idmft
 	}, function (data, status) {
 		data = JSON.parse(data);
@@ -151,10 +151,6 @@ function mostrar(idmft) {
 
 		$("#cod_mod").val(data.cod_mod);
 		$("#cod_mod").selectpicker('refresh');
-
-		$("#molde_muestra").show();
-		$("#molde_muestra").attr("src", "../files/moldes/" + data.molde);
-		$("#moldeactual_molde").val(data.molde);
 
 		$("#idmft").val(data.idmft);
 
@@ -166,7 +162,7 @@ function mostrar(idmft) {
 		$("#btnAgregarArt").hide();
 	});
 
-	$.post("../ajax/ft_hoja2.php?op=listarDetalle&id=" + idmft, function (r) {
+	$.post("../ajax/ft_hoja2_1.php?op=listarDetalle&id=" + idmft, function (r) {
 		$("#detalles").html(r);
 	});
 }
@@ -181,14 +177,24 @@ $("#btnGuardar").hide();
 
 function agregarDetalle(idarticulo, articulo) {
 
-	var consumo=1;
+	//Cargamos los items al select cliente
+
+
+	var consumo = 1;
 
 	if (idarticulo != "") {
-		var subtotal = 1/ consumo;
+		var subtotal = 1 / consumo;
+
+		$.post("../ajax/ft_hoja2_1.php?op=selectTela1", function (r) {
+			$("#tela1").html(r);
+			$('#tela1').selectpicker('refresh');
+		});
+
+
 		var fila = '<tr class="filas" id="fila' + cont + '">' +
 			'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle(' + cont + ')">X</button></td>' +
 			'<td><input type="hidden" size="15" name="idarticulo[]" value="' + idarticulo + '">' + articulo + '</td>' +
-			'<td><input type="text" size="8" name="desc_pieza[]"></td>' +
+			'<td><select id="tela1" name="tela1" class="form-control selectpicker" data-live-search="true" required></select></td>' +
 			'<td><input type="number" style="width: 50px;" name="cant_pieza[]"></td>' +
 			'<td><input type="text" name="sent_tela[]"></td>' +
 			'<td><input type="text" name="tapete[]"></td>' +
@@ -216,7 +222,7 @@ function modificarSubototales() {
 		var inpC = cons[i];
 		var inpS = sub[i];
 
-		inpS.value = (1/inpC.value).toFixed(4);
+		inpS.value = (1 / inpC.value).toFixed(4);
 		document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
 	}
 	calcularTotales();
