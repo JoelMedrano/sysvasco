@@ -34,6 +34,18 @@ $cantidad=isset($_POST["cantidad"])? limpiarCadena($_POST["cantidad"]):"";
 $pagado=isset($_POST["pagado"])? limpiarCadena($_POST["pagado"]):"";
 $saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
 
+$fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
+$fec_des1 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des1)));
+$mon_des1=isset($_POST["mon_des1"])? limpiarCadena($_POST["mon_des1"]):"";
+
+$fec_des2=isset($_POST["fec_des2"])? limpiarCadena($_POST["fec_des2"]):"";
+$fec_des2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des2)));
+$mon_des2=isset($_POST["mon_des2"])? limpiarCadena($_POST["mon_des2"]):"";
+
+$fec_des3=isset($_POST["fec_des3"])? limpiarCadena($_POST["fec_des3"]):"";
+$fec_des3 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des3)));
+$mon_des3=isset($_POST["mon_des3"])? limpiarCadena($_POST["mon_des3"]):"";
+
 
 
 switch ($_GET["op"]){
@@ -50,6 +62,12 @@ switch ($_GET["op"]){
 													$cantidad,
 													$pagado,
 													$saldo,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
@@ -67,6 +85,12 @@ switch ($_GET["op"]){
 													$cantidad,
 													$pagado,
 													$saldo,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
@@ -76,7 +100,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'desactivar':
-		$rspta=$anticipo_adelanto->desactivar(            $id_ant_ade,
+		$rspta=$anticipo_adelanto->desactivar(    $id_ant_ade,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg
@@ -179,6 +203,46 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->modalidad . '>' . $reg->des_modalidad . '</option>';
 				}
 	break;
+
+
+
+
+
+	case "selectFechaDscto1":
+	
+		
+
+		$rspta = $prestamos->selectFechas();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->fec_des1 . '>' . $reg->fec_des1 . '</option>';
+				}
+	break;
+
+
+	case "selectFechaDscto2":
+		$rspta = $prestamos->selectFechas();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->fec_des2 . '>' . $reg->fec_des2 . '</option>';
+				}
+	break;
+
+
+
+
+	case "selectFechaDscto3":
+		$rspta = $prestamos->selectFechas();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->fec_des3 . '>' . $reg->fec_des3 . '</option>';
+				}
+	break;
+
+
 
 
 

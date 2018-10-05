@@ -164,12 +164,23 @@ function init(){
 
 	});
 
-	//Cargamos los items al select turno
+
+	//Cargamos los items al select distrito
 	$.post("../ajax/consultasD.php?op=selectDistrito", function(r){
 	            $("#id_distrito").html(r);
 	            $('#id_distrito').selectpicker('refresh');
 
 	});
+
+
+	//Cargamos los items al select grupo sanguineo
+	$.post("../ajax/consultasD.php?op=selectGrupoSanguineo", function(r){
+	            $("#id_gru_san").html(r);
+	            $('#id_gru_san').selectpicker('refresh');
+
+	});
+
+
 
 
 
@@ -976,6 +987,11 @@ function mostrar_datos(id_trab)
 		$("#tie_enf_car_onc").val(data.tie_enf_car_onc);
 		$("#nom_enf_car_onc").val(data.nom_enf_car_onc);
 		$("#tie_enf_ale_rec").val(data.tie_enf_ale_rec);
+
+		$("#id_gru_san").val(data.id_gru_san);
+		$('#id_gru_san').selectpicker('refresh');
+		$("#talla").val(data.talla);
+		$("#peso").val(data.peso);
 
 
 		

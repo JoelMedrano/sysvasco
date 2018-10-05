@@ -20,6 +20,12 @@ Class Descuentos_Varios
 													$cantidad,
 													$pagado,
 													$saldo,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg)
@@ -33,6 +39,12 @@ Class Descuentos_Varios
 												 cantidad,
 												 pagado,
 												 saldo,
+												 fec_des1,
+												 mon_des1,
+												 fec_des2,
+												 mon_des2,
+												 fec_des3,
+												 mon_des3,
 												 est_des_var,
 												 est_reg,
 												 fec_reg,
@@ -47,6 +59,12 @@ Class Descuentos_Varios
 												'$cantidad',
 												'$pagado',
 												'$saldo',
+												'$fec_des1',
+												'$mon_des1',
+												'$fec_des2',
+												'$mon_des2',
+												'$fec_des3',
+												'$mon_des3',
 												'0',
 												'1',
 												'$fec_reg',
@@ -68,6 +86,12 @@ Class Descuentos_Varios
 													$cantidad,
 													$pagado,
 													$saldo,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg)
@@ -81,6 +105,12 @@ Class Descuentos_Varios
 											   cantidad='$cantidad',
 											   pagado='$pagado',
 											   saldo='$saldo',
+											   fec_des1='$fec_des1',
+											   mon_des1='$mon_des1',
+											   fec_des2='$fec_des2',
+											   mon_des2='$mon_des2',
+											   fec_des3='$fec_des3',
+											   mon_des3='$mon_des3',
 											   fec_mod='$fec_reg',
 											   usu_mod='$usu_reg',
 											   pc_mod='$pc_reg'
@@ -129,6 +159,12 @@ Class Descuentos_Varios
 				         dv.cantidad,
 				         dv.pagado,
 				         dv.saldo,
+				         DATE_FORMAT(dv.fec_des1, '%d/%m/%Y') fec_des1, 
+				         dv.mon_des1,
+				         DATE_FORMAT(dv.fec_des2, '%d/%m/%Y') fec_des2,
+				         dv.mon_des2,
+				         DATE_FORMAT(dv.fec_des3, '%d/%m/%Y') fec_des3,
+				         dv.mon_des3,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
 				         dv.tip_dscto,
@@ -218,6 +254,76 @@ Class Descuentos_Varios
 		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_cotizacion,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
 		return ejecutarConsulta($sql);
 	}
+
+
+	public function selectMedida()
+	{
+		$sql="SELECT tmep.cod_argumento AS  medida,
+		         tmep.Des_Larga AS des_medida 
+			FROM tabla_maestra_detalle tmep
+			WHERE	 tmep.Cod_tabla='TMEP'
+			ORDER BY  tmep.cod_argumento ASC";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementar un método para listar los registros activos, su último precio y el stock (vamos a unir con el último registro de la tabla detalle_ingreso)
+	public function selectFechas()
+	{
+		$sql="SELECT id_cp, 
+		 			 id_ano,
+		 			 TbPea.Des_Corta AS Ano,
+		             TbFpa.Des_Larga AS Descrip_fec_pag,
+		             des_fec_pag, 
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des1,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des2,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des3,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des4,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des5,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des6,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des7,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des8,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des9,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des10,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des11,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des12,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des13,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des14,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des15,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des16,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des17,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des18,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des19,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des20,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des21,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des22,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des23,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des24,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des25,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des26,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des27,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des28,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des29,
+					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des30,
+		             est_reg 
+			FROM cronograma_pagos cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+				TbFpa.cod_argumento=  cp.des_fec_pag
+				AND TbFpa.Cod_tabla='TFPA'
+			WHERE cp.id_ano='12'
+
+			ORDER BY  cp.des_fec_pag ASC";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
 
 
 

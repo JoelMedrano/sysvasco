@@ -67,7 +67,7 @@ if ($_SESSION['rrhh']==1)
                           </div>
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cant.Mensual:</label>
-                            <input type="number" class="form-control" name="mon_men" id="mon_men" required>
+                            <input type="decimal" class="form-control" name="mon_men" id="mon_men" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Observacion:</label>
@@ -82,6 +82,14 @@ if ($_SESSION['rrhh']==1)
                             <input type="date" class="form-control" name="fec_fin" id="fec_fin" >
                           </div>
 
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label>Subir Data Adjunta:</label>
+                            <input type="file" class="form-control" name="data_adjunta" id="data_adjunta">
+                            <input type="hidden" name="data_adjunta_actual" id="data_adjunta_actual">
+                            <img src="" width="150px" height="120px" id="data_adjunta_muestra">
+                          </div>
+
+                           
 
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

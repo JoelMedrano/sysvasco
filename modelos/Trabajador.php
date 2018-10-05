@@ -150,8 +150,9 @@ Class Trabajador
 				$cen_est_comp, $nivel_comp, $nom_emp_exp1, $car_exp1, $fun_exp1, $fec_ini_exp1, $fec_fin_exp1, $mot_ces_exp1,
 				$nom_emp_exp2, $car_exp2, $fun_exp2, $fec_ini_exp2, $fec_fin_exp2, $mot_ces_exp2, 
 				$nom_emp_exp3, $car_exp3, $fun_exp3, $fec_ini_exp3, $fec_fin_exp3, $mot_ces_exp3,  
-				$tie_enf_car_onc, $nom_enf_car_onc, $tie_enf_ale_rec, $afi_onp, $afi_afp, $nom_afi_afp,
-				$usu_reg, $pc_reg, $fec_reg )
+				$tie_enf_car_onc, $nom_enf_car_onc, $tie_enf_ale_rec, $id_gru_san, $talla, $peso, 
+				$afi_onp, $afi_afp, $nom_afi_afp,
+				$usu_reg, $pc_reg, $fec_reg)
 	{
 		$sql="UPDATE trabajador_familia   AS tf 
 				INNER JOIN trabajador_estudios AS te ON
@@ -164,6 +165,8 @@ Class Trabajador
 				ta.id_trab= tf.id_trab
 				INNER JOIN trabajador_exp_laboral AS tel ON
 				tel.id_trab= tf.id_trab
+				INNER JOIN trabajador  AS tr ON
+				tr.id_trab= tf.id_trab
 		 		SET  tf.viv_pad='$viv_pad', tf.nom_pad='$nom_pad', tf.ocu_pad='$ocu_pad', tf.dep_pad='$dep_pad', tf.tel_pad='$tel_pad', tf.fec_rec_dat='$fec_rec_dat',
 				tf.viv_mad='$viv_mad', tf.nom_mad='$nom_mad', tf.ocu_mad='$ocu_mad', tf.dep_mad='$dep_mad', tf.tel_mad='$tel_mad',  tf.viv_con='$viv_con', tf.nom_con='$nom_con', 
 				tf.ocu_con='$ocu_con', tf.dep_con='$dep_con', tf.tel_con='$tel_con', tf.nac_hij1='$nac_hij1', tf.nom_hij1='$nom_hij1', tf.ocu_hij1='$ocu_hij1',
@@ -182,14 +185,15 @@ Class Trabajador
 				tel.mot_ces_exp1='$mot_ces_exp1', tel.nom_emp_exp2='$nom_emp_exp2', tel.car_exp2='$car_exp2', tel.fun_exp2='$fun_exp2', tel.fec_ini_exp2='$fec_ini_exp2',
 				tel.mot_ces_exp2='$mot_ces_exp2', tel.fec_fin_exp2='$fec_fin_exp2', tel.nom_emp_exp3='$nom_emp_exp3', tel.car_exp3='$car_exp3', tel.fun_exp3='$fun_exp3',
 				tel.fec_ini_exp3='$fec_ini_exp3', tel.fec_fin_exp3='$fec_fin_exp3', tel.mot_ces_exp3='$mot_ces_exp3', ts.tie_enf_car_onc='$tie_enf_car_onc',
-				ts.nom_enf_car_onc='$nom_enf_car_onc', ts.tie_enf_ale_rec='$tie_enf_ale_rec',  ta.afi_onp='$afi_onp', ta.afi_afp='$afi_afp', 
-				ta.nom_afi_afp='$nom_afi_afp', tf.usu_mod='$usu_reg', tf.pc_mod='$pc_reg', tf.fec_mod='$fec_reg'
+				ts.nom_enf_car_onc='$nom_enf_car_onc', ts.tie_enf_ale_rec='$tie_enf_ale_rec', tr.id_gru_san='$id_gru_san', tr.talla='$talla', tr.peso='$peso',
+				ta.afi_onp='$afi_onp', ta.afi_afp='$afi_afp', ta.nom_afi_afp='$nom_afi_afp', tf.usu_mod='$usu_reg', tf.pc_mod='$pc_reg', tf.fec_mod='$fec_reg'
 		 WHERE tf.id_trab='$prueba'
 		 AND te.id_trab='$prueba'
 		 AND tc.id_trab='$prueba'
 		 AND ts.id_trab='$prueba' 
 		 AND ta.id_trab='$prueba'
-		 AND tel.id_trab='$prueba' ";
+		 AND tel.id_trab='$prueba'
+		 AND tr.id_trab='$prueba' ";
 		return ejecutarConsulta($sql);
 	}
 
@@ -387,6 +391,10 @@ Class Trabajador
 		ts.tie_enf_car_onc,
 		ts.nom_enf_car_onc,
 		ts.tie_enf_ale_rec,
+		tr.id_gru_san,
+		tgsa.des_larga AS grupo_sanguineo,
+		tr.talla,
+		tr.peso,
 		ta.afi_onp,
 		ta.afi_afp,
 		ta.nom_afi_afp,
@@ -478,6 +486,9 @@ Class Trabajador
 				LEFT JOIN tabla_maestra_detalle AS ttur ON
 				ttur.cod_argumento= tr.id_turno
 				AND ttre.cod_tabla='TTUR'
+				LEFT JOIN tabla_maestra_detalle AS tgsa ON
+				tgsa.cod_argumento= tr.id_gru_san
+				AND tgsa.cod_tabla='TGSA'
 				LEFT JOIN ubigeo AS ubi ON
 				ubi.coddist= tr.id_distrito
 				AND ubi.coddpto='15' 
@@ -543,6 +554,7 @@ Class Trabajador
 		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_venta,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
 		return ejecutarConsulta($sql);		
 	}
+
 
 
 }

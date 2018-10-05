@@ -17,8 +17,13 @@ function init(){
 
 	});
 
-	$("#imagenmuestra").hide();
+	$("#data_adjunta_muestra").hide();
+
+
 }
+
+
+
 
 //Función limpiar
 function limpiar()
@@ -130,6 +135,11 @@ function mostrar(id_des_jud)
 
  		$("#id_trab").val(data.id_trab);
 		$('#id_trab').selectpicker('refresh');
+
+		$("#data_adjunta_muestra").show();
+		$("#data_adjunta_muestra").attr("src","../files/descuentos_judiciales/"+data.data_adjunta);
+		$("#data_adjunta_actual").val(data.data_adjunta);
+
 
 
 

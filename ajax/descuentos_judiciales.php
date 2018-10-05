@@ -29,10 +29,30 @@ $fec_ini=isset($_POST["fec_ini"])? limpiarCadena($_POST["fec_ini"]):"";
 $fec_fin=isset($_POST["fec_fin"])? limpiarCadena($_POST["fec_fin"]):"";
 $mon_men=isset($_POST["mon_men"])? limpiarCadena($_POST["mon_men"]):"";
 
+$data_adjunta=isset($_POST["data_adjunta"])? limpiarCadena($_POST["data_adjunta"]):"";
+
 
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
+
+		if (!file_exists($_FILES['data_adjunta']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta']['tmp_name']))
+		{
+			$data_adjunta=$_POST["data_adjunta_actual"];
+		}
+		
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta"]["name"]);
+			if ($_FILES['data_adjunta']['type'] == "image/jpg" || $_FILES['data_adjunta']['type'] == "image/jpeg" || $_FILES['data_adjunta']['type'] == "image/png")
+			{
+				$data_adjunta = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta"]["tmp_name"], "../files/descuentos_judiciales/" . $data_adjunta);
+			}
+		}
+
+
+
 
 		
 		if (empty($id_des_jud)){
@@ -41,6 +61,7 @@ switch ($_GET["op"]){
 													$fec_ini,
 													$fec_fin,
 													$mon_men,
+													$data_adjunta,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
@@ -53,6 +74,7 @@ switch ($_GET["op"]){
 												  $fec_ini,
 												  $fec_fin,
 												  $mon_men,
+												  $data_adjunta,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg);

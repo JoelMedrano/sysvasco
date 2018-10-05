@@ -34,7 +34,32 @@ function init(){
 	});
 
 
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto1", function(r){
+	            $("#fec_des1").html(r);
+	            $('#fec_des1').selectpicker('refresh');
 
+	});
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto2", function(r){
+	            $("#fec_des2").html(r);
+	            $('#fec_des2').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto3", function(r){
+	            $("#fec_des3").html(r);
+	            $('#fec_des3').selectpicker('refresh');
+
+	});
+
+
+
+
+	$("#data_adjunta_muestra").hide();
 
 
 
@@ -54,9 +79,20 @@ function limpiar()
 	$("#pagado").val("");
 	$("#saldo").val("");
     $("#detalle").val("");
+
 	$("#fec_des1").val("");
+	$("#fec_des1").selectpicker('refresh');
+	$("#mon_des1").val("");
+
 	$("#fec_des2").val("");
+	$("#fec_des2").selectpicker('refresh');
+	$("#mon_des2").val("");
+
 	$("#fec_des3").val("");
+	$("#fec_des3").selectpicker('refresh');
+	$("#mon_des3").val("");
+
+
 
 
 
@@ -160,9 +196,6 @@ function mostrar(id_ins_des)
  		$("#cantidad").val(data.cantidad);
  		$("#pagado").val(data.pagado);
  		$("#saldo").val(data.saldo);
- 		$("#fec_des1").val(data.fec_des1);
- 		$("#fec_des2").val(data.fec_des2);
- 		$("#fec_des3").val(data.fec_des3);
 
 
  		$("#id_trab").val(data.id_trab);
@@ -174,6 +207,25 @@ function mostrar(id_ins_des)
 		$("#modalidad").val(data.modalidad);
 		$('#modalidad').selectpicker('refresh');
 
+
+		$("#fec_des1").val(data.fec_des1);
+		$('#fec_des1').selectpicker('refresh');
+		$("#mon_des1").val(data.mon_des1);
+
+		$("#fec_des2").val(data.fec_des2);
+		$('#fec_des2').selectpicker('refresh');
+		$("#mon_des2").val(data.mon_des2);
+
+
+		$("#fec_des3").val(data.fec_des3);
+		$('#fec_des3').selectpicker('refresh');
+		$("#mon_des3").val(data.mon_des3);
+
+
+			
+		$("#data_adjunta_muestra").show();
+		$("#data_adjunta_muestra").attr("src","../files/prestamos/"+data.data_adjunta);
+		$("#data_adjunta_actual").val(data.data_adjunta);
 
 	
 

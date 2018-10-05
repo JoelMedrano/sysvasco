@@ -1,80 +1,108 @@
-<?php
+<?php 
+if (strlen(session_id()) < 1) 
+  session_start();
+
 require_once "../modelos/Cronograma_Pagos.php";
 
 $cronograma_pagos=new Cronograma_Pagos();
 
-$idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
-$idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
-$codigo=isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
-$nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
-$stock=isset($_POST["stock"])? limpiarCadena($_POST["stock"]):"";
-$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
-$imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
+$idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
+$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
+$idusuario=$_SESSION["idusuario"];
+$tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
+$serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
+$num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
+$fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
+$impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
+$total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
+
+
+$id_ano=isset($_POST["id_ano"])? limpiarCadena($_POST["id_ano"]):"";
+$des_fec_pag=isset($_POST["des_fec_pag"])? limpiarCadena($_POST["des_fec_pag"]):"";
+$fec_pag=isset($_POST["fec_pag"])? limpiarCadena($_POST["fec_pag"]):"";
+$desde=isset($_POST["desde"])? limpiarCadena($_POST["desde"]):"";
+$hasta=isset($_POST["hasta"])? limpiarCadena($_POST["hasta"]):"";
+
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
-
-		if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name']))
-		{
-			$imagen=$_POST["imagenactual"];
-		}
-		else
-		{
-			$ext = explode(".", $_FILES["imagen"]["name"]);
-			if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png")
-			{
-				$imagen = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/articulos/" . $imagen);
-			}
-		}
-
-		
-		if (empty($idarticulo)){
-			$rspta=$cronograma_pagos->insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
-			echo $rspta ? "Artículo registrado" : "Artículo no se pudo registrar";
+		if (empty($id_ano)){
+			$rspta=$cronograma_pagos->insertar($id_ano	,$_POST["des_fec_pag"], $_POST["fec_pag"]);
+			echo $rspta ? "Cronograma registrado" : "No se pudieron registrar todos los datos del cronograma";
 		}
 		else {
-			$rspta=$cronograma_pagos->editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen);
-			echo $rspta ? "Artículo actualizado" : "Artículo no se pudo actualizar";
-		}
+			
+
+			$rspta=$cronograma_pagos->editar($id_ano, $_POST["des_fec_pag"],$_POST["fec_pag"], $_POST["desde"],$_POST["hasta"] );
+			
+			echo $rspta ? "Cronograma actualizado" : "No se pudieron actualizar todos los datos del cronograma";
 		
+
+		}
 	break;
 
-	case 'desactivar':
-		$rspta=$cronograma_pagos->desactivar($idarticulo);
- 		echo $rspta ? "Artículo Desactivado" : "Artículo no se puede desactivar";
-	break;
-
-	case 'activar':
-		$rspta=$cronograma_pagos->activar($idarticulo);
- 		echo $rspta ? "Artículo activado" : "Artículo no se puede activar";
+	case 'anular':
+		$rspta=$cronograma_pagos->anular($id_ano);
+ 		echo $rspta ? "Cronograma anulado" : "Cronograma no se puede anular";
 	break;
 
 	case 'mostrar':
-		$rspta=$cronograma_pagos->mostrar($idarticulo);
+		$rspta=$cronograma_pagos->mostrar($id_ano);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
 
+	case 'listarDetalle':
+		//Referente a V-Art 
+		$id=$_GET['id'];
+
+		$rspta = $cronograma_pagos->listarDetalle($id);
+		$total=0;
+		$cont=0;
+		echo '<thead style="background-color:#A9D0F5">
+									<th width="20px">Item</th>
+                                    <th width="50px">Cronograma</th>
+                                    <th width="50px">Fecha</th>
+                                    <th width="50px">Desde</th>
+                                    <th width="50px">Hasta</th>
+                                </thead>';
+
+		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
+				{
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  >
+								<td><input type="text" size="1" name="des_fec_pag[]" value="'.$reg->des_fec_pag.'"></td>
+								<td><input type="text" size="40" name="Descrip_fec_pag[]" value="'.$reg->Descrip_fec_pag.'" readonly></td>
+								<td><input type="date" size="25" name="fec_pag[]" value="'.$reg->fec_pag.'" ></td>
+								<td><input type="date" size="25" name="desde[]" value="'.$reg->desde.'" ></td>
+								<td><input type="date" size="25" name="hasta[]" value="'.$reg->hasta.'" ></td>
+						  </tr>';
+					$total=$periodo;
+					$cont++;
+				}
+		echo '<tfoot>
+                                    
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tfoot>';
+	break;
+
 	case 'listar':
 		$rspta=$cronograma_pagos->listar();
-
-		//Vamos a declarar un array
+ 		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
+ 			
 
-			$data[]=array(
- 				
- 				"0"=>$reg->nombre,
- 				"1"=>$reg->categoria,
- 				"2"=>$reg->codigo,
- 				"3"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>',
- 				"4"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->idarticulo.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-primary" onclick="activar('.$reg->idarticulo.')"><i class="fa fa-check"></i></button>'
+ 			$data[]=array(
+ 				"0"=>$reg->cp,
+ 				"1"=>$reg->Ano,
+ 				"2"=>$reg->obs,
+ 				"3"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
+ 				'<span class="label bg-red">Anulado</span>',
+ 				"4"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ano.')"><i class="fa fa-pencil"></i></button>',
  				);
  		}
  		$results = array(
@@ -86,19 +114,39 @@ switch ($_GET["op"]){
 
 	break;
 
-	case "selectCategoria":
-		require_once "../modelos/Categoria.php";
-		$categoria = new Categoria();
+	case 'selectCliente':
+		require_once "../modelos/Persona.php";
+		$persona = new Persona();
 
-		$rspta = $categoria->select();
+		$rspta = $persona->listarC();
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->idcategoria . '>' . $reg->nombre . '</option>';
+				echo '<option value=' . $reg->idpersona . '>' . $reg->nombre . '</option>';
 				}
 	break;
 
+	case 'selectPeriodosVacaciones':
+		require_once "../modelos/ConsultasD.php";
+		$consultasD=new ConsultasD();
 
+		$rspta=$consultasD->selectPeriodosVacaciones();
+ 		//Vamos a declarar un array
+ 		$data= Array();
 
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->id_periodo.',\''.$reg->periodo.'\')"><span class="fa fa-plus"></span></button>',
+ 				"1"=>$reg->id_periodo,
+ 				"2"=>$reg->periodo
+ 				);
+ 		}
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+	break;
 }
 ?>

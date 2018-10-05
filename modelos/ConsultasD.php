@@ -277,6 +277,27 @@ Class ConsultasD
 	}
 
 
+	// Vacaciones - Implementar un método para listar los registros y mostrar en el select
+	public function selectFechaAnualCronogramaPagos()
+	{
+		$sql="SELECT  TbPea.Cod_Argumento AS id_ano, TbPea.Des_Corta AS Ano
+				FROM 	tabla_maestra_detalle TbPea 
+				WHERE  TbPea.Cod_tabla='TPEA'
+				ORDER BY   TbPea.Des_Corta DESC";
+		return ejecutarConsulta($sql);		
+	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectGrupoSanguineo()
+	{
+		$sql="SELECT TbGsa.cod_argumento as id_gru_san,  TbGsa.des_larga AS grupo_sanguineo  
+		FROM tabla_maestra_detalle TbGsa
+		where TbGsa.cod_tabla='TGSA'
+		order by TbGsa.cod_argumento ASC";
+		return ejecutarConsulta($sql);		
+	}
+
 
 
 

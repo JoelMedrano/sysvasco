@@ -35,6 +35,25 @@ $pagado=isset($_POST["pagado"])? limpiarCadena($_POST["pagado"]):"";
 $saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
 
 
+$fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
+$fec_des1 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des1)));
+$mon_des1=isset($_POST["mon_des1"])? limpiarCadena($_POST["mon_des1"]):"";
+
+$fec_des2=isset($_POST["fec_des2"])? limpiarCadena($_POST["fec_des2"]):"";
+$fec_des2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des2)));
+$mon_des2=isset($_POST["mon_des2"])? limpiarCadena($_POST["mon_des2"]):"";
+
+$fec_des3=isset($_POST["fec_des3"])? limpiarCadena($_POST["fec_des3"]):"";
+$fec_des3 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des3)));
+$mon_des3=isset($_POST["mon_des3"])? limpiarCadena($_POST["mon_des3"]):"";
+
+
+$data_adjunta=isset($_POST["data_adjunta"])? limpiarCadena($_POST["data_adjunta"]):"";
+
+
+
+
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
@@ -50,6 +69,13 @@ switch ($_GET["op"]){
 													$cantidad,
 													$pagado,
 													$saldo,
+													$data_adjunta,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
@@ -67,6 +93,13 @@ switch ($_GET["op"]){
 													$cantidad,
 													$pagado,
 													$saldo,
+													$data_adjunta,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
