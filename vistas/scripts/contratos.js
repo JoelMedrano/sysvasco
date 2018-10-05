@@ -13,9 +13,9 @@ function init(){
 
 
 	//Cargamos los items al select cliente
-	$.post("../ajax/consultasD.php?op=selectFechaAnualCronogramaPagos", function(r){
-	            $("#id_ano").html(r);
-	            $('#id_ano').selectpicker('refresh');
+	$.post("../ajax/consultasD.php?op=selectTrabajadorVacaciones", function(r){
+	            $("#id_nomtrab").html(r);
+	            $('#id_nomtrab').selectpicker('refresh');
 	});	
 
 
@@ -24,12 +24,26 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	
+	$("#idcliente").val("");
+	$("#cliente").val("");
+	$("#serie_comprobante").val("");
+	$("#num_comprobante").val("");
+	$("#impuesto").val("0");
+
+	$("#total_venta").val("");
+	$(".filas").remove();
+	$("#total").html("0");
+
+	//Obtenemos la fecha actual
+	var now = new Date();
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + (now.getMonth() + 1)).slice(-2);
+	var today = now.getFullYear()+"-"+(month)+"-"+(day);
+    $('#fecha_hora').val(today);
 
     //Marcamos el primer tipo_documento
-    $("#id_ano").val("id_ano");
-	$("#id_ano").selectpicker('refresh');
-
+    $("#tipo_comprobante").val("Boleta");
+	$("#tipo_comprobante").selectpicker('refresh');
 }
 
 
@@ -44,7 +58,7 @@ function mostrarform(flag)
 		$("#btnagregar").hide();
 		listarArticulos();
 
-		$("#btnGuardar").hide();
+		$("#btnGuardar").show();
 		$("#btnCancelar").show();
 		$("#btnAgregarArt").show();
 		detalles=0;
@@ -80,7 +94,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/cronograma_pagos.php?op=listar',
+					url: '../ajax/contratos.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -88,11 +102,11 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 10,//Paginación
+		"iDisplayLength": 12,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
-
+	
 
 //Función ListarArticulos
 function listarArticulos()
@@ -107,7 +121,7 @@ function listarArticulos()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/cronograma_pagos.php?op=selectPeriodosVacaciones',
+					url: '../ajax/contratos.php?op=selectPeriodosVacaciones',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -128,7 +142,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/cronograma_pagos.php?op=guardaryeditar",
+		url: "../ajax/contratos.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -145,16 +159,28 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_ano)
+function mostrar(nro_doc)
 {
-		$.post("../ajax/cronograma_pagos.php?op=mostrar",{id_ano : id_ano}, function(data, status)
+		$.post("../ajax/contratos.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#id_ano").val(data.id_ano);
+		$("#id_nomtrab").val(data.id_nomtrab);
+		$("#id_nomtrab").selectpicker('refresh');
+
+		$("#nro_doc").val(data.nro_doc);
+		$("#apemat_trab").val(data.apemat_trab);
+		$("#id_trab").val(data.id_trab);
+
+		$("#sucursal").val(data.sucursal);
+		$("#area_trab").val(data.area_trab);
+
+		$("#fec_ing_trab").val(data.fec_ing_trab);
 
 
+
+		$("#CantItems").val(data.CantItems);
 
 
 		//Ocultar y mostrar los botones
@@ -164,18 +190,16 @@ function mostrar(id_ano)
 		$("#btnAgregarArt").show();
  	});
 
- 	$.post("../ajax/cronograma_pagos.php?op=listarDetalle&id="+id_ano,function(r){
-	        $("#detalles").html(r);
-	});	
+ 	
 }
 
 //Función para anular registros
-function anular(id_ano)
+function anular(nro_doc)
 {
 	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/cronograma_pagos.php?op=anular", {id_ano : id_ano}, function(e){
+        	$.post("../ajax/contratos.php?op=anular", {nro_doc : nro_doc}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -189,7 +213,7 @@ var impuesto=18;
 var cont=0;
 var detalles=0;
 //$("#guardar").hide();
-$("#btnGuardar").hide();
+$("#btnGuardar").show();
 $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
@@ -205,10 +229,12 @@ function marcarImpuesto()
     }
   }
 
+
+
 function agregarDetalle(id_periodo,periodo)
   {
   	
-
+  	
     if (id_periodo!="")
     {
     	

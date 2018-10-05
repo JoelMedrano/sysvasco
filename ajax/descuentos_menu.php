@@ -35,13 +35,27 @@ $pagado=isset($_POST["pagado"])? limpiarCadena($_POST["pagado"]):"";
 $saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
 
 
+$fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
+$fec_des1 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des1)));
+$mon_des1=isset($_POST["mon_des1"])? limpiarCadena($_POST["mon_des1"]):"";
+
+$fec_des2=isset($_POST["fec_des2"])? limpiarCadena($_POST["fec_des2"]):"";
+$fec_des2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des2)));
+$mon_des2=isset($_POST["mon_des2"])? limpiarCadena($_POST["mon_des2"]):"";
+
+$fec_des3=isset($_POST["fec_des3"])? limpiarCadena($_POST["fec_des3"]):"";
+$fec_des3 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des3)));
+$mon_des3=isset($_POST["mon_des3"])? limpiarCadena($_POST["mon_des3"]):"";
+
+
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		
 		if (empty($id_des_men)){
-			$rspta=$descuentos_menu->insertar(			$id_trab,	
+			$rspta=$descuentos_menu->insertar(		$id_trab,	
 													$fec_suc,
 													$detalle,
 													$num_cuotas,
@@ -50,6 +64,12 @@ switch ($_GET["op"]){
 													$cantidad,
 													$pagado,
 													$saldo,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
@@ -67,6 +87,12 @@ switch ($_GET["op"]){
 													$cantidad,
 													$pagado,
 													$saldo,
+													$fec_des1,
+													$mon_des1,
+													$fec_des2,
+													$mon_des2,
+													$fec_des3,
+													$mon_des3,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
@@ -76,7 +102,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'desactivar':
-		$rspta=$descuentos_menu->desactivar(            $id_des_men,
+		$rspta=$descuentos_menu->desactivar(      $id_des_men,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg
@@ -89,7 +115,7 @@ switch ($_GET["op"]){
 		$id='0';
 		$id=$descuentos_menu->obtenerIdAprobador($usu_reg);
 
-		$rspta=$descuentos_menu->activar(			   $id_des_men,
+		$rspta=$descuentos_menu->activar(	   $id_des_men,
 											   $fec_reg,
 											   $usu_reg,
 											   $pc_reg);

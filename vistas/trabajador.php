@@ -185,6 +185,8 @@ if ($_SESSION['rrhh']==1)
 
                     <div class="form-group  col-xs-12">
                     </div>
+
+
                     <div class="form-group  col-xs-12">
                     </div>
                         
@@ -373,6 +375,10 @@ if ($_SESSION['rrhh']==1)
                                     </div>
 
                             </div>
+
+
+
+
 
 
                            
@@ -1017,6 +1023,34 @@ if ($_SESSION['rrhh']==1)
 
 
                       </div>
+
+
+                       <div class="box-header with-border">
+
+                                    <div class="form-group  col-xs-12">
+                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Grup.Sanguineo:</label>
+                                        <div class="col-lg-2">
+                                          <select id="id_gru_san" name="id_gru_san" class="form-control selectpicker" data-live-search="true"></select>
+                                        </div>
+                                        
+                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Peso:</label>
+                                        <div class="col-lg-2">
+                                        <input type="text" class="form-control" name="peso" id="peso">
+                                        </div>
+                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Talla:</label>
+                                        <div class="col-lg-2">
+                                        <input type="text" class="form-control" name="talla" id="talla">
+                                        </div>
+                                    </div>
+
+                       </div>
+
+
+
+
+                     
+
+
 
 
 

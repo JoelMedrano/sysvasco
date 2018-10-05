@@ -95,20 +95,24 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cantidad:</label>
-                            <input type="number" class="form-control" name="cantidad" id="cantidad">
+                            <input type="decimal" class="form-control" name="cantidad" id="cantidad">
                           </div>
+
                           <div class="form-group  col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Num.Cuotas:</label>
                             <input type="number" class="form-control" name="num_cuotas" id="num_cuotas">
                           </div>
+
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cant.Pagada</label>
-                            <input type="number" class="form-control" name="pagado" id="pagado" readonly>
+                            <input type="decimal" class="form-control" name="pagado" id="pagado" readonly>
                           </div>
+
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Saldo</label>
-                            <input type="number" class="form-control" name="saldo" id="saldo" readonly>
+                            <input type="decimal" class="form-control" name="saldo" id="saldo" readonly>
                           </div>
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Detalle:</label>
                             <input type="text" class="form-control" name="detalle" id="detalle">
@@ -121,24 +125,41 @@ if ($_SESSION['rrhh']==1)
                           <div class="form-group  col-xs-12">
                           </div>
                           <div class="form-group  col-xs-12">
-                          </div>
+                          </div> 
+                          
                          
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Fecha Descuento 1</label>
-                            <input type="number" class="form-control" name="fec_des1" id="fec_des1" readonly>
-                          </div>
+                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Fecha Descuento 1</label>
+                                      <select id="fec_des1" name="fec_des1" class="form-control selectpicker" data-live-search="true"></select>
+                                    </div>
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Fecha Descuento 2</label>
-                            <input type="number" class="form-control" name="fec_des2" id="fec_des2" readonly>
-                          </div>
+                                    <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                      <label>Monto Dscto 1</label>
+                                      <input type="decimal" class="form-control" name="mon_des1" id="mon_des1">
+                                    </div>
+
+                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Fecha Descuento 2</label>
+                                      <select id="fec_des2" name="fec_des2" class="form-control selectpicker" data-live-search="true"></select>
+                                    </div>
 
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                            <label>Fecha Descuento 3</label>
-                            <input type="number" class="form-control" name="fec_des3" id="fec_des3" readonly>
-                          </div>
+                                    <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                      <label>Monto Dscto 2</label>
+                                      <input type="decimal" class="form-control" name="mon_des2" id="mon_des2">
+                                    </div>
+
+
+                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Fecha Descuento 3</label>
+                                      <select id="fec_des3" name="fec_des3" class="form-control selectpicker" data-live-search="true"></select>
+                                    </div>
+
+                                    <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                      <label>Monto Dscto 3</label>
+                                      <input type="decimal" class="form-control" name="mon_des3" id="mon_des3">
+                                    </div>
 
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">

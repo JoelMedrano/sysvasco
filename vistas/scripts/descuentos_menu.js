@@ -35,6 +35,33 @@ function init(){
 
 
 
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto1", function(r){
+	            $("#fec_des1").html(r);
+	            $('#fec_des1').selectpicker('refresh');
+
+	});
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto2", function(r){
+	            $("#fec_des2").html(r);
+	            $('#fec_des2').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto3", function(r){
+	            $("#fec_des3").html(r);
+	            $('#fec_des3').selectpicker('refresh');
+
+	});
+
+
+
+
+
+
 
 
 
@@ -157,9 +184,7 @@ function mostrar(id_des_men)
  		$("#cantidad").val(data.cantidad);
  		$("#pagado").val(data.pagado);
  		$("#saldo").val(data.saldo);
- 		$("#fec_des1").val(data.fec_des1);
- 		$("#fec_des2").val(data.fec_des2);
- 		$("#fec_des3").val(data.fec_des3);
+
 
 
  		$("#id_trab").val(data.id_trab);
@@ -171,6 +196,21 @@ function mostrar(id_des_men)
 		$("#modalidad").val(data.modalidad);
 		$('#modalidad').selectpicker('refresh');
 
+
+
+
+
+		$("#fec_des1").val(data.fec_des1);
+		$('#fec_des1').selectpicker('refresh');
+		$("#mon_des1").val(data.mon_des1);
+
+		$("#fec_des2").val(data.fec_des2);
+		$('#fec_des2').selectpicker('refresh');
+		$("#mon_des2").val(data.mon_des2);
+
+		$("#fec_des3").val(data.fec_des3);
+		$('#fec_des3').selectpicker('refresh');	
+		$("#mon_des3").val(data.mon_des3);
 
 	
 

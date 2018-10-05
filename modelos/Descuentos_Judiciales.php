@@ -16,6 +16,7 @@ Class Descuentos_Judiciales
 													$fec_ini,
 													$fec_fin,
 													$mon_men,
+													$data_adjunta,
 													$fec_reg,
 													$usu_reg,
 													$pc_reg)
@@ -25,6 +26,7 @@ Class Descuentos_Judiciales
 												 fec_ini,
 												 fec_fin,
 												 mon_men,
+												 data_adjunta,
 												 est_des_jud,
 												 fec_reg,
 												 usu_reg,
@@ -34,6 +36,7 @@ Class Descuentos_Judiciales
 												'$fec_ini',
 												'$fec_fin',
 												'$mon_men',
+												'$data_adjunta',
 												'1',
 												'$fec_reg',
 												'$usu_reg',
@@ -50,6 +53,7 @@ Class Descuentos_Judiciales
 												  $fec_ini,
 												  $fec_fin,
 												  $mon_men,
+												  $data_adjunta,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg)
@@ -59,6 +63,7 @@ Class Descuentos_Judiciales
 											   fec_ini='$fec_ini',
 											   fec_fin='$fec_fin',
 											   mon_men='$mon_men',
+											   data_adjunta='$data_adjunta',
 											   fec_reg='$fec_reg',
 											   usu_reg='$usu_reg',
 											   pc_reg='$pc_reg'
@@ -99,7 +104,8 @@ Class Descuentos_Judiciales
 	{
 		$sql="SELECT  dj.id_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, 
 				tsua.des_larga AS sucursal_anexo, tare.des_larga AS area_trab, dj.obs_des_jud, dj.est_des_jud,
-				DATE(dj.fec_ini) AS fec_ini, DATE(dj.fec_fin) AS  fec_fin, dj.mon_men, dj.id_des_jud
+				DATE(dj.fec_ini) AS fec_ini, DATE(dj.fec_fin) AS  fec_fin, dj.mon_men, dj.id_des_jud,
+				dj.data_adjunta
 				FROM descuentos_judiciales dj
 				INNER JOIN trabajador tr ON
 				tr.id_trab= dj.id_trab

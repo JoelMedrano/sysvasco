@@ -155,6 +155,7 @@ if (strlen(session_id()) < 1)
                 <span>Almacén</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
+
               <ul class="treeview-menu">
                 <li><a href="importar_movimientos.php"><i class="fa fa-circle-o"></i> Importar Movimientos</a></li>
                 <li><a href="movimientos_fecha.php"><i class="fa fa-circle-o"></i> Fecha de Movimientos</a></li>
@@ -163,6 +164,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="articulojf.php"><i class="fa fa-circle-o"></i> Articulos</a></li>
 
               </ul>
+
             </li>';
             }
             ?>
@@ -248,34 +250,94 @@ if (strlen(session_id()) < 1)
             }
             ?>
 
-             <?php
+            
+
+
+            <?php
             if ($_SESSION['rrhh']==1)
             {
               echo '<li class="treeview">
               <a href="#">
-                <i class="fa fa-heartbeat"></i> <span>Recursos Humanos</span>
-                <i class="fa fa-angle-left pull-right"></i>
+                  <i class="fa fa-heartbeat"></i> <span>Recursos Humanos</span>
+                  <i class="fa fa-angle-left pull-right"></i>
               </a>
+
+          
               <ul class="treeview-menu">
-                <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Maestros</a></li>
-                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Registro</a></li>
-                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Control</a></li>
-                <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i> Cronograma de Pagos</a></li>
-                <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i> Vacaciones</a></li>
-                <li><a href="trabajador.php"><i class="fa fa-circle-o"></i> Trabajador</a></li>
-                <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i> Refrigerio</a></li>
-                <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i> Regimen Pensionario</a></li>
-                <li><a href="descuentos_judiciales.php"><i class="fa fa-circle-o"></i> Descuentos Judiciales</a></li>
-                <li><a href="prestamos.php"><i class="fa fa-circle-o"></i> Prestamos</a></li>
-                <li><a href="descuentos_insumos_destajeros.php"><i class="fa fa-circle-o"></i> Descuentos Insumos/Destajeros</a></li>
-                <li><a href="descuentos_varios.php"><i class="fa fa-circle-o"></i> Descuentos Varios(Prendas)</a></li>
-                <li><a href="descuentos_menu.php"><i class="fa fa-circle-o"></i> Descuento Menu</a></li>
-                <li><a href="anticipo_adelanto.php"><i class="fa fa-circle-o"></i> Anticipo adelanto</a></li>
-                <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i> Abono - Regularización</a></li>
+
+
+                 
+                   
+                  <li class="treeview">
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Maestros</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+
+                          <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i> Refrigerio</a></li>
+                          <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i> Regimen Pensionario</a></li>
+                          <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i> Cronograma de Pagos</a></li>
+
+                          </li>
+                      </ul>
+                  </li>
+
+
+                  <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>Trabajador</a></li>
+
+                  <li><a href="contratos.php"><i class="fa fa-circle-o"></i>Contratos</a></li>
+
+                  <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i>Vacaciones</a></li>
+
+                  <li><a href="prestamos.php"><i class="fa fa-circle-o"></i>Prestamos</a></li>
+
+          
+
+                  <li class="treeview">
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Descuentos</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+                          <li><a href="descuentos_judiciales.php"><i class="fa fa-circle-o"></i> Descuentos Judiciales</a></li>
+                          <li><a href="descuentos_insumos_destajeros.php"><i class="fa fa-circle-o"></i> Descuentos Insumos/Destajeros</a></li>
+                          <li><a href="descuentos_varios.php"><i class="fa fa-circle-o"></i> Descuentos Varios(Prendas)</a></li>
+                          <li><a href="descuentos_menu.php"><i class="fa fa-circle-o"></i> Descuento Menu</a></li>
+                          <li><a href="anticipo_adelanto.php"><i class="fa fa-circle-o"></i> Anticipo adelanto</a></li>
+                          </li>
+                      </ul>
+                 </li> 
+          
+                  <li class="treeview">
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Abonos</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+                          <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i> Abono - Regularización</a></li>
+                          </li>
+                      </ul>
+                  </li>
+
+                  
+
+
+          
               </ul>
-            </li>';
+          
+          </li>';
             }
             ?>
+
+
+
 
              <?php
             if ($_SESSION['reloj']==1)
@@ -336,7 +398,7 @@ if (strlen(session_id()) < 1)
                           <li><a href="detalle_cotizacion.php"><i class="fa fa-circle-o"></i> Editar Cotizacion</a></li>
                           </li>
                       </ul>
-              </li>
+              </li> 
           
                   <li class="treeview">
                       <a href="#">

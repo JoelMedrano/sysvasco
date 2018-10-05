@@ -365,7 +365,7 @@ switch ($_GET["op"]){
 
 
 // Trabajador de vacaciones - Agregado DG 27082018
-	case "selectTrabajadorVacaciones":
+	case "selectPeriodosVacaciones":
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
 
@@ -376,6 +376,39 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->id_periodo . '>' . $reg->periodo. '</option>';
 				}
 	break;
+
+// Trabajador de vacaciones - Agregado DG 27082018
+	case "selectFechaAnualCronogramaPagos":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectFechaAnualCronogramaPagos();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_ano . '>' . $reg->ano. '</option>';
+				}
+	break;
+
+
+
+	case "selectGrupoSanguineo":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectGrupoSanguineo();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_gru_san . '>' . $reg->grupo_sanguineo . '</option>';
+				}
+	break;
+
+
+
+
+
 
 
 

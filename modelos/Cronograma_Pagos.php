@@ -1,4 +1,4 @@
-<?php
+<?php 
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
@@ -11,71 +11,145 @@ Class Cronograma_Pagos
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen)
+	public function insertar($id_ano, $des_fec_pag, $fec_pag)
 	{
-		$sql="INSERT INTO articulo (idcategoria,codigo,nombre,stock,descripcion,imagen,condicion)
-		VALUES ('$idcategoria','$codigo','$nombre','$stock','$descripcion','$imagen','1')";
-		return ejecutarConsulta($sql);
+		
 
+		$num_elementos=0;
+		$sw=true;
+		$item=1;
 
+		while ($num_elementos <count($des_fec_pag))
+		{
+			$sql_detalle = "INSERT INTO cronograma_pagos(id_ano, des_fec_pag, fec_pag) 
+			VALUES ('$id_ano','$des_fec_pag[$num_elementos]','$fec_pag[$num_elementos]',
+				'$obser[$num_elementos]')";
+			ejecutarConsulta($sql_detalle) or $sw = false;
+			$num_elementos=$num_elementos + 1;
+			$item=$item + 1;
+		
+		}
+
+		return $sw;
 	}
+
 
 	//Implementamos un método para editar registros
-	public function editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen)
+	public function editar($id_ano, $des_fec_pag, $fec_pag, $desde, $hasta  )
 	{
-		$sql="UPDATE articulo SET idcategoria='$idcategoria',codigo='$codigo',nombre='$nombre',stock='$stock',descripcion='$descripcion',imagen='$imagen' WHERE idarticulo='$idarticulo'";
+		
+		$num_elementos=0;
+		$sw=true;
+
+		while ($num_elementos < count($des_fec_pag))
+		{			
+			$sql_detalle="UPDATE cronograma_pagos SET    fec_pag='$fec_pag[$num_elementos]',  desde='$desde[$num_elementos]',   hasta='$hasta[$num_elementos]'     WHERE id_ano='$id_ano' AND des_fec_pag='$des_fec_pag[$num_elementos]'  ";
+			ejecutarConsulta($sql_detalle) or $sw = false;
+			$num_elementos=$num_elementos + 1;
+		}
+
+		return $sw;
+	}
+
+
+	public function insertar2($nro_doc, $CantItems,  $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser)
+	{
+		
+
+
+		$item=$CantItems;
+
+
+		$num_elementos=$CantItems;
+		$sw=true;
+		//while ($num_elementos < count($correlativo) AND $correlativo > $cantidaditems)
+		while ($num_elementos < count($correlativo))
+		{	
+
+			$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES( '$nro_doc', '$item','$CantItems','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' )  ";
+			ejecutarConsulta($sql_detalle) or $sw = false;
+			$num_elementos=$num_elementos + 1;
+			$item=$item + 1;
+		
+		}
+
+			return $sw;
+
+	}
+
+
+	//Implementamos un método para anular la venta
+	public function anular($nro_doc)
+	{
+		$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
 		return ejecutarConsulta($sql);
 	}
 
-	//Implementamos un método para desactivar registros
-	public function desactivar($idarticulo)
-	{
-		$sql="UPDATE articulo SET condicion='0' WHERE idarticulo='$idarticulo'";
-		return ejecutarConsulta($sql);
-	}
-
-	//Implementamos un método para activar registros
-	public function activar($idarticulo)
-	{
-		$sql="UPDATE articulo SET condicion='1' WHERE idarticulo='$idarticulo'";
-		return ejecutarConsulta($sql);
-	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idarticulo)
+	public function mostrar($id_ano)
 	{
-		$sql="SELECT * FROM articulo WHERE idarticulo='$idarticulo'";
+		$sql="SELECT id_cp, id_ano,
+					 TbPea.Des_Corta AS Ano, 
+					 TbFpa.Des_Larga AS Descrip_fec_pag,
+					 des_fec_pag, 
+					 DATE(fec_pag) AS fec_pag,
+					 DATE(desde) AS desde,
+					 DATE(hasta) AS hasta,
+		 			 est_reg 
+			FROM cronograma_pagos cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+				TbFpa.cod_argumento=  cp.des_fec_pag
+				AND TbFpa.Cod_tabla='TFPA'
+			WHERE cp.id_ano='$id_ano'
+			ORDER BY  cp.des_fec_pag ASC
+              ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
+
+
+	public function listarDetalle($id_ano)
+	{
+		$sql="SELECT id_cp,
+					 id_ano,
+		 			 TbPea.Des_Corta AS Ano,
+		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
+		 			 des_fec_pag, 
+		 			 DATE(fec_pag) AS fec_pag,
+		 			 DATE(desde) AS desde,
+					 DATE(hasta) AS hasta,
+					 est_reg 
+			FROM cronograma_pagos cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+				TbFpa.cod_argumento=  cp.des_fec_pag
+				AND TbFpa.Cod_tabla='TFPA'
+			WHERE cp.id_ano='$id_ano'
+			AND cp.des_fec_pag  NOT IN  ('0')
+			ORDER BY  cp.des_fec_pag ASC";
+		return ejecutarConsulta($sql);
+	}
+
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria";
-		return ejecutarConsulta($sql);
+		$sql="SELECT DISTINCT 'CP' AS cp, obs,   id_ano, TbPea.Des_Corta AS Ano, est_reg FROM cronograma_pagos cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				order by id_ano DESC ";
+		return ejecutarConsulta($sql);		
 	}
 
-	//Implementar un método para listar los registros activos
-	public function listarActivos()
-	{
-		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
-		return ejecutarConsulta($sql);
-	}
+	
 
-	//Implementar un método para listar los registros activos, su último precio y el stock (vamos a unir con el último registro de la tabla detalle_ingreso)
-	public function listarActivosVenta()
-	{
-		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_venta,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
-		return ejecutarConsulta($sql);
-	}
 
-	//Implementar un método para listar los registros activos, su último precio y el stock (vamos a unir con el último registro de la tabla detalle_ingreso)
-	public function listarActivosCotizacion()
-	{
-		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_cotizacion,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
-		return ejecutarConsulta($sql);
-	}
-
+	
 }
-
 ?>
