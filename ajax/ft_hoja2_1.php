@@ -6,48 +6,59 @@ require_once "../modelos/FT_hoja2_1.php";
 
 $mft=new FT_hoja2_1();
 
+$idftc=isset($_POST["idftc"])? limpiarCadena($_POST["idftc"]):"";
 $idmft=isset($_POST["idmft"])? limpiarCadena($_POST["idmft"]):"";
-$cod_mod=isset($_POST["cod_mod"])? limpiarCadena($_POST["cod_mod"]):"";
-$nom_mod=isset($_POST["nom_mod"])? limpiarCadena($_POST["nom_mod"]):"";
-$molde=isset($_POST["molde"])? limpiarCadena($_POST["molde"]):"";
-$idusuario=$_SESSION["idusuario"];
+$tela1=isset($_POST["tela1"])? limpiarCadena($_POST["tela1"]):"";
 
 
 switch ($_GET["op"]){
 
   case 'guardaryeditar':
 
-    if (!file_exists($_FILES['molde']['tmp_name']) || !is_uploaded_file($_FILES['molde']['tmp_name']))
-    {
-      $molde=$_POST["moldeactual_molde"];
+    if (empty($idmft)){
+      $rspta=$mft->insertar(    $idusuario,
+    														$fecha_hora,
+    														$empresa,
+    														$cod_mod,
+    														$tallas_mod,
+    														$temp_mod,
+    														$div_mod,
+    														$dest_mod,
+    														$id_trab,
+    														$color_mod,
+    														$tela1_mod,
+    														$tela2_mod,
+    														$tela3_mod,
+    														$bord_mod,
+    														$esta_mod,
+    														$manu_mod,
+    														$imagen,
+    														$imagen2,
+                                $_POST['color']);
+      echo $rspta ? "FT registrada" : "No se pudieron registrar todos los datos de la FT";
     }
-    else
-    {
-      $ext = explode(".", $_FILES["molde"]["name"]);
-      if ($_FILES['molde']['type'] == "image/jpg" || $_FILES['molde']['type'] == "image/jpeg" || $_FILES['molde']['type'] == "image/png")
-      {
-        $molde = round(microtime(true)) . '.' . end($ext);
-        move_uploaded_file($_FILES["molde"]["tmp_name"], "../files/moldes/" . $molde);
-      }
+    else {
+      $rspta=$mft->editar(	    $idmft,
+      													$id_trab,
+      													$empresa,
+      													$color_mod,
+      													$tallas_mod,
+      													$div_mod,
+      													$temp_mod,
+      													$dest_mod,
+      													$tela1_mod,
+      													$tela2_mod,
+      													$tela3_mod,
+      													$bord_mod,
+      													$esta_mod,
+      													$manu_mod,
+      													$imagen,
+      													$imagen2,
+                                $_POST['color']);
+        echo $rspta ? "FT actualizada" : "FT no se pudo actualizar";
     }
+  break;
 
-		if (($idmft>0)){
-      $rspta=$mft->insertar(       $idmft,
-                                   $molde,
-                                   $_POST["idarticulo"],
-                                   $_POST["desc_pieza"],
-                                   $_POST["cant_pieza"],
-                                   $_POST["sent_tela"],
-                                   $_POST["tapete"],
-                                   $_POST["collareta"],
-                                   $_POST["consumo"],
-                                   $_POST["tono"],
-                                   $_POST["observaciones"]);
-			echo $rspta ? "Detalle registrado" : "No se pudieron registrar todos los datos del detalle";
-		}
-		else {
-		}
-	break;
 
 	case 'listar':
 		$rspta=$mft->listar();
@@ -59,28 +70,22 @@ switch ($_GET["op"]){
 
       if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3') {
 
-        $url='../reportes/rptFT_hoja2.php?id=';
+        $url='../reportes/rptFichaTecnica.php?id=';
 
         $data[]=array(
           "0"=>$reg->idmft,
-          "1"=>$reg->marca,
-          "2"=>$reg->cod_mod,
-          "3"=>$reg->nom_mod,
-          "4"=>$reg->diseñador,
-          "5"=>$reg->desarrollador,
-          "6"=>$reg->fecha,
-          "7"=>$reg->vb,
-          "8"=>($reg->estado=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
-          "9"=>($reg->estado=='por aprobar')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.
-                                              
-                                               '<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'):
-                 (($reg->estado=='rechazado')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.
-                                               
-                                               ' <button class="btn btn-danger" onclick="eliminar('.$reg->idmft.')"><i class="fa fa-trash"></i></button>'.
-                                               '<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'):
-                                             ( '<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.
-                                               
-                                               '<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'))
+          "1"=>$reg->cod_mod,
+          "2"=>$reg->com_color,
+          "3"=>$reg->tela1,
+          "4"=>$reg->color1,
+          "5"=>$reg->tela2,
+          "6"=>$reg->color2,
+          "7"=>$reg->tela3,
+          "8"=>$reg->color3,
+          "9"=>($reg->idftc)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idftc.')"><i class="fa fa-pencil"></i></button>'.
+          ' <button class="btn btn-danger" onclick="desactivar('.$reg->idftc.')"><i class="fa fa-close"></i></button>':
+          '<button class="btn btn-warning" onclick="mostrar('.$reg->idftc.')"><i class="fa fa-pencil"></i></button>'.
+          ' <button class="btn btn-primary" onclick="activar('.$reg->idftc.')"><i class="fa fa-check"></i></button>',
 
         );
 
@@ -90,16 +95,18 @@ switch ($_GET["op"]){
 
         $data[]=array(
           "0"=>$reg->idmft,
-          "1"=>$reg->marca,
-          "2"=>$reg->cod_mod,
-          "3"=>$reg->nom_mod,
-          "4"=>$reg->diseñador,
-          "5"=>$reg->desarrollador,
-          "6"=>$reg->fecha,
-          "7"=>$reg->vb,
-          "8"=>($reg->estado=='por aprobar')?('<span class="label bg-yellow">Por Aprobar</span>'):(($reg->estado=='rechazado')?('<span class="label bg-red">Rechazado</span>'):('<span class="label bg-green">Aprobado</span>')),
-          "9"=>($reg->estado)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.'<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>':' <button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.'<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
-
+          "1"=>$reg->cod_mod,
+          "2"=>$reg->com_color,
+          "3"=>$reg->tela1,
+          "4"=>$reg->color1,
+          "5"=>$reg->tela2,
+          "6"=>$reg->color2,
+          "7"=>$reg->tela3,
+          "8"=>$reg->color3,
+          "9"=>($reg->idftc)?'<button class="btn btn-warning" onclick="mostrar('.$reg->idftc.')"><i class="fa fa-pencil"></i></button>'.
+          ' <button class="btn btn-danger" onclick="desactivar('.$reg->idftc.')"><i class="fa fa-close"></i></button>':
+          '<button class="btn btn-warning" onclick="mostrar('.$reg->idftc.')"><i class="fa fa-pencil"></i></button>'.
+          ' <button class="btn btn-primary" onclick="activar('.$reg->idftc.')"><i class="fa fa-check"></i></button>',
           );
       }
 
@@ -114,106 +121,93 @@ switch ($_GET["op"]){
 	break;
 
   case 'mostrar':
-    $rspta=$mft->mostrar($idmft);
+    $rspta=$mft->mostrar($idftc);
     //Codificar el resultado utilizando json
     echo json_encode($rspta);
   break;
 
+//TODO: selelct de fichas tenicas
   case 'selectFT':
-  require_once "../modelos/FT_hoja2.php";
-  
-  $rspta = $mft->selectFT();
+        
+    $rspta = $mft->selectFT();
 
-  while ($reg = $rspta->fetch_object())
+        echo '<option value="">SELECCIONE</option>';
 
-      {
-      echo '<option value=' . $reg->cod_mod . '>' . $reg->ftmod . '</option>';
-      }
-break;
+        while ($reg = $rspta->fetch_object())
 
-case 'listarDetalle':
-		//Recibimos el idingreso
-		$id=$_GET['id'];
+        {
+        echo '<option value=' . $reg->idmft . '>' . $reg->modelo . '</option>';
+        }
+  break;
 
-		$rspta = $mft->listarDetalle($id);
+//TODO: select para combos de ft
+	case 'selectCombo':
 		
-    echo '<thead style="background-color:#A9D0F5">
-                                    <th>Opciones</th>
-                                    <th>Combo Color</th>
-                                    <th>Tela 1</th>
-                                    <th>Color 1</th>
-                                    <th>Tela 2</th>
-                                    <th>Color 2</th>
-                                    <th>Tela 3</th>
-                                    <th>Color 3</th>
-          </thead>';
+    $rspta = $mft->selectCombo($idmft);
+    
+    echo '<option value="">SELECCIONE</option>';
 
-		while ($reg = $rspta->fetch_object())
+				while ($reg = $rspta->fetch_object())
+
 				{
-          echo '<tr class="filas">
-                  <td></td>
-                  <td>'.$reg->com_color.'</td>
-                  <td>'.$reg->tela1.'</td>
-                  <td>'.$reg->color1.'</td>
-                  <td>'.$reg->tela2.'</td>
-                  <td>'.$reg->color2.'</td>
-                  <td>'.$reg->tela3.'</td>
-                  <td>'.$reg->color3.'</td>
-                </tr>';
-					
+				echo '<option value=' . $reg->cod_color . '>' . $reg->color . '</option>';
 				}
-    echo '<tfoot>
-                                  <th>Opciones</th>
-                                  <th>Combo Color</th>
-                                  <th>Tela 1</th>
-                                  <th>Color 1</th>
-                                  <th>Tela 2</th>
-                                  <th>Color 2</th>
-                                  <th>Tela 3</th>
-                                  <th>Color 3</th>
-            </tfoot>';
+
   break;
   
-  case 'listarCombos':
-   
-  $rspta=$mft->listarCombos();
-   //Vamos a declarar un array
-   $data= Array();
+  //TODO: select para traer tela 1
+  case 'selectTela1':
+		
+  $rspta = $mft->selectTela1($idmft);
+  
+    while ($reg = $rspta->fetch_object())
 
-   while ($reg=$rspta->fetch_object()){
-     $data[]=array(
-       "0"=>'<button class="btn btn-success" onclick="agregarDetalle(\''.$reg->cod_color.'\',\''.$reg->detalle.'\')"><span class="fa fa-plus"></span></button>',
-       "1"=>$reg->idmft,
-       "2"=>$reg->cod_mod,
-       "3"=>$reg->nom_mod,
-       "4"=>$reg->cod_color,
-       "5"=>$reg->color
-       );
-   }
-   $results = array(
-     "sEcho"=>1, //Información para el datatables
-     "iTotalRecords"=>count($data), //enviamos el total registros al datatable
-     "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
-     "aaData"=>$data);
-   echo json_encode($results);
+      {
+      echo '<option value=' . $reg->tela1_mod . '>' . $reg->tela1 . '</option>';
+      }
+
 break;
 
-case 'eliminar':
-$rspta=$mft->eliminar($idmft);
-echo $rspta ? "FT lista para eliminar" : "FT no se puede eliminar";
+  //TODO: select para traer tela 2
+  case 'selectTela2':
+		
+  $rspta = $mft->selectTela2($idmft);
+  
+    while ($reg = $rspta->fetch_object())
+
+      {
+      echo '<option value=' . $reg->tela2_mod . '>' . $reg->tela2 . '</option>';
+      }
+
 break;
 
-case 'selectTela1':
 
-$rspta = $mft->selectTela1();
+  //TODO: select para traer tela 3
+  case 'selectTela3':
+		
+  $rspta = $mft->selectTela3($idmft);
+  
+    while ($reg = $rspta->fetch_object())
 
-while ($reg = $rspta->fetch_object())
+      {
+      echo '<option value=' . $reg->tela3_mod . '>' . $reg->tela3 . '</option>';
+      }
 
-    {
-    echo '<option value=' . $reg->tela1 . '>' . $reg->nom_tela1 . '</option>';
-    }
 break;
 
+
+  //TODO: select para traer colores de la tela 1
+  case 'selectColor1':
+		
+  $rspta = $mft->selectColor1($tela1);
+  
+    while ($reg = $rspta->fetch_object())
+
+      {
+      echo '<option value=' . $reg->cod_color . '>' . $reg->color . '</option>';
+      }
+
+break;
 
 
 }
