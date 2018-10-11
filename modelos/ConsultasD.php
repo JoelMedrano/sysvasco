@@ -217,7 +217,10 @@ Class ConsultasD
 
 	public function selectPeriodosVacaciones()
 	{
-		$sql="SELECT cod_argumento AS id_periodo , des_larga AS periodo FROM tabla_maestra_detalle where cod_tabla='TPEA' ";
+		$sql="SELECT cod_argumento AS id_periodo , des_larga AS periodo 
+		FROM tabla_maestra_detalle 
+		where cod_tabla='TPEA'
+		order by des_larga DESC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -297,6 +300,33 @@ Class ConsultasD
 		order by TbGsa.cod_argumento ASC";
 		return ejecutarConsulta($sql);		
 	}
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectSituacionInformativa()
+	{
+		$sql="SELECT TbSic.cod_argumento as id_sit_inf_act,  TbSic.des_larga AS situacion_informativa_actual ,
+					TbSic.cod_argumento as id_sit_inf_ant,  TbSic.des_larga AS situacion_informativa_anterior   
+		FROM tabla_maestra_detalle TbSic
+		where TbSic.cod_tabla='TSIC'
+		order by TbSic.cod_argumento ASC";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectPagoEspecial()
+	{
+		$sql="SELECT TbMpe.cod_argumento as id_pag_esp,  TbMpe.des_larga AS pago_especial  
+		FROM tabla_maestra_detalle TbMpe
+		where TbMpe.cod_tabla='TMPE'
+		order by TbMpe.cod_argumento ASC";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
 
 
 

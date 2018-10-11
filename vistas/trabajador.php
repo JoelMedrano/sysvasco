@@ -80,19 +80,20 @@ if ($_SESSION['rrhh']==1)
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nombre(*):</label>
                                 <div class="col-lg-2">
                                    <input type="hidden" name="idarticulo" id="idarticulo">
-                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab" required>
+                                    <input type="hidden" name="CantItems" id="CantItems">
+                                   <input type="text" class="form-control" name="nom_trab" id="nom_trab" required autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required>
+                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required>
+                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
                                 <div class="col-lg-1">
-                                   <input type="text" readonly class="form-control" name="id_trab" id="id_trab" >
+                                   <input type="text" readonly class="form-control" name="id_trab" id="id_trab"  autocomplete="off">
                                 </div>
                              
                            </div>
@@ -102,11 +103,11 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Direccion(*):</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="dir_trab" id="dir_trab" >
+                                  <input type="text" class="form-control" name="dir_trab" id="dir_trab"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Urbanizacion(*):</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="urb_trab" id="urb_trab" >
+                                  <input type="text" class="form-control" name="urb_trab" id="urb_trab"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Distrito(*):</label>
                                 <div class="col-lg-2">
@@ -114,7 +115,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento:</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="departamento" id="departamento" >
+                                  <input type="text" class="form-control" name="departamento" id="departamento"  autocomplete="off">
                                 </div>
                             </div>
 
@@ -137,7 +138,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Lugar Nac:</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="lug_nac_trab" id="lug_nac_trab">
+                                  <input type="text" class="form-control" name="lug_nac_trab" id="lug_nac_trab"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Edad</label>
                                 <div class="col-lg-1">
@@ -145,7 +146,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nacionalidad</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="nacionalidad" id="nacionalidad">
+                                  <input type="text" class="form-control" name="nacionalidad" id="nacionalidad"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Est.Civil(*):</label>
                                 <div class="col-lg-1">
@@ -163,19 +164,19 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Dni(*):</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab" required>
+                                  <input type="text" class="form-control" name="num_doc_trab" id="num_doc_trab" required  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tlf. Docimicilio:</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="num_tlf_dom" id="num_tlf_dom">
+                                  <input type="text" class="form-control" name="num_tlf_dom" id="num_tlf_dom"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tlf. Celular:</label>
                                 <div class="col-lg-1">
-                                  <input type="text" class="form-control" name="num_tlf_cel" id="num_tlf_cel">
+                                  <input type="text" class="form-control" name="num_tlf_cel" id="num_tlf_cel"  autocomplete="off"> 
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">E-Mail</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="email_trab" id="email_trab">
+                                  <input type="text" class="form-control" name="email_trab" id="email_trab"  autocomplete="off">
                                 </div>
                             </div>
 
@@ -198,19 +199,19 @@ if ($_SESSION['rrhh']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Sucursal(*):</label>
                                 <div class="col-lg-2">
-                                <select id="id_sucursal" name="id_sucursal" class="form-control selectpicker" data-live-search="true" required ></select>
+                                <select id="id_sucursal" name="id_sucursal" class="form-control selectpicker" data-live-search="true" required></select>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Funcion(*):</label>
                                 <div class="col-lg-2">
-                                <select id="id_funcion" name="id_funcion" class="form-control selectpicker" data-live-search="true" ></select>
+                                <select id="id_funcion" name="id_funcion" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Area(*):</label>
                                 <div class="col-lg-2">
-                                <select id="id_area" name="id_area" class="form-control selectpicker" data-live-search="true" ></select>
+                                <select id="id_area" name="id_area" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Turno(*):</label>
                                 <div class="col-lg-2">
-                                <select id="id_turno" name="id_turno" class="form-control selectpicker" data-live-search="true" ></select>
+                                <select id="id_turno" name="id_turno" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                             </div>
 
@@ -220,15 +221,15 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cond.Laboral:</label>
                                 <div class="col-lg-1">
-                                <select id="id_tip_plan" name="id_tip_plan" class="form-control selectpicker" data-live-search="true" ></select>
+                                <select id="id_tip_plan" name="id_tip_plan" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Actual:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_ing_trab" id="fec_ing_trab">
+                                <input type="date" class="form-control" name="fec_ing_trab" id="fec_ing_trab"  autocomplete="off" required>
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fecha Cese:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_sal_trab" id="fec_sal_trab">
+                                <input type="date" class="form-control" name="fec_sal_trab" id="fec_sal_trab"  autocomplete="off">
                                 </div>
                             </div>
 
@@ -236,19 +237,19 @@ if ($_SESSION['rrhh']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Remuneracion:</label>
                                 <div class="col-lg-1">
-                                <input type="text" class="form-control" name="sueldo_trab" id="sueldo_trab">
+                                <input type="text" class="form-control" name="sueldo_trab" id="sueldo_trab"  autocomplete="off">
                                 </div>
                                  <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Ant2:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_ing2" id="fec_ing2">
+                                <input type="date" class="form-control" name="fec_ing2" id="fec_ing2"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese.Ant2:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_sal2" id="fec_sal2">
+                                <input type="date" class="form-control" name="fec_sal2" id="fec_sal2"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Motivo Salida:</label>
                                 <div class="col-lg-3">
-                                <input type="text" class="form-control" name="mot_sal2" id="mot_sal2">
+                                <input type="text" class="form-control" name="mot_sal2" id="mot_sal2"  autocomplete="off">
                                 </div>
 
 
@@ -259,41 +260,41 @@ if ($_SESSION['rrhh']==1)
                             <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Bono:</label>
                                 <div class="col-lg-1">
-                                <input type="text" class="form-control" name="bono_trab" id="bono_trab">
+                                <input type="text" class="form-control" name="bono_trab" id="bono_trab"  autocomplete="off">
                                 </div>
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing.Ant1:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_ing1" id="fec_ing1">
+                                <input type="date" class="form-control" name="fec_ing1" id="fec_ing1"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese.Ant1:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_sal1" id="fec_sal1">
+                                <input type="date" class="form-control" name="fec_sal1" id="fec_sal1"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Motivo Salida:</label>
                                 <div class="col-lg-3">
-                                <input type="text" class="form-control" name="mot_sal1" id="mot_sal1">
+                                <input type="text" class="form-control" name="mot_sal1" id="mot_sal1"  autocomplete="off">
                                 </div>
                              </div>
 
                              <div class="form-group  col-xs-12">
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
+                                
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Bono Destajo:</label>
                                 <div class="col-lg-1">
-                                <input type="text" class="form-control" name="asig_trab" id="asig_trab">
-                                </div>  
-
+                                <input type="text" class="form-control" name="bono_des_trab" id="bono_des_trab"  autocomplete="off">
+                                </div>
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Ing Interno:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_ing_interno" id="fec_ing_interno">
+                                <input type="date" class="form-control" name="fec_ing_interno" id="fec_ing_interno"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fec.Cese Interno:</label>
                                 <div class="col-lg-2">
-                                <input type="date" class="form-control" name="fec_sal_interno" id="fec_sal_interno">
+                                <input type="date" class="form-control" name="fec_sal_interno" id="fec_sal_interno"  autocomplete="off">
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Motivo Salida:</label>
                                 <div class="col-lg-3">
-                                <input type="text" class="form-control" name="mot_sal_interno" id="mot_sal_interno">
+                                <input type="text" class="form-control" name="mot_sal_interno" id="mot_sal_interno"  autocomplete="off">
                                 </div>
 
                             </div>
@@ -303,9 +304,21 @@ if ($_SESSION['rrhh']==1)
                             
 
                             <div class="form-group  col-xs-12">
+
+                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
+                                    <div class="col-lg-1">
+                                    <input type="text" class="form-control" name="asig_trab" id="asig_trab"  autocomplete="off">
+                                    </div>  
+
+                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Pago Especial:</label>
+                                      <div class="col-lg-2">
+                                      <select id="id_pag_esp" name="id_pag_esp" class="form-control selectpicker" data-live-search="true"></select>
+                                      </div>
+
+
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Observaciones:</label>
-                                    <div class="col-lg-11">
-                                    <input type="text" class="form-control" name="obs_trab" id="obs_trab">
+                                    <div class="col-lg-6">
+                                    <input type="text" class="form-control" name="obs_trab" id="obs_trab"  autocomplete="off">
                                     </div>
                             </div>
 
@@ -363,15 +376,15 @@ if ($_SESSION['rrhh']==1)
                                     
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fin.ContratoAnterior:</label>
                                     <div class="col-lg-2">
-                                      <input type="date" class="form-control" name="fecfin_con_ant" id="fecfin_con_ant">
+                                      <input type="date" class="form-control" name="fecfin_con_ant" id="fecfin_con_ant"  autocomplete="off">
                                     </div>
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Fin.ContratoActual:</label>
                                     <div class="col-lg-2">
-                                      <input type="date" class="form-control" name="fecfin_con_act" id="fecfin_con_act">
+                                      <input type="date" class="form-control" name="fecfin_con_act" id="fecfin_con_act"  autocomplete="off">
                                     </div>
                                     <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Codigo.Cusp:</label>
                                     <div class="col-lg-2">
-                                      <input type="text" class="form-control" name="cusp_trab" id="cusp_trab">
+                                      <input type="text" class="form-control" name="cusp_trab" id="cusp_trab"  autocomplete="off">
                                     </div>
 
                             </div>
@@ -450,28 +463,28 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Padre/ Vive:</label>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="viv_pad" id="viv_pad">
+                                   <input type="text" class="form-control" name="viv_pad" id="viv_pad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_pad" id="nom_pad">
+                                   <input type="text" class="form-control" name="nom_pad" id="nom_pad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_pad" id="ocu_pad">
+                                   <input type="text" class="form-control" name="ocu_pad" id="ocu_pad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_pad" id="dep_pad">
+                                   <input type="text"  class="form-control" name="dep_pad" id="dep_pad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_pad" id="tel_pad">
+                                   <input type="text"  class="form-control" name="tel_pad" id="tel_pad"  autocomplete="off">
                                 </div>
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
 
                                 <div class="col-lg-2">
-                                   <input type="date"  class="form-control" name="fec_rec_dat" id="fec_rec_dat">
+                                   <input type="date"  class="form-control" name="fec_rec_dat" id="fec_rec_dat"  autocomplete="off">
                                 </div>
                              
                           </div>
@@ -481,22 +494,22 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                  <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Madre/ Vive:</label>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="viv_mad" id="viv_mad">
+                                   <input type="text" class="form-control" name="viv_mad" id="viv_mad"  autocomplete="off">
                                 </div>
                                  <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_mad" id="nom_mad">
+                                   <input type="text" class="form-control" name="nom_mad" id="nom_mad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_mad" id="ocu_mad">
+                                   <input type="text" class="form-control" name="ocu_mad" id="ocu_mad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_mad" id="dep_mad">
+                                   <input type="text"  class="form-control" name="dep_mad" id="dep_mad"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_mad" id="tel_mad">
+                                   <input type="text"  class="form-control" name="tel_mad" id="tel_mad"  autocomplete="off">
                                 </div>
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
@@ -511,27 +524,27 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                  <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Conguye/ Vive:</label>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="viv_con" id="viv_con">
+                                   <input type="text" class="form-control" name="viv_con" id="viv_con"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_con" id="nom_con">
+                                   <input type="text" class="form-control" name="nom_con" id="nom_con"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_con" id="ocu_con">
+                                   <input type="text" class="form-control" name="ocu_con" id="ocu_con"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_con" id="dep_con">
+                                   <input type="text"  class="form-control" name="dep_con" id="dep_con"  autocomplete="off">
                                 </div>
                                  <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="tel_con" id="tel_con">
+                                   <input type="text" class="form-control" name="tel_con" id="tel_con"  autocomplete="off">
                                 </div>
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
                                 <div class="col-lg-2">
-                                    <input type="text" class="form-control" readonly name="prueba" id="prueba">
+                                    <input type="text" class="form-control" readonly name="prueba" id="prueba"  autocomplete="off">
                                 </div>
                             </div>
 
@@ -543,19 +556,19 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text" class="form-control"  readonly >
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date"  class="form-control" name="nac_hij1" id="nac_hij1">
+                                   <input type="date"  class="form-control" name="nac_hij1" id="nac_hij1"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_hij1" id="nom_hij1">
+                                   <input type="text" class="form-control" name="nom_hij1" id="nom_hij1"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_hij1" id="ocu_hij1">
+                                   <input type="text" class="form-control" name="ocu_hij1" id="ocu_hij1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_hij1" id="dep_hij1">
+                                   <input type="text"  class="form-control" name="dep_hij1" id="dep_hij1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_hij1" id="tel_hij1">
+                                   <input type="text"  class="form-control" name="tel_hij1" id="tel_hij1" autocomplete="off">
                                 </div>
                                 
                             </div>
@@ -569,19 +582,19 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text" class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date"  class="form-control" name="nac_hij2" id="nac_hij2">
+                                   <input type="date"  class="form-control" name="nac_hij2" id="nac_hij2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_hij2" id="nom_hij2">
+                                   <input type="text" class="form-control" name="nom_hij2" id="nom_hij2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_hij2" id="ocu_hij2">
+                                   <input type="text" class="form-control" name="ocu_hij2" id="ocu_hij2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_hij2" id="dep_hij2">
+                                   <input type="text"  class="form-control" name="dep_hij2" id="dep_hij2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_hij2" id="tel_hij2">
+                                   <input type="text"  class="form-control" name="tel_hij2" id="tel_hij2" autocomplete="off">
                                 </div>
                             </div>
 
@@ -593,19 +606,19 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text" class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date"  class="form-control" name="nac_hij3" id="nac_hij3">
+                                   <input type="date"  class="form-control" name="nac_hij3" id="nac_hij3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_hij3" id="nom_hij3">
+                                   <input type="text" class="form-control" name="nom_hij3" id="nom_hij3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_hij3" id="ocu_hij3">
+                                   <input type="text" class="form-control" name="ocu_hij3" id="ocu_hij3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_hij3" id="dep_hij3">
+                                   <input type="text"  class="form-control" name="dep_hij3" id="dep_hij3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_hij3" id="tel_hij3">
+                                   <input type="text"  class="form-control" name="tel_hij3" id="tel_hij3" autocomplete="off">
                                 </div>
                             </div>
 
@@ -617,19 +630,19 @@ if ($_SESSION['rrhh']==1)
                                    <input type="text" class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date"  class="form-control" name="nac_hij4" id="nac_hij4">
+                                   <input type="date"  class="form-control" name="nac_hij4" id="nac_hij4" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_hij4" id="nom_hij4">
+                                   <input type="text" class="form-control" name="nom_hij4" id="nom_hij4"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_hij4" id="ocu_hij4">
+                                   <input type="text" class="form-control" name="ocu_hij4" id="ocu_hij4" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_hij4" id="dep_hij4">
+                                   <input type="text"  class="form-control" name="dep_hij4" id="dep_hij4" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_hij4" id="tel_hij4">
+                                   <input type="text"  class="form-control" name="tel_hij4" id="tel_hij4" autocomplete="off">
                                 </div>
                             </div>
 
@@ -643,16 +656,16 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_otro" id="nom_otro">
+                                   <input type="text" class="form-control" name="nom_otro" id="nom_otro" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="ocu_otro" id="ocu_otro">
+                                   <input type="text" class="form-control" name="ocu_otro" id="ocu_otro" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="dep_otro" id="dep_otro">
+                                   <input type="text"  class="form-control" name="dep_otro" id="dep_otro" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="tel_otro" id="tel_otro">
+                                   <input type="text"  class="form-control" name="tel_otro" id="tel_otro" autocomplete="off">
                                 </div>
                             </div>
 
@@ -671,13 +684,13 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Parientes o conocidos en la empresa:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_fam_con" id="nom_fam_con">
+                                   <input type="text" class="form-control" name="nom_fam_con" id="nom_fam_con" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="par_fam_con" id="par_fam_con">
+                                   <input type="text"  class="form-control" name="par_fam_con" id="par_fam_con" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="are_fam_con" id="are_fam_con">
+                                   <input type="text"  class="form-control" name="are_fam_con" id="are_fam_con" autocomplete="off">
                                 </div>
                           </div>
 
@@ -707,19 +720,19 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Primaria:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_pri" id="cen_est_pri">
+                                   <input type="text" class="form-control" name="cen_est_pri" id="cen_est_pri" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control"  name="grado_pri" id="grado_pri"   >
+                                   <input type="text"  class="form-control"  name="grado_pri" id="grado_pri" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_pri" id="fec_ini_pri">
+                                   <input type="date" class="form-control" name="fec_ini_pri" id="fec_ini_pri" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_pri" id="fec_fin_pri">
+                                   <input type="date" class="form-control" name="fec_fin_pri" id="fec_fin_pri" autocomplete="off">
                                 </div>
                                
                           </div> 
@@ -728,19 +741,19 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Secundaria:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_sec" id="cen_est_sec">
+                                   <input type="text" class="form-control" name="cen_est_sec" id="cen_est_sec" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control"  name="grado_sec" id="grado_sec"  >
+                                   <input type="text"  class="form-control"  name="grado_sec" id="grado_sec" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_sec" id="fec_ini_sec">
+                                   <input type="date" class="form-control" name="fec_ini_sec" id="fec_ini_sec" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_sec" id="fec_fin_sec">
+                                   <input type="date" class="form-control" name="fec_fin_sec" id="fec_fin_sec" autocomplete="off">
                                 </div>
                                
                           </div>
@@ -750,19 +763,19 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Superior:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_sup" id="cen_est_sup">
+                                   <input type="text" class="form-control" name="cen_est_sup" id="cen_est_sup" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control"  name="carrera_sup" id="carrera_sup">
+                                   <input type="text" class="form-control"  name="carrera_sup" id="carrera_sup" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_des_sup" id="fec_des_sup">
+                                   <input type="date" class="form-control" name="fec_des_sup" id="fec_des_sup" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_has_sup" id="fec_has_sup">
+                                   <input type="date" class="form-control" name="fec_has_sup" id="fec_has_sup" autocomplete="off">
                                 </div>
                                
                           </div>
@@ -773,19 +786,19 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Tecnico:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_tec" id="cen_est_tec">
+                                   <input type="text" class="form-control" name="cen_est_tec" id="cen_est_tec" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="carrera_tec" id="carrera_tec" >
+                                   <input type="text" class="form-control" name="carrera_tec" id="carrera_tec" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_tec" id="fec_ini_tec">
+                                   <input type="date" class="form-control" name="fec_ini_tec" id="fec_ini_tec" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_tec" id="fec_fin_tec">
+                                   <input type="date" class="form-control" name="fec_fin_tec" id="fec_fin_tec" autocomplete="off">
                                 </div>
                                
                           </div>
@@ -796,19 +809,19 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Especialidad:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_esp" id="cen_est_esp">
+                                   <input type="text" class="form-control" name="cen_est_esp" id="cen_est_esp" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control"  name="especialidad" id="especialidad"  >
+                                   <input type="text" class="form-control"  name="especialidad" id="especialidad" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_esp" id="fec_ini_esp">
+                                   <input type="date" class="form-control" name="fec_ini_esp" id="fec_ini_esp" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_esp" id="fec_fin_esp">
+                                   <input type="date" class="form-control" name="fec_fin_esp" id="fec_fin_esp" autocomplete="off">
                                 </div>
                                
                           </div>
@@ -818,19 +831,19 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Otros:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_otros" id="cen_est_otros">
+                                   <input type="text" class="form-control" name="cen_est_otros" id="cen_est_otros" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="carrera_otros" id="carrera_otros" >
+                                   <input type="text" class="form-control" name="carrera_otros" id="carrera_otros" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_otros" id="fec_ini_otros">
+                                   <input type="date" class="form-control" name="fec_ini_otros" id="fec_ini_otros" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_otros" id="fec_fin_otros">
+                                   <input type="date" class="form-control" name="fec_fin_otros" id="fec_fin_otros" autocomplete="off">
                                 </div>
                                
                           </div>
@@ -858,13 +871,13 @@ if ($_SESSION['rrhh']==1)
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="des_idioma" id="des_idioma">
+                                   <input type="text" class="form-control" name="des_idioma" id="des_idioma" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_idioma" id="cen_est_idioma">
+                                   <input type="text" class="form-control" name="cen_est_idioma" id="cen_est_idioma" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nivel_idioma" id="nivel_idioma">
+                                   <input type="text" class="form-control" name="nivel_idioma" id="nivel_idioma" autocomplete="off">
                                 </div>
                                 
                              </div>
@@ -880,16 +893,17 @@ if ($_SESSION['rrhh']==1)
 
                           </div>
 
+
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="des_comp" id="des_comp">
+                                   <input type="text" class="form-control" name="des_comp" id="des_comp" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="cen_est_comp" id="cen_est_comp">
+                                   <input type="text" class="form-control" name="cen_est_comp" id="cen_est_comp" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="nivel_comp" id="nivel_comp">
+                                   <input type="text"  class="form-control" name="nivel_comp" id="nivel_comp" autocomplete="off">
                                 </div>
                                 
                                
@@ -922,22 +936,22 @@ if ($_SESSION['rrhh']==1)
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_emp_exp1" id="nom_emp_exp1">
+                                   <input type="text" class="form-control" name="nom_emp_exp1" id="nom_emp_exp1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="car_exp1" id="car_exp1">
+                                   <input type="text" class="form-control" name="car_exp1" id="car_exp1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="fun_exp1" id="fun_exp1">
+                                   <input type="text"  class="form-control" name="fun_exp1" id="fun_exp1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_exp1" id="fec_ini_exp1">
+                                   <input type="date" class="form-control" name="fec_ini_exp1" id="fec_ini_exp1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_exp1" id="fec_fin_exp1">
+                                   <input type="date" class="form-control" name="fec_fin_exp1" id="fec_fin_exp1" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="mot_ces_exp1" id="mot_ces_exp1">
+                                   <input type="text" class="form-control" name="mot_ces_exp1" id="mot_ces_exp1" autocomplete="off">
                                 </div>
                           </div>
 
@@ -945,22 +959,22 @@ if ($_SESSION['rrhh']==1)
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_emp_exp2" id="nom_emp_exp2">
+                                   <input type="text" class="form-control" name="nom_emp_exp2" id="nom_emp_exp2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="car_exp2" id="car_exp2">
+                                   <input type="text" class="form-control" name="car_exp2" id="car_exp2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="fun_exp2" id="fun_exp2">
+                                   <input type="text"  class="form-control" name="fun_exp2" id="fun_exp2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_exp2" id="fec_ini_exp2">
+                                   <input type="date" class="form-control" name="fec_ini_exp2" id="fec_ini_exp2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_exp2" id="fec_fin_exp2">
+                                   <input type="date" class="form-control" name="fec_fin_exp2" id="fec_fin_exp2" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="mot_ces_exp2" id="mot_ces_exp2">
+                                   <input type="text" class="form-control" name="mot_ces_exp2" id="mot_ces_exp2" autocomplete="off">
                                 </div>
                           </div>
 
@@ -969,26 +983,24 @@ if ($_SESSION['rrhh']==1)
                            <!-- fila 1 -->
                            <div class="form-group  col-xs-12">
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="nom_emp_exp3" id="nom_emp_exp3">
+                                   <input type="text" class="form-control" name="nom_emp_exp3" id="nom_emp_exp3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="car_exp3" id="car_exp3">
+                                   <input type="text" class="form-control" name="car_exp3" id="car_exp3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text"  class="form-control" name="fun_exp3" id="fun_exp3">
+                                   <input type="text"  class="form-control" name="fun_exp3" id="fun_exp3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_ini_exp3" id="fec_ini_exp3">
+                                   <input type="date" class="form-control" name="fec_ini_exp3" id="fec_ini_exp3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="date" class="form-control" name="fec_fin_exp3" id="fec_fin_exp3">
+                                   <input type="date" class="form-control" name="fec_fin_exp3" id="fec_fin_exp3" autocomplete="off">
                                 </div>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="mot_ces_exp3" id="mot_ces_exp3">
+                                   <input type="text" class="form-control" name="mot_ces_exp3" id="mot_ces_exp3" autocomplete="off">
                                 </div>
                             </div>
-
-
 
 
 
@@ -1000,24 +1012,24 @@ if ($_SESSION['rrhh']==1)
 
                             <!-- fila 1 -->
                              <div class="form-group  col-xs-12">
-                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Tiene antecedentes de enefermedades cardiacas y/o oncologicas? Mencionelas</label>
+                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Tiene antecedentes de enfermedades cardiacas y/o oncologicas? Mencionelas</label>
                                   <div class="col-lg-4">
-                                     <input type="text" class="form-control" name="tie_enf_car_onc" id="tie_enf_car_onc">
+                                     <input type="text" class="form-control" name="tie_enf_car_onc" id="tie_enf_car_onc" autocomplete="off">
                                   </div>
                              </div>
 
                              <div class="form-group  col-xs-12">
-                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Actualmente sufre de algun tipo de alergia/recurrente</label>
+                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Actualmente sufre de algun tipo de alergia/medicamento</label>
                                   <div class="col-lg-4">
-                                     <input type="text" class="form-control" name="tie_enf_ale_rec" id="tie_enf_ale_rec">
+                                     <input type="text" class="form-control" name="tie_enf_ale_rec" id="tie_enf_ale_rec" autocomplete="off">
                                   </div>
                              </div>
 
 
                               <div class="form-group  col-xs-12">
-                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Actualmente sufre de alguna enfermedad cronica? Cual?</label>
+                                  <label class="col-col-lg-5 col-md-5 col-sm-5 control-label">Actualmente sufre de alguna enfermedad? Cual?</label>
                                   <div class="col-lg-4">
-                                     <input type="text" class="form-control" name="nom_enf_car_onc" id="nom_enf_car_onc">
+                                     <input type="text" class="form-control" name="nom_enf_car_onc" id="nom_enf_car_onc" autocomplete="off">
                                   </div>
                               </div>
 
@@ -1035,11 +1047,11 @@ if ($_SESSION['rrhh']==1)
                                         
                                         <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Peso:</label>
                                         <div class="col-lg-2">
-                                        <input type="text" class="form-control" name="peso" id="peso">
+                                        <input type="text" class="form-control" name="peso" id="peso" autocomplete="off">
                                         </div>
                                         <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Talla:</label>
                                         <div class="col-lg-2">
-                                        <input type="text" class="form-control" name="talla" id="talla">
+                                        <input type="text" class="form-control" name="talla" id="talla" autocomplete="off">
                                         </div>
                                     </div>
 
@@ -1060,7 +1072,7 @@ if ($_SESSION['rrhh']==1)
                              <div class="form-group  col-xs-12">
                                   <label class="col-col-lg-2 col-md- col-sm-2 control-label">Esta afiliado a ONP?(SI/NO)</label>
                                   <div class="col-lg-1">
-                                     <input type="text" class="form-control" name="afi_onp" id="afi_onp">
+                                     <input type="text" class="form-control" name="afi_onp" id="afi_onp" autocomplete="off">
                                   </div>
                                  
                              </div>
@@ -1069,11 +1081,11 @@ if ($_SESSION['rrhh']==1)
                               <div class="form-group  col-xs-12">
                                   <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">Esta afiliado a AFP?(SI/NO)</label>
                                   <div class="col-lg-1">
-                                     <input type="text" class="form-control" name="afi_afp" id="afi_afp">
+                                     <input type="text" class="form-control" name="afi_afp" id="afi_afp" autocomplete="off">
                                   </div>
                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cual?</label>
                                   <div class="col-lg-2">
-                                     <input type="text" class="form-control" name="nom_afi_afp" id="nom_afi_afp">
+                                     <input type="text" class="form-control" name="nom_afi_afp" id="nom_afi_afp" autocomplete="off">
                                   </div>
                               </div>
 

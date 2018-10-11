@@ -24,26 +24,21 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#idcliente").val("");
-	$("#cliente").val("");
-	$("#serie_comprobante").val("");
-	$("#num_comprobante").val("");
-	$("#impuesto").val("0");
+	$("#id_nomtrab").val("");
+	$("#id_trab").val("");
+	$("#CantItems").val("");
+	$("#nro_doc").val("");
+	$("#sucursal").val("");
+	$("#area_trab").val("");
+	$("#fec_ing_trab").val("");
 
-	$("#total_venta").val("");
 	$(".filas").remove();
-	$("#total").html("0");
 
-	//Obtenemos la fecha actual
-	var now = new Date();
-	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day);
-    $('#fecha_hora').val(today);
+	
 
-    //Marcamos el primer tipo_documento
-    $("#tipo_comprobante").val("Boleta");
-	$("#tipo_comprobante").selectpicker('refresh');
+
+	
+   
 }
 
 
@@ -241,8 +236,8 @@ function agregarDetalle(id_periodo,periodo)
     	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
     	'<td><input type="text" size="1" name="correlativo[]" ></td>'+
     	'<td><input type="hidden" size="5" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
-    	'<td><input type="text" size="8" name="fec_del[]" ></td>'+
-    	'<td><input type="text" size="8" name="fec_al[]" ></td>'+
+    	'<td><input type="date" size="8" name="fec_del[]" ></td>'+
+    	'<td><input type="date" size="8" name="fec_al[]" ></td>'+
     	'<td><input type="text" size="2" name="tot_dias[]" ></td>'+
     	'<td><input type="text" size="2" name="pen_dias[]" ></td>'+
     	'<td><input type="text" size="70" name="obser_detalle[]" ></td>'+
@@ -290,22 +285,10 @@ function agregarDetalle(id_periodo,periodo)
 	}
 	$("#total").html("S/. " + total);
     $("#total_venta").val(total);
-    evaluar();
+
   }
 
 
-
- function evaluar(){
-  	if (detalles>0)
-    {
-      $("#btnGuardar").show();
-    }
-    else
-    {
-      $("#btnGuardar").hide(); 
-      cont=0;
-    }
-  }
 
 
 

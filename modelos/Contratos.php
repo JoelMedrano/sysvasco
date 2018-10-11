@@ -10,86 +10,73 @@ Class Contratos
 
 	}
 
-	//Implementamos un método para insertar registros
-	public function insertar($nro_doc,
-							 $tie_ren_ant,
-							 $fec_ini_ant,
-							 $tie_ren_con,
-							 $fec_ini_con,
-							 $fec_fin_con,
-							 $usu_reg,
-							 $pc_reg,
-							 $fec_reg)
+
+	//Implementamos un método para actualizar el contrato
+	public function editar($id_trab,
+										   $id_con_trab,
+										   $tie_ren_ant,
+										   $fec_ini_ant,
+										   $fec_fin_ant,
+										   $id_sit_inf_ant,
+										   $usu_reg,
+										   $pc_reg,
+										   $fec_reg  )
 	{
 		
+		$sql="UPDATE contratos SET tie_ren_con='$tie_ren_ant', fec_ini_con='$fec_ini_ant', fec_fin_con='$fec_fin_ant',  id_sit_inf='$id_sit_inf_ant' WHERE id_trab='$id_trab' AND  id_con_trab='$id_con_trab' ";
+		return ejecutarConsulta($sql);
 
-		$num_elementos=0;
-		$sw=true;
-		$item=1;
 
-		while ($num_elementos <count($id_periodo))
-		{
-			$sql_detalle = "INSERT INTO vacaciones(nro_doc,correlativo, id_periodo,fec_del,fec_al,tot_dias,pen_dias,obser_detalle,vencidas,truncas,fec_del_dec,fec_al_dec,tot_dias_dec,pen_dias_dec,obser) 
-			VALUES ('$id_nomtrab','$item', '$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]','$obser_detalle[$num_elementos]',
-				'$vencidas[$num_elementos]','$truncas[$num_elementos]','$fec_del_dec[$num_elementos]','$fec_al_dec[$num_elementos]','$tot_dias_dec[$num_elementos]','$pen_dias_dec[$num_elementos]',
-				'$obser[$num_elementos]')";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-			$item=$item + 1;
-		
-		}
-
-		return $sw;
 	}
 
-
-	//Implementamos un método para editar registros
-	public function editar($nro_doc,
-						   $tie_ren_ant,
-						   $fec_ini_ant,
-						   $tie_ren_con,
-						   $fec_ini_con,
-						   $fec_fin_con,
-						   $usu_reg,
-						   $pc_reg,
-						   $fec_reg)
-	{
-		
-		$num_elementos=0;
-		$sw=true;
-
-		while ($num_elementos < count($correlativo))
-		{			
-			$sql_detalle="UPDATE vacaciones SET  correlativo='$correlativo[$num_elementos]',    fec_del='$fec_del[$num_elementos]' ,fec_al='$fec_al[$num_elementos]' , tot_dias='$tot_dias[$num_elementos]' , pen_dias='$pen_dias[$num_elementos]', obser_detalle='$obser_detalle[$num_elementos]',  obser='$obser[$num_elementos]'   WHERE nro_doc='$nro_doc' AND correlativo='$correlativo[$num_elementos]'  ";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-		}
-
-		return $sw;
-	}
+	
+    
 
 
-	public function insertar2($nro_doc, $CantItems,  $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser)
+	
+
+
+	public function insertar2(			 $id_trab,
+										 $tie_ren_con,
+										 $fec_ini_con,
+										 $fec_fin_con,
+										 $id_sit_inf_act,
+										 $CantItems,
+										 $usu_reg,
+										 $pc_reg,
+										 $fec_reg )
 	{
 		
 
 
-		$item=$CantItems;
 
 
-		$num_elementos=$CantItems;
-		$sw=true;
-		//while ($num_elementos < count($correlativo) AND $correlativo > $cantidaditems)
-		while ($num_elementos < count($correlativo))
-		{	
+	$CantItems=$CantItems+1;
+		
+			$sql= "INSERT INTO contratos  (   		   id_trab,
+													   id_con_trab,
+													   tie_ren_con,
+													   fec_ini_con,
+													   fec_fin_con,
+													   id_sit_inf,
+													   usu_reg,
+													   pc_reg,
+													   fec_reg  ) 
+											   VALUES( '$id_trab',
+											   		   '$CantItems',
+											           '$tie_ren_con',
+											           '$fec_ini_con',
+											           '$fec_fin_con',
+											           '$id_sit_inf_act',
+											           '$usu_reg',
+											           '$pc_reg',
+											           '$fec_reg')  ";
+		
+			
+			
+		
 
-			$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias ) VALUES( '$nro_doc', '$item','$CantItems','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' )  ";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-			$item=$item + 1;
-		}
-
-			return $sw;
+			return ejecutarConsulta($sql);
 
 	}
 
@@ -106,17 +93,22 @@ Class Contratos
 	public function mostrar($nro_doc)
 	{
 		$sql="SELECT Tra.id_trab, Tra.num_doc_trab AS nro_doc, Tra.num_doc_trab AS id_nomtrab ,  CONCAT(Tra.apepat_trab, ' ' , Tra.apemat_trab, ' ', Tra.nom_trab)   AS apellidosynombres ,   Tra.apemat_trab, Tra.apepat_trab, Tra.nom_trab, Tra.id_sucursal, Tra.id_area, TbAre.Des_Larga AS area_trab,
-              TbSua.des_larga AS sucursal, DATE_FORMAT(fec_ing_trab, '%d/%m/%Y')  AS fec_ing_trab, MAX(vac.correlativo) AS CantItems
+              TbSua.des_larga AS sucursal, DATE_FORMAT(fec_ing_trab, '%d/%m/%Y')  AS fec_ing_trab, IFNULL(MAX(con.id_con_trab),0) AS CantItems,
+               MAX(DATE(con.fec_ini_con)) AS  fec_ini_ant , MAX(DATE(con.fec_fin_con)) AS fec_fin_ant, con.tie_ren_con AS tie_ren_ant, con.id_con_trab,
+               con.id_sit_inf AS id_sit_inf_ant,  TbSic.des_larga AS situacion_informativa_actual
 				FROM Trabajador Tra
+				LEFT JOIN contratos con ON
+					con.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle TbAre ON
 					TbAre.cod_tabla='TARE'
 					AND TbAre.cod_argumento= Tra.id_area
 				LEFT JOIN tabla_maestra_detalle TbSua ON
 					TbSua.cod_tabla='TSUA'
 					AND TbSua.cod_argumento= Tra.id_sucursal
-				LEFT JOIN vacaciones vac ON
-					vac.nro_doc= tra.num_doc_trab
-				WHERE  num_doc_trab='$nro_doc' 
+				LEFT JOIN tabla_maestra_detalle TbSic ON
+					TbSic.cod_tabla='TSIC'
+					AND TbSic.cod_argumento= con.id_sit_inf
+				WHERE  tra.num_doc_trab='$nro_doc' 
               ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
@@ -143,9 +135,9 @@ Class Contratos
 				       tr.id_trab,
 				       CASE
 						WHEN MONTH(MAX(co.fec_fin_con))=MONTH(CURDATE()) THEN 'POR RENOVAR'
-						WHEN DATEDIFF(CURDATE(), tr.fec_ing_trab) >1460 THEN 'PROXIMOS A SER ESTABLE'
+						WHEN DATEDIFF(CURDATE(), tr.fec_ing_trab) >1460 THEN 'PROXIMO ESTABLE'
 						WHEN co.fec_fin_con < CURDATE() THEN 'VIGENTE'
-				        ELSE 'SITUACION PENDIENTE' END
+				        ELSE 'PENDIENTE' END
 					AS situacion,
 					tr.id_trab,
 					tr.num_doc_trab,
@@ -170,7 +162,8 @@ Class Contratos
 				WHERE DATEDIFF(CURDATE(), tr.fec_ing_trab) < 1825
 				AND tr.id_tip_plan='1'
 				AND tr.est_reg='1'
-				GROUP BY tr.id_trab";
+				GROUP BY tr.id_trab
+				ORDER BY tr.apepat_trab";
 		return ejecutarConsulta($sql);		
 	}
 

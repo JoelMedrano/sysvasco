@@ -78,17 +78,17 @@ if ($_SESSION['rrhh']==1)
 
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Fec.Emisión:</label>
-                            <input type="text" class="form-control" name="fecha_emision" id="fecha_emision"   value= "<?=$fecha ?>" required>
+                            <input type="text" class="form-control" name="fecha_emision" id="fecha_emision"   value= "<?=$fecha ?>" required  autocomplete="off">
                           </div>
 
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Fec.Procede:</label>
-                            <input type="text" class="form-control" name="fecha_procede" id="fecha_procede"  value= "<?=$fecha ?>"  required>
+                            <input type="text" class="form-control" name="fecha_procede" id="fecha_procede"  value= "<?=$fecha ?>"  required  autocomplete="off">
                           </div>
 
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Fec.Hasta:</label>
-                            <input type="text" class="form-control" name="fecha_hasta" id="fecha_hasta"  value= "<?=$fecha ?>"  required>
+                            <input type="text" class="form-control" name="fecha_hasta" id="fecha_hasta"  value= "<?=$fecha ?>"  required autocomplete="off">
                           </div>
 
                           
@@ -96,30 +96,30 @@ if ($_SESSION['rrhh']==1)
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Codigo de Personal(*):</label>
                             <input type="hidden" name="id_permiso" id="id_permiso">
-                            <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required autocomplete="off"></select>
                           </div>
 
 
                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Tipo de Permiso(*):</label>
-                            <select id="tip_permiso" name="tip_permiso" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="tip_permiso" name="tip_permiso" class="form-control selectpicker" data-live-search="true" required autocomplete="off"></select>
                           </div>
 
                           
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Hora Ingreso(*):</label>
-                            <input type="time" class="form-control" name="hora_ing" id="hora_ing">
+                            <input type="time" class="form-control" name="hora_ing" id="hora_ing" autocomplete="off">
                           </div>
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Hora Salida :</label>
-                            <input type="time" class="form-control" name="hora_sal" id="hora_sal">
+                            <input type="time" class="form-control" name="hora_sal" id="hora_sal" autocomplete="off">
                           </div>
 
                           <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <label>Motivo:</label>
-                            <input type="text" class="form-control" name="motivo" id="motivo"  required>
+                            <input type="text" class="form-control" name="motivo" id="motivo"  required autocomplete="off">
                           </div>
 
                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">

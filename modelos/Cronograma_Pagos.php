@@ -96,6 +96,7 @@ Class Cronograma_Pagos
 					 DATE(fec_pag) AS fec_pag,
 					 DATE(desde) AS desde,
 					 DATE(hasta) AS hasta,
+					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
 		 			 est_reg 
 			FROM cronograma_pagos cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
@@ -121,6 +122,7 @@ Class Cronograma_Pagos
 		 			 DATE(fec_pag) AS fec_pag,
 		 			 DATE(desde) AS desde,
 					 DATE(hasta) AS hasta,
+					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
 					 est_reg 
 			FROM cronograma_pagos cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON

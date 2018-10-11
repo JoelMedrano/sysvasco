@@ -23,7 +23,7 @@ if ($_SESSION['rrhh']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Vacaciones</h1>
+                          <h1 class="box-title">Pago Destajeros</h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -220,7 +220,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/vacaciones.js"></script>
+<script type="text/javascript" src="scripts/pago_destajeros.js"></script>
 <?php 
 }
 ob_end_flush();

@@ -12,24 +12,24 @@ Class Trabajador
 
 	//Implementamos un método para insertar registros
 	public function insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
-		                     $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion,$id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab,$bono_trab, $asig_trab, 
-		                     $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro, 
+		                     $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion,$id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab,$bono_trab, $bono_des_trab, $asig_trab, 
+		                     $id_pag_esp, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro, 
 				             $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno  )
 	{
 		$sql="INSERT INTO trabajador (nom_trab,apepat_trab,apemat_trab,dir_trab,urb_trab,id_distrito, departamento, fec_nac_trab,lug_nac_trab,nacionalidad, id_est_civil , id_tip_doc, num_doc_trab,
-			                          num_tlf_dom,num_tlf_cel, email_trab, id_sucursal, id_funcion ,id_area, id_turno, fec_ing_trab, id_tip_plan, sueldo_trab, bono_trab, asig_trab,
-			                          obs_trab, id_cen_cost, id_tip_man_ob, id_categoria, id_form_pag, id_tip_cont, id_reg_pen,id_com_act, id_genero, id_t_registro, 
+			                          num_tlf_dom,num_tlf_cel, email_trab, id_sucursal, id_funcion ,id_area, id_turno, fec_ing_trab, id_tip_plan, sueldo_trab, bono_trab, bono_des_trab,  asig_trab,
+			                          id_pag_esp, obs_trab, id_cen_cost, id_tip_man_ob, id_categoria, id_form_pag, id_tip_cont, id_reg_pen,id_com_act, id_genero, id_t_registro, 
 				 fecfin_con_ant, fecfin_con_act, cusp_trab, est_reg, usu_reg, pc_reg, fec_reg,  fec_ing_interno, fec_sal_interno  )
 		VALUES ('$nom_trab','$apepat_trab','$apemat_trab','$dir_trab','$urb_trab', '$id_distrito', '$departamento', '$fec_nac_trab', '$lug_nac_trab', '$nacionalidad', '$id_est_civil', 
 			    '$id_tip_doc', '$num_doc_trab', '$num_tlf_dom' ,'$num_tlf_cel', '$email_trab', '$id_sucursal', '$id_funcion', '$id_area', '$id_turno','$fec_ing_trab',
-			    '$id_tip_plan', '$sueldo_trab', '$bono_trab', '$asig_trab', '$obs_trab', '$id_cen_cost', '$id_tip_man_ob', '$id_categoria', '$id_form_pag', '$id_tip_cont',
+			    '$id_tip_plan', '$sueldo_trab', '$bono_trab', '$bono_des_trab', '$asig_trab', '$id_pag_esp', '$obs_trab', '$id_cen_cost', '$id_tip_man_ob', '$id_categoria', '$id_form_pag', '$id_tip_cont',
 			    '$id_reg_pen','$id_com_act', '$id_genero', '$id_t_registro', '$fecfin_con_ant', '$fecfin_con_act', '$cusp_trab', '1', '$usu_reg', '$pc_reg', '$fec_reg',
 			    '$fec_ing_interno', '$fec_sal_interno')";
 		return ejecutarConsulta($sql);
 
 	}
 
-	 //Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
 	public function insertar_trabajador_familia($fec_reg, $usu_reg, $pc_reg )
 	{
 		$sql="INSERT INTO trabajador_familia(usu_reg, pc_reg, fec_reg) VALUES ('$usu_reg', '$pc_reg', '$fec_reg')";
@@ -84,6 +84,8 @@ Class Trabajador
 
 
 
+
+
 	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
 	public function insertar_trabajador_data_adjunta($fec_reg, $usu_reg, $pc_reg )
 	{
@@ -93,7 +95,26 @@ Class Trabajador
 	}
 
    
+   //Implementar un método para mostrar los datos de un registro a modificar
+	public function mostrar_idperiodovacaciones($anoperiodo)
+	{
+		$sql="SELECT TbPea.cod_argumento As id_ano_periodo
+				from tabla_maestra_detalle TbPea
+			 WHERE TbPea.cod_tabla='TPEA'
+			 AND TbPea.Des_Corta= '$anoperiodo'";
 
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_primerperiodovacaciones( $num_doc_trab, $fec_ing_trab, $id_tip_plan,  $CantItems, $id_ano_periodo, $anoperiodo, $fec_reg, $usu_reg, $pc_reg  )
+	{
+
+		$sql="INSERT INTO vacaciones (nro_doc, correlativo, id_periodo,  usu_reg, pc_reg, fec_reg) VALUES ( '$num_doc_trab', '1', '$id_ano_periodo',  '$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
 
 
 
@@ -105,7 +126,7 @@ Class Trabajador
 	//Implementamos un método para editar registros
 	public function editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_sal_trab, $id_tip_plan, $sueldo_trab,
-				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
+				 $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
 				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg ,  $fec_ing_interno, $fec_sal_interno, $mot_sal_interno, $fec_ing2,  $fec_sal2, $mot_sal2,
 				 $fec_ing1, $fec_sal1, $mot_sal1 )
 	{
@@ -113,7 +134,7 @@ Class Trabajador
 		        departamento='$departamento',fec_nac_trab='$fec_nac_trab',lug_nac_trab='$lug_nac_trab',nacionalidad='$nacionalidad',id_est_civil='$id_est_civil',id_tip_doc='$id_tip_doc',
 				num_doc_trab='$num_doc_trab',num_tlf_dom='$num_tlf_dom',num_tlf_cel='$num_tlf_cel',email_trab='$email_trab',id_sucursal='$id_sucursal',id_funcion='$id_funcion',
 				id_area='$id_area',id_turno='$id_turno',fec_ing_trab='$fec_ing_trab',fec_sal_trab='$fec_sal_trab',id_tip_plan='$id_tip_plan',sueldo_trab='$sueldo_trab',
-				bono_trab='$bono_trab', asig_trab='$asig_trab', obs_trab='$obs_trab',id_cen_cost='$id_cen_cost', id_tip_man_ob='$id_tip_man_ob',id_categoria='$id_categoria',
+				bono_trab='$bono_trab',  bono_des_trab='$bono_des_trab',  asig_trab='$asig_trab', id_pag_esp='$id_pag_esp', obs_trab='$obs_trab',id_cen_cost='$id_cen_cost', id_tip_man_ob='$id_tip_man_ob',id_categoria='$id_categoria',
 				id_form_pag='$id_form_pag', id_tip_cont='$id_tip_cont', id_reg_pen='$id_reg_pen',id_com_act='$id_com_act', id_genero='$id_genero',id_t_registro='$id_t_registro',
 				fecfin_con_ant='$fecfin_con_ant', fecfin_con_act='$fecfin_con_act', cusp_trab='$cusp_trab', usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg',
 				fec_ing_interno='$fec_ing_interno', fec_sal_interno='$fec_sal_interno',  mot_sal_interno='$mot_sal_interno', fec_ing2='$fec_ing2',  fec_sal2='$fec_sal2',
@@ -290,7 +311,10 @@ Class Trabajador
 		tr.mot_sal_interno,
 		tr.sueldo_trab,
 		tr.bono_trab,
+		tr.bono_des_trab,
 		tr.asig_trab,
+		tr.id_pag_esp,
+		tmpe.des_larga AS pago_especial,
 		tr.obs_trab,
 		DATE(tr.fecfin_con_act) AS fecfin_con_act,
 		DATE(tr.fecfin_con_ant) AS fecfin_con_ant,
@@ -436,7 +460,8 @@ Class Trabajador
 		tda.dat_baj_reg1,
 		tda.dat_baj_reg2,
 		tda.dat_baj_reg3,
-		tda.dat_car_ren
+		tda.dat_car_ren,
+		IFNULL(MAX(vac.correlativo),0) AS CantItems
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
 				tpla.cod_argumento= tr.id_tip_plan
@@ -489,6 +514,9 @@ Class Trabajador
 				LEFT JOIN tabla_maestra_detalle AS tgsa ON
 				tgsa.cod_argumento= tr.id_gru_san
 				AND tgsa.cod_tabla='TGSA'
+				LEFT JOIN tabla_maestra_detalle AS tmpe ON
+				tmpe.cod_argumento= tr.id_pag_esp
+				AND tmpe.cod_tabla='TMPE'
 				LEFT JOIN ubigeo AS ubi ON
 				ubi.coddist= tr.id_distrito
 				AND ubi.coddpto='15' 
@@ -507,6 +535,8 @@ Class Trabajador
 				tda.id_trab= tr.id_trab
 				LEFT JOIN trabajador_exp_laboral AS tel ON
 				tel.id_trab= tr.id_trab
+				LEFT JOIN vacaciones AS vac ON
+				vac.nro_doc= tr.num_doc_trab
 			 WHERE tr.id_trab='$id_trab'";
 		return ejecutarConsultaSimpleFila($sql);
 	}

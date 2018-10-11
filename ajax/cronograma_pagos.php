@@ -66,6 +66,7 @@ switch ($_GET["op"]){
                                     <th width="50px">Fecha</th>
                                     <th width="50px">Desde</th>
                                     <th width="50px">Hasta</th>
+                                    <th width="50px">Dias</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
@@ -76,6 +77,7 @@ switch ($_GET["op"]){
 								<td><input type="date" size="25" name="fec_pag[]" value="'.$reg->fec_pag.'" ></td>
 								<td><input type="date" size="25" name="desde[]" value="'.$reg->desde.'" ></td>
 								<td><input type="date" size="25" name="hasta[]" value="'.$reg->hasta.'" ></td>
+								<td><input type="text" readonly size="25" name="cant_dias[]" value="'.$reg->cant_dias.'" ></td>
 						  </tr>';
 					$total=$periodo;
 					$cont++;

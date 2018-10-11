@@ -181,7 +181,7 @@ $fecha=$dias[gmdate('w')]." ".gmdate('d')." de ".$meses[gmdate('n')-1]. " del ".
 
                                 <label  class="col-col-lg-1 col-md-1 col-sm-1 control-label"  align="right"  >Codigo:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="id_trab" id="id_trab"  required>
+                                   <input type="text" class="form-control" name="id_trab" id="id_trab"  autocomplete="off" required>
                                 </div>
 
 

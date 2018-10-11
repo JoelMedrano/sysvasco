@@ -49,8 +49,14 @@ function limpiar()
 	$("#descripcion").val("");
 	$("#id_trab").val("");
 	$("#motivo").val("");
-	$("#modalidad").val("");
-	$("#tip_abono").val(""); 
+	$("#").val("");
+
+	$("#modalidad").val("QUINCENAL");
+	$("#modalidad").selectpicker('refresh');
+
+	$("#tip_abono").val("ABONO POR PLANILLA");
+	$("#tip_abono").selectpicker('refresh');
+
 	$("#cantidad").val("");
 	$("#pagado").val("");
 	$("#saldo").val("");

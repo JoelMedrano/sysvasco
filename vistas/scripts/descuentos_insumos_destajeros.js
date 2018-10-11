@@ -72,8 +72,15 @@ function limpiar()
 	$("#id_ins_des").val("");
 	$("#fec_suc").val("");
 	$("#id_trab").val("");
-	$("#modalidad").val("");
-    $("#tip_dscto").val("");
+
+
+	$("#modalidad").val("QUINCENAL");
+	$("#modalidad").selectpicker('refresh');
+
+	$("#tip_dscto").val("DESCUENTO POR PLANILLA");
+	$("#tip_dscto").selectpicker('refresh');
+
+
 	$("#cantidad").val("");
 	$("#num_cuotas").val("");
 	$("#pagado").val("");
@@ -91,7 +98,6 @@ function limpiar()
 	$("#fec_des3").val("");
 	$("#fec_des3").selectpicker('refresh');
 	$("#mon_des3").val("");
-
 
 
 

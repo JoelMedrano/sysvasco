@@ -409,6 +409,52 @@ switch ($_GET["op"]){
 
 
 
+	case "selectSituacionInformativaAnterior":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectSituacionInformativa();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_sit_inf_ant . '>' . $reg->situacion_informativa_anterior . '</option>';
+				}
+	break;
+
+
+
+	case "selectSituacionInformativaActual":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectSituacionInformativa();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_sit_inf_act . '>' . $reg->situacion_informativa_actual . '</option>';
+				}
+	break;
+
+
+
+		case "selectPagoEspecial":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectPagoEspecial();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_pag_esp . '>' . $reg->pago_especial . '</option>';
+				}
+	break;
+
+
+
+
 
 
 

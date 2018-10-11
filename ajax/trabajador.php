@@ -40,8 +40,12 @@ $id_turno=isset($_POST["id_turno"])? limpiarCadena($_POST["id_turno"]):"";
 
 $id_tip_plan=isset($_POST["id_tip_plan"])? limpiarCadena($_POST["id_tip_plan"]):"";
 $sueldo_trab=isset($_POST["sueldo_trab"])? limpiarCadena($_POST["sueldo_trab"]):"";
-$bono_trab=isset($_POST["bono_trab"])? limpiarCadena($_POST["bono_trab"]):"";
+$bono_trab=isset($_POST["bono_trab"])? limpiarCadena($_POST["bono_trab"]):""; 
+$bono_des_trab=isset($_POST["bono_des_trab"])? limpiarCadena($_POST["bono_des_trab"]):"";
 $asig_trab=isset($_POST["asig_trab"])? limpiarCadena($_POST["asig_trab"]):"";
+$id_pag_esp=isset($_POST["id_pag_esp"])? limpiarCadena($_POST["id_pag_esp"]):"";
+
+
 $obs_trab=isset($_POST["obs_trab"])? limpiarCadena($_POST["obs_trab"]):"";
 $id_cen_cost=isset($_POST["id_cen_cost"])? limpiarCadena($_POST["id_cen_cost"]):"";
 $id_tip_man_ob=isset($_POST["id_tip_man_ob"])? limpiarCadena($_POST["id_tip_man_ob"]):"";
@@ -289,9 +293,16 @@ $nom_afi_afp=isset($_POST["nom_afi_afp"])? limpiarCadena($_POST["nom_afi_afp"]):
 
 
 
-
-
 $prueba=isset($_POST["prueba"])? limpiarCadena($_POST["prueba"]):"";
+
+
+
+
+$CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
+
+
+
+$anoperiodo = date("Y", strtotime($fec_ing_trab));
 
 
 
@@ -304,9 +315,9 @@ switch ($_GET["op"]){
 
 		if (empty($id_trab)){
 			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
-				$num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $asig_trab, $obs_trab, $id_cen_cost,
-				 $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
-				 $fec_ing_interno, $fec_sal_interno );
+										 $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost,
+									     $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
+									     $fec_ing_interno, $fec_sal_interno );
 
 			$rspta=$trabajador->insertar_trabajador_familia( $fec_reg, $usu_reg, $pc_reg );
 			$rspta=$trabajador->insertar_trabajador_estudios( $fec_reg, $usu_reg, $pc_reg );
@@ -318,15 +329,43 @@ switch ($_GET["op"]){
 
 			
 
+			  $rsptac = $trabajador->mostrar_idperiodovacaciones($anoperiodo); 
+			  $regc=$rsptac->fetch_object();
+			  $id_ano_periodo=$regc->id_ano_periodo;
+
+
+
+			if ($id_tip_plan=='1') {
+			$rspta=$trabajador->insertar_primerperiodovacaciones( $num_doc_trab, $fec_ing_trab, $id_tip_plan,  $CantItems, $id_ano_periodo, $anoperiodo, $fec_reg, $usu_reg, $pc_reg  );
+			}
+
 			echo $rspta ? "Trabajador registrado" : "Trabajador no se pudo registrar";
+
+
 		}
 		else {
 			$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab, $id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_sal_trab, $id_tip_plan, $sueldo_trab,
-				 $bono_trab, $asig_trab, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
+				 $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
 				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno, $mot_sal_interno, $fec_ing2,  $fec_sal2, $mot_sal2,
 				 $fec_ing1, $fec_sal1, $mot_sal1 );
+		
+
+
+
+			$rsptac = $trabajador->mostrar_idperiodovacaciones($anoperiodo); 
+			$regc=$rsptac->fetch_object();
+			$id_ano_periodo=$regc->id_ano_periodo;
+
+
+
+			if ($id_tip_plan=='1' AND  $CantItems=='0') {
+			$rspta=$trabajador->insertar_primerperiodovacaciones( $num_doc_trab, $fec_ing_trab, $id_tip_plan,  $CantItems, $id_ano_periodo, $anoperiodo, $fec_reg, $usu_reg, $pc_reg  );
+			}
+
 			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
+
+
 		}
 
 	break;

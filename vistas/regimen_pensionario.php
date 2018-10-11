@@ -55,12 +55,12 @@ if ($_SESSION['rrhh']==1)
                           <div class="box-header with-border">
                               <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                 <label>Año:</label>
-                                <input type="text" class="form-control" name="id_ano" id="id_ano" required>
+                                <input type="text" class="form-control" name="id_ano" id="id_ano" required  autocomplete="off">
                               </div>
                               
                               <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
                                 <label>Obs Reg.Pensionario:</label>
-                                <input type="text" class="form-control" name="obs_reg_pen" id="obs_reg_pen" >
+                                <input type="text" class="form-control" name="obs_reg_pen" id="obs_reg_pen"  autocomplete="off">
                               </div>
 
                               <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
@@ -68,7 +68,7 @@ if ($_SESSION['rrhh']==1)
 
                               <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                 <label>Codigo:</label>
-                                <input type="text" class="form-control" name="id_reg_pen" id="id_reg_pen" readonly>
+                                <input type="text" class="form-control" name="id_reg_pen" id="id_reg_pen" readonly  autocomplete="off">
                               </div>
 
 
@@ -103,25 +103,25 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group  col-xs-12">
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">ONP:</label>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="onp_apo_obl" id="onp_apo_obl">
+                                   <input type="text" class="form-control" name="onp_apo_obl" id="onp_apo_obl"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="onp_com_men_rem" id="onp_com_men_rem">
+                                   <input type="text" class="form-control" name="onp_com_men_rem" id="onp_com_men_rem"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="onp_com_anu" id="onp_com_anu">
+                                   <input type="text" class="form-control" name="onp_com_anu" id="onp_com_anu"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text" class="form-control" name="onp_com_men" id="onp_com_men">
+                                   <input type="text" class="form-control" name="onp_com_men" id="onp_com_men"  autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="onp_pri_seg" id="onp_pri_seg">
+                                   <input type="text"  class="form-control" name="onp_pri_seg" id="onp_pri_seg" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="onp_apo_act" id="onp_apo_act">
+                                   <input type="text"  class="form-control" name="onp_apo_act" id="onp_apo_act" autocomplete="off">
                                 </div>
                                 <div class="col-lg-1">
-                                   <input type="text"  class="form-control" name="onp_apo_mix" id="onp_apo_mix">
+                                   <input type="text"  class="form-control" name="onp_apo_mix" id="onp_apo_mix" autocomplete="off">
                                 </div>
                           </div>
 

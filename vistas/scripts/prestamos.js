@@ -481,6 +481,12 @@ function limpiar()
 	
 
 
+	//Marcamos el primer tipo_documento
+   	$("#modalidad").val("QUINCENAL");
+	$("#modalidad").selectpicker('refresh');
+
+
+
 
 }
 

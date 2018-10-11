@@ -96,19 +96,21 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cantidad:</label>
-                            <input type="number" class="form-control" name="cantidad" id="cantidad">
+                            <input type="decimal" class="form-control" name="cantidad"  id="cantidad" required  autocomplete="off">
                           </div>
                           <div class="form-group  col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Num.Cuotas:</label>
-                            <input type="number" class="form-control" name="num_cuotas" id="num_cuotas">
+                            <input type="decimal" class="form-control" name="num_cuotas" id="num_cuotas" required  autocomplete="off">
                           </div>
+                          
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cant.Pagada</label>
-                            <input type="number" class="form-control" name="pagado" id="pagado" readonly>
+                            <input type="decimal" class="form-control" name="pagado" id="pagado" readonly  autocomplete="off">
                           </div>
+
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Saldo</label>
-                            <input type="number" class="form-control" name="saldo" id="saldo" readonly>
+                            <input type="decimal" class="form-control" name="saldo" id="saldo" readonly autocomplete="off">
                           </div>
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -123,7 +125,7 @@ if ($_SESSION['rrhh']==1)
                           
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Motivo:</label>
-                            <input type="text" class="form-control" name="motivo" id="motivo">
+                            <input type="text" class="form-control" name="motivo" id="motivo" required  autocomplete="off" >
                           </div>
 
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">

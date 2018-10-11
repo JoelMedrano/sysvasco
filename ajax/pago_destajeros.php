@@ -2,9 +2,9 @@
 if (strlen(session_id()) < 1) 
   session_start();
 
-require_once "../modelos/Vacaciones.php";
+require_once "../modelos/Pago_Destajeros.php";
 
-$vacaciones=new Vacaciones();
+$pago_destajeros=new Pago_Destajeros();
 
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
@@ -29,7 +29,7 @@ $CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($nro_doc)){
-			$rspta=$vacaciones->insertar($id_nomtrab,$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],
+			$rspta=$pago_destajeros->insertar($id_nomtrab,$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],
 				$_POST["pen_dias"],$_POST["obser_detalle"],$_POST["vencidas"],$_POST["truncas"],$_POST["fec_del_dec"],$_POST["fec_al_dec"],$_POST["tot_dias_dec"],
 				$_POST["pen_dias_dec"],$_POST["obser"]);
 			echo $rspta ? "Vacacion registrada" : "No se pudieron registrar todos los datos de la vacacion";
@@ -38,8 +38,8 @@ switch ($_GET["op"]){
 			
 			
 
-			$rspta=$vacaciones->editar($nro_doc, $_POST["correlativo"], $_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
-			$rspta=$vacaciones->insertar2($nro_doc, $CantItems, $_POST["correlativo"],$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
+			$rspta=$pago_destajeros->editar($nro_doc, $_POST["correlativo"], $_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
+			$rspta=$pago_destajeros->insertar2($nro_doc, $CantItems, $_POST["correlativo"],$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
 			
 
 
@@ -48,12 +48,12 @@ switch ($_GET["op"]){
 	break;
 
 	case 'anular':
-		$rspta=$vacaciones->anular($nro_doc);
+		$rspta=$pago_destajeros->anular($nro_doc);
  		echo $rspta ? "Venta anulada" : "Venta no se puede anular";
 	break;
 
 	case 'mostrar':
-		$rspta=$vacaciones->mostrar($nro_doc);
+		$rspta=$pago_destajeros->mostrar($nro_doc);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -62,7 +62,7 @@ switch ($_GET["op"]){
 		//Referente a V-Art
 		$id=$_GET['id'];
 
-		$rspta = $vacaciones->listarDetalle($id);
+		$rspta = $pago_destajeros->listarDetalle($id);
 		$total=0;
 		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
@@ -106,7 +106,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
-		$rspta=$vacaciones->listar();
+		$rspta=$pago_destajeros->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -169,7 +169,5 @@ switch ($_GET["op"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
-
-	
 }
 ?>

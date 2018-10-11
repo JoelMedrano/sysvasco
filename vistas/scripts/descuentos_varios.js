@@ -76,13 +76,13 @@ function limpiar()
 	$("#id_trab").val("");
 	$("#id_trab").selectpicker('refresh');
 
-	$("#modalidad").val("");
+	$("#modalidad").val("QUINCENAL");
 	$("#modalidad").selectpicker('refresh');
 
 	$("#medida").val("");
 	$("#medida").selectpicker('refresh');
-
-	$("#tip_dscto").val("");
+	
+	$("#tip_dscto").val("DESCUENTO POR PLANILLA");
 	$("#tip_dscto").selectpicker('refresh');
 
 

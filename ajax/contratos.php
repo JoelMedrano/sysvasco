@@ -22,50 +22,64 @@ $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):
 $nro_doc=isset($_POST["nro_doc"])? limpiarCadena($_POST["nro_doc"]):"";
 $id_nomtrab=isset($_POST["id_nomtrab"])? limpiarCadena($_POST["id_nomtrab"]):"";
 $CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
+$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 
 
+
+$id_con_trab=isset($_POST["id_con_trab"])? limpiarCadena($_POST["id_con_trab"]):"";
 $tie_ren_ant=isset($_POST["tie_ren_ant"])? limpiarCadena($_POST["tie_ren_ant"]):"";
 $fec_ini_ant=isset($_POST["fec_ini_ant"])? limpiarCadena($_POST["fec_ini_ant"]):"";
 $fec_fin_ant=isset($_POST["fec_fin_ant"])? limpiarCadena($_POST["fec_fin_ant"]):"";
+$id_sit_inf_ant=isset($_POST["id_sit_inf_ant"])? limpiarCadena($_POST["id_sit_inf_ant"]):"";
+
 $tie_ren_con=isset($_POST["tie_ren_con"])? limpiarCadena($_POST["tie_ren_con"]):"";
 $fec_ini_con=isset($_POST["fec_ini_con"])? limpiarCadena($_POST["fec_ini_con"]):"";
 $fec_fin_con=isset($_POST["fec_fin_con"])? limpiarCadena($_POST["fec_fin_con"]):"";
+$id_sit_inf_act=isset($_POST["id_sit_inf_act"])? limpiarCadena($_POST["id_sit_inf_act"]):"";
 
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
-		if (empty($nro_doc)){
-			$rspta=$contratos->insertar($nro_doc,
-										$tie_ren_ant,
-										$fec_ini_ant,
-										$tie_ren_con,
-										$fec_ini_con,
-										$fec_fin_con,
-										$usu_reg,
-										$pc_reg,
-										$fec_reg
-										);
-			echo $rspta ? "Contrato registrada" : "No se pudieron registrar todos los datos del contrato";
+		if (empty($tie_ren_con)){
+
+				$rspta=$contratos->editar($id_trab,
+										   $id_con_trab,
+										   $tie_ren_ant,
+										   $fec_ini_ant,
+										   $fec_fin_ant,
+										   $id_sit_inf_ant,
+										   $usu_reg,
+										   $pc_reg,
+										   $fec_reg 
+									 );
+
+			
+			echo $rspta ? "Contrato actualizado" : "No se pudieron actualizar todos los datos del contrato"; 
+
+
 		}
 		else {
-			
-			
 
-	
-			$rspta=$contratos->insertar2($nro_doc,
-										 $tie_ren_ant,
-										 $fec_ini_ant,
+
+			$rspta=$contratos->insertar2($id_trab,
 										 $tie_ren_con,
 										 $fec_ini_con,
 										 $fec_fin_con,
+										 $fec_fin_con,
+										 $id_sit_inf_act,
 										 $usu_reg,
 										 $pc_reg,
 										 $fec_reg 
 										 );
 			
-			echo $rspta ? "Contrato actualizado" : "No se pudieron actualizar todos los datos del contrato";
+			
+
+			echo $rspta ? "Contrato registrado" : "Contrato no se pudo registrar";
+			
 		}
+
+
 	break;
 
 	case 'anular':
@@ -135,7 +149,7 @@ switch ($_GET["op"]){
  			
 
  			$data[]=array(
- 				"0"=>$reg->id_trab,
+ 				"0"=>$reg->est_reg,
  				"1"=>$reg->sucursal_anexo,
  				"2"=>$reg->area_trab,
  				"3"=>$reg->funcion,
@@ -188,5 +202,8 @@ switch ($_GET["op"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
+
+
+	
 }
 ?>

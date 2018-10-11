@@ -182,6 +182,15 @@ function init(){
 
 
 
+	//Cargamos los items al select grupo sanguineo
+	$.post("../ajax/consultasD.php?op=selectPagoEspecial", function(r){
+	            $("#id_pag_esp").html(r);
+	            $('#id_pag_esp').selectpicker('refresh');
+
+	});
+
+
+
 
 
 
@@ -226,23 +235,47 @@ function limpiar()
 	$("#id_trab").val("");
 	$("#dir_trab").val("");
 	$("#urb_trab").val("");
-	$("#id_distrito").val("");
+
+	
+	$("#id_distrito").val("LIMA");
+	$("#id_distrito").selectpicker('refresh');
+
+
+
 	$("#departamento").val("");
 	$("#fec_nac_trab").val("");
 	$("#lug_nac_trab").val("");
 	$("#edad_trab").val("");
 	$("#nacionalidad").val("");
 	$("#id_est_civil").val("");
-	$("#id_tip_doc").val("");
+	
+
+	$("#id_tip_doc").val("DNI");
+	$("#id_tip_doc").selectpicker('refresh');
+
+
 	$("#num_doc_trab").val("");
 	$("#num_tlf_dom").val("");
 	$("#num_tlf_cel").val("");
 	$("#email_trab").val("");
-	$("#id_sucursal").val("");
-	$("#id_funcion").val("");
-	$("#id_area").val("");
-	$("#id_turno").val("");
-	$("#id_tip_plan").val("");
+	
+
+	$("#id_sucursal").val("CORP.VASCO");
+	$("#id_sucursal").selectpicker('refresh');
+
+	$("#id_funcion").val("ASISTENTE");
+	$("#id_funcion").selectpicker('refresh');
+
+	$("#id_area").val("ADMINISTRACIÓN");
+	$("#id_area").selectpicker('refresh');
+
+	$("#id_turno").val("DIA");
+	$("#id_turno").selectpicker('refresh');
+
+	$("#id_tip_plan").val("INTERNO");
+	$("#id_tip_plan").selectpicker('refresh');
+
+
 	$("#fec_ing_trab").val("");
 	$("#fec_sal_trab").val("");
 	$("#sueldo_trab").val("");
@@ -250,6 +283,11 @@ function limpiar()
 	$("#fec_sal2").val("");
 	$("#mot_sal2").val("");
 	$("#bono_trab").val("");
+	$("#bono_des_trab").val("");
+
+	$("#id_pag_esp").val("NINGUNO");
+	$("#id_pag_esp").selectpicker('refresh');
+
 	$("#fec_ing1").val("");
 	$("#fec_sal1").val("");
 	$("#mot_sal1").val("");
@@ -259,13 +297,28 @@ function limpiar()
 	$("#mot_sal_interno").val("");
 	$("#obs_trab").val("");
 	$("#id_cen_cost").val("");
-	$("#id_tip_man_ob").val("");
-	$("#id_categoria").val("");
-	$("#id_form_pag").val("");
+
+	
+	$("#id_tip_man_ob").val("MANO DE OBRA DIRECTA");
+	$("#id_tip_man_ob").selectpicker('refresh');
+
+	$("#id_categoria").val("OBRERO");
+	$("#id_categoria").selectpicker('refresh');
+
+	$("#id_form_pag").val("NORMAL");
+	$("#id_form_pag").selectpicker('refresh');
+
 	$("#id_tip_cont").val("");
 	$("#id_reg_pen").val("");
 	$("#id_com_act").val("");
-	$("#id_genero").val("");
+	
+
+	//Marcamos el primer tipo_documento
+   	$("#id_genero").val("FEMENINO");
+	$("#id_genero").selectpicker('refresh');
+
+
+
 	$("#fecfin_con_ant").val("");
 	$("#fecfin_con_act").val("");
 	$("#cusp_trab").val("");
@@ -789,6 +842,10 @@ function mostrar(id_trab)
 		$('#id_tip_doc').selectpicker('refresh');
 
 
+		$("#id_pag_esp").val(data.id_pag_esp);
+		$('#id_pag_esp').selectpicker('refresh');
+
+
 		$("#id_trab").val(data.id_trab);
 		$("#nom_trab").val(data.nom_trab);
 		$("#apepat_trab").val(data.apepat_trab);
@@ -803,6 +860,7 @@ function mostrar(id_trab)
 		$("#email_trab").val(data.email_trab);
 		$("#sueldo_trab").val(data.sueldo_trab);
 		$("#bono_trab").val(data.bono_trab);
+		$("#bono_des_trab").val(data.bono_des_trab); 
 		$("#asig_trab").val(data.asig_trab);
 		$("#obs_trab").val(data.obs_trab);
 		$("#cusp_trab").val(data.cusp_trab);
@@ -831,7 +889,7 @@ function mostrar(id_trab)
 
 		
 
-
+		$("#CantItems").val(data.CantItems);
 
 
 	

@@ -294,6 +294,7 @@ if (strlen(session_id()) < 1)
 
                   <li><a href="prestamos.php"><i class="fa fa-circle-o"></i>Prestamos</a></li>
 
+                  <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
           
 
                   <li class="treeview">
@@ -322,6 +323,7 @@ if (strlen(session_id()) < 1)
                       <ul class="treeview-menu">
                           <li class="treeview">
                           <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i> Abono - Regularización</a></li>
+                          <li><a href="pago_destajeros.php"><i class="fa fa-circle-o"></i> Pago Destajeros</a></li>
                           </li>
                       </ul>
                   </li>
