@@ -6,6 +6,17 @@ require_once "../modelos/Cronograma_Pagos.php";
 
 $cronograma_pagos=new Cronograma_Pagos();
 
+
+//Campos de Seguridad//
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+//Campos de Seguridad//
+
+
+
+
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
 $idusuario=$_SESSION["idusuario"];

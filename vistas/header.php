@@ -328,6 +328,8 @@ if (strlen(session_id()) < 1)
                       </ul>
                   </li>
 
+                  <li><a href="planilla.php"><i class="fa fa-circle-o"></i>Generacion de Planilla</a></li>
+
                   
 
 

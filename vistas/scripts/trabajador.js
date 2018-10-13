@@ -317,6 +317,10 @@ function limpiar()
    	$("#id_genero").val("FEMENINO");
 	$("#id_genero").selectpicker('refresh');
 
+	$("#nro_cta_sue").selectpicker('nro_cta_sue');
+	$("#nro_cta_cts").selectpicker('nro_cta_cts');
+	
+
 
 
 	$("#fecfin_con_ant").val("");
@@ -890,6 +894,11 @@ function mostrar(id_trab)
 		
 
 		$("#CantItems").val(data.CantItems);
+
+		$("#nro_cta_sue").val(data.nro_cta_sue);
+		$("#nro_cta_cts").val(data.nro_cta_cts);
+		
+		
 
 
 	

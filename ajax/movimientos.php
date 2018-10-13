@@ -39,7 +39,7 @@ switch ($_GET["op"]){
  			$data[]=array(
  				"0"=>$reg->fecha,
  				"1"=>$reg->mes,
-        "2"=>($reg->mes)?'<button class="btn btn-danger" onclick="eliminar(\''.$reg->fecha.'\')"><i class="fa fa-trash"></i></button>':' <button class="btn btn-danger" onclick="eliminar('.$reg->fecha.')"><i class="fa fa-trash"></i></button>'
+                "2"=>($reg->mes)?'<button class="btn btn-danger" onclick="eliminar(\''.$reg->fecha.'\')"><i class="fa fa-trash"></i></button>':' <button class="btn btn-danger" onclick="eliminar('.$reg->fecha.')"><i class="fa fa-trash"></i></button>'
 
  				);
  		}

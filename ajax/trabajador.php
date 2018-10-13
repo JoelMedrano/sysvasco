@@ -80,6 +80,10 @@ $mot_sal_interno=isset($_POST["mot_sal_interno"])? limpiarCadena($_POST["mot_sal
 $fecfin_con_ant=isset($_POST["fecfin_con_ant"])? limpiarCadena($_POST["fecfin_con_ant"]):"";
 $fecfin_con_act=isset($_POST["fecfin_con_act"])? limpiarCadena($_POST["fecfin_con_act"]):"";
 
+
+$nro_cta_sue=isset($_POST["nro_cta_sue"])? limpiarCadena($_POST["nro_cta_sue"]):"";
+$nro_cta_cts=isset($_POST["nro_cta_cts"])? limpiarCadena($_POST["nro_cta_cts"]):"";
+
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 //FIN - DATOS DE INFORMACION PRINCIPAL DE TRABAJADOR 
 
@@ -317,7 +321,7 @@ switch ($_GET["op"]){
 			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
 										 $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost,
 									     $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
-									     $fec_ing_interno, $fec_sal_interno );
+									     $fec_ing_interno, $fec_sal_interno, $nro_cta_cts, $nro_cta_sue );
 
 			$rspta=$trabajador->insertar_trabajador_familia( $fec_reg, $usu_reg, $pc_reg );
 			$rspta=$trabajador->insertar_trabajador_estudios( $fec_reg, $usu_reg, $pc_reg );
@@ -348,7 +352,7 @@ switch ($_GET["op"]){
 				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_sal_trab, $id_tip_plan, $sueldo_trab,
 				 $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
 				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno, $mot_sal_interno, $fec_ing2,  $fec_sal2, $mot_sal2,
-				 $fec_ing1, $fec_sal1, $mot_sal1 );
+				 $fec_ing1, $fec_sal1, $mot_sal1, $nro_cta_cts, $nro_cta_sue );
 		
 
 

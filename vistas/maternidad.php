@@ -85,6 +85,11 @@ if ($_SESSION['rrhh']==1)
                                         <input type="text" class="form-control" name="observa_c1" id="observa_c1"  autocomplete="off">
                                       </div>
 
+                                        <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                        <label>ESTADO</label>
+                                        <input type="text" class="form-control" name="estado_hij1" id="estado_hij1"  readonly autocomplete="off">
+                                      </div>
+
                                 </div>
 
                                 <div class="form-group  col-xs-12">
@@ -141,7 +146,7 @@ if ($_SESSION['rrhh']==1)
 
                                       <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                         <label>ESTADO</label>
-                                        <input type="text" class="form-control" name="est_c2" id="est_c2"  autocomplete="off">
+                                        <input type="text" class="form-control" name="estado_hij2" id="estado_hij2" readonly autocomplete="off">
                                       </div>
 
                                  </div>
@@ -198,6 +203,11 @@ if ($_SESSION['rrhh']==1)
                                       <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                         <label>OBSERVACION</label>
                                         <input type="text" class="form-control" name="observa_c3" id="observa_c3"  autocomplete="off">
+                                      </div>
+
+                                      <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                        <label>ESTADO</label>
+                                        <input type="text" class="form-control" name="estado_hij3" id="estado_hij3" readonly  autocomplete="off">
                                       </div>
 
 

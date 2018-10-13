@@ -389,6 +389,23 @@ if ($_SESSION['rrhh']==1)
 
                             </div>
 
+                             <div class="form-group  col-xs-12">
+                                    
+                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nro Cuenta Sueldo:</label>
+                                    <div class="col-lg-2">
+                                      <input type="text" class="form-control" name="nro_cta_sue" id="nro_cta_sue"  autocomplete="off">
+                                    </div>
+                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Nro Cuenta CTS:</label>
+                                    <div class="col-lg-2">
+                                      <input type="text" class="form-control" name="nro_cta_cts" id="nro_cta_cts"  autocomplete="off">
+                                    </div>
+                                    
+
+                            </div>
+
+
+
+
 
 
 
