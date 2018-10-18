@@ -81,7 +81,7 @@ if ($_SESSION['udp']==1)
 
                             <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
                               <label>Color:</label>
-                              <input type="text" class="form-control" name="color_mod" id="color_mod" placeholder="Color">
+                              <input type="text" class="form-control" name="color_mod" id="color_mod" placeholder="Color" autocomplete="off">
                             </div>
 
                             <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">

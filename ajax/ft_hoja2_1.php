@@ -8,53 +8,44 @@ $mft=new FT_hoja2_1();
 
 $idftc=isset($_POST["idftc"])? limpiarCadena($_POST["idftc"]):"";
 $idmft=isset($_POST["idmft"])? limpiarCadena($_POST["idmft"]):"";
+$com_color=isset($_POST["com_color"])? limpiarCadena($_POST["com_color"]):"";
 $tela1=isset($_POST["tela1"])? limpiarCadena($_POST["tela1"]):"";
+$tela2=isset($_POST["tela2"])? limpiarCadena($_POST["tela2"]):"";
+$tela3=isset($_POST["tela3"])? limpiarCadena($_POST["tela3"]):"";
+$color1=isset($_POST["color1"])? limpiarCadena($_POST["color1"]):"";
+$color2=isset($_POST["color2"])? limpiarCadena($_POST["color2"]):"";
+$color3=isset($_POST["color3"])? limpiarCadena($_POST["color3"]):"";
+
+
 
 
 switch ($_GET["op"]){
 
   case 'guardaryeditar':
 
-    if (empty($idmft)){
-      $rspta=$mft->insertar(    $idusuario,
-    														$fecha_hora,
-    														$empresa,
-    														$cod_mod,
-    														$tallas_mod,
-    														$temp_mod,
-    														$div_mod,
-    														$dest_mod,
-    														$id_trab,
-    														$color_mod,
-    														$tela1_mod,
-    														$tela2_mod,
-    														$tela3_mod,
-    														$bord_mod,
-    														$esta_mod,
-    														$manu_mod,
-    														$imagen,
-    														$imagen2,
-                                $_POST['color']);
+    if (empty($idftc)){
+      $rspta=$mft->insertar(    $idmft,
+    														$com_color,
+    														$tela1,
+                                $tela2,
+    														$tela3,
+    														$color1,
+    														$color2,
+                                $color3);
+                                
       echo $rspta ? "FT registrada" : "No se pudieron registrar todos los datos de la FT";
     }
     else {
-      $rspta=$mft->editar(	    $idmft,
-      													$id_trab,
-      													$empresa,
-      													$color_mod,
-      													$tallas_mod,
-      													$div_mod,
-      													$temp_mod,
-      													$dest_mod,
-      													$tela1_mod,
-      													$tela2_mod,
-      													$tela3_mod,
-      													$bord_mod,
-      													$esta_mod,
-      													$manu_mod,
-      													$imagen,
-      													$imagen2,
-                                $_POST['color']);
+      $rspta=$mft->editar(	    $idftc,
+                                $idmft,
+                                $com_color,
+                                $tela1,
+                                $tela2,
+                                $tela3,
+                                $color1,
+                                $color2,
+                                $color3);
+
         echo $rspta ? "FT actualizada" : "FT no se pudo actualizar";
     }
   break;
@@ -150,7 +141,7 @@ switch ($_GET["op"]){
 				while ($reg = $rspta->fetch_object())
 
 				{
-				echo '<option value=' . $reg->cod_color . '>' . $reg->color . '</option>';
+				echo '<option value=' . $reg->com_color . '>' . $reg->color . '</option>';
 				}
 
   break;
@@ -209,6 +200,31 @@ break;
 
 break;
 
+  //TODO: select para traer colores de la tela 2
+  case 'selectColor2':
+		
+  $rspta = $mft->selectColor2($tela2);
+  
+    while ($reg = $rspta->fetch_object())
+
+      {
+      echo '<option value=' . $reg->cod_color . '>' . $reg->color . '</option>';
+      }
+
+break;
+
+  //TODO: select para traer colores de la tela 3
+  case 'selectColor3':
+		
+  $rspta = $mft->selectColor3($tela3);
+  
+    while ($reg = $rspta->fetch_object())
+
+      {
+      echo '<option value=' . $reg->cod_color . '>' . $reg->color . '</option>';
+      }
+
+break;
 
 }
 ?>

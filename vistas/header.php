@@ -413,7 +413,7 @@ if (strlen(session_id()) < 1)
                               <li><a href="ft_hoja1.php"><i class="fa fa-circle-o"></i> Presentacion</a></li>
                               <li>
                                   <a href="#">
-                                      <i class="fa fa-circle-o"></i> <span>Combinaciones</span>
+                                      <i class="fa fa-circle-o"></i> <span>Combinaciones  </span>
                                       <i class="fa fa-angle-left pull-right"></i>
                                   </a>
                                   <ul class="treeview-menu">

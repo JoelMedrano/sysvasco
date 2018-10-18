@@ -5,7 +5,6 @@ function init() {
 	mostrarform(false);
 	listar();
 	selectFT();
-	
 
 	$("#formulario").on("submit", function (e) {
 		guardaryeditar(e);
@@ -16,13 +15,15 @@ function init() {
 		selectTela1();
 		selectTela2();
 		selectTela3();
-		selectColor1();
+
 	});
 
-	$('#tela1').change(function () {
+	$('#com_color').change(function () {
 		selectColor1();
-	});
+		selectColor2();
+		selectColor3();
 
+	});
 
 }
 
@@ -30,45 +31,36 @@ function init() {
 function limpiar() {
 
 
-	$("#empresa").val("1");
-	$('#empresa').selectpicker('refresh');
-	$("#cod_mod").val("0");
-	$('#cod_mod').selectpicker('refresh');
-	$("#color_mod").val("");
-	$("#tallas_mod").val("");
-	$("#id_trab").val("0");
-	$('#id_trab').selectpicker('refresh');
-	$("#div_mod").val("");
-	$("#temp_mod").val("");
-	$("#dest_mod").val("");
-	$("#tela1_mod").val("0");
-	$('#tela1_mod').selectpicker('refresh');
-	$("#tela2_mod").val("0");
-	$('#tela2_mod').selectpicker('refresh');
-	$("#tela3_mod").val("0");
-	$('#tela3_mod').selectpicker('refresh');
-	$("#bord_mod").val("0");
-	$('#bord_mod').selectpicker('refresh');
-	$("#esta_mod").val("0");
-	$('#esta_mod').selectpicker('refresh');
-	$("#manu_mod").val("0");
-	$('#manu_mod').selectpicker('refresh');
+	$("#idmft").val("");
+	$('#idmft').selectpicker('refresh');
+	$("#com_color").val("");
+	$('#com_color').selectpicker('refresh');
 
+	$("#com_color").val("");
+	$('#com_color').selectpicker('refresh');
 
+	$("#tela1").val("0");
+	$('#tela1').selectpicker('refresh');
+	$("#tela1").val("").trigger('change');
+	$("#color1").val("0");
+	$('#color1').selectpicker('refresh');
+	$("#color1").val("").trigger('change');
 
-	$("#imagen_muestra").attr("src", "");
-	$("#imagenactual_imagen").val("");
+	$("#tela2").val("0");
+	$('#tela2').selectpicker('refresh');
+	$("#tela2").val("").trigger('change');
+	$("#color2").val("0");
+	$('#color2').selectpicker('refresh');
+	$("#color2").val("").trigger('change');
 
-	$("#imagen2_muestra").attr("src", "");
-	$("#imagenactual_imagen2").val("");
+	$("#tela3").val("0");
+	$('#tela3').selectpicker('refresh');
+	$("#tela3").val("").trigger('change');
+	$("#color3").val("0");
+	$('#color3').selectpicker('refresh');
+	$("#color3").val("").trigger('change');
 
-
-	//Obtenemos la fecha actual
-	var now = new Date();
-	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear() + "-" + (month) + "-" + (day);
-	$('#fecha_hora').val(today);
+	$("#idftc").val("");
 }
 
 //Función mostrar formulario
@@ -127,7 +119,7 @@ function guardaryeditar(e) {
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/ft_hoja1.php?op=guardaryeditar",
+		url: "../ajax/ft_hoja2_1.php?op=guardaryeditar",
 		type: "POST",
 		data: formData,
 		contentType: false,
@@ -150,9 +142,31 @@ function mostrar(idftc) {
 		data = JSON.parse(data);
 		mostrarform(true);
 
+
+
 		$("#idmft").val(data.idmft);
 		$("#idmft").selectpicker('refresh');
 
+		$("#com_color").val(data.com_color);
+		$("#com_color").selectpicker('refresh');
+
+		$("#tela1").val(data.tela1);
+		$("#tela1").selectpicker('refresh');
+
+		$("#tela2").val(data.tela2);
+		$("#tela2").selectpicker('refresh');
+
+		$("#tela3").val(data.tela3);
+		$("#tela3").selectpicker('refresh');
+
+		$("#color1").val(data.color1);
+		$("#color1").selectpicker('refresh');
+
+		$("#color2").val(data.color2);
+		$("#color2").selectpicker('refresh');
+
+		$("#color3").val(data.color3);
+		$("#color3").selectpicker('refresh');
 
 		$("#idftc").val(data.idftc);
 
@@ -169,6 +183,16 @@ function selectFT() {
 
 	});
 }
+
+//TODO: SELECT PARA LAS FICHAS TECNICAS
+/*function selectCombo() {
+	//Cargamos los items al combobox departamento
+	$.post("../ajax/ft_hoja2_1.php?op=selectCombo", function (r) {
+		$("#com_color").html(r);
+		$('#com_color').selectpicker('refresh');
+
+	});
+}*/
 
 function selectCombo() {
 	//Cargamos los items al combobox departamento
@@ -219,6 +243,8 @@ function selectTela3() {
 }
 
 function selectColor1() {
+
+
 	//Cargamos los items al combobox departamento
 	tela1 = $("#tela1").val();
 
@@ -227,6 +253,34 @@ function selectColor1() {
 	}, function (r) {
 		$("#color1").html(r);
 		$('#color1').selectpicker('refresh');
+	});
+}
+
+function selectColor2() {
+
+
+	//Cargamos los items al combobox departamento
+	tela2 = $("#tela2").val();
+
+	$.post("../ajax/ft_hoja2_1.php?op=selectColor2", {
+		tela2: tela2
+	}, function (r) {
+		$("#color2").html(r);
+		$('#color2').selectpicker('refresh');
+	});
+}
+
+function selectColor3() {
+
+
+	//Cargamos los items al combobox departamento
+	tela3 = $("#tela3").val();
+
+	$.post("../ajax/ft_hoja2_1.php?op=selectColor3", {
+		tela3: tela3
+	}, function (r) {
+		$("#color3").html(r);
+		$('#color3').selectpicker('refresh');
 	});
 }
 

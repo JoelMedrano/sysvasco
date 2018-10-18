@@ -32,7 +32,7 @@ if ($_SESSION['udp']==1)
           <div class="panel-body table-responsive" id="listadoregistros">
             <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
               <thead>
-                <th>Id FT</th>
+                <th>Id</th>
                 <th>Modelo</th>
                 <th>Color</th>
                 <th>Tela 1era Principal</th>
@@ -46,7 +46,7 @@ if ($_SESSION['udp']==1)
               <tbody>
               </tbody>
               <tfoot>
-                <th>Id FT</th>
+                <th>Id</th>
                 <th>Modelo</th>
                 <th>Color</th>
                 <th>Tela 1era Principal</th>
@@ -59,47 +59,67 @@ if ($_SESSION['udp']==1)
               </tfoot>
             </table>
           </div>
+
           <div class="panel-body" id="formularioregistros">
             <form name="formulario" id="formulario" method="POST">
 
-              <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <label>Ficha Tecnica(*):</label>
-                <input name="idftc" id="idftc">
-                <select id="idmft" name="idmft" class="form-control selectpicker" data-live-search="true" required>
-                </select>
+              <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <label>Ficha Tecnica(*):</label>
+                  <input type="hidden" name="idftc" id="idftc">
+                  <select id="idmft" name="idmft" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <label>Combo(*):</label>
+                  <select id="com_color" name="com_color" class="form-control selectpicker" data-live-search="true"
+                    required>
+                  </select>
+                </div>
+
               </div>
 
-              <div class="form-group col-lg-4 col-md-8 col-sm-8 col-xs-12">
-                <label>Combo(*):</label>
-                <select id="com_color" name="com_color" class="form-control selectpicker" data-live-search="true"
-                  required>
-                </select>
-              </div>
+              <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
 
-              <div class="form-group col-lg-4 col-md-8 col-sm-8 col-xs-12">
-                <label>Tela 1(*):</label>
-                <select id="tela1" name="tela1" class="form-control selectpicker" data-live-search="true" required>
-                </select>
-              </div>
+                <div class="form-group col-lg-8 col-md-8 col-sm-7 col-xs-12">
+                  <label>Tela 1(*):</label>
+                  <select id="tela1" name="tela1" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
 
-              <div class="form-group col-lg-4 col-md-8 col-sm-8 col-xs-12">
-                <label>COLOR 1(*):</label>
-                <select id="color1" name="color1" class="form-control selectpicker" data-live-search="true" required>
-                </select>
-              </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                  <label>Color 1(*):</label>
+                  <select id="color1" name="color1" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
 
-              <div class="form-group col-lg-4 col-md-8 col-sm-8 col-xs-12">
-                <label>Tela 2(*):</label>
-                <select id="tela2" name="tela2" class="form-control selectpicker" data-live-search="true" required>
-                </select>
-              </div>
+                <div class="form-group col-lg-8 col-md-8 col-sm-7 col-xs-12">
+                  <label>Tela 2(*):</label>
+                  <select id="tela2" name="tela2" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
 
-              <div class="form-group col-lg-4 col-md-8 col-sm-8 col-xs-12">
-                <label>Tela 3(*):</label>
-                <select id="tela3" name="tela3" class="form-control selectpicker" data-live-search="true" required>
-                </select>
-              </div>
+                <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                  <label>Color 2(*):</label>
+                  <select id="color2" name="color2" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
 
+                <div class="form-group col-lg-8 col-md-8 col-sm-7 col-xs-12">
+                  <label>Tela 3(*):</label>
+                  <select id="tela3" name="tela3" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                  <label>COLOR 3(*):</label>
+                  <select id="color3" name="color3" class="form-control selectpicker" data-live-search="true" required>
+                  </select>
+                </div>
+
+              </div>
 
 
               <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -108,7 +128,6 @@ if ($_SESSION['udp']==1)
                 <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i>
                   Cancelar</button>
               </div>
-
 
             </form>
           </div>

@@ -57,6 +57,7 @@ function limpiar()
 	
 	$("#id_trab").val("").trigger('change');
 	$('#cargo').prop('selectedIndex',0);
+	$("#cargo").val("").trigger('change');
 	$("#area1").val("").trigger('change');
 	$("#imagen").attr("src","");
 

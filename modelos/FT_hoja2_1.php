@@ -11,87 +11,18 @@ Class FT_hoja2_1
   }
 
 	//Implementamos un método para insertar registros
-	public function insertar( $idusuario,
-														$fecha_hora,
-														$empresa,
-														$cod_mod,
-														$tallas_mod,
-														$temp_mod,
-														$div_mod,
-														$dest_mod,
-														$id_trab,
-														$color_mod,
-														$tela1_mod,
-														$tela2_mod,
-														$tela3_mod,
-														$bord_mod,
-														$esta_mod,
-														$manu_mod,
-														$imagen,
-														$imagen2,
-														$colores)
+	public function insertar($idmft,$com_color,$tela1,$tela2,$tela3,$color1,$color2,$color3)
 	{
-		$sql="INSERT INTO maestro_ficha_tecnica (		idusuario,
-																								fecha_hora,
-																								estado,
-																								empresa,
-																								cod_mod,
-																								tallas_mod,
-																								temp_mod,
-																								div_mod,
-																								dest_mod,
-																								id_trab,
-																								color_mod,
-																								tela1_mod,
-																								tela2_mod,
-																								tela3_mod,
-																								bord_mod,
-																								esta_mod,
-																								manu_mod,
-																								imagen,
-																								imagen2)
+		$sql="INSERT INTO fic_teccomb (idmft,com_color,tela1,tela2,tela3,color1,color2,color3) 
+          VALUES('$idmft','$com_color','$tela1','$tela2','$tela3','$color1','$color2','$color3')";
 
-																		VALUES(			'$idusuario',
-																								'$fecha_hora',
-																								'por aprobar',
-																								'$empresa',
-																								'$cod_mod',
-																								'$tallas_mod',
-																								'$temp_mod',
-																								'$div_mod',
-																								'$dest_mod',
-																								'$id_trab',
-																								'$color_mod',
-																								'$tela1_mod',
-																								'$tela2_mod',
-																								'$tela3_mod',
-																								'$bord_mod',
-																								'$esta_mod',
-																								'$manu_mod',
-																								'$imagen',
-																								'$imagen2')";
-		//return ejecutarConsulta($sql);
-		$idmftnew=ejecutarConsulta_retornarID($sql);
-
-		$num_elementos=0;
-		$sw=true;
-
-		while ($num_elementos < count($colores))
-		{
-			$sql_detalle = "INSERT INTO fictec_color (idmft, cod_color) VALUES('$idmftnew', '$colores[$num_elementos]')";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-		}
-
-		return $sw;
+    return ejecutarConsulta($sql);
 	}
 
 
 
 	//Implementamos un método para editar registros
-	public function editar(	$idmft,
-													$id_trab,
-													$empresa,
+	public function editar(	$idmft,$id_trab,$empresa,
 													$color_mod,
 													$tallas_mod,
 													$div_mod,
@@ -311,20 +242,31 @@ Class FT_hoja2_1
 
   public function selectCombo($idmft){
     $sql="SELECT 
-                    fc.idmft,
-                    fc.cod_color,
-                    CONCAT(fc.cod_color,' - ',c.color) AS color
+                  fc.idmft,
+                  fc.cod_color AS com_color,
+                  CASE
+                    WHEN ftc.com_color IS NULL 
+                    THEN CONCAT(fc.cod_color, ' - ', c.color) 
+                    ELSE CONCAT(
+                      ftc.com_color,
+                      ' - ',
+                      c.color,
+                      ' - OK'
+                    ) 
+                  END AS color 
+                FROM
+                  fictec_color fc 
+                  LEFT JOIN 
+                    (SELECT 
+                      RIGHT(cod_argumento, 2) AS cod_color,
+                      des_larga AS color 
                     FROM
-                      fictec_color fc
-                      LEFT JOIN
-                      (SELECT 
-                          RIGHT(cod_argumento, 2) AS cod_color,
-                          des_larga AS color 
-                        FROM
-                          tabla_m_detalle 
-                        WHERE cod_tabla = 'tcol' 
-                          AND cod_argumento < 100) AS c
-                          ON fc.cod_color=c.cod_color
+                      tabla_m_detalle 
+                    WHERE cod_tabla = 'tcol' 
+                      AND cod_argumento < 100) AS c 
+                    ON fc.cod_color = c.cod_color 
+                  LEFT JOIN fic_teccomb ftc 
+                    ON fc.cod_color = ftc.com_color AND fc.idmft=ftc.idmft
                           WHERE fc.idmft='$idmft'";
 
     return ejecutarConsulta($sql);
@@ -469,7 +411,86 @@ Class FT_hoja2_1
 
     return ejecutarConsulta($sql);
   }
-	
+
+  public function selectColor2($tela2){
+
+    $sql="SELECT    SUBSTRING(pro.CodFab, 1, 6) AS tela2,
+                    RIGHT(pro.ColPro, 2) AS cod_color,
+                    CONCAT(
+                      RIGHT(pro.ColPro, 2),
+                      ' - ',
+                      TbCol.Des_Larga
+                    ) AS color 
+                  FROM
+                    Producto AS pro 
+                    LEFT JOIN Tabla_M_Detalle AS TbLin 
+                      ON LEFT(pro.CodFab, 3) = TbLin.Des_Corta 
+                      AND (
+                        TbLin.Cod_Tabla = 'TLIN' 
+                        OR TbLin.Cod_Tabla IS NULL
+                      ) 
+                    LEFT JOIN Tabla_M_Detalle AS TbSub 
+                      ON SUBSTRING(pro.CodFab, 4, 3) = TbSub.Valor_3 
+                      AND (
+                        TbSub.Cod_Tabla = 'TSUB' 
+                        OR TbSub.Cod_Tabla IS NULL
+                      ) 
+                    LEFT JOIN Tabla_M_Detalle AS TbCol 
+                      ON TbCol.Cod_Argumento = pro.ColPro 
+                      AND (
+                        TbCol.Cod_Tabla = 'TCOL' 
+                        OR TbCol.Cod_Tabla IS NULL
+                      ) 
+                  WHERE TbLin.Des_Corta = TbSub.Des_Corta 
+                    AND TbLin.Des_Corta IN ('BLO', 'TEL') 
+                    AND pro.EstPro = '1' 
+                    AND SUBSTRING(pro.CodFab, 1, 6) = '$tela2' 
+                  ORDER BY SUBSTRING(pro.CodFab, 1, 6) ASC,
+                    RIGHT(pro.ColPro, 2) ASC";
+
+    return ejecutarConsulta($sql);
+
+  }
+  
+  public function selectColor3($tela3){
+
+    $sql="SELECT    SUBSTRING(pro.CodFab, 1, 6) AS tela3,
+                    RIGHT(pro.ColPro, 2) AS cod_color,
+                    CONCAT(
+                      RIGHT(pro.ColPro, 2),
+                      ' - ',
+                      TbCol.Des_Larga
+                    ) AS color 
+                  FROM
+                    Producto AS pro 
+                    LEFT JOIN Tabla_M_Detalle AS TbLin 
+                      ON LEFT(pro.CodFab, 3) = TbLin.Des_Corta 
+                      AND (
+                        TbLin.Cod_Tabla = 'TLIN' 
+                        OR TbLin.Cod_Tabla IS NULL
+                      ) 
+                    LEFT JOIN Tabla_M_Detalle AS TbSub 
+                      ON SUBSTRING(pro.CodFab, 4, 3) = TbSub.Valor_3 
+                      AND (
+                        TbSub.Cod_Tabla = 'TSUB' 
+                        OR TbSub.Cod_Tabla IS NULL
+                      ) 
+                    LEFT JOIN Tabla_M_Detalle AS TbCol 
+                      ON TbCol.Cod_Argumento = pro.ColPro 
+                      AND (
+                        TbCol.Cod_Tabla = 'TCOL' 
+                        OR TbCol.Cod_Tabla IS NULL
+                      ) 
+                  WHERE TbLin.Des_Corta = TbSub.Des_Corta 
+                    AND TbLin.Des_Corta IN ('BLO', 'TEL') 
+                    AND pro.EstPro = '1' 
+                    AND SUBSTRING(pro.CodFab, 1, 6) = '$tela3' 
+                  ORDER BY SUBSTRING(pro.CodFab, 1, 6) ASC,
+                    RIGHT(pro.ColPro, 2) ASC";
+
+    return ejecutarConsulta($sql);
+
+  }
 
 }
 ?>
