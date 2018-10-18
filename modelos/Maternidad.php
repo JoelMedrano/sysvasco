@@ -145,9 +145,21 @@ Class Maternidad
 	public function mostrar($id_trab)
 	{
 		$sql="SELECT DISTINCT ma.id_trab AS id_trab , tr.num_doc_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, ma.id_maternidad,
-					DATE(ma.fec_nac_c1) AS  fec_nac_c1,  ma.lugar_c1, ma.observa_c1, ma.data_adjunta_hij1_c1, ma.data_adjunta_hij2_c1,  ma.data_adjunta_hij3_c1,
+					DATE(ma.fec_nac_c1) AS  fec_nac_c1, ma.lugar_c1, ma.observa_c1, ma.data_adjunta_hij1_c1, ma.data_adjunta_hij2_c1,  ma.data_adjunta_hij3_c1,
+					CASE 
+					WHEN  DATE(DATE_ADD(fec_nac_c1, INTERVAL 1 YEAR)) >= CURDATE() THEN 'ACTIVO'
+					ELSE 'INACTIVO' END
+					AS estado_hij1,
 					DATE(ma.fec_nac_c2) AS  fec_nac_c2,  ma.lugar_c2, ma.observa_c2, ma.data_adjunta_hij1_c2, ma.data_adjunta_hij2_c2, ma.data_adjunta_hij3_c2,
-					DATE(ma.fec_nac_c3) AS  fec_nac_c3,  ma.lugar_c3, ma.observa_c3, ma.data_adjunta_hij1_c3, ma.data_adjunta_hij2_c3, ma.data_adjunta_hij3_c3
+					CASE 
+					WHEN  DATE(DATE_ADD(fec_nac_c2, INTERVAL 1 YEAR)) >= CURDATE() THEN 'ACTIVO'
+					ELSE 'INACTIVO' END
+					AS estado_hij2,
+					DATE(ma.fec_nac_c3) AS  fec_nac_c3,  ma.lugar_c3, ma.observa_c3, ma.data_adjunta_hij1_c3, ma.data_adjunta_hij2_c3, ma.data_adjunta_hij3_c3,
+					CASE 
+					WHEN  DATE(DATE_ADD(fec_nac_c3, INTERVAL 1 YEAR)) >= CURDATE() THEN 'ACTIVO'
+					ELSE 'INACTIVO' END
+					AS estado_hij3
 				FROM maternidad ma 
 				LEFT JOIN trabajador tr ON
 				ma.id_trab= tr.id_trab

@@ -97,7 +97,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 10,//Paginación
+		"iDisplayLength": 15,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -116,7 +116,7 @@ function listarArticulos()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/pago_destajeros.php?op=selectPeriodosVacaciones',
+					url: '../ajax/pago_destajeros.php?op=selectTrabajadoresDestajeros',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -124,7 +124,7 @@ function listarArticulos()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 15,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -154,28 +154,21 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(nro_doc)
+function mostrar(id_cp)
 {
-		$.post("../ajax/pago_destajeros.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
+		$.post("../ajax/pago_destajeros.php?op=mostrar",{id_cp : id_cp}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#id_nomtrab").val(data.id_nomtrab);
-		$("#id_nomtrab").selectpicker('refresh');
 
-		$("#nro_doc").val(data.nro_doc);
-		$("#apemat_trab").val(data.apemat_trab);
-		$("#id_trab").val(data.id_trab);
-
-		$("#sucursal").val(data.sucursal);
-		$("#area_trab").val(data.area_trab);
-
-		$("#fec_ing_trab").val(data.fec_ing_trab);
-
-
+		
 
 		$("#CantItems").val(data.CantItems);
+		$("#Ano").val(data.Ano);
+		$("#Descrip_fec_pag").val(data.Descrip_fec_pag);
+		$("#id_cp").val(data.id_cp);
+	
 
 
 		//Ocultar y mostrar los botones
@@ -185,7 +178,7 @@ function mostrar(nro_doc)
 		$("#btnAgregarArt").show();
  	});
 
- 	$.post("../ajax/pago_destajeros.php?op=listarDetalle&id="+nro_doc,function(r){
+ 	$.post("../ajax/pago_destajeros.php?op=listarDetalle&id_cp="+id_cp,function(r){
 	        $("#detalles").html(r);
 	});	
 }
@@ -226,67 +219,37 @@ function marcarImpuesto()
     }
   }
 
-function agregarDetalle(id_periodo,periodo)
-  {
-  	
 
-    if (id_periodo!="")
+function agregarDetalle(id_trab, nombres, sueldo, bono_des_trab)
+  {
+  		var prod_soles=0;
+
+    if (id_trab!="")
     {
-    	
+        var dif_soles=prod_soles-sueldo;
     	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
     	'<td><input type="text" size="1" name="correlativo[]" ></td>'+
-    	'<td><input type="hidden" size="5" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
-    	'<td><input type="date" size="8" name="fec_del[]" ></td>'+
-    	'<td><input type="date" size="8" name="fec_al[]" ></td>'+
-    	'<td><input type="text" size="2" name="tot_dias[]" ></td>'+
-    	'<td><input type="text" size="2" name="pen_dias[]" ></td>'+
-    	'<td><input type="text" size="70" name="obser_detalle[]" ></td>'+
-    	'<td><input type="text" size="20" name="obser[]" ></td>'+
-    	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
+    	'<td><input type="hidden" size="40" name="id_trab[]" value="'+id_trab+'">'+nombres+'</td>'+
+    	'<td><input type="hidden" size="10" name="sueldo[]" value="'+sueldo+'">'+sueldo+'</td>'+
+    	'<td><input type="hidden" size="10" name="bono_des_trab[]" value="'+bono_des_trab+'">'+bono_des_trab+'</td>'+
+    	'<td><input type="text" size="10" name="prod_soles[]" ></td>'+
+    	'<td><input type="text" size="10" name="dif_soles[]" ></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'</tr>';
     	cont++;
     	detalles=detalles+1;
     	$('#detalles').append(fila);
-    	modificarSubototales();
     }
     else
     {
-    	alert("Error al ingresar el detalle, revisar los datos del periodo");
-    }
+    	alert("Error al ingresar el detalle, revisar los datos del trabajador");
+    }	
 
   }
 
-  function modificarSubototales()
-  {
-  	var cant = document.getElementsByName("cantidad[]");
-    var prec = document.getElementsByName("precio_venta[]");
-    var desc = document.getElementsByName("descuento[]");
-    var sub = document.getElementsByName("subtotal");
 
-    for (var i = 0; i <cant.length; i++) {
-    	var inpC=cant[i];
-    	var inpP=prec[i];
-    	var inpD=desc[i];
-    	var inpS=sub[i];
 
-    	inpS.value=(inpC.value * inpP.value)-inpD.value;
-    	document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
-    }
-    calcularTotales();
-
-  }
-  function calcularTotales(){
-  	var sub = document.getElementsByName("subtotal");
-  	var total = 0.0;
-
-  	for (var i = 0; i <sub.length; i++) {
-		total += document.getElementsByName("subtotal")[i].value;
-	}
-	$("#total").html("S/. " + total);
-    $("#total_venta").val(total);
-
-  }
+ 
 
 
 

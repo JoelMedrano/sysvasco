@@ -4,6 +4,17 @@ require_once "../modelos/ConsultasD.php";
 $consultad=new ConsultasD();
 
 
+//Campos de Seguridad//
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+//Campos de Seguridad//
+
+
+
+
+
 switch ($_GET["op"]){
 	case 'comprasfecha':
 		$fecha_inicio=$_REQUEST["fecha_inicio"];

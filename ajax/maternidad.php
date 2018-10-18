@@ -51,6 +51,160 @@ $data_adjunta_hij3_c3=isset($_POST["data_adjunta_hij3_c3"])? limpiarCadena($_POS
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
+
+
+		if (!file_exists($_FILES['data_adjunta_hij1_c1']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij1_c1']['tmp_name']))
+		{
+			$data_adjunta_hij1_c1=$_POST["imagenactual_data_adjunta_hij1_c1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij1_c1"]["name"]);
+			if ($_FILES['data_adjunta_hij1_c1']['type'] == "image/jpg" || $_FILES['data_adjunta_hij1_c1']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij1_c1']['type'] == "image/png")
+			{
+				$data_adjunta_hij1_c1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij1_c1"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij1_c1);
+			}
+		
+		}
+
+
+		if (!file_exists($_FILES['data_adjunta_hij2_c1']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij2_c1']['tmp_name']))
+		{
+			$data_adjunta_hij2_c1=$_POST["imagenactual_data_adjunta_hij2_c1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij2_c1"]["name"]);
+			if ($_FILES['data_adjunta_hij2_c1']['type'] == "image/jpg" || $_FILES['data_adjunta_hij2_c1']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij2_c1']['type'] == "image/png")
+			{
+				$data_adjunta_hij2_c1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij2_c1"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij2_c1);
+			}
+		
+		}
+
+
+
+
+		if (!file_exists($_FILES['data_adjunta_hij3_c1']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij3_c1']['tmp_name']))
+		{
+			$data_adjunta_hij3_c1=$_POST["imagenactual_data_adjunta_hij3_c1"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij3_c1"]["name"]);
+			if ($_FILES['data_adjunta_hij3_c1']['type'] == "image/jpg" || $_FILES['data_adjunta_hij3_c1']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij3_c1']['type'] == "image/png")
+			{
+				$data_adjunta_hij3_c1 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij3_c1"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij3_c1);
+			}
+		
+		}
+
+
+
+		if (!file_exists($_FILES['data_adjunta_hij1_c2']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij1_c2']['tmp_name']))
+		{
+			$data_adjunta_hij1_c2=$_POST["imagenactual_data_adjunta_hij1_c2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij1_c2"]["name"]);
+			if ($_FILES['data_adjunta_hij1_c2']['type'] == "image/jpg" || $_FILES['data_adjunta_hij1_c2']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij1_c2']['type'] == "image/png")
+			{
+				$data_adjunta_hij1_c2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij1_c2"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij1_c2);
+			}
+		
+		}
+
+
+
+		if (!file_exists($_FILES['data_adjunta_hij2_c2']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij2_c2']['tmp_name']))
+		{
+			$data_adjunta_hij2_c2=$_POST["imagenactual_data_adjunta_hij2_c2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij2_c2"]["name"]);
+			if ($_FILES['data_adjunta_hij2_c2']['type'] == "image/jpg" || $_FILES['data_adjunta_hij2_c2']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij2_c2']['type'] == "image/png")
+			{
+				$data_adjunta_hij2_c2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij2_c2"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij2_c2);
+			}
+		
+		}
+
+
+
+		if (!file_exists($_FILES['data_adjunta_hij3_c2']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij3_c2']['tmp_name']))
+		{
+			$data_adjunta_hij3_c2=$_POST["imagenactual_data_adjunta_hij3_c2"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij3_c2"]["name"]);
+			if ($_FILES['data_adjunta_hij3_c2']['type'] == "image/jpg" || $_FILES['data_adjunta_hij3_c2']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij3_c2']['type'] == "image/png")
+			{
+				$data_adjunta_hij3_c2 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij3_c2"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij3_c2);
+			}
+		
+		}
+
+
+
+		if (!file_exists($_FILES['data_adjunta_hij1_c3']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij1_c3']['tmp_name']))
+		{
+			$data_adjunta_hij1_c3=$_POST["imagenactual_data_adjunta_hij1_c3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij1_c3"]["name"]);
+			if ($_FILES['data_adjunta_hij1_c3']['type'] == "image/jpg" || $_FILES['data_adjunta_hij1_c3']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij1_c3']['type'] == "image/png")
+			{
+				$data_adjunta_hij1_c3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij1_c3"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij1_c3);
+			}
+		
+		}
+
+
+
+		if (!file_exists($_FILES['data_adjunta_hij2_c3']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij2_c3']['tmp_name']))
+		{
+			$data_adjunta_hij2_c3=$_POST["imagenactual_data_adjunta_hij2_c3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij2_c3"]["name"]);
+			if ($_FILES['data_adjunta_hij2_c3']['type'] == "image/jpg" || $_FILES['data_adjunta_hij2_c3']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij2_c3']['type'] == "image/png")
+			{
+				$data_adjunta_hij2_c3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij2_c3"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij2_c3);
+			}
+		
+		}
+
+
+		if (!file_exists($_FILES['data_adjunta_hij3_c3']['tmp_name']) || !is_uploaded_file($_FILES['data_adjunta_hij3_c3']['tmp_name']))
+		{
+			$data_adjunta_hij3_c3=$_POST["imagenactual_data_adjunta_hij3_c3"];
+		}
+		else
+		{
+			$ext = explode(".", $_FILES["data_adjunta_hij3_c3"]["name"]);
+			if ($_FILES['data_adjunta_hij3_c3']['type'] == "image/jpg" || $_FILES['data_adjunta_hij3_c3']['type'] == "image/jpeg" || $_FILES['data_adjunta_hij3_c3']['type'] == "image/png")
+			{
+				$data_adjunta_hij3_c3 = round(microtime(true)) . '.' . end($ext);
+				move_uploaded_file($_FILES["data_adjunta_hij3_c3"]["tmp_name"], "../files/maternidad/" . $data_adjunta_hij3_c3);
+			}
+		
+		}
+
+
+
 		
 		if (empty($id_maternidad)){
 			$rspta=$maternidad->insertar(			$id_trab,

@@ -165,7 +165,9 @@ function mostrar(id_trab)
  		$("#data_adjunta_hij1_c1_actual").val(data.data_adjunta_hij1_c1);
  		$("#data_adjunta_hij2_c1_actual").val(data.data_adjunta_hij2_c1);
  		$("#data_adjunta_hij3_c1_actual").val(data.data_adjunta_hij3_c1);
+ 		$("#estado_hij1").val(data.estado_hij1);
 
+ 		
  		$("#fec_nac_c2").val(data.fec_nac_c2);
  		$("#lugar_c2").val(data.lugar_c2);
  		$("#observa_c2").val(data.observa_c2);
@@ -173,6 +175,7 @@ function mostrar(id_trab)
  		$("#data_adjunta_hij1_c2_actual").val(data.data_adjunta_hij1_c2);
  		$("#data_adjunta_hij2_c2_actual").val(data.data_adjunta_hij2_c2);
  		$("#data_adjunta_hij3_c2_actual").val(data.data_adjunta_hij3_c2);
+ 		$("#estado_hij2").val(data.estado_hij2);
 
  		$("#fec_nac_c3").val(data.fec_nac_c3);
  		$("#lugar_c3").val(data.lugar_c3);
@@ -181,6 +184,7 @@ function mostrar(id_trab)
  		$("#data_adjunta_hij1_c3_actual").val(data.data_adjunta_hij1_c3);
  		$("#data_adjunta_hij2_c3_actual").val(data.data_adjunta_hij2_c3);
  		$("#data_adjunta_hij3_c3_actual").val(data.data_adjunta_hij3_c3);
+ 		$("#estado_hij3").val(data.estado_hij3);
 
 
 	

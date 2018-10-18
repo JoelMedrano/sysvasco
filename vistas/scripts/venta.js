@@ -246,6 +246,8 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     }
   }
 
+
+
   function modificarSubototales()
   {
   	var cant = document.getElementsByName("cantidad[]");
@@ -265,6 +267,7 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     calcularTotales();
 
   }
+  
   function calcularTotales(){
   	var sub = document.getElementsByName("subtotal");
   	var total = 0.0;
@@ -276,6 +279,10 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     $("#total_venta").val(total);
     evaluar();
   }
+
+
+
+
 
   function evaluar(){
   	if (detalles>0)

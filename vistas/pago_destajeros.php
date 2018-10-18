@@ -32,67 +32,44 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>EST.</th>
-                            <th>Dni</th>
-                            <th>Codigo</th>
-                            <th>Sucursal Anexo</th>
-                            <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Nombres</th>
-                            <th>Est.Trabajador</th>
+                            <th>PD</th>
+                            <th>Año</th>
+                            <th>Fecha de Pago</th>
                             <th>Opciones</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>EST.</th>
-                            <th>Dni</th>
-                            <th>Codigo</th>
-                            <th>Sucursal Anexo</th>
-                            <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Nombres</th>
-                            <th>Est.Trabajador</th>
+                            <th>PD</th>
+                            <th>Año</th>
+                            <th>Fecha de Pago</th>
                             <th>Opciones</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" style="height: 620px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <label>Trabajador(*):</label>
-                            <select id="id_nomtrab" name="id_nomtrab" class="form-control selectpicker" data-live-search="true" required>
-                            </select>
-                          </div>
-                          <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                            <label>Codigo.Trab:</label>
-                            <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
-                            <input type="hidden" readonly class="form-control" name="CantItems" id="CantItems">
-                          </div>
-                           <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                            <label>Dni:</label>
-                            <input type="text" readonly class="form-control" name="nro_doc" id="nro_doc"  autocomplete="off">
+                          
+                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                            <label>Año:</label>
+                            <input type="text" readonly class="form-control" name="Ano" id="Ano" autocomplete="off">
+                            <input type="hidden"  class="form-control" name="id_cp" id="id_cp" >
+                            <input type="hidden"  class="form-control" name="CantItems" id="CantItems">
                           </div>
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label>Sucursal:</label>
-                            <input type="text" readonly class="form-control" name="sucursal" id="sucursal"  placeholder="Sucursal">
+                      
+                           <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <label>Fecha de Pago:</label>
+                            <input type="text" readonly class="form-control" name="Descrip_fec_pag" id="Descrip_fec_pag"  autocomplete="off">
                           </div>
-                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label>Area:</label>
-                            <input type="text" readonly class="form-control" name="area_trab" id="area_trab"  placeholder="Area" >
-                          </div>
-                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <label>Fec.Ingreso:</label>
-                            <input type="text" readonly class="form-control" name="fec_ing_trab" id="fec_ing_trab"  placeholder="Fecha de Ingreso">
-                          </div>
+
                         
                           <br>
 
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
                             <a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Periodo</button>
+                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Trabajador</button>
                             </a>
                           </div>
 
@@ -101,18 +78,14 @@ if ($_SESSION['rrhh']==1)
                             <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                               <thead style="background-color:#A9D0F5">
                                     <th>Item</th>
-                                    <th>Periodo</th>
-                                    <th>Del</th>
-                                    <th>Al</th>
-                                    <th>Total Dias</th>
-                                    <th>Dias Pend</th>
-                                    <th>Obser Detalle</th>
-                                    <th>Observaciones</th>
+                                    <th>Trabajador</th>
+                                    <th>Sueldo</th>
+                                    <th>Bono Destajo</th>
+                                    <th>Produccion(S/.)</th>
+                                    <th>Diferencia</th>
                                     <th>Opciones</th>
                                 </thead>
                                 <tfoot>
-                                    <th></th>
-                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -149,22 +122,26 @@ if ($_SESSION['rrhh']==1)
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Periodo</h4>
+          <h4 class="modal-title">Seleccione los trabajadores que llegaron su meta</h4>
         </div>
         <div class="modal-body">
           <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
             <thead>
                 <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
+                <th>Id.Trabajador</th>
+                <th>Nombres</th>
+                <th>Sueldo</th>
+                <th>Bono</th>
             </thead>
             <tbody>
               
             </tbody>
             <tfoot>
-              <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
+                <th>Opciones</th>
+                <th>Id.Trabajador</th>
+                <th>Nombres</th>
+                <th>Sueldo</th>
+                <th>Bono</th>
             </tfoot>
           </table>
         </div>
@@ -176,39 +153,7 @@ if ($_SESSION['rrhh']==1)
   </div>  
   <!-- Fin modal -->
 
-   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" style="width: 65% !important;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Periodo</h4>
-        </div>
-        <div class="modal-body">
-          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-            <thead>
-                <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
-            </thead>
-            <tbody>
-              
-            </tbody>
-            <tfoot>
-              <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
-            </tfoot>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>        
-      </div>
-    </div>
-  </div>  
-  <!-- Fin modal -->
-
+  
   
 
 <?php
