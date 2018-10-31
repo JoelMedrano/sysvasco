@@ -15,14 +15,12 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 
 
 
-
-
-
 $id_cp=isset($_POST["id_cp"])? limpiarCadena($_POST["id_cp"]):"";
 $id_pd=isset($_POST["id_pd"])? limpiarCadena($_POST["id_pd"]):"";
 $correlativo=isset($_POST["correlativo"])? limpiarCadena($_POST["correlativo"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $sueldo=isset($_POST["sueldo"])? limpiarCadena($_POST["sueldo"]):"";
+$bono_des_trab=isset($_POST["bono_des_trab"])? limpiarCadena($_POST["bono_des_trab"]):"";
 $prod_soles=isset($_POST["prod_soles"])? limpiarCadena($_POST["prod_soles"]):"";
 $dif_soles=isset($_POST["dif_soles"])? limpiarCadena($_POST["dif_soles"]):"";
 
@@ -42,6 +40,7 @@ switch ($_GET["op"]){
 											  $_POST["correlativo"],
 											  $_POST["id_trab"],
 											  $_POST["sueldo"],
+											  $_POST["bono_des_trab"],
 											  $_POST["prod_soles"],
 											  $_POST["dif_soles"],
 										      $fec_reg,
@@ -53,6 +52,7 @@ switch ($_GET["op"]){
 												  $_POST["correlativo"],
 												  $_POST["id_trab"],
 												  $_POST["sueldo"],
+												  $_POST["bono_des_trab"],
 												  $_POST["prod_soles"],
 												  $_POST["dif_soles"],
 												  $fec_reg,
@@ -84,17 +84,17 @@ switch ($_GET["op"]){
 		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
 									<th width="100px">Item</th>
-                                    <th width="600px">Trabajador</th>
-                                    <th width="200px">Sueldo</th>
-                                    <th width="200px">Bono Destajo</th>
-                                    <th width="200px">Produccion(S/.)</th>
-                                    <th width="200px">Diferencia</th>
+                                    <th width="300px">Trabajador</th>
+                                    <th width="100px">Sueldo</th>
+                                    <th width="100px">Bono Destajo</th>
+                                    <th width="100px">Produccion(S/.)</th>
+                                    <th width="100px">Diferencia</th>
                                     <th width="80px">Opciones</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td><input type="text" size="1" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text" size="100" readonly name="apellidosynombres[]" value="'.$reg->apellidosynombres.'" readonly></td><td><input type="text" size="20" name="sueldo[]" value="'.$reg->sueldo.'"></td><td><input type="text" size="20" name="bono_des_trab[]" value="'.$reg->bono_des_trab.'"></td><td><input type="text" size="20" name="prod_soles[]" value="'.$reg->prod_soles.'"></td><td><input type="text" size="20" readonly name="dif_soles[]" value="'.$reg->dif_soles.'"></td><a data-toggle="modal" href="#myModal">
+					echo '<tr class="filas" size="5" id="fila'.$cont.'">  ><td><input type="text" size="3" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text" size="80" readonly name="id_trab[]" value="'.$reg->apellidosynombres.'" readonly></td><td><input type="text" size="15" readonly name="sueldo[]" value="'.$reg->sueldo.'"></td><td><input type="text" size="15"  name="bono_des_trab[]" value="'.$reg->bono_des_trab.'"></td><td><input type="text" size="15" name="prod_soles[]" value="'.$reg->prod_soles.'"></td><td><input type="text" size="15" readonly name="dif_soles[]" value="'.$reg->dif_soles.'"></td><a data-toggle="modal" href="#myModal">
                               <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
                             </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
 					$total=$periodo;

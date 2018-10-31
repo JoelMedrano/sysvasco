@@ -21,16 +21,22 @@ $fecha_hasta=isset($_POST["fecha_hasta"])? limpiarCadena($_POST["fecha_hasta"]):
 $fecha_hasta = date("Y-m-d",strtotime(str_replace('/','-',$fecha_hasta)));
 
 
+$dias=isset($_POST["dias"])? limpiarCadena($_POST["dias"]):"";
 
 $tip_permiso=isset($_POST["tip_permiso"])? limpiarCadena($_POST["tip_permiso"]):"";
 $hora_ing=isset($_POST["hora_ing"])? limpiarCadena($_POST["hora_ing"]):"";
 $hora_sal=isset($_POST["hora_sal"])? limpiarCadena($_POST["hora_sal"]):"";
 $motivo=isset($_POST["motivo"])? limpiarCadena($_POST["motivo"]):"";
 
-$imagen1=isset($_POST["imagen1"])? limpiarCadena($_POST["imagen1"]):"";
-$imagen2=isset($_POST["imagen2"])? limpiarCadena($_POST["imagen2"]):"";
-$imagen3=isset($_POST["imagen3"])? limpiarCadena($_POST["imagen3"]):"";
-$imagen4=isset($_POST["imagen4"])? limpiarCadena($_POST["imagen4"]):"";
+$tip_permiso=isset($_POST["tip_permiso"])? limpiarCadena($_POST["tip_permiso"]):"";
+
+$id_fecha_pago1=isset($_POST["id_fecha_pago1"])? limpiarCadena($_POST["id_fecha_pago1"]):"";
+$id_fecha_pago2=isset($_POST["id_fecha_pago2"])? limpiarCadena($_POST["id_fecha_pago2"]):"";
+$id_fecha_pago3=isset($_POST["id_fecha_pago3"])? limpiarCadena($_POST["id_fecha_pago3"]):"";
+$id_fecha_pago4=isset($_POST["id_fecha_pago4"])? limpiarCadena($_POST["id_fecha_pago4"]):"";
+
+$monto_a_pagar=isset($_POST["monto_a_pagar"])? limpiarCadena($_POST["monto_a_pagar"]):"";
+
 
 
 
@@ -115,11 +121,53 @@ switch ($_GET["op"]){
 
 
 		if (empty($id_permiso)){
-			$rspta=$permiso_personal->insertar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo,  $fec_reg, $pc_reg, $usu_reg, $imagen1, $imagen2, $imagen3, $imagen4 );
+			$rspta=$permiso_personal->insertar($id_permiso,
+											   $id_trab,
+											   $fecha_emision,
+											   $fecha_procede, 
+											   $fecha_hasta,  
+											   $dias, 
+											   $tip_permiso,
+											   $hora_ing, 
+											   $hora_sal, 
+											   $motivo,  
+											   $id_fecha_pago1,
+											   $monto_a_pagar,
+											   $id_fecha_pago2,
+											   $id_fecha_pago3,
+											   $id_fecha_pago4,
+											   $fec_reg, 
+											   $pc_reg, 
+											   $usu_reg, 
+											   $imagen1, 
+											   $imagen2, 
+											   $imagen3, 
+											   $imagen4 );
 			echo $rspta ? "Permiso registrado" : "Permiso no se pudo registrar";
 		}
 		else {
-			$rspta=$permiso_personal->editar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo,  $fec_reg, $pc_reg, $usu_reg, $imagen1,  $imagen2, $imagen3, $imagen4);
+			$rspta=$permiso_personal->editar($id_permiso,
+											 $id_trab,
+											 $fecha_emision,
+											 $fecha_procede, 
+											 $fecha_hasta, 
+											 $dias, 
+											 $tip_permiso,
+											 $hora_ing, 
+											 $hora_sal, 
+											 $motivo,
+											 $id_fecha_pago1,
+											 $monto_a_pagar,
+											 $id_fecha_pago2,
+											 $id_fecha_pago3,
+											 $id_fecha_pago4,  
+											 $fec_reg, 
+											 $pc_reg, 
+											 $usu_reg, 
+											 $imagen1,  
+											 $imagen2, 
+											 $imagen3, 
+											 $imagen4);
 			echo $rspta ? "Permiso actualizado" : "Permiso no se pudo actualizar";
 		}
 
@@ -303,5 +351,58 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->idcategoria . '>' . $reg->nombre . '</option>';
 				}
 	break;
+
+
+
+	case "selectFechaPagoVacaciones1":
+	
+		
+
+		$rspta = $permiso_personal->selectFechaPagoVacaciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_fecha_pago1 . '>' . $reg->fecha1 . '</option>';
+				}
+	break;
+
+
+	case "selectFechaPagoVacaciones2":
+		$rspta = $permiso_personal->selectFechaPagoVacaciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_fecha_pago2 . '>' . $reg->fecha2 . '</option>';
+				}
+	break;
+
+
+
+
+	case "selectFechaPagoVacaciones3":
+		$rspta = $permiso_personal->selectFechaPagoVacaciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_fecha_pago3 . '>' . $reg->fecha3 . '</option>';
+				}
+	break;
+
+
+
+
+	case "selectFechaPagoVacaciones4":
+		$rspta = $permiso_personal->selectFechaPagoVacaciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_fecha_pago4 . '>' . $reg->fecha4 . '</option>';
+				}
+	break;
+
+
+
+
+
 }
 ?>

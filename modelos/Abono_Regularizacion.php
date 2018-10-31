@@ -14,7 +14,7 @@ Class Abono_Regularizacion
 	public function insertar(                       $id_trab,	
 													$fec_suc,
 													$motivo,
-													$fec_abo_reg,
+													$fec_des1,
 													$modalidad,
 													$tip_abono,
 													$cantidad,
@@ -41,7 +41,7 @@ Class Abono_Regularizacion
 										VALUES ('$id_trab',	
 											    '$fec_suc',
 												'$motivo',
-												'$fec_abo_reg',
+												'$fec_des1',
 												'$modalidad',
 												'$tip_abono',
 												'$cantidad',
@@ -62,7 +62,7 @@ Class Abono_Regularizacion
 													$id_trab,	
 													$fec_suc,
 													$motivo,
-													$fec_abo_reg,
+													$fec_des1,
 													$modalidad,
 													$tip_abono,
 													$cantidad,
@@ -75,7 +75,7 @@ Class Abono_Regularizacion
 		$sql="UPDATE abono_regularizacion SET  id_trab='$id_trab',
 											   fec_suc='$fec_suc',
 		 									   motivo='$motivo',
-											   fec_abo_reg='$fec_abo_reg',
+											   fec_abo_reg='$fec_des1',
 											   modalidad='$modalidad',
 											   tip_abono='$tip_abono',
 											   cantidad='$cantidad',
@@ -124,7 +124,8 @@ Class Abono_Regularizacion
 		                 DATE(ar.fec_suc) AS fec_suc,
 					     CONCAT(tra.nom_trab , ' ' ,  tra.apepat_trab, ' ' ,  tra.apemat_trab) AS trab_apellidosynombres,  
 				         ar.motivo,
-				         DATE(ar.fec_abo_reg) AS fec_abo_reg,
+				         TbFpa1.fecha1,
+				         ar.fec_abo_reg AS fec_des1,
 				         ar.modalidad,
 				         ar.cantidad,
 				         ar.pagado,
@@ -136,7 +137,7 @@ Class Abono_Regularizacion
 				         ar.est_abo_reg,
 				         ar.est_reg
 				         FROM abono_regularizacion ar
-				INNER JOIN trabajador  tra ON
+				LEFT JOIN trabajador  tra ON
 				ar.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS ttpr ON
 				ttpr.cod_argumento= ar.tip_abono
@@ -147,6 +148,13 @@ Class Abono_Regularizacion
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tra.id_area
 				AND tare.cod_tabla='TARE'
+				LEFT JOIN 
+				(SELECT  ar.id_abo_reg,  CONCAT (TbPea.Des_Corta,' - ',TbFpa1.des_larga ) AS   fecha1
+				 FROM abono_regularizacion ar
+				  LEFT JOIN  cronograma_pagos AS cp  ON    ar.fec_abo_reg=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa1 ON    TbFpa1.cod_argumento=  ar.fec_abo_reg AND TbFpa1.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON   TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa1 ON  TbFpa1.id_abo_reg= ar.id_abo_reg
 				WHERE ar.id_abo_reg='$id_abo_reg'
 				order by   ar.id_abo_reg DESC";
 		return ejecutarConsultaSimpleFila($sql);
@@ -172,7 +180,7 @@ Class Abono_Regularizacion
 				         ar.est_abo_reg,
 				         ar.est_reg
 				         FROM abono_regularizacion ar
-				INNER JOIN trabajador  tra ON
+				LEFT JOIN trabajador  tra ON
 				ar.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS ttpr ON
 				ttpr.cod_argumento= ar.tip_abono

@@ -276,17 +276,22 @@ if (strlen(session_id()) < 1)
           
                       <ul class="treeview-menu">
                           <li class="treeview">
-
-                          <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i> Refrigerio</a></li>
-                          <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i> Regimen Pensionario</a></li>
-                          <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i> Cronograma de Pagos</a></li>
-
+                          <li><a href="horario.php"><i class="fa fa-circle-o"></i>Horarios</a></li>
+                          <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
+                          <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>Regimen Pensionario</a></li>
+                          <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i>Cronograma de Pagos</a></li>
+                          <li><a href="horas_lactancia.php"><i class="fa fa-circle-o"></i>Horas de Lactancia Quincenal</a></li>
+                          <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
+                          <li><a href="caso_movilidad.php"><i class="fa fa-circle-o"></i>Caso Movilidad</a></li>
+                          <li><a href="caso_vigilancia.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
                           </li>
                       </ul>
                   </li>
 
 
                   <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>Trabajador</a></li>
+
+                  <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refriferio del Trabajador(*)</a></li>
 
                   <li><a href="contratos.php"><i class="fa fa-circle-o"></i>Contratos</a></li>
 
@@ -313,6 +318,9 @@ if (strlen(session_id()) < 1)
                           </li>
                       </ul>
                  </li> 
+                 <li><a href="permisos_descuentos_enhoras.php"><i class="fa fa-circle-o"></i>Descuentos de Permisos en Horas del Reloj</a></li>
+          
+
           
                   <li class="treeview">
                       <a href="#">

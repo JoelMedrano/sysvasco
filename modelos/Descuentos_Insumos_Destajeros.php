@@ -165,12 +165,9 @@ Class Descuentos_Insumos_Destajeros
 				         did.pagado,
 				         did.saldo,
 				         did.data_adjunta,
-				         DATE_FORMAT( did.fec_des1, '%d/%m/%Y') fec_des1,
-				         did.mon_des1,
-				         DATE_FORMAT( did.fec_des2, '%d/%m/%Y') fec_des2,
-				         did.mon_des2,
-				         DATE_FORMAT( did.fec_des3, '%d/%m/%Y') fec_des3,
-				         did.mon_des3,
+				         TbFpa1.fecha1,  fec_des1, did.mon_des1,
+				         TbFpa2.fecha2,  fec_des2, did.mon_des2,
+				         TbFpa3.fecha3,  fec_des3, did.mon_des3,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
 				         did.tip_dscto,
@@ -184,6 +181,27 @@ Class Descuentos_Insumos_Destajeros
 				LEFT JOIN tabla_maestra_detalle AS tmod ON
 				tmod.cod_argumento= did.modalidad
 				AND tmod.cod_tabla='TMOD'
+				LEFT JOIN 
+				(SELECT  did.id_ins_des,  CONCAT (TbPea.Des_Corta,' - ',TbFpa1.des_larga ) AS   fecha1
+				 FROM descuentos_insumos_destajeros did 
+				  LEFT JOIN  cronograma_pagos AS cp  ON    did.fec_des1=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa1 ON    TbFpa1.cod_argumento=  did.fec_des1 AND TbFpa1.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON   TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa1 ON  TbFpa1.id_ins_des= did.id_ins_des
+				LEFT JOIN 
+				(SELECT  did.id_ins_des,  CONCAT (TbPea.Des_Corta,' - ',TbFpa2.des_larga ) AS   fecha2
+				 FROM descuentos_insumos_destajeros did 
+				  LEFT JOIN  cronograma_pagos AS cp  ON   did.fec_des2=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa2 ON  TbFpa2.cod_argumento=  did.fec_des2 AND TbFpa2.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa2 ON  TbFpa2.id_ins_des= did.id_ins_des
+				LEFT JOIN 
+				(SELECT  did.id_ins_des,  CONCAT (TbPea.Des_Corta,' - ',TbFpa3.des_larga ) AS   fecha3
+				 FROM descuentos_insumos_destajeros did 
+				  LEFT JOIN  cronograma_pagos AS cp  ON   did.fec_des3=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa3 ON  TbFpa3.cod_argumento=  did.fec_des3 AND TbFpa3.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa3 ON  TbFpa3.id_ins_des= did.id_ins_des
 				WHERE did.id_ins_des='$id_ins_des'";
 		return ejecutarConsultaSimpleFila($sql);
 	}

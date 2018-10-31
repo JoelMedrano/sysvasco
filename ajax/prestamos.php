@@ -39,123 +39,93 @@ $medida=isset($_POST["medida"])? limpiarCadena($_POST["medida"]):"";
 
 
 $fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
-$fec_des1 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des1)));
 $mon_des1=isset($_POST["mon_des1"])? limpiarCadena($_POST["mon_des1"]):"";
 
 $fec_des2=isset($_POST["fec_des2"])? limpiarCadena($_POST["fec_des2"]):"";
-$fec_des2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des2)));
 $mon_des2=isset($_POST["mon_des2"])? limpiarCadena($_POST["mon_des2"]):"";
 
 $fec_des3=isset($_POST["fec_des3"])? limpiarCadena($_POST["fec_des3"]):"";
-$fec_des3 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des3)));
 $mon_des3=isset($_POST["mon_des3"])? limpiarCadena($_POST["mon_des3"]):"";
 
 $fec_des4=isset($_POST["fec_des4"])? limpiarCadena($_POST["fec_des4"]):"";
-$fec_des4 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des4)));
 $mon_des4=isset($_POST["mon_des4"])? limpiarCadena($_POST["mon_des4"]):"";
 
 $fec_des5=isset($_POST["fec_des5"])? limpiarCadena($_POST["fec_des5"]):"";
-$fec_des5= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des5)));
 $mon_des5=isset($_POST["mon_des5"])? limpiarCadena($_POST["mon_des5"]):"";
 
 $fec_des6=isset($_POST["fec_des6"])? limpiarCadena($_POST["fec_des6"]):"";
-$fec_des6= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des6)));
 $mon_des6=isset($_POST["mon_des6"])? limpiarCadena($_POST["mon_des6"]):"";
 
 $fec_des7=isset($_POST["fec_des7"])? limpiarCadena($_POST["fec_des7"]):"";
-$fec_des7= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des7)));
 $mon_des7=isset($_POST["mon_des7"])? limpiarCadena($_POST["mon_des7"]):"";
 
 $fec_des8=isset($_POST["fec_des8"])? limpiarCadena($_POST["fec_des8"]):"";
-$fec_des8= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des8)));
 $mon_des8=isset($_POST["mon_des8"])? limpiarCadena($_POST["mon_des8"]):"";
 
 $fec_des9=isset($_POST["fec_des9"])? limpiarCadena($_POST["fec_des9"]):"";
-$fec_des9= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des9)));
 $mon_des9=isset($_POST["mon_des9"])? limpiarCadena($_POST["mon_des9"]):"";
 
 $fec_des10=isset($_POST["fec_des10"])? limpiarCadena($_POST["fec_des10"]):"";
-$fec_des10= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des10)));
 $mon_des10=isset($_POST["mon_des10"])? limpiarCadena($_POST["mon_des10"]):"";
 
 $fec_des11=isset($_POST["fec_des11"])? limpiarCadena($_POST["fec_des11"]):"";
-$fec_des11= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des11)));
 $mon_des11=isset($_POST["mon_des11"])? limpiarCadena($_POST["mon_des11"]):"";
 
 $fec_des12=isset($_POST["fec_des12"])? limpiarCadena($_POST["fec_des12"]):"";
-$fec_des12= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des12)));
 $mon_des12=isset($_POST["mon_des12"])? limpiarCadena($_POST["mon_des12"]):"";
 
 $fec_des13=isset($_POST["fec_des13"])? limpiarCadena($_POST["fec_des13"]):"";
-$fec_des13= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des13)));
 $mon_des13=isset($_POST["mon_des13"])? limpiarCadena($_POST["mon_des13"]):"";
 
 $fec_des14=isset($_POST["fec_des14"])? limpiarCadena($_POST["fec_des14"]):"";
-$fec_des14= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des14)));
 $mon_des14=isset($_POST["mon_des14"])? limpiarCadena($_POST["mon_des14"]):"";
 
 $fec_des15=isset($_POST["fec_des15"])? limpiarCadena($_POST["fec_des15"]):"";
-$fec_des15= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des15)));
 $mon_des15=isset($_POST["mon_des15"])? limpiarCadena($_POST["mon_des15"]):"";
 
 $fec_des16=isset($_POST["fec_des16"])? limpiarCadena($_POST["fec_des16"]):"";
-$fec_des16= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des16)));
 $mon_des16=isset($_POST["mon_des16"])? limpiarCadena($_POST["mon_des16"]):"";
 
 $fec_des17=isset($_POST["fec_des17"])? limpiarCadena($_POST["fec_des17"]):"";
-$fec_des17= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des17)));
 $mon_des17=isset($_POST["mon_des17"])? limpiarCadena($_POST["mon_des17"]):"";
 
 $fec_des18=isset($_POST["fec_des18"])? limpiarCadena($_POST["fec_des18"]):"";
-$fec_des18= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des18)));
 $mon_des18=isset($_POST["mon_des18"])? limpiarCadena($_POST["mon_des18"]):"";
 
 $fec_des19=isset($_POST["fec_des19"])? limpiarCadena($_POST["fec_des19"]):"";
-$fec_des19= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des19)));
 $mon_des19=isset($_POST["mon_des19"])? limpiarCadena($_POST["mon_des19"]):"";
 
 $fec_des20=isset($_POST["fec_des20"])? limpiarCadena($_POST["fec_des20"]):"";
-$fec_des20= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des20)));
 $mon_des20=isset($_POST["mon_des20"])? limpiarCadena($_POST["mon_des20"]):"";
 
 $fec_des21=isset($_POST["fec_des21"])? limpiarCadena($_POST["fec_des21"]):"";
-$fec_des21= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des21)));
 $mon_des21=isset($_POST["mon_des21"])? limpiarCadena($_POST["mon_des21"]):"";
 
 $fec_des22=isset($_POST["fec_des22"])? limpiarCadena($_POST["fec_des22"]):"";
-$fec_des22= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des22)));
 $mon_des22=isset($_POST["mon_des22"])? limpiarCadena($_POST["mon_des22"]):"";
 
 $fec_des23=isset($_POST["fec_des23"])? limpiarCadena($_POST["fec_des23"]):"";
-$fec_des23= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des23)));
 $mon_des23=isset($_POST["mon_des23"])? limpiarCadena($_POST["mon_des23"]):"";
 
 $fec_des24=isset($_POST["fec_des24"])? limpiarCadena($_POST["fec_des24"]):"";
-$fec_des24= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des24)));
 $mon_des24=isset($_POST["mon_des24"])? limpiarCadena($_POST["mon_des24"]):"";
 
 $fec_des25=isset($_POST["fec_des25"])? limpiarCadena($_POST["fec_des25"]):"";
-$fec_des25= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des25)));
 $mon_des25=isset($_POST["mon_des25"])? limpiarCadena($_POST["mon_des25"]):"";
 
 $fec_des26=isset($_POST["fec_des26"])? limpiarCadena($_POST["fec_des26"]):"";
-$fec_des26= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des26)));
 $mon_des26=isset($_POST["mon_des26"])? limpiarCadena($_POST["mon_des26"]):"";
 
 $fec_des27=isset($_POST["fec_des27"])? limpiarCadena($_POST["fec_des27"]):"";
-$fec_des27= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des27)));
 $mon_des27=isset($_POST["mon_des27"])? limpiarCadena($_POST["mon_des27"]):"";
 
 $fec_des28=isset($_POST["fec_des28"])? limpiarCadena($_POST["fec_des28"]):"";
-$fec_des28= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des28)));
 $mon_des28=isset($_POST["mon_des28"])? limpiarCadena($_POST["mon_des28"]):"";
 
 $fec_des29=isset($_POST["fec_des29"])? limpiarCadena($_POST["fec_des29"]):"";
-$fec_des29= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des29)));
 $mon_des29=isset($_POST["mon_des29"])? limpiarCadena($_POST["mon_des29"]):"";
 
 $fec_des30=isset($_POST["fec_des30"])? limpiarCadena($_POST["fec_des30"]):"";
-$fec_des30= date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_des30)));
 $mon_des30=isset($_POST["mon_des30"])? limpiarCadena($_POST["mon_des30"]):"";
 
 
@@ -447,7 +417,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des1 . '>' . $reg->fec_des1 . '</option>';
+					echo '<option value=' . $reg->fec_des1 . '>' . $reg->fecha1 . '</option>';
 				}
 	break;
 
@@ -457,7 +427,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des2 . '>' . $reg->fec_des2 . '</option>';
+					echo '<option value=' . $reg->fec_des2 . '>' . $reg->fecha2 . '</option>';
 				}
 	break;
 
@@ -469,7 +439,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des3 . '>' . $reg->fec_des3 . '</option>';
+					echo '<option value=' . $reg->fec_des3 . '>' . $reg->fecha3 . '</option>';
 				}
 	break;
 
@@ -481,7 +451,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des4 . '>' . $reg->fec_des4 . '</option>';
+					echo '<option value=' . $reg->fec_des4 . '>' . $reg->fecha4 . '</option>';
 				}
 	break;
 
@@ -492,7 +462,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des5 . '>' . $reg->fec_des5 . '</option>';
+					echo '<option value=' . $reg->fec_des5 . '>' . $reg->fecha5 . '</option>';
 				}
 	break;
 
@@ -505,7 +475,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des6 . '>' . $reg->fec_des6 . '</option>';
+					echo '<option value=' . $reg->fec_des6 . '>' . $reg->fecha6 . '</option>';
 				}
 	break;
 
@@ -517,7 +487,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des7 . '>' . $reg->fec_des7 . '</option>';
+					echo '<option value=' . $reg->fec_des7 . '>' . $reg->fecha7 . '</option>';
 				}
 	break;
 
@@ -529,7 +499,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des8 . '>' . $reg->fec_des8 . '</option>';
+					echo '<option value=' . $reg->fec_des8 . '>' . $reg->fecha8 . '</option>';
 				}
 	break;
 
@@ -541,7 +511,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des9 . '>' . $reg->fec_des9 . '</option>';
+					echo '<option value=' . $reg->fec_des9 . '>' . $reg->fecha9 . '</option>';
 				}
 	break;
 
@@ -553,7 +523,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des10 . '>' . $reg->fec_des10 . '</option>';
+					echo '<option value=' . $reg->fec_des10 . '>' . $reg->fecha10 . '</option>';
 				}
 	break;
 
@@ -564,7 +534,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des11 . '>' . $reg->fec_des11 . '</option>';
+					echo '<option value=' . $reg->fec_des11 . '>' . $reg->fecha11 . '</option>';
 				}
 	break;
 
@@ -576,7 +546,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des12 . '>' . $reg->fec_des12 . '</option>';
+					echo '<option value=' . $reg->fec_des12 . '>' . $reg->fecha12 . '</option>';
 				}
 	break;
 
@@ -589,7 +559,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des13 . '>' . $reg->fec_des13 . '</option>';
+					echo '<option value=' . $reg->fec_des13 . '>' . $reg->fecha13 . '</option>';
 				}
 	break;
 
@@ -602,7 +572,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des14 . '>' . $reg->fec_des14 . '</option>';
+					echo '<option value=' . $reg->fec_des14 . '>' . $reg->fecha14 . '</option>';
 				}
 	break;
 
@@ -614,7 +584,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des15 . '>' . $reg->fec_des15 . '</option>';
+					echo '<option value=' . $reg->fec_des15 . '>' . $reg->fecha15 . '</option>';
 				}
 	break;
 
@@ -626,7 +596,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des16 . '>' . $reg->fec_des16 . '</option>';
+					echo '<option value=' . $reg->fec_des16 . '>' . $reg->fecha16 . '</option>';
 				}
 	break;
 
@@ -637,7 +607,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des17 . '>' . $reg->fec_des17 . '</option>';
+					echo '<option value=' . $reg->fec_des17 . '>' . $reg->fecha17 . '</option>';
 				}
 	break;
 
@@ -649,7 +619,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des18 . '>' . $reg->fec_des18 . '</option>';
+					echo '<option value=' . $reg->fec_des18 . '>' . $reg->fecha18 . '</option>';
 				}
 	break;
 
@@ -661,7 +631,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des19 . '>' . $reg->fec_des19 . '</option>';
+					echo '<option value=' . $reg->fec_des19 . '>' . $reg->fecha19 . '</option>';
 				}
 	break;
 
@@ -673,7 +643,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des20 . '>' . $reg->fec_des20 . '</option>';
+					echo '<option value=' . $reg->fec_des20 . '>' . $reg->fecha20 . '</option>';
 				}
 	break;
 
@@ -685,7 +655,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des21 . '>' . $reg->fec_des21 . '</option>';
+					echo '<option value=' . $reg->fec_des21 . '>' . $reg->fecha21 . '</option>';
 				}
 	break;
 
@@ -696,7 +666,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des22 . '>' . $reg->fec_des22 . '</option>';
+					echo '<option value=' . $reg->fec_des22 . '>' . $reg->fecha22 . '</option>';
 				}
 	break;
 
@@ -708,7 +678,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des23 . '>' . $reg->fec_des23 . '</option>';
+					echo '<option value=' . $reg->fec_des23 . '>' . $reg->fecha23 . '</option>';
 				}
 	break;
 
@@ -719,7 +689,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des24 . '>' . $reg->fec_des24 . '</option>';
+					echo '<option value=' . $reg->fec_des24 . '>' . $reg->fecha24 . '</option>';
 				}
 	break;
 
@@ -729,7 +699,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des25 . '>' . $reg->fec_des25 . '</option>';
+					echo '<option value=' . $reg->fec_des25 . '>' . $reg->fecha25 . '</option>';
 				}
 	break;
 
@@ -739,7 +709,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des26 . '>' . $reg->fec_des26 . '</option>';
+					echo '<option value=' . $reg->fec_des26 . '>' . $reg->fecha26 . '</option>';
 				}
 	break;
 
@@ -750,7 +720,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des27 . '>' . $reg->fec_des27 . '</option>';
+					echo '<option value=' . $reg->fec_des27 . '>' . $reg->fecha27 . '</option>';
 				}
 	break;
 
@@ -761,7 +731,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des28 . '>' . $reg->fec_des28 . '</option>';
+					echo '<option value=' . $reg->fec_des28 . '>' . $reg->fecha28 . '</option>';
 				}
 	break;
 
@@ -773,7 +743,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des29 . '>' . $reg->fec_des29 . '</option>';
+					echo '<option value=' . $reg->fec_des29 . '>' . $reg->fecha29 . '</option>';
 				}
 	break;
 
@@ -784,7 +754,7 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->fec_des30 . '>' . $reg->fec_des30 . '</option>';
+					echo '<option value=' . $reg->fec_des30 . '>' . $reg->fecha30 . '</option>';
 				}
 	break;
 

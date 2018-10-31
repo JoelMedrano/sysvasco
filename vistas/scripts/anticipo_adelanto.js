@@ -70,19 +70,33 @@ function init(){
 function limpiar()
 {
 	$("#id_ant_ade").val("");
+
+	$("#id_trab").val("");
+	$("#id_trab").selectpicker('refresh');
+
+	$("#modalidad").val("QUINCENAL");
+	$("#modalidad").selectpicker('refresh');
+
+	$("#tip_dscto").val("DESCUENTO POR PLANILLA");
+	$("#tip_dscto").selectpicker('refresh');
+
 	$("#fec_suc").val("");
 	$("#id_trab").val("");
-	$("#modalidad").val("");
-	$("#tip_dscto").val("");
 	$("#cantidad").val("");
 	$("#num_cuotas").val("");
 	$("#pagado").val("");
 	$("#saldo").val("");
 	$("#detalle").val("");
 
+	
 	$("#fec_des1").val("");
+	$("#fec_des1").selectpicker('refresh');
+
 	$("#fec_des2").val("");
+	$("#fec_des2").selectpicker('refresh');
+
 	$("#fec_des3").val("");
+	$("#fec_des3").selectpicker('refresh');
 
 
 

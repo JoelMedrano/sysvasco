@@ -10,10 +10,11 @@ function init(){
 		guardaryeditar(e);
 	})
 
-	//Cargamos los items al select categoria
-	$.post("../ajax/articulo.php?op=selectCategoria", function(r){
-	            $("#idcategoria").html(r);
-	            $('#idcategoria').selectpicker('refresh');
+	
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto1", function(r){
+	            $("#fec_des1").html(r);
+	            $('#fec_des1').selectpicker('refresh');
 
 	});
 
@@ -118,7 +119,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 15,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -148,16 +149,23 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_reg_pen)
+function mostrar(id_cp)
 {
-	$.post("../ajax/regimen_pensionario.php?op=mostrar",{id_reg_pen : id_reg_pen}, function(data, status)
+	$.post("../ajax/regimen_pensionario.php?op=mostrar",{id_cp : id_cp}, function(data, status)
 	{
 		data = JSON.parse(data);
 		mostrarform(true);
 
 		
+	  
+ 		
+ 		$("#fec_des1").val(data.fec_des1);
+		$('#fec_des1').selectpicker('refresh');
 
+		
+	    
 		$("#id_reg_pen").val(data.id_reg_pen);
+
 		$("#id_ano").val(data.id_ano);
 		$("#obs_reg_pen").val(data.obs_reg_pen);
 		$("#onp_apo_obl").val(data.onp_apo_obl);

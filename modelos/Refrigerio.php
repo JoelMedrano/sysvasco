@@ -11,17 +11,17 @@ Class Refrigerio
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($hora_ini,$hora_fin,$descrip, $usu_reg, $pc_reg, $fec_reg )
+	public function insertar($hora_ini,$hora_fin,  $tiempo, $descrip, $usu_reg, $pc_reg, $fec_reg )
 	{
-		$sql="INSERT INTO refrigerio (hora_ini,hora_fin,descrip, usu_reg, pc_reg, fec_reg )
-		VALUES ('$hora_ini','$hora_fin','$descrip', '$usu_reg', '$pc_reg', '$fec_reg' )";
+		$sql="INSERT INTO refrigerio (hora_ini,hora_fin, tiempo, descrip, usu_reg, pc_reg, fec_reg )
+		VALUES ('$hora_ini','$hora_fin', '$tiempo', '$descrip', '$usu_reg', '$pc_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($cod_ref,$hora_ini,$hora_fin,$descrip, $usu_reg, $pc_reg, $fec_reg )
+	public function editar($cod_ref,$hora_ini,$hora_fin,  $tiempo, $descrip, $usu_reg, $pc_reg, $fec_reg )
 	{
-		$sql="UPDATE refrigerio SET hora_ini='$hora_ini',hora_fin='$hora_fin',descrip='$descrip', usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg'  WHERE cod_ref='$cod_ref'";
+		$sql="UPDATE refrigerio SET hora_ini='$hora_ini',hora_fin='$hora_fin',  tiempo='$tiempo', descrip='$descrip', usu_mod='$usu_reg', pc_mod='$pc_reg', fec_mod='$fec_reg'  WHERE cod_ref='$cod_ref'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -66,6 +66,9 @@ Class Refrigerio
 		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_venta,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
 		return ejecutarConsulta($sql);		
 	}
+
+
+
 }
 
 ?>

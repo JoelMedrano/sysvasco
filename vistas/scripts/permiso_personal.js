@@ -18,11 +18,41 @@ function init(){
 	});
 
 	//Cargamos los items al select personal
-	$.post("../ajax/consultasD.php?op=selectPersonal", function(r){
+	$.post("../ajax/consultasD.php?op=selectPersonalNombreCorto", function(r){
 	            $("#id_trab").html(r);
 	            $('#id_trab').selectpicker('refresh');
 
 	});
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/permiso_personal.php?op=selectFechaPagoVacaciones1", function(r){
+	            $("#id_fecha_pago1").html(r);
+	            $('#id_fecha_pago1').selectpicker('refresh');
+
+	});
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/permiso_personal.php?op=selectFechaPagoVacaciones2", function(r){
+	            $("#id_fecha_pago2").html(r);
+	            $('#id_fecha_pago2').selectpicker('refresh');
+
+	});
+
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/permiso_personal.php?op=selectFechaPagoVacaciones3", function(r){
+	            $("#id_fecha_pago3").html(r);
+	            $('#id_fecha_pago3').selectpicker('refresh');
+
+	});
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/permiso_personal.php?op=selectFechaPagoVacaciones4", function(r){
+	            $("#id_fecha_pago4").html(r);
+	            $('#id_fecha_pago4').selectpicker('refresh');
+
+	});
+
 
 
 
@@ -43,12 +73,15 @@ function limpiar()
 	$("#fecha_emision").val("");
 	$("#fecha_procede").val("");
 	$("#fecha_hasta").val("");
+	$("#dias").val("");
 	$("#id_permiso").val("");
 	$("#id_trab").val("");
-	$("#tip_permiso").val("");
 	$("#hora_ing").val("");
 	$("#hora_sal").val("");
 	$("#motivo").val("");
+
+	$("#tip_permiso").val("COMISION");
+	$("#tip_permiso").selectpicker('refresh');
 
 
 
@@ -162,8 +195,24 @@ function mostrar(id_permiso)
 		$("#fecha_emision").val(data.fecha_emision);
 		$("#fecha_procede").val(data.fecha_procede); 
 		$("#fecha_hasta").val(data.fecha_hasta);
-		$("#tip_permiso").val(data.tip_permiso);
-		$('#tip_permiso').selectpicker('refresh'); 
+		$("#dias").val(data.dias); 
+
+		$("#id_fecha_pago1").val(data.id_fecha_pago1);
+		$('#id_fecha_pago1').selectpicker('refresh'); 
+
+		$("#monto_a_pagar").val(data.monto_a_pagar); 
+
+		
+		$("#id_fecha_pago2").val(data.id_fecha_pago2);
+		$('#id_fecha_pago2').selectpicker('refresh'); 
+
+		$("#id_fecha_pago3").val(data.id_fecha_pago3);
+		$('#id_fecha_pago3').selectpicker('refresh'); 
+
+		$("#id_fecha_pago4").val(data.id_fecha_pago4);
+		$('#id_fecha_pago4').selectpicker('refresh'); 
+
+
 		$("#hora_ing").val(data.hora_ing);
 		$("#hora_sal").val(data.hora_sal);
  		$("#motivo").val(data.motivo);

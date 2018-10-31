@@ -56,7 +56,6 @@ if ($_SESSION['rrhh']==1)
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-1 col-md-2 col-sm-6 col-xs-12">
                             <label>Codigo:</label>
-                            <input type="hidden" name="idarticulo" id="idarticulo">
                             <input type="text" class="form-control" name="cod_ref" id="cod_ref"  readonly>
                           </div>
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -67,6 +66,14 @@ if ($_SESSION['rrhh']==1)
                             <label>Hora Fin:</label>
                             <input type="text" class="form-control" name="hora_fin" id="hora_fin"  placeholder="Hora Fin">
                           </div>
+
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <label>Tiempo:</label>
+                            <input type="text" class="form-control" name="tiempo" id="tiempo"  placeholder="Tiempo">
+                          </div>
+
+
+
                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Descripcion:</label>
                             <input type="text" class="form-control" name="descrip" id="descrip"  placeholder="Descripción">

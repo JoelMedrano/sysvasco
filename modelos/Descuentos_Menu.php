@@ -159,11 +159,11 @@ Class Descuentos_Menu
 				         dm.cantidad,
 				         dm.pagado,
 				         dm.saldo,
-				         DATE_FORMAT(dm.fec_des1, '%d/%m/%Y') fec_des1, 
+				         TbFpa1.fecha1,  fec_des1,
 				         dm.mon_des1,
-				         DATE_FORMAT(dm.fec_des2, '%d/%m/%Y') fec_des2,
+				         TbFpa2.fecha2,  fec_des2,
 				         dm.mon_des2,
-				         DATE_FORMAT(dm.fec_des3, '%d/%m/%Y') fec_des3,
+				         TbFpa3.fecha3,  fec_des3,
 				         dm.mon_des3,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
@@ -183,6 +183,27 @@ Class Descuentos_Menu
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tra.id_area
 				AND tare.cod_tabla='TARE'
+				LEFT JOIN 
+				(SELECT  dm.id_des_men,  CONCAT (TbPea.Des_Corta,' - ',TbFpa1.des_larga ) AS   fecha1
+				 FROM descuentos_menu dm
+				  LEFT JOIN  cronograma_pagos AS cp  ON    dm.fec_des1=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa1 ON    TbFpa1.cod_argumento=  dm.fec_des1 AND TbFpa1.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON   TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa1 ON  TbFpa1.id_des_men= dm.id_des_men
+				LEFT JOIN 
+				(SELECT  dm.id_des_men,  CONCAT (TbPea.Des_Corta,' - ',TbFpa2.des_larga ) AS   fecha2
+				 FROM descuentos_menu dm
+				  LEFT JOIN  cronograma_pagos AS cp  ON   dm.fec_des2=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa2 ON  TbFpa2.cod_argumento=  dm.fec_des2 AND TbFpa2.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa2 ON  TbFpa2.id_des_men= dm.id_des_men
+				LEFT JOIN 
+				(SELECT  dm.id_des_men,  CONCAT (TbPea.Des_Corta,' - ',TbFpa3.des_larga ) AS   fecha3
+				 FROM descuentos_menu dm
+				  LEFT JOIN  cronograma_pagos AS cp  ON   dm.fec_des3=cp.id_cp
+				  LEFT JOIN tabla_maestra_detalle AS TbFpa3 ON  TbFpa3.cod_argumento=  dm.fec_des3 AND TbFpa3.Cod_tabla='TFPA'
+				  LEFT JOIN tabla_maestra_detalle AS TbPea ON TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+				)  AS TbFpa3 ON  TbFpa3.id_des_men= dm.id_des_men
 				WHERE dm.id_des_men='$id_des_men'
 				order by   dm.id_des_men DESC";
 		return ejecutarConsultaSimpleFila($sql);
