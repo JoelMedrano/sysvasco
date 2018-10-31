@@ -195,7 +195,7 @@ Class Permisos_Descuentos_Enhoras
 					 '    /    Motivo: ',
 					 IFNULL(pp.motivo,'')
 					 ) AS sit,
-					 hpp.id_fec_dscto 
+					 hpp.id_fec_dscto  
 				FROM horas_permiso_personal hpp
 				LEFT JOIN (
 					Select  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) As nombres
@@ -264,7 +264,7 @@ Class Permisos_Descuentos_Enhoras
 
 
 
-	public function faltas_permisos_horas($id_cp){
+	public function faltas_permisos_horas(  ){
 
     $sql="SELECT     hpp.id_hor_per,
     				 hpp.fecha, 
@@ -300,8 +300,6 @@ Class Permisos_Descuentos_Enhoras
 				  
 
 	";
-
-	//  faltas_permisos_horas Filtro:  WHERE hpp.id_fec_dscto= '$id_cp'
 
     return ejecutarConsulta($sql);
   }

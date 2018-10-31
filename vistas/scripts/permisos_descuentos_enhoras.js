@@ -115,10 +115,7 @@ function guardaryeditar(e) {
 }
 
 function mostrar(id_cp) {
-	
-
-	$.post("../ajax/permisos_descuentos_enhoras?op=mostrar",{id_cp : id_cp}, function(data, status)
-	{
+	$.post("../ajax/permisos_descuentos_enhoras.php?op=mostrar", {id_cp: id_cp}, function(data, status) {
 		data = JSON.parse(data);
 		mostrarform(true);
 
@@ -128,7 +125,7 @@ function mostrar(id_cp) {
 
 		$("#id_cp").val(data.id_cp);
 
-	
+		$("#idmft").val(data.idmft);
 
 		
 
