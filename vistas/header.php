@@ -423,7 +423,7 @@ if (strlen(session_id()) < 1)
                                       <li><a href="ft_hoja2_1.php">Combinaciones</a></li>
                                   </ul>
                               </li>
-                              <li><a href="ft_hoja1.php"><i class="fa fa-circle-o"></i> Avios</a></li>
+                              <li><a href="ft_hoja3.php"><i class="fa fa-circle-o"></i> Avios</a></li>
                           </li>
                       </ul>
                   </li>
