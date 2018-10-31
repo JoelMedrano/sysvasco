@@ -68,7 +68,7 @@ if ($_SESSION['rrhh']==1)
                            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Fec.Suceso:</label>
                             <input type="hidden" readonly class="form-control" name="id_abo_reg" id="id_abo_reg">
-                            <input type="date" class="form-control" name="fec_suc" id="fec_suc" required  autocomplete="off">
+                            <input type="date" class="form-control" name="fec_suc" id="fec_suc" required >
                           </div>
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Trabajador:</label>
@@ -76,7 +76,7 @@ if ($_SESSION['rrhh']==1)
                           </div>
                           <div class="form-group col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <label>Motivo:</label>
-                            <input type="text" class="form-control" name="motivo" id="motivo" required autocomplete="off">
+                            <input type="text" class="form-control" name="motivo" id="motivo">
                           </div>
 
 
@@ -92,17 +92,17 @@ if ($_SESSION['rrhh']==1)
                           </div>
 
 
-                          <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Cantidad:</label>
-                            <input type="decimal" class="form-control" name="cantidad" id="cantidad" required autocomplete="off">
+                            <input type="number" class="form-control" name="cantidad" id="cantidad">
                           </div>
-                          <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Cant.Pagada</label>
-                            <input type="decimal" class="form-control" name="pagado" id="pagado" readonly autocomplete="off">
+                            <input type="number" class="form-control" name="pagado" id="pagado" readonly>
                           </div>
-                          <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Saldo</label>
-                            <input type="decimal" class="form-control" name="saldo" id="saldo" readonly autocomplete="off">
+                            <input type="number" class="form-control" name="saldo" id="saldo" readonly>
                           </div>
 
 
@@ -115,9 +115,9 @@ if ($_SESSION['rrhh']==1)
                           </div>
                          
 
-                          <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Fecha de Abono</label>
-                            <input type="date" class="form-control" name="fec_abo_reg" id="fec_abo_reg"  autocomplete="off">
+                           <select id="fec_des1" name="fec_des1" class="form-control selectpicker" data-live-search="true"></select>
                           </div>
 
                           

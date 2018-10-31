@@ -94,6 +94,36 @@ switch ($_GET["op"]){
 	break;
 
 
+	//Permiso - Agregado DG 13072018
+	case "selectPersonalNombreCorto":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectPersonalNombreCorto();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_trab . '>' .$reg->apellidosynombres. ' </option>';
+				}
+	break;
+
+
+
+	//Permiso - Agregado DG 13072018
+	case "selectPersonalNombreLargo":
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+
+		$rspta = $consultasD->selectPersonalNombreLargo();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_trab . '>' .$reg->apellidosynombres. ' </option>';
+				}
+	break;
+
+
+
 
 // Permiso - Agregado DG 18072018
 	case "selectTipoPermiso":
@@ -450,7 +480,7 @@ switch ($_GET["op"]){
 
 
 
-		case "selectPagoEspecial":
+	case "selectPagoEspecial":
 
 		require_once "../modelos/ConsultasD.php";
 		$consultasD = new ConsultasD();
@@ -462,6 +492,38 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->id_pag_esp . '>' . $reg->pago_especial . '</option>';
 				}
 	break;
+
+
+
+	case "selectHorarios":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectHorarios();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_horario . '>' . $reg->horario . '</option>';
+				}
+	break;
+
+
+
+	case "selectRefrigerios":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectRefrigerios();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->cod_ref . '>' . $reg->refrigerio . '</option>';
+				}
+	break;
+
+
 
 
 

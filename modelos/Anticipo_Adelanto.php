@@ -159,11 +159,11 @@ Class Anticipo_Adelanto
 				         aa.cantidad,
 				         aa.pagado,
 				         aa.saldo,
-				         DATE_FORMAT(aa.fec_des1, '%d/%m/%Y') fec_des1, 
+				         TbFpa1.fecha1,  fec_des1,
 				         aa.mon_des1,
-				         DATE_FORMAT(aa.fec_des2, '%d/%m/%Y') fec_des2,
+				         TbFpa2.fecha2,  fec_des2, 
 				         aa.mon_des2,
-				         DATE_FORMAT(aa.fec_des3, '%d/%m/%Y') fec_des3,
+				         TbFpa3.fecha3,  fec_des3,
 				         aa.mon_des3,
 				         ttpr.`des_larga` AS des_tip_dscto,
 				         tmod.`des_larga` AS des_modalidad,
@@ -183,6 +183,28 @@ Class Anticipo_Adelanto
 							LEFT JOIN tabla_maestra_detalle AS tare ON
 							tare.cod_argumento= tra.id_area
 							AND tare.cod_tabla='TARE'
+							LEFT JOIN 
+							(SELECT  aa.id_ant_ade,  CONCAT (TbPea.Des_Corta,' - ',TbFpa1.des_larga ) AS   fecha1
+							 FROM anticipo_adelanto aa
+							  LEFT JOIN  cronograma_pagos AS cp  ON    aa.fec_des1=cp.id_cp
+							  LEFT JOIN tabla_maestra_detalle AS TbFpa1 ON    TbFpa1.cod_argumento=  aa.fec_des1 AND TbFpa1.Cod_tabla='TFPA'
+							  LEFT JOIN tabla_maestra_detalle AS TbPea ON   TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+							  WHERE aa.`id_ant_ade`='2'
+							)  AS TbFpa1 ON  TbFpa1.id_ant_ade= aa.id_ant_ade
+							LEFT JOIN 
+							(SELECT  aa.id_ant_ade,  CONCAT (TbPea.Des_Corta,' - ',TbFpa2.des_larga ) AS   fecha2
+							 FROM anticipo_adelanto aa
+							  LEFT JOIN  cronograma_pagos AS cp  ON   aa.fec_des2=cp.id_cp
+							  LEFT JOIN tabla_maestra_detalle AS TbFpa2 ON  TbFpa2.cod_argumento=  aa.fec_des2 AND TbFpa2.Cod_tabla='TFPA'
+							  LEFT JOIN tabla_maestra_detalle AS TbPea ON TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+							)  AS TbFpa2 ON  TbFpa2.id_ant_ade= aa.id_ant_ade
+							LEFT JOIN 
+							(SELECT  aa.id_ant_ade,  CONCAT (TbPea.Des_Corta,' - ',TbFpa3.des_larga ) AS   fecha3
+							 FROM anticipo_adelanto aa
+							  LEFT JOIN  cronograma_pagos AS cp  ON   aa.fec_des3=cp.id_cp
+							  LEFT JOIN tabla_maestra_detalle AS TbFpa3 ON  TbFpa3.cod_argumento=  aa.fec_des3 AND TbFpa3.Cod_tabla='TFPA'
+							  LEFT JOIN tabla_maestra_detalle AS TbPea ON TbPea.cod_argumento=  cp.id_ano AND TbPea.Cod_tabla='TPEA'  
+							)  AS TbFpa3 ON  TbFpa3.id_ant_ade= aa.id_ant_ade
 							WHERE aa.id_ant_ade='$id_ant_ade'
 							order by   aa.id_ant_ade DESC";
 		return ejecutarConsultaSimpleFila($sql);
@@ -257,58 +279,6 @@ Class Anticipo_Adelanto
 	}
 
 
-
-	//Implementar un método para listar los registros activos, su último precio y el stock (vamos a unir con el último registro de la tabla detalle_ingreso)
-	public function selectFechas()
-	{
-		$sql="SELECT id_cp, 
-		 			 id_ano,
-		 			 TbPea.Des_Corta AS Ano,
-		             TbFpa.Des_Larga AS Descrip_fec_pag,
-		             des_fec_pag, 
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des1,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des2,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des3,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des4,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des5,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des6,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des7,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des8,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des9,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des10,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des11,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des12,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des13,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des14,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des15,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des16,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des17,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des18,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des19,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des20,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des21,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des22,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des23,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des24,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des25,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des26,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des27,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des28,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des29,
-					 DATE_FORMAT(fec_pag, '%d/%m/%Y') AS fec_des30,
-		             est_reg 
-			FROM cronograma_pagos cp
-				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
-				TbPea.cod_argumento=  cp.id_ano
-				AND TbPea.Cod_tabla='TPEA'
-				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
-				TbFpa.cod_argumento=  cp.des_fec_pag
-				AND TbFpa.Cod_tabla='TFPA'
-			WHERE cp.id_ano='12'
-
-			ORDER BY  cp.des_fec_pag ASC";
-		return ejecutarConsulta($sql);
-	}
 
 
 

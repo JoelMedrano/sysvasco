@@ -27,7 +27,7 @@ $id_abo_reg=isset($_POST["id_abo_reg"])? limpiarCadena($_POST["id_abo_reg"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $fec_suc=isset($_POST["fec_suc"])? limpiarCadena($_POST["fec_suc"]):"";
 $motivo=isset($_POST["motivo"])? limpiarCadena($_POST["motivo"]):"";
-$fec_abo_reg=isset($_POST["fec_abo_reg"])? limpiarCadena($_POST["fec_abo_reg"]):"";
+$fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
 $modalidad=isset($_POST["modalidad"])? limpiarCadena($_POST["modalidad"]):"";
 $tip_abono=isset($_POST["tip_abono"])? limpiarCadena($_POST["tip_abono"]):"";
 $cantidad=isset($_POST["cantidad"])? limpiarCadena($_POST["cantidad"]):"";
@@ -41,10 +41,10 @@ switch ($_GET["op"]){
 
 		
 		if (empty($id_abo_reg)){
-			$rspta=$abono_regularizacion->insertar(			$id_trab,	
+			$rspta=$abono_regularizacion->insertar(	$id_trab,	
 													$fec_suc,
 													$motivo,
-													$fec_abo_reg,
+													$fec_des1,
 													$modalidad,
 													$tip_abono,
 													$cantidad,
@@ -61,7 +61,7 @@ switch ($_GET["op"]){
 													$id_trab,	
 													$fec_suc,
 													$motivo,
-													$fec_abo_reg,
+													$fec_des1,
 													$modalidad,
 													$tip_abono,
 													$cantidad,

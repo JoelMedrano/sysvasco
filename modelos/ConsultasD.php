@@ -55,6 +55,25 @@ Class ConsultasD
 	}
 
 
+	
+
+	// Permiso - Implementar un método para listar los registros y mostrar en el select
+	public function selectPersonalNombreCorto()
+	{
+		$sql="SELECT id_trab, CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS apellidosynombres FROM  Trabajador";
+		return ejecutarConsulta($sql);		
+	}
+
+
+		// Permiso - Implementar un método para listar los registros y mostrar en el select
+	public function selectPersonalNombreLargo()
+	{
+		$sql="SELECT id_trab, CONCAT(apepat_trab, ' ' , apemat_trab, ' ',  nom_trab )    AS apellidosynombres FROM  Trabajador";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
 	// Permiso - Implementar un método para listar los registros y mostrar en el select
 	public function selectTipoPermiso()
 	{
@@ -324,6 +343,31 @@ Class ConsultasD
 		order by TbMpe.cod_argumento ASC";
 		return ejecutarConsulta($sql);		
 	}
+
+
+	// Horarios - Refrigerio Implementar un método para listar los registros y mostrar en el select
+	public function selectHorarios()
+	{
+		$sql="SELECT hor.id_horario,  hor.descrip AS horario  
+		FROM horario hor
+		order by hor.id_horario ASC";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Horarios - Refrigerio Implementar un método para listar los registros y mostrar en el select
+	public function selectRefrigerios()
+	{
+		$sql="SELECT ref.cod_ref,  ref.descrip AS refrigerio  
+		FROM refrigerio ref
+		order by ref.cod_ref ASC";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	
 
 
 

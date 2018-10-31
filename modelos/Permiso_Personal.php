@@ -11,17 +11,123 @@ Class Permiso_Personal
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta, $tip_permiso,$hora_ing, $hora_sal, $motivo, $fec_reg, $pc_reg, $usu_reg, $imagen1, $imagen2, $imagen3, $imagen4)
+	public function insertar($id_permiso,
+							 $id_trab,
+							 $fecha_emision,
+							 $fecha_procede, 
+							 $fecha_hasta, 
+							 $dias,  
+							 $tip_permiso, 
+							 $hora_ing, 
+							 $hora_sal, 
+							 $motivo, 
+							 $id_fecha_pago1,
+							 $monto_a_pagar,
+							 $id_fecha_pago2,
+							 $id_fecha_pago3,
+							 $id_fecha_pago4, 
+							 $fec_reg, 
+							 $pc_reg, 
+							 $usu_reg, 
+							 $imagen1, 
+							 $imagen2, 
+							 $imagen3, 
+							 $imagen4)
 	{
-		$sql="INSERT INTO permiso_personal (id_permiso, id_trab, fecha_emision,fecha_procede, fecha_hasta, tip_permiso, hora_ing, hora_sal,  motivo, est_reg, fec_reg, pc_reg, usu_reg, imagen1, imagen2, imagen3, imagen4 )
-		VALUES ('$id_permiso','$id_trab','$fecha_emision','$fecha_procede', '$fecha_hasta', '$tip_permiso','$hora_ing', '$hora_sal',  '$motivo', '1',  '$fec_reg', '$pc_reg', '$usu_reg', '$imagen1', '$imagen2', '$imagen3', '$imagen4' )";
+		$sql="INSERT INTO permiso_personal (id_permiso,
+											id_trab, 
+											fecha_emision,
+											fecha_procede, 
+											fecha_hasta, 
+											dias,  
+											tip_permiso, 
+											hora_ing, 
+											hora_sal,  
+											motivo, 
+											id_fecha_pago1,
+											monto_a_pagar,
+											id_fecha_pago2,
+											id_fecha_pago3,
+											id_fecha_pago4, 
+											est_reg, 
+											fec_reg, 
+											pc_reg, 
+											usu_reg, 
+											imagen1, 
+											imagen2, 
+											imagen3, 
+											imagen4 )
+									VALUES ('$id_permiso',
+										    '$id_trab',
+										    '$fecha_emision',
+										    '$fecha_procede',
+										    '$fecha_hasta', 
+										    '$dias', 
+										    '$tip_permiso',
+										    '$hora_ing', 
+										    '$hora_sal',  
+										    '$motivo', 
+										    '$id_fecha_pago1',
+										    '$monto_a_pagar',
+											'$id_fecha_pago2',
+							                '$id_fecha_pago3',
+							                '$id_fecha_pago4', 
+										    '1',  
+										    '$fec_reg', 
+										    '$pc_reg', 
+										    '$usu_reg', 
+										    '$imagen1', 
+										    '$imagen2', 
+										    '$imagen3', 
+										    '$imagen4' )";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($id_permiso,$id_trab,$fecha_emision,$fecha_procede, $fecha_hasta,$tip_permiso,$hora_ing, $hora_sal, $motivo, $fec_reg, $pc_reg, $usu_reg, $imagen1, $imagen2, $imagen3, $imagen4)
+	public function editar($id_permiso,
+						   $id_trab,
+						   $fecha_emision,
+						   $fecha_procede, 
+						   $fecha_hasta, 
+						   $dias,  
+						   $tip_permiso, 
+						   $hora_ing, 
+						   $hora_sal, 
+						   $motivo, 
+						   $id_fecha_pago1,
+						   $monto_a_pagar,
+						   $id_fecha_pago2,
+						   $id_fecha_pago3,
+						   $id_fecha_pago4, 
+						   $fec_reg, 
+						   $pc_reg, 
+						   $usu_reg, 
+						   $imagen1, 
+						   $imagen2, 
+						   $imagen3, 
+						   $imagen4)
 	{
-		$sql="UPDATE permiso_personal SET id_trab='$id_trab',fecha_procede='$fecha_procede', fecha_hasta='$fecha_hasta', tip_permiso='$tip_permiso', hora_ing='$hora_ing',hora_sal='$hora_sal', motivo='$motivo', fec_mod='$fec_reg', pc_mod='$pc_reg', usu_mod='$usu_reg', imagen1='$imagen1', imagen2='$imagen2', imagen3='$imagen3', imagen4='$imagen4' WHERE id_permiso='$id_permiso'";
+		$sql="UPDATE permiso_personal SET id_trab='$id_trab',
+										  fecha_procede='$fecha_procede',
+										  fecha_hasta='$fecha_hasta', 
+										  dias='$dias',  
+										  tip_permiso='$tip_permiso', 
+										  hora_ing='$hora_ing',
+										  hora_sal='$hora_sal', 
+										  motivo='$motivo', 
+										  id_fecha_pago1='$id_fecha_pago1',
+										  monto_a_pagar='$monto_a_pagar',
+										  id_fecha_pago2='$id_fecha_pago2',
+										  id_fecha_pago3='$id_fecha_pago3',
+										  id_fecha_pago4='$id_fecha_pago4', 
+										  fec_mod='$fec_reg', 
+										  pc_mod='$pc_reg', 
+										  usu_mod='$usu_reg', 
+										  imagen1='$imagen1', 
+										  imagen2='$imagen2', 
+										  imagen3='$imagen3', 
+										  imagen4='$imagen4' 
+								    WHERE id_permiso='$id_permiso'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -75,7 +181,28 @@ Class Permiso_Personal
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_permiso)
 	{
-		$sql="SELECT DATE_FORMAT(fecha_emision, '%d/%m/%Y') AS fecha_emision,   DATE_FORMAT(fecha_procede, '%d/%m/%Y') AS fecha_procede,   DATE_FORMAT(fecha_hasta, '%d/%m/%Y') AS fecha_hasta, tip_permiso, id_trab, id_permiso, hora_ing, hora_sal, motivo, est_reg, imagen1, imagen2, imagen3, imagen4  FROM permiso_personal WHERE id_permiso='$id_permiso'";
+		$sql="SELECT DATE_FORMAT(fecha_emision, '%d/%m/%Y') AS fecha_emision,
+		   			 dias,
+		             DATE_FORMAT(fecha_procede, '%d/%m/%Y') AS fecha_procede,
+		             DATE_FORMAT(fecha_hasta, '%d/%m/%Y') AS fecha_hasta,
+		             tip_permiso, 
+		             id_trab, 
+		             id_permiso, 
+		             hora_ing, 
+		             hora_sal, 
+		             motivo, 
+		             id_fecha_pago1,
+		             monto_a_pagar,
+		             id_fecha_pago2,
+		             id_fecha_pago3,
+		             id_fecha_pago4,
+		             est_reg, 
+		             imagen1, 
+		             imagen2, 
+		             imagen3, 
+		             imagen4  
+		             FROM permiso_personal 
+		             WHERE id_permiso='$id_permiso'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
@@ -121,6 +248,39 @@ Class Permiso_Personal
 		 ";
 		return ejecutarConsulta($sql);	
 	}
+
+
+
+	//Implementar un método para listar los registros activos, su último precio y el stock (vamos a unir con el último registro de la tabla detalle_ingreso)
+	public function selectFechaPagoVacaciones()
+	{
+		$sql="SELECT id_cp, 
+		 			 id_ano,
+		 			 TbPea.Des_Corta AS Ano,
+					 TbFpa.Des_Larga AS Descrip_fec_pag,
+					 des_fec_pag, 
+					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga, ' - DEL ',   DATE_FORMAT(cp.desde, '%d/%m/%Y'), ' AL ', DATE_FORMAT(cp.hasta, '%d/%m/%Y')  ) AS fecha1,
+					 id_cp AS id_fecha_pago1,
+					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga, ' - DEL ',   DATE_FORMAT(cp.desde, '%d/%m/%Y'), ' AL ', DATE_FORMAT(cp.hasta, '%d/%m/%Y')  ) AS fecha2,
+					 id_cp AS id_fecha_pago2,
+					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga, ' - DEL ',   DATE_FORMAT(cp.desde, '%d/%m/%Y'), ' AL ', DATE_FORMAT(cp.hasta, '%d/%m/%Y')  ) AS fecha3,
+					 id_cp AS id_fecha_pago3,
+					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga, ' - DEL ',   DATE_FORMAT(cp.desde, '%d/%m/%Y'), ' AL ', DATE_FORMAT(cp.hasta, '%d/%m/%Y')  ) AS fecha4,
+					 id_cp AS id_fecha_pago4,
+					 est_reg 
+			FROM cronograma_pagos cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+				TbFpa.cod_argumento=  cp.des_fec_pag
+				AND TbFpa.Cod_tabla='TFPA'
+			ORDER BY  TbPea.Des_Corta ASC, cp.des_fec_pag ASC";
+		return ejecutarConsulta($sql);
+	}
+
+
+
 
 
 

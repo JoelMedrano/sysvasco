@@ -358,6 +358,7 @@ function limpiar()
 	$("#pagado").val("");
 	$("#saldo").val("");
 	$("#motivo").val("");
+	
 	$("#fec_des1").val("");
 	$("#fec_des1").selectpicker('refresh');
 

@@ -36,14 +36,14 @@ function init(){
 
 
 	//Cargamos los items al select Fechas 
-	$.post("../ajax/descuentos_varios.php?op=selectFechaDscto1", function(r){
+	$.post("../ajax/prestamos.php?op=selectFechaDscto1", function(r){
 	            $("#fec_des1").html(r);
 	            $('#fec_des1').selectpicker('refresh');
 
 	});
 
 	//Cargamos los items al select Fechas 
-	$.post("../ajax/descuentos_varios.php?op=selectFechaDscto2", function(r){
+	$.post("../ajax/prestamos.php?op=selectFechaDscto2", function(r){
 	            $("#fec_des2").html(r);
 	            $('#fec_des2').selectpicker('refresh');
 
@@ -51,12 +51,11 @@ function init(){
 
 
 	//Cargamos los items al select Fechas 
-	$.post("../ajax/descuentos_varios.php?op=selectFechaDscto3", function(r){
+	$.post("../ajax/prestamos.php?op=selectFechaDscto3", function(r){
 	            $("#fec_des3").html(r);
 	            $('#fec_des3').selectpicker('refresh');
 
 	});
-
 
 
 

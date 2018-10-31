@@ -126,34 +126,34 @@ if ($_SESSION['rrhh']==1)
 
                          <div class="form-group  col-xs-12">
 
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fecha Descuento 1</label>
+                                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                      <label>Fecha Descuento1</label>
                                       <select id="fec_des1" name="fec_des1" class="form-control selectpicker" data-live-search="true"></select>
                                     </div>
 
                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                      <label>Monto Dscto 1</label>
+                                      <label>Monto Dscto1</label>
                                       <input type="decimal" class="form-control" name="mon_des1" id="mon_des1" autocomplete="off">
                                     </div>
 
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fecha Descuento 2</label>
+                                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                      <label>Fecha Descuento2</label>
                                       <select id="fec_des2" name="fec_des2" class="form-control selectpicker" data-live-search="true"></select>
                                     </div>
 
                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                      <label>Monto Dscto 2</label>
+                                      <label>Monto Dscto2</label>
                                       <input type="decimal" class="form-control" name="mon_des2" id="mon_des2" autocomplete="off">
                                     </div>
 
 
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fecha Descuento 3</label>
+                                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                      <label>Fecha Descuento3</label>
                                       <select id="fec_des3" name="fec_des3" class="form-control selectpicker" data-live-search="true"></select>
                                     </div>
                                     
                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                      <label>Monto Dscto 3</label>
+                                      <label>Monto Dscto3</label>
                                       <input type="decimal" class="form-control" name="mon_des3" id="mon_des3" autocomplete="off">
                                     </div>
                            </div>

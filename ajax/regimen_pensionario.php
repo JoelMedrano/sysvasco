@@ -21,6 +21,10 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 //Campos de Seguridad//
 
 //INICIO//
+$id_cp=isset($_POST["id_cp"])? limpiarCadena($_POST["id_cp"]):"";
+
+$fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
+
 $id_reg_pen=isset($_POST["id_reg_pen"])? limpiarCadena($_POST["id_reg_pen"]):"";
 
 $id_ano=isset($_POST["id_ano"])? limpiarCadena($_POST["id_ano"]):"";  
@@ -76,7 +80,8 @@ switch ($_GET["op"]){
 	case 'guardaryeditar':
 		
 		if (empty($id_reg_pen)){
-			$rspta=$regimen_pensionario->insertar($id_ano,
+			$rspta=$regimen_pensionario->insertar(	$fec_des1,
+													$id_ano,
 													$obs_reg_pen,
 													$onp_apo_obl,
 													$onp_com_men_rem,
@@ -123,8 +128,8 @@ switch ($_GET["op"]){
 			echo $rspta ? "Regimen pensionario registrado" : "Regimen pensionario no se pudo registrar";
 		}
 		else {
-			$rspta=$regimen_pensionario->editar($id_reg_pen, $id_ano,
-													$obs_reg_pen,
+			$rspta=$regimen_pensionario->editar(	$fec_des1,
+													$id_reg_pen,
 													$onp_apo_obl,
 													$onp_com_men_rem,
 													$onp_com_anu,
@@ -182,7 +187,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'mostrar':
-		$rspta=$regimen_pensionario->mostrar($id_reg_pen);
+		$rspta=$regimen_pensionario->mostrar($id_cp);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -196,14 +201,12 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
 			$data[]=array(
- 				"0"=>$reg->id_reg_pen,
- 				"1"=>$reg->id_reg_pen,
- 				"2"=>$reg->obs_reg_pen,
- 				"3"=>($reg->id_reg_pen)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_reg_pen.')"><i class="fa fa-pencil"></i></button>'
- 			        	:'<button class="btn btn-warning" onclick="mostrar('.$reg->id_reg_pen.')"><i class="fa fa-pencil"></i></button>',
- 			    "4"=>($reg->est_reg_pen)?
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_reg_pen.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_reg_pen.')"><i class="fa fa-check"></i></button>'
+ 				"0"=>$reg->pd,
+ 			    "1"=>$reg->id_cp,
+ 				"2"=>$reg->Ano,
+ 				"3"=>$reg->Descrip_fec_pag,
+ 				"4"=>($reg->id_cp)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_cp.')"><i class="fa fa-pencil"></i></button>'
+ 			        	:'<button class="btn btn-warning" onclick="mostrar('.$reg->id_cp.')"><i class="fa fa-pencil"></i></button>'
  				);
  		}
  		$results = array(

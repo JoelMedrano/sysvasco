@@ -17,6 +17,8 @@ $cod_ref=isset($_POST["cod_ref"])? limpiarCadena($_POST["cod_ref"]):"";
 $hora_ini=isset($_POST["hora_ini"])? limpiarCadena($_POST["hora_ini"]):"";
 $hora_fin=isset($_POST["hora_fin"])? limpiarCadena($_POST["hora_fin"]):"";
 $descrip=isset($_POST["descrip"])? limpiarCadena($_POST["descrip"]):"";
+$tiempo=isset($_POST["tiempo"])? limpiarCadena($_POST["tiempo"]):"";
+
 
 //Campos de Seguridad//
 $usu_reg=$_SESSION['login'];
@@ -31,11 +33,11 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($cod_ref)){
-			$rspta=$refrigerio->insertar($hora_ini,$hora_fin,$descrip, $usu_reg, $pc_reg, $fec_reg );
+			$rspta=$refrigerio->insertar($hora_ini,$hora_fin, $tiempo, $descrip, $usu_reg, $pc_reg, $fec_reg );
 			echo $rspta ? "Refrigerio registrado" : "Refrigerio no se pudo registrar";
 		}
 		else {
-			$rspta=$refrigerio->editar($cod_ref,$hora_ini,$hora_fin,$descrip, $usu_reg, $pc_reg, $fec_reg );
+			$rspta=$refrigerio->editar($cod_ref,$hora_ini,$hora_fin,  $tiempo, $descrip, $usu_reg, $pc_reg, $fec_reg );
 			echo $rspta ? "Refrigerio actualizado" : "Refrigerio no se pudo actualizar";
 		}
 	break;

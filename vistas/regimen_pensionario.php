@@ -31,20 +31,20 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
+                            <th>RP</th>
                             <th>Codigo</th>
                             <th>Año</th>
-                            <th>Observación</th>
+                            <th>Descripcion de Fecha de Pago</th>
                             <th>Ver</th>
-                            <th>Anular</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
+                            <th>RP</th>
                             <th>Codigo</th>
                             <th>Año</th>
-                            <th>Observación</th>
+                            <th>Descripcion de Fecha de Pago</th>
                             <th>Ver</th>
-                            <th>Anular</th>
                           </tfoot>
                         </table>
                     </div>
@@ -53,17 +53,19 @@ if ($_SESSION['rrhh']==1)
                           
 
                           <div class="box-header with-border">
-                              <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                <label>Año:</label>
-                                <input type="text" class="form-control" name="id_ano" id="id_ano" required  autocomplete="off">
+                            
+                              <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Fecha:</label>
+                                 <select id="fec_des1" name="fec_des1" class="form-control selectpicker" data-live-search="true"></select> 
                               </div>
+
                               
                               <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
                                 <label>Obs Reg.Pensionario:</label>
                                 <input type="text" class="form-control" name="obs_reg_pen" id="obs_reg_pen"  autocomplete="off">
                               </div>
 
-                              <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                              <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                               </div>
 
                               <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">

@@ -17,6 +17,7 @@ Class Pago_Destajeros
 							 $correlativo,
 							 $id_trab,
 							 $sueldo,
+							 $bono_des_trab,
 							 $prod_soles,
 							 $dif_soles,
 							 $fec_reg,
@@ -31,6 +32,7 @@ Class Pago_Destajeros
 		{			
 			$sql_detalle="UPDATE pago_destajeros SET     
 								 sueldo='$sueldo[$num_elementos]', 
+								 bono_des_trab='$bono_des_trab[$num_elementos]',
 								 prod_soles='$prod_soles[$num_elementos]',
 								 dif_soles='$prod_soles[$num_elementos]'- '$sueldo[$num_elementos]'  
 						 WHERE id_pd='$id_cp' AND correlativo='$correlativo[$num_elementos]'  ";
@@ -49,6 +51,7 @@ Class Pago_Destajeros
 							  $correlativo,
 							  $id_trab,
 							  $sueldo,
+							  $bono_des_trab,
 							  $prod_soles,
 							  $dif_soles,
 							  $fec_reg,
@@ -63,7 +66,9 @@ Class Pago_Destajeros
 
 		$num_elementos=$CantItems;
 		$sw=true;
+
 		//while ($num_elementos < count($correlativo) AND $correlativo > $cantidaditems)
+		
 		while ($num_elementos < count($correlativo))
 		{	
 			$item=$item + 1;
@@ -71,6 +76,7 @@ Class Pago_Destajeros
 													    correlativo,
 													    id_trab,
 													    sueldo,
+													    bono_des_trab,
 													    prod_soles,
 													    dif_soles,
 													    fec_reg,
@@ -80,6 +86,7 @@ Class Pago_Destajeros
  														'$item',
  														'$id_trab[$num_elementos]',
  														'$sueldo[$num_elementos]',
+ 														'$bono_des_trab[$num_elementos]',
  														'$prod_soles[$num_elementos]',
  														'$prod_soles[$num_elementos]'- '$sueldo[$num_elementos]' , 
  														'$fec_reg',
@@ -134,7 +141,14 @@ Class Pago_Destajeros
 
 	public function listarDetalle($id_cp)
 	{
-		$sql="SELECT pd.id_trab, pd.correlativo, pd.id_pd, pd.sueldo, pd.prod_soles, pd.dif_soles,  CONCAT(Tra.apepat_trab, ' ' , Tra.apemat_trab, ' ', Tra.nom_trab)   AS apellidosynombres 
+		$sql="SELECT pd.id_trab,
+					 pd.correlativo,
+					 pd.id_pd, 
+					 pd.sueldo,
+					 pd.bono_des_trab, 
+					 pd.prod_soles,
+					 pd.dif_soles,  
+					 CONCAT(Tra.apepat_trab, ' ' , Tra.apemat_trab, ' ', Tra.nom_trab)   AS apellidosynombres 
 				FROM pago_destajeros pd
 				LEFT JOIN Trabajador  Tra ON
 				 Tra.id_trab= pd.id_trab

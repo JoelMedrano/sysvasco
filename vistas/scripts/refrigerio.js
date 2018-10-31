@@ -18,14 +18,11 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
+	$("#cod_ref").val("");
+	$("#hora_ini").val("");
+	$("#hora_fin").val("");
+	$("#tiempo").val("");
+	$("#descrip").attr("src","");
 }
 
 //Función mostrar formulario
@@ -121,6 +118,10 @@ function mostrar(cod_ref)
 		$("#hora_ini").val(data.hora_ini);
 		$("#hora_fin").val(data.hora_fin);
 		$("#descrip").val(data.descrip);
+		$("#tiempo").val(data.tiempo);
+
+
+
 
  	})
 }

@@ -92,8 +92,6 @@ if ($_SESSION['rrhh']==1)
 
 
 
-                         
-
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cantidad:</label>
                             <input type="decimal" class="form-control" name="cantidad"  id="cantidad" required  autocomplete="off">

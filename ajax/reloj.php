@@ -50,7 +50,7 @@ $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
-	
+
 
         $codigo_ingresado=$reloj->consultar($id_trab, $fecha);
         $regc=$codigo_ingresado->fetch_object();
@@ -61,16 +61,133 @@ switch ($_GET["op"]){
         $id_tip_plan=$dp->id_tip_plan;
         $id_turno=$dp->id_turno;
 
+        $codigo_ingresado=$reloj->consultarPrimeraSalida($id_trab, $fecha);
+        $regc=$codigo_ingresado->fetch_object();
+        $primera_salida=$regc->hor_sal;
+
+
+        $codigo_ingresado=$reloj->consultarSegundaEntrada($id_trab, $fecha);
+        $regc=$codigo_ingresado->fetch_object();
+        $segunda_entrada=$regc->segunda_hor_ent;
+
+        $codigo_ingresado=$reloj->consultarSegundaSalida($id_trab, $fecha);
+        $regc=$codigo_ingresado->fetch_object();
+        $segunda_salida=$regc->segunda_hor_sal;
+
+        $codigo_ingresado=$reloj->consultarUsuariosQuePuedenRealizarHE_FP($id_trab);
+        $regc=$codigo_ingresado->fetch_object();
+        $id_permitido=$regc->id_permitido;
+       
+       
+        $codigo_ingresado=$reloj->consultarHoraIngreso($id_trab, $fecha, $hora);
+        $regc=$codigo_ingresado->fetch_object();
+        $hora_ingreso=$regc->hora_ing;
+        $cantidad_tiempo=$regc->cant_tiempo;
+        $tiempo=$regc->tiempo_largo;
+        $hora_fin_ref=$regc->hora_fin_ref;
+        $tiempo_ref=$regc->tiempo_ref;
+
+
+        $codigo_ingresado=$reloj->restadehorasderefrigerio($id_trab, $tiempo, $tiempo_ref);
+        $regc=$codigo_ingresado->fetch_object();
+        $tiempo_dscto=$regc->tiempo_dscto;
+
+
+        $codigo_ingresado=$reloj->consultarpermisoenesedia($id_trab, $fecha);
+        $regc=$codigo_ingresado->fetch_object();
+        $id_permiso=$regc->id_permiso;
+
+
+         $codigo_ingresado=$reloj->consultaridfechaasociada($fecha);
+        $regc=$codigo_ingresado->fetch_object();
+        $id_cp=$regc->id_cp;
+
+
+
+
+       
+
 		//Declaramos el array para almacenar todos los permisos marcados
 
-
+        	//PRIMER REGISTRO COMO HORA DE INGRESO DENTRO DEL RELOJ
 		 	if ($codigo==''){
-         	   $rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
-			    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
+
+				 		if ($id_permitido=='') {
+				 			
+
+
+				 		}else if ($id_permitido==$id_trab) {
+
+
+
+						 			//INICIO - REGISTRO DE HORAS PERMISO ANTES DE LA HORA DE INGRESO ESTABLECIDO, horas despues de su hora de entrada  
+						            if ($hora_ingreso<$hora  ) {
+						            	//15:08:00 < 08:00:00
+						            		$id_incidencia='0';
+						            		if ($id_permiso=='' ) {
+						            			$id_incidencia='2';
+						            			# code...
+						            		}else  {
+						            			$id_incidencia='1';
+						            		}
+
+							            	if ( $hora_fin_ref<$hora ) { // Si la 15:00:00  es mayor a su hora almuerzo asignado 14:00:00
+							            		$rspta=$reloj->registrar_hora_permiso($id_trab, $fecha, $hora, $tiempo_ref,  $hora_ingreso, $tiempo, $tiempo_dscto, $id_incidencia,  $id_permiso,  $id_cp, $fec_reg, $pc_reg, $usu_reg);
+							            	} else if ( $hora_fin_ref>$hora ) {// Si la hora de ingreso (13:15:00) es menor que  a su hora almuerzo asignado 14:00:00
+							            		$rspta=$reloj->registrar_hora_permiso_sinrefrigerio($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $id_incidencia,  $id_permiso,  $id_cp,  $fec_reg, $pc_reg, $usu_reg);
+							            	}
+						            
+
+						            }
+
+						            //FIN - REGISTRO DE HORAS PERMISO ANTES DE LA HORA DE INGRESO ESTABLECIDO
+
+
+					 				//INICIO - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO
+					 				 if ($hora_ingreso>$hora  AND  $cantidad_tiempo>='3600'  ) {
+						            	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp, $fec_reg, $pc_reg, $usu_reg); 
+						            }
+						            //FIN - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO
+
+
+
+
+				 		}
+
+
+				 		 $rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
+								    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
+
+
+		 		        
+
+
+			
             }else{
-         	  $rspta=$reloj->editar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-			    echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+            	// REGISTRO DE HORA DE SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
+            	if ($primera_salida=='') {
+		         	 $rspta=$reloj->editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+					 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+				}
+				// REGISTRO DE HORA DE SEGUNDO INGRESO ACTUALIZANDO LA LINEA DEL RELOJ
+ 				else if ($segunda_entrada=='') {
+ 					 $rspta=$reloj->editar_segunda_entrada($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+			    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+ 				}
+ 				// REGISTRO DE HORA DE SEGUNDA SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
+ 				else if ($segunda_salida=='') {
+ 					 $rspta=$reloj->editar_segunda_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+			    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+ 				}
+
             }
+
+           
+             
+			    	
+
+
+
 			
 	break;
 

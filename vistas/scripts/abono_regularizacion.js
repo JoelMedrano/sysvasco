@@ -34,6 +34,13 @@ function init(){
 	});
 
 
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectFechaDscto1", function(r){
+	            $("#fec_des1").html(r);
+	            $('#fec_des1').selectpicker('refresh');
+
+	});
+
 
 
 
@@ -44,12 +51,13 @@ function init(){
 //Función limpiar
 function limpiar()
 {
+	$("#id_trab").val("");
+	$("#id_trab").selectpicker('refresh');
+
 	$("#id_abo_reg").val("");
 	$("#fec_suc").val("");
 	$("#descripcion").val("");
-	$("#id_trab").val("");
 	$("#motivo").val("");
-	$("#").val("");
 
 	$("#modalidad").val("QUINCENAL");
 	$("#modalidad").selectpicker('refresh');
@@ -158,7 +166,14 @@ function mostrar(id_abo_reg)
 		$("#id_abo_reg").val(data.id_abo_reg);
 		$("#fec_suc").val(data.fec_suc);
 		$("#motivo").val(data.motivo);
- 		$("#fec_abo_reg").val(data.fec_abo_reg);
+
+
+ 		
+
+		$("#fec_des1").val(data.fec_des1);
+		$('#fec_des1').selectpicker('refresh');
+
+
  		$("#cantidad").val(data.cantidad);
  		$("#pagado").val(data.pagado);
  		$("#saldo").val(data.saldo);
