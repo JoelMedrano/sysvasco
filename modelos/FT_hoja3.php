@@ -176,6 +176,10 @@ Class FT_hoja3
 		  ON fc.idmft_color = a.idmft_color 
 	  ORDER BY mft.cod_mod";
 
+
+
+
+
 		return ejecutarConsulta($sql);
 	}
 
