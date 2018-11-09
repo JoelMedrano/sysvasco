@@ -238,8 +238,8 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
     	cont++;
     	detalles=detalles+1;
     	$('#detalles').append(fila);
-    	modificarSubototales();
-    }
+		modificarSubototales();
+		}
     else
     {
     	alert("Error al ingresar el detalle, revisar los datos del artículo");
