@@ -318,9 +318,10 @@ if (strlen(session_id()) < 1)
                           </li>
                       </ul>
                  </li> 
-                 <li><a href="permisos_descuentos_enhoras.php"><i class="fa fa-circle-o"></i>Descuentos de Permisos en Horas del Reloj</a></li>
-          
-
+                 <li><a href="tardanzas_permisos_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Descuentos de Permisos y Tardanzas en "Horas" del Reloj</a></li>
+                 <li><a href="habilitardscto_permisostardanzas_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Habilitar Descuentos en "Horas" de Permisos y Tardanzas</a></li>
+                 <li><a href="horasextras_horasdiasenreloj.php"><i class="fa fa-circle-o"></i>Horas Extras en Horas y Dias del Reloj</a></li>
+                 <li><a href="habilitarabono_tiempoextra_enreloj.php"><i class="fa fa-circle-o"></i>Habilitar Abono por Horas Extras en Horas y Dias del Reloj</a></li>
           
                   <li class="treeview">
                       <a href="#">

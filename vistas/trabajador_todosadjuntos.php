@@ -1173,19 +1173,42 @@ if ($_SESSION['rrhh']==1)
 
 
                              <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                               <label>Dni:</label>
-                               <input type="file" class="form-control" name="dni_trab" id="dni_trab">
-                               <input type="hidden" name="imagenactual_dni_trab" id="imagenactual_dni_trab">
-                               <img src="" width="37px" height="30px" id="dni_trab_muestra">
+                               <label>Hijo1:</label>
+                               <input type="file" class="form-control" name="dat_hij1" id="dat_hij1">
+                               <input type="hidden" name="imagenactual_dat_hij1" id="imagenactual_dat_hij1">
+                               <img src="" width="37px" height="30px" id="dat_hij1_muestra">
                              </div>
 
 
-                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Antecedentes Policiales:</label>
-                                <input type="file" class="form-control" name="dat_ant_pol" id="dat_ant_pol">
-                                <input type="hidden" name="imagenactual_dat_ant_pol" id="imagenactual_dat_ant_pol">
-                                <img src="" width="37px" height="30px" id="dat_ant_pol_muestra">
-                             </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                              <label>Hij2:</label>
+                              <input type="file" class="form-control" name="dat_hij2" id="dat_hij2">
+                              <input type="hidden" name="imagenactual_dat_hij2" id="imagenactual_dat_hij2">
+                              <img src="" width="37px" height="30px" id="dat_hij2_muestra">
+                            </div>
+
+
+                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                             <label>Hijo3:</label>
+                             <input type="file" class="form-control" name="dat_hij3" id="dat_hij3">
+                             <input type="hidden" name="imagenactual_dat_hij3" id="imagenactual_dat_hij3">
+                             <img src="" width="37px" height="30px" id="dat_hij3_muestra">
+                           </div>
+
+                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                             <label>Hijo4:</label>
+                             <input type="file" class="form-control" name="dat_hij4" id="dat_hij4">
+                             <input type="hidden" name="imagenactual_dat_hij4" id="imagenactual_dat_hij4">
+                             <img src="" width="37px" height="30px" id="dat_hij4_muestra">
+                           </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Data Conyuge:</label>
+                                <input type="file" class="form-control" name="dat_con" id="dat_con">
+                                <input type="hidden" name="imagenactual_dat_con" id="imagenactual_dat_con">
+                                <img src="" width="37px" height="30px" id="dat_con_muestra">
+                            </div>
 
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -1196,13 +1219,21 @@ if ($_SESSION['rrhh']==1)
                             </div>
 
 
-                          
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Antecedentes Policiales:</label>
+                                <input type="file" class="form-control" name="dat_ant_pol" id="dat_ant_pol">
+                                <input type="hidden" name="imagenactual_dat_ant_pol" id="imagenactual_dat_ant_pol">
+                                <img src="" width="37px" height="30px" id="dat_ant_pol_muestra">
+                            </div>
+
+
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <label>Certificado Medico:</label>
                                 <input type="file" class="form-control" name="dat_cer_med" id="dat_cer_med">
                                 <input type="hidden" name="imagenactual_dat_cer_med" id="imagenactual_dat_cer_med">
                                 <img src="" width="37px" height="30px" id="dat_cer_med_muestra">
                             </div>
+
 
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -1220,20 +1251,25 @@ if ($_SESSION['rrhh']==1)
                             </div>
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Grado, Titulo o Tecnico:</label>
+                                <label>Grados y Titulos:</label>
                                 <input type="file" class="form-control" name="dat_gra_tit" id="dat_gra_tit">
                                 <input type="hidden" name="imagenactual_dat_gra_tit" id="imagenactual_dat_gra_tit">
                                 <img src="" width="37px" height="30px" id="dat_gra_tit_muestra">
                             </div>
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Diplomados, Cursos o Especialidad:</label>
-                                <input type="file" class="form-control" name="dat_dip_cur_esp" id="dat_dip_cur_esp">
-                                <input type="hidden" name="imagenactual_dat_dip_cur_esp" id="imagenactual_dat_dip_cur_esp">
-                                <img src="" width="37px" height="30px" id="dat_dip_cur_esp_muestra">
+                                <label>Idiomas:</label>
+                                <input type="file" class="form-control" name="dat_idi" id="dat_idi">
+                                <input type="hidden" name="imagenactual_dat_idi" id="imagenactual_dat_idi">
+                                <img src="" width="37px" height="30px" id="dat_idi_muestra">
                             </div>
 
-                          
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificados Tecnicos:</label>
+                                <input type="file" class="form-control" name="dat_cer_tec" id="dat_cer_tec">
+                                <input type="hidden" name="imagenactual_dat_cer_tec" id="imagenactual_dat_cer_tec">
+                                <img src="" width="37px" height="30px" id="dat_cer_tec_muestra">
+                            </div>
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <label>Documentos Adicionales:</label>
@@ -1242,14 +1278,55 @@ if ($_SESSION['rrhh']==1)
                                 <img src="" width="37px" height="30px" id="dat_adi_muestra">
                             </div>
 
-                            
-
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Certificado Trabajo(Experiencia):</label>
+                                <label>Certificado Trabajo1:</label>
                                 <input type="file" class="form-control" name="dat_cer_tra1" id="dat_cer_tra1">
                                 <input type="hidden" name="imagenactual_dat_cer_tra1" id="imagenactual_dat_cer_tra1">
                                 <img src="" width="37px" height="30px" id="dat_cer_tra1_muestra">
                             </div>
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Trabajo2:</label>
+                                <input type="file" class="form-control" name="dat_cer_tra2" id="dat_cer_tra2">
+                                <input type="hidden" name="imagenactual_dat_cer_tra2" id="imagenactual_dat_cer_tra2">
+                                <img src="" width="37px" height="30px" id="dat_cer_tra2_muestra">
+                            </div>
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Trabajo3:</label>
+                                <input type="file" class="form-control" name="dat_cer_tra3" id="dat_cer_tra3">
+                                <input type="hidden" name="imagenactual_dat_cer_tra3" id="imagenactual_dat_cer_tra3">
+                                <img src="" width="37px" height="30px" id="dat_cer_tra3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Responsabilides1:</label>
+                                <input type="file" class="form-control" name="dat_cer_res1" id="dat_cer_res1">
+                                <input type="hidden" name="imagenactual_dat_cer_res1" id="imagenactual_dat_cer_res1">
+                                <img src="" width="37px" height="30px" id="dat_cer_res1_muestra">
+                            </div>
+
+
+                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Responsabilides2:</label>
+                                <input type="file" class="form-control" name="dat_cer_res2" id="dat_cer_res2">
+                                <input type="hidden" name="imagenactual_dat_cer_res2" id="imagenactual_dat_cer_res2">
+                                <img src="" width="37px" height="30px" id="dat_cer_res2_muestra">
+                            </div>
+
+
+                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Certificado Responsabilides3:</label>
+                                <input type="file" class="form-control" name="dat_cer_res3" id="dat_cer_res3">
+                                <input type="hidden" name="imagenactual_dat_cer_res3" id="imagenactual_dat_cer_res3">
+                                <img src="" width="37px" height="30px" id="dat_cer_res3_muestra">
+                            </div>
+
 
 
 
@@ -1267,16 +1344,134 @@ if ($_SESSION['rrhh']==1)
                                 <img src="" width="37px" height="30px" id="dat_bre_muestra">
                             </div>
 
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Planilla -Hoja de resumen de liquidacion 1:</label>
+                                <input type="file" class="form-control" name="dat_pla_liq1" id="dat_pla_liq1">
+                                <input type="hidden" name="imagenactual_dat_pla_liq1" id="imagenactual_dat_pla_liq1">
+                                <img src="" width="37px" height="30px" id="dat_pla_liq1_muestra">
+                            </div>
 
                           
 
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Hoja de resumen de liquidacion:</label>
-                                <input type="file" class="form-control" name="dat_liquidacion" id="dat_liquidacion">
-                                <input type="hidden" name="imagenactual_dat_liquidacion" id="imagenactual_dat_liquidacion">
-                                <img src="" width="37px" height="30px" id="dat_liquidacion_muestra">
+                                <label>Planilla -Hoja de resumen de liquidacion 2:</label>
+                                <input type="file" class="form-control" name="dat_pla_liq2" id="dat_pla_liq2">
+                                <input type="hidden" name="imagenactual_dat_pla_liq2" id="imagenactual_dat_pla_liq2">
+                                <img src="" width="37px" height="30px" id="dat_pla_liq2_muestra">
                             </div>
 
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Planilla -Hoja de resumen de liquidacion 3:</label>
+                                <input type="file" class="form-control" name="dat_pla_liq3" id="dat_pla_liq3">
+                                <input type="hidden" name="imagenactual_dat_pla_liq3" id="imagenactual_dat_pla_liq3">
+                                <img src="" width="37px" height="30px" id="dat_pla_liq3_muestra">
+                            </div>
+
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Interno -Hoja de resumen de liquidacion 1:</label>
+                                <input type="file" class="form-control" name="dat_int_liq1" id="dat_int_liq1">
+                                <input type="hidden" name="imagenactual_dat_int_liq1" id="imagenactual_dat_int_liq1">
+                                <img src="" width="37px" height="30px" id="dat_int_liq1_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Interno -Hoja de resumen de liquidacion 2:</label>
+                                <input type="file" class="form-control" name="dat_int_liq2" id="dat_int_liq2">
+                                <input type="hidden" name="imagenactual_dat_int_liq2" id="imagenactual_dat_int_liq2">
+                                <img src="" width="37px" height="30px" id="dat_int_liq2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Interno -Hoja de resumen de liquidacion 3:</label>
+                                <input type="file" class="form-control" name="dat_int_liq3" id="dat_int_liq3">
+                                <input type="hidden" name="imagenactual_dat_int_liq3" id="imagenactual_dat_int_liq3">
+                                <img src="" width="37px" height="30px" id="dat_int_liq3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Cts1:</label>
+                                <input type="file" class="form-control" name="dat_car_ret_cts1" id="dat_car_ret_cts1">
+                                <input type="hidden" name="imagenactual_dat_car_ret_cts1" id="imagenactual_dat_car_ret_cts1">
+                                <img src="" width="37px" height="30px" id="dat_car_ret_cts1_muestra">
+                            </div>
+                            
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Cts2:</label>
+                                <input type="file" class="form-control" name="dat_car_ret_cts2" id="dat_car_ret_cts2">
+                                <input type="hidden" name="imagenactual_dat_car_ret_cts2" id="imagenactual_dat_car_ret_cts2">
+                                <img src="" width="37px" height="30px" id="dat_car_ret_cts2_muestra">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Cts3:</label>
+                                <input type="file" class="form-control" name="dat_car_ret_cts3" id="dat_car_ret_cts3">
+                                <input type="hidden" name="imagenactual_dat_car_ret_cts3" id="imagenactual_dat_car_ret_cts3">
+                                <img src="" width="37px" height="30px" id="dat_car_ret_cts3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Alta de Registro1:</label>
+                                <input type="file" class="form-control" name="dat_alt_reg1" id="dat_alt_reg1">
+                                <input type="hidden" name="imagenactual_dat_alt_reg1" id="imagenactual_dat_alt_reg1">
+                                <img src="" width="37px" height="30px" id="dat_alt_reg1_muestra">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Alta de Registro2:</label>
+                                <input type="file" class="form-control" name="dat_alt_reg2" id="dat_alt_reg2">
+                                <input type="hidden" name="imagenactual_dat_alt_reg2" id="imagenactual_dat_alt_reg2">
+                                <img src="" width="37px" height="30px" id="dat_alt_reg2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Alta de Registro3:</label>
+                                <input type="file" class="form-control" name="dat_alt_reg3" id="dat_alt_reg3">
+                                <input type="hidden" name="imagenactual_dat_alt_reg3" id="imagenactual_dat_alt_reg3">
+                                <img src="" width="37px" height="30px" id="dat_alt_reg3_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Baja de Registro1:</label>
+                                <input type="file" class="form-control" name="dat_baj_reg1" id="dat_baj_reg1">
+                                <input type="hidden" name="imagenactual_dat_baj_reg1" id="imagenactual_dat_baj_reg1">
+                                <img src="" width="37px" height="30px" id="dat_baj_reg1_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Baja de Registro2:</label>
+                                <input type="file" class="form-control" name="dat_baj_reg2" id="dat_baj_reg2">
+                                <input type="hidden" name="imagenactual_dat_baj_reg2" id="imagenactual_dat_baj_reg2">
+                                <img src="" width="37px" height="30px" id="dat_baj_reg2_muestra">
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Baja de Registro3:</label>
+                                <input type="file" class="form-control" name="dat_baj_reg3" id="dat_baj_reg3">
+                                <input type="hidden" name="imagenactual_dat_baj_reg3" id="imagenactual_dat_baj_reg3">
+                                <img src="" width="37px" height="30px" id="dat_baj_reg3_muestra">
+                            </div>
+
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <label>Carta Renuncia:</label>
+                                <input type="file" class="form-control" name="dat_car_ren" id="dat_car_ren">
+                                <input type="hidden" name="imagenactual_dat_car_ren" id="imagenactual_dat_car_ren">
+                                <img src="" width="37px" height="30px" id="dat_car_ren_muestra">
+                            </div>
 
                         
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

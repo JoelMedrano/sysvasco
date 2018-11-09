@@ -98,9 +98,15 @@ switch ($_GET["op"]){
         $id_permiso=$regc->id_permiso;
 
 
-         $codigo_ingresado=$reloj->consultaridfechaasociada($fecha);
+        $codigo_ingresado=$reloj->consultaridfechaasociada($fecha);
         $regc=$codigo_ingresado->fetch_object();
         $id_cp=$regc->id_cp;
+
+
+       // $codigo_ingresado=$reloj->consultarDiaLaborable($fecha);
+      //  $regc=$codigo_ingresado->fetch_object();
+      //  $dia_lab=$regc->dia_lab;
+
 
 
 
