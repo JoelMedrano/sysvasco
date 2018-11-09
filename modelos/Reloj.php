@@ -258,12 +258,12 @@ Class Reloj
 
 
 	//Implementamos un método para insertar registros
-	public function registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $id_cp,  $fec_reg, $pc_reg, $usu_reg )
+	public function registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp, $fec_reg, $pc_reg, $usu_reg)
 	{
 
 
-		$sql="INSERT INTO horas_extras_personal (id_trab,   fecha ,  hora_inicio,  hora_fin,    cantidad,    id_fec_pag,  pc_reg,    usu_reg,    fec_reg)
-					  					VALUES ('$id_trab', '$fecha', '$hora' , '$hora_ingreso', '$tiempo',   '$id_cp',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		$sql="INSERT INTO horas_extras_personal (id_trab,   fecha ,  hora_inicio,  hora_fin,    cantidad,    id_fec_pag, abonar, abonado,  pc_reg,    usu_reg,    fec_reg)
+					  					VALUES ('$id_trab', '$fecha', '$hora' , '$hora_ingreso', '$tiempo',   '$id_cp',    '1' ,   '2'   ,  '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 
@@ -290,8 +290,8 @@ Class Reloj
 	{
 
 
-		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  id_incidencia,   id_permiso,  id_fec_dscto, descontar,  descontado,  pc_reg,   usu_reg,    fec_reg)
-					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$id_incidencia',  '$id_permiso', '$id_cp',  '1',  '2', '$pc_reg', '$usu_reg', '$fec_reg' )";
+		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  id_incidencia,   id_permiso,  id_fec_dscto, descontar,  descontado, habilitar_dscto, pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$id_incidencia',  '$id_permiso', '$id_cp',  '1',           '2',          '2',       $pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 

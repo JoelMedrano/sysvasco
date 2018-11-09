@@ -226,8 +226,7 @@ Class Trabajador
 	}
 
 	//Implementamos un método para editar registros
-	public function editar_data_adjunta($id_trab_data_adjunta, $foto_trab, 
-				$dni_trab, $dat_dip_cur_esp, $dat_liquidacion, $dat_hij1,
+	public function editar_data_adjunta($id_trab_data_adjunta, $foto_trab,  $dat_hij1 ,
 				$dat_hij2 ,$dat_hij3 ,$dat_hij4 ,$dat_con, $dat_ant_pol,  $dat_luz_agua,
 				$dat_cer_med, $dat_dec_dom, $dat_cv, $dat_gra_tit, $dat_idi , $dat_cer_tec, $dat_adi,
 				$dat_cer_tra1,  $dat_cer_tra2,$dat_cer_tra3, $dat_cer_res1,  $dat_cer_res2, $dat_cer_res3,
@@ -237,8 +236,7 @@ Class Trabajador
 				$dat_car_ren, $usu_reg, $pc_reg, $fec_reg )
 	{
 		$sql="UPDATE trabajador_data_adjunta  AS tda
-		 		SET   tda.foto_trab='$foto_trab', tda.dni_trab='$dni_trab', tda.dat_dip_cur_esp='$dat_dip_cur_esp', tda.dat_liquidacion='$dat_liquidacion',
-		 		tda.dat_hij1='$dat_hij1', tda.dat_hij2='$dat_hij2', tda.dat_hij3='$dat_hij3', tda.dat_hij4='$dat_hij4', tda.dat_con='$dat_con',
+		 		SET   tda.foto_trab='$foto_trab', tda.dat_hij1='$dat_hij1', tda.dat_hij2='$dat_hij2', tda.dat_hij3='$dat_hij3', tda.dat_hij4='$dat_hij4', tda.dat_con='$dat_con',
 		 		tda.dat_ant_pol='$dat_ant_pol',  tda.dat_luz_agua='$dat_luz_agua',  tda.dat_cer_med='$dat_cer_med',  tda.dat_dec_dom='$dat_dec_dom', tda.dat_cv='$dat_cv',
 		 		tda.dat_gra_tit='$dat_gra_tit',  tda.dat_idi='$dat_idi',  tda.dat_cer_tec='$dat_cer_tec',  tda.dat_adi='$dat_adi',  tda.dat_cer_tra1='$dat_cer_tra1',
 		 		tda.dat_cer_tra2='$dat_cer_tra2', tda.dat_cer_tra3='$dat_cer_tra3', tda.dat_cer_res1='$dat_cer_res1', tda.dat_cer_res2='$dat_cer_res2',
@@ -423,9 +421,6 @@ Class Trabajador
 		ta.afi_afp,
 		ta.nom_afi_afp,
 		tda.foto_trab,
-		tda.dni_trab,
-		tda.dat_dip_cur_esp,
-		tda.dat_liquidacion,
 		tda.dat_hij1,
 		tda.dat_hij2,
 		tda.dat_hij3,

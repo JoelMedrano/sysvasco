@@ -92,15 +92,6 @@ $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 
 	//INICIO - DATA ADJUNTADA  DEL TRABAJADOR
     $foto_trab=isset($_POST["foto_trab"])? limpiarCadena($_POST["foto_trab"]):"";
-    $dni_trab=isset($_POST["dni_trab"])? limpiarCadena($_POST["dni_trab"]):"";
-    $dat_dip_cur_esp=isset($_POST["dat_dip_cur_esp"])? limpiarCadena($_POST["dat_dip_cur_esp"]):"";
-    $dat_liquidacion=isset($_POST["dat_liquidacion"])? limpiarCadena($_POST["dat_liquidacion"]):"";
-
-
-
-
-
-
 	$dat_hij1=isset($_POST["dat_hij1"])? limpiarCadena($_POST["dat_hij1"]):"";
 	$dat_hij2=isset($_POST["dat_hij2"])? limpiarCadena($_POST["dat_hij2"]):"";
 	$dat_hij3=isset($_POST["dat_hij3"])? limpiarCadena($_POST["dat_hij3"]):"";
@@ -431,65 +422,6 @@ switch ($_GET["op"]){
 				move_uploaded_file($_FILES["foto_trab"]["tmp_name"], "../files/trabajador_data_adjunta/" . $foto_trab);
 			}
 		}
-
-
-
-
-		if (!file_exists($_FILES['dni_trab']['tmp_name']) || !is_uploaded_file($_FILES['dni_trab']['tmp_name']))
-		{
-			$dni_trab=$_POST["imagenactual_dni_trab"];
-		}
-		else
-		{
-			$ext = explode(".", $_FILES["dni_trab"]["name"]);
-			if ($_FILES['dni_trab']['type'] == "image/jpg" || $_FILES['dni_trab']['type'] == "image/jpeg" || $_FILES['dni_trab']['type'] == "image/png")
-			{
-				$dni_trab = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["dni_trab"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dni_trab);
-			}
-		}
-
-		
-
-
-
-		if (!file_exists($_FILES['dat_dip_cur_esp']['tmp_name']) || !is_uploaded_file($_FILES['dat_dip_cur_esp']['tmp_name']))
-		{
-			$dat_dip_cur_esp=$_POST["imagenactual_dat_dip_cur_esp"];
-		}
-		else
-		{
-			$ext = explode(".", $_FILES["dat_dip_cur_esp"]["name"]);
-			if ($_FILES['dat_dip_cur_esp']['type'] == "image/jpg" || $_FILES['dat_dip_cur_esp']['type'] == "image/jpeg" || $_FILES['dat_dip_cur_esp']['type'] == "image/png")
-			{
-				$dat_dip_cur_esp = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["dat_dip_cur_esp"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_dip_cur_esp);
-			}
-		}
-
-
-
-		if (!file_exists($_FILES['dat_liquidacion']['tmp_name']) || !is_uploaded_file($_FILES['dat_liquidacion']['tmp_name']))
-		{
-			$dat_liquidacion=$_POST["imagenactual_dat_liquidacion"];
-		}
-		else
-		{
-			$ext = explode(".", $_FILES["dat_liquidacion"]["name"]);
-			if ($_FILES['dat_liquidacion']['type'] == "image/jpg" || $_FILES['dat_liquidacion']['type'] == "image/jpeg" || $_FILES['dat_liquidacion']['type'] == "image/png")
-			{
-				$dat_liquidacion = round(microtime(true)) . '.' . end($ext);
-				move_uploaded_file($_FILES["dat_liquidacion"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_liquidacion);
-			}
-		}
-
-
-
-
-
-
-
-
 
 
 
@@ -1128,8 +1060,7 @@ switch ($_GET["op"]){
 			echo $rspta ? "Data adjunta registrada" : "Data adjunta no se pudo registrar";
 		}
 		else {
-			$rspta=$trabajador->editar_data_adjunta($id_trab_data_adjunta, $foto_trab, 
-				$dni_trab, $dat_dip_cur_esp, $dat_liquidacion, $dat_hij1,
+			$rspta=$trabajador->editar_data_adjunta($id_trab_data_adjunta, $foto_trab,  $dat_hij1 ,
 				$dat_hij2 ,$dat_hij3 ,$dat_hij4 ,$dat_con, $dat_ant_pol,  $dat_luz_agua,
 				$dat_cer_med, $dat_dec_dom, $dat_cv, $dat_gra_tit, $dat_idi , $dat_cer_tec, $dat_adi,
 				$dat_cer_tra1,  $dat_cer_tra2,$dat_cer_tra3, $dat_cer_res1,  $dat_cer_res2, $dat_cer_res3,
