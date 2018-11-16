@@ -55,6 +55,8 @@ if (strlen(session_id()) < 1)
      <!-- Morris chart -->
      <link rel="stylesheet" href="bower_components/morris.js/morris.css">
 
+
+
   </head>
   <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
     <div class="wrapper">
