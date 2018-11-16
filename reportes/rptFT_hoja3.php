@@ -27,7 +27,7 @@ $idmft = $_GET["id"];
 include "Classes/PHPExcel.php";
 //include "../library/consulSQL.php";
 
- $conexion=mysql_connect("192.168.1.24","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
+ $conexion=mysql_connect("192.168.1.23","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
     mysql_select_db("db_corpvasco",$conexion);
 
       $fechaactual = getdate();
