@@ -88,8 +88,9 @@ switch ($_GET["op"]){
 		echo '<thead style="background-color:#A9D0F5">
 									<th width="40px">Item</th>
                                     <th width="100px">Fecha</th>
-                                    <th width="100px">Trabajador</th>
+                                    <th width="80px">Trabajador</th>
                                     <th width="80px">Estado de Dia</th>
+                                    <th width="00px">% Pago</th>
                                     <th width="100px">Tiempo</th>
                                     <th width="50px">Tie.Final</th>
                                     <th width="700px">Observacion</th>
@@ -100,7 +101,7 @@ switch ($_GET["op"]){
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td><input type="text" size="1" name="id_hor_ext[]" value="'.$reg->id_hor_ext.'"></td><td><input type="text" size="7" name="fecha[]" value="'.$reg->fecha.'" readonly></td><td><input type="text" size="35" readonly name="nombres[]" value="'.$reg->nombres.'"></td><td><input type="text" size="10" readonly name="estado_dia[]" value="'.$reg->estado_dia.'"></td><td><input type="text" size="8" readonly name="cantidad[]" value="'.$reg->cantidad.'"></td><td><input type="text" size="8"  name="tiempo_fin[]" value="'.$reg->tiempo_fin.'"></td><td><input type="text" size="45"  name="observacion[]" value="'.$reg->observacion.'"></td><td><input type="text" size="10" readonly name="situacion[]" value="'.$reg->situacion.'"></td><td><input type="text" size="10" readonly name="estado[]" value="'.$reg->estado.'"></td></tr>';
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td><input type="text" size="1" autocomplete="off" name="id_hor_ext[]" value="'.$reg->id_hor_ext.'"></td><td><input type="text" size="7" name="fecha[]" value="'.$reg->fecha.'" readonly></td><td><input type="text" size="30" readonly name="nombres[]" value="'.$reg->nombres.'"></td><td><input type="text" size="10" readonly name="estado_dia[]" value="'.$reg->estado_dia.'"></td><td><input type="text" size="4" readonly name="por_pago[]" value="'.$reg->por_pago.'"></td><td><input type="text" size="8" readonly name="cantidad[]" value="'.$reg->cantidad.'"></td><td><input type="text" size="8" autocomplete="off" name="tiempo_fin[]" value="'.$reg->tiempo_fin.'"></td><td><input type="text" size="45" autocomplete="off" name="observacion[]" value="'.$reg->observacion.'"></td><td><input type="text" size="8" autocomplete="off" readonly name="situacion[]" value="'.$reg->situacion.'"></td><td><input type="text" size="10" readonly name="estado[]" value="'.$reg->estado.'"></td></tr>';
 					$total=$periodo;
 					$cont++;
 				}

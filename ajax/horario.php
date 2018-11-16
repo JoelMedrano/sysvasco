@@ -8,6 +8,10 @@ $horario=new Horario();
 
 $id_horario=isset($_POST["id_horario"])? limpiarCadena($_POST["id_horario"]):"";
 $descrip=isset($_POST["descrip"])? limpiarCadena($_POST["descrip"]):"";
+$id_turno=isset($_POST["id_turno"])? limpiarCadena($_POST["id_turno"]):"";
+
+
+
 $lunes_ingreso=isset($_POST["lunes_ingreso"])? limpiarCadena($_POST["lunes_ingreso"]):"";
 $lunes_salida=isset($_POST["lunes_salida"])? limpiarCadena($_POST["lunes_salida"]):"";
 $martes_ingreso=isset($_POST["martes_ingreso"])? limpiarCadena($_POST["martes_ingreso"]):"";
@@ -37,6 +41,7 @@ switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($id_horario)){
 			$rspta=$horario->insertar($descrip,
+							     	  $id_turno,
 									  $lunes_ingreso, 
 									  $lunes_salida,
 									  $martes_ingreso,
@@ -59,6 +64,7 @@ switch ($_GET["op"]){
 		else {
 			$rspta=$horario->editar(  $id_horario,
 									  $descrip, 
+									  $id_turno,
 									  $lunes_ingreso, 
 									  $lunes_salida,
 									  $martes_ingreso,

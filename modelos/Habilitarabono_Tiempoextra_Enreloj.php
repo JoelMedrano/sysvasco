@@ -185,20 +185,20 @@ Class Habilitarabono_Tiempoextra_Enreloj
 				AND TbFpa.Cod_tabla='TFPA'
 				LEFT JOIN 
 				(
-				SELECT  hep.id_fec_abono  AS id_cp,
-					 hep.id_hor_ext,
-					 hep.fecha, 
-					 hep.id_trab,  
-					 tr.nombres,
-					 hep.cantidad,
-					 hep.tiempo_fin,
-					 IF(hep.abonar='1', 'X ABONAR', 'NO ABONAR') AS situacion,
-					 IF(hep.abonado='2', 'NO ABONADO', 'ABONADO') AS estado,
-					 hep.abonado,
-					 hep.abonar,
-					 hep.est_reg,
-					 fe.estado AS estado_dia,
-					 hep.observacion
+				SELECT DISTINCT  hep.id_hor_ext,
+			         			 hep.id_fec_abono  AS id_cp,
+								 hep.fecha, 
+								 hep.id_trab,  
+								 tr.nombres,
+								 hep.cantidad,
+								 hep.tiempo_fin,
+								 IF(hep.abonar='1', 'X ABONAR', 'NO ABONAR') AS situacion,
+								 IF(hep.abonado='2', 'NO ABONADO', 'ABONADO') AS estado,
+								 hep.abonado,
+								 hep.abonar,
+								 hep.est_reg,
+								 fe.estado AS estado_dia,
+								 hep.observacion
 				FROM horas_extras_personal hep
 				LEFT JOIN (
 					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) AS nombres

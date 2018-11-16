@@ -92,7 +92,7 @@ Class Tardanzas_Permisos_Xhorasenreloj
 					 tr.nombres,
 					 hpp.tiempo_des,
 					 hpp.tiempo_fin,
-					 IF(hpp.id_incidencia='1', 'PERMISO', 'TARDANZA') AS incidencia,
+					 IF(hpp.id_incidencia='1', 'PERMISO', IF(hpp.id_incidencia='2','TARDANZA' , 'FALTA')) AS incidencia,
 					 IFNULL(pp.Permiso,'') AS permiso ,
 					 IFNULL(pp.motivo,'') AS motivo,
 					 hpp.id_fec_dscto,

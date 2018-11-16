@@ -513,7 +513,7 @@ Class Trabajador
 				AND ttre.cod_tabla='TTRE' 
 				LEFT JOIN tabla_maestra_detalle AS ttur ON
 				ttur.cod_argumento= tr.id_turno
-				AND ttre.cod_tabla='TTUR'
+				AND ttur.cod_tabla='TTUR'
 				LEFT JOIN tabla_maestra_detalle AS tgsa ON
 				tgsa.cod_argumento= tr.id_gru_san
 				AND tgsa.cod_tabla='TGSA'

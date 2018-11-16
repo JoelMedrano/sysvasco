@@ -20,6 +20,7 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 $id_caso_vig=isset($_POST["id_caso_vig"])? limpiarCadena($_POST["id_caso_vig"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $canhoras_max=isset($_POST["canhoras_max"])? limpiarCadena($_POST["canhoras_max"]):"";
+$fedo_canhoras_max=isset($_POST["fedo_canhoras_max"])? limpiarCadena($_POST["fedo_canhoras_max"]):"";
 $porc_pago=isset($_POST["porc_pago"])? limpiarCadena($_POST["porc_pago"]):"";
 
 
@@ -33,6 +34,7 @@ switch ($_GET["op"]){
 		if (empty($id_caso_vig)){
 			$rspta=$caso_vigilancia->insertar(	$id_trab,
 												$canhoras_max,
+												$fedo_canhoras_max,
 												$porc_pago,	
 												$fec_reg,
 												$usu_reg,
@@ -44,6 +46,7 @@ switch ($_GET["op"]){
 													$id_caso_vig,
 													$id_trab,
 													$canhoras_max,
+													$fedo_canhoras_max,
 													$porc_pago,	
 													$fec_reg,
 													$usu_reg,

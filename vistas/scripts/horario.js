@@ -10,6 +10,15 @@ function init(){
 		guardaryeditar(e);	
 	})
 
+
+	//Cargamos los items al select turno
+	$.post("../ajax/consultasD.php?op=selectTurno", function(r){
+	            $("#id_turno").html(r);
+	            $('#id_turno').selectpicker('refresh');
+
+	});
+
+
 	
 
 
@@ -20,6 +29,12 @@ function limpiar()
 {
 	$("#id_horario").val("");
 	$("#descrip").val("");
+
+	$("#id_turno").val("DIA");
+	$("#id_turno").selectpicker('refresh');
+
+
+
 	$("#lunes_ingreso").val("");
 	$("#lunes_salida").val("");
 	$("#martes_ingreso").val("");
@@ -89,7 +104,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 10,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -129,6 +144,14 @@ function mostrar(id_horario)
 		
 		$("#id_horario").val(data.id_horario);
 		$("#descrip").val(data.descrip);
+
+
+		$("#id_turno").val(data.id_turno);
+		$('#id_turno').selectpicker('refresh'); 
+
+
+
+
 		$("#lunes_ingreso").val(data.lunes_ingreso);
 		$("#lunes_salida").val(data.lunes_salida);
 		$("#martes_ingreso").val(data.martes_ingreso);

@@ -75,15 +75,18 @@ if ($_SESSION['rrhh']==1)
 
 
                                 <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                  <label>Horas Maximas de Horas Extras:</label>
-                                  <input type="number" class="form-control" name="canhoras_max" id="canhoras_max">
+                                  <label>Horas Maximas de H.E-DIAS LABORABLES:</label>
+                                  <input type="text" class="form-control" name="canhoras_max" id="canhoras_max">
                                 </div>
 
 
                                 <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                   <label>%Pago:</label>
-                                  <input type="number" class="form-control" name="porc_pago" id="porc_pago">
+                                  <input type="text" class="form-control" name="porc_pago" id="porc_pago">
                                 </div>
+
+                               
+
 
 
                          </div>
@@ -91,6 +94,17 @@ if ($_SESSION['rrhh']==1)
 
                          
                          <div class="box-header">
+
+                                <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                  <label></label>
+                                </div>
+
+                                <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                  <label>Horas Maximas de H.E - DOMINGOS Y FERIADOS:</label>
+                                  <input type="text" class="form-control" name="fedo_canhoras_max" id="fedo_canhoras_max">
+                                </div>
+
+
                          </div>
 
 

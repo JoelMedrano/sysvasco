@@ -122,7 +122,10 @@ switch ($_GET["op"]){
 			     "6"=>$reg->situacion,
 			     "7"=>($reg->descontar=='1')?
  					' <button class="btn btn-danger" onclick="desabilitar_paradscto('.$reg->id_hor_per.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="habilitar_paradscto('.$reg->id_hor_per.')"><i class="fa fa-check"></i></button>'	
+ 					' <button class="btn btn-primary" onclick="habilitar_paradscto('.$reg->id_hor_per.')"><i class="fa fa-check"></i></button>'	,
+ 				 "8"=>' <button class="btn btn-success" onclick="mostrar('.$reg->id_hor_per.')"><i class="fa fa-pencil"></i></button>'
+ 					
+
  				);
  		}
  		$results = array(

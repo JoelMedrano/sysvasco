@@ -84,7 +84,7 @@ if ($_SESSION['rrhh']==1)
                             <label>Modalidad:</label>
                             <select id="modalidad" name="modalidad" class="form-control selectpicker" data-live-search="true"></select>
                           </div>
-                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <label>Tip.Dscto:</label>
                             <select id="tip_dscto" name="tip_dscto" class="form-control selectpicker" data-live-search="true"></select>
                           </div>

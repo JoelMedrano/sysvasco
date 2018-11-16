@@ -13,6 +13,7 @@ Class Caso_Vigilancia
 	//Implementamos un método para insertar registros
 	public function insertar(                       $id_trab,
 													$canhoras_max,
+													$fedo_canhoras_max,
 													$porc_pago,	
 													$fec_reg,
 													$usu_reg,
@@ -20,13 +21,15 @@ Class Caso_Vigilancia
 	{
 		$sql="INSERT INTO caso_vigilancia ( 		 id_trab,
 													 canhoras_max,
+													 fedo_canhoras_max,
 													 porc_pago,
 													 est_reg,
 													 fec_reg,
 													 usu_reg,
 													 pc_reg)
 											VALUES ('$id_trab',	
-												    '$canhoras_max',	
+												    '$canhoras_max',
+												    '$fedo_canhoras_max',	
 												    '$porc_pago',	
 													'1',
 													'$fec_reg',
@@ -41,6 +44,7 @@ Class Caso_Vigilancia
 	public function editar(                         $id_caso_vig,
 													$id_trab,
 													$canhoras_max,
+													$fedo_canhoras_max,
 													$porc_pago,	
 													$fec_reg,
 													$usu_reg,
@@ -48,6 +52,7 @@ Class Caso_Vigilancia
 	{
 		$sql="UPDATE caso_vigilancia SET  id_trab='$id_trab',
 										 canhoras_max='$canhoras_max',
+										 fedo_canhoras_max='$fedo_canhoras_max',
 										 porc_pago='$porc_pago',
 										 fec_mod='$fec_reg',
 										 usu_mod='$usu_reg',
@@ -90,6 +95,7 @@ Class Caso_Vigilancia
 		$sql="SELECT     'counter_get_value(counter)' AS cv, 
 						 cv.id_caso_vig,
 						 cv.canhoras_max,
+						 cv.fedo_canhoras_max,
 						 cv.porc_pago,
 		                 cv.id_trab,
 					     CONCAT(tra.nom_trab , ' ' ,  tra.apepat_trab, ' ' ,  tra.apemat_trab) AS trab_apellidosynombres, 

@@ -61,6 +61,12 @@ if ($_SESSION['rrhh']==1)
                                   <label>Descripcion:</label>
                                   <input type="text" class="form-control" name="descrip" id="descrip"   autocomplete="off"  >
                                 </div>
+
+                                <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                  <label>Turno(*):</label>
+                                  <select id="id_turno" name="id_turno" class="form-control selectpicker" data-live-search="true"></select>
+                                </div>
+
                        </div>
 
                       <div class="box-header with-border">

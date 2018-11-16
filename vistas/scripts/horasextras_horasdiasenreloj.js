@@ -240,15 +240,15 @@ function agregarDetalle(id_hor_ext, fecha, nombres, estado_dia, cantidad, tiempo
     {
     	
     	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
-    	'<td><input type="text" readonly size="1" name="id_hor_ext[]" value="'+id_hor_ext+'" ></td>'+
-    	'<td><input type="text" readonly size="7" name="fecha[]" value="'+fecha+'"></td>'+
-    	'<td><input type="text" readonly size="35" name="nombres[]" value="'+nombres+'"></td>'+
-    	'<td><input type="text" readonly size="10" name="estado_dia[]" value="'+estado_dia+'"></td>'+
-    	'<td><input type="text" readonly size="8" name="cantidad[]" value="'+cantidad+'"></td>'+
-    	'<td><input type="text"  size="8" name="tiempo_fin[]" value="'+tiempo_fin+'"></td>'+
-    	'<td><input type="text" size="45" name="observacion[]" value="'+observacion+'"></td>'+
-    	'<td><input type="text" readonly size="10" name="situacion[]" value="'+situacion+'"></td>'+
-    	'<td><input type="text" readonly size="10" name="estado[]" value="'+estado+'"></td>'+
+    	'<td><input type="text" readonly size="1" autocomplete="off"  name="id_hor_ext[]" value="'+id_hor_ext+'" ></td>'+
+    	'<td><input type="text" readonly size="7" autocomplete="off" name="fecha[]" value="'+fecha+'"></td>'+
+    	'<td><input type="text" readonly size="35" autocomplete="off" name="nombres[]" value="'+nombres+'"></td>'+
+    	'<td><input type="text" readonly size="10" autocomplete="off" name="estado_dia[]" value="'+estado_dia+'"></td>'+
+    	'<td><input type="text" readonly size="8" autocomplete="off" name="cantidad[]" value="'+cantidad+'"></td>'+
+    	'<td><input type="text"  size="8" autocomplete="off" name="tiempo_fin[]" value="'+tiempo_fin+'"></td>'+
+    	'<td><input type="text" size="45" autocomplete="off" name="observacion[]" value="'+observacion+'"></td>'+
+    	'<td><input type="text" readonly autocomplete="off" size="10" name="situacion[]" value="'+situacion+'"></td>'+
+    	'<td><input type="text" readonly autocomplete="off" size="10" name="estado[]" value="'+estado+'"></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'</tr>';
     	cont++;

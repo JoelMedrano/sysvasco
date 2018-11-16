@@ -69,7 +69,9 @@ Class Vacaciones
 		while ($num_elementos < count($correlativo))
 		{	
 			$item=$item + 1;
-			$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias,  obser_detalle, obser ) VALUES( '$nro_doc', '$item','$CantItems','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' ,  '$obser_detalle[$num_elementos]', '$obser[$num_elementos]'  )  ";
+		// Al 14-11-2018	$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias,  obser_detalle, obser ) VALUES( '$nro_doc', '$item','$CantItems','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' ,  '$obser_detalle[$num_elementos]', '$obser[$num_elementos]'  )  ";
+			$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias,  obser_detalle, obser ) VALUES( '$nro_doc', '$item','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' ,  '$obser_detalle[$num_elementos]', '$obser[$num_elementos]'  )  "; 
+
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 			

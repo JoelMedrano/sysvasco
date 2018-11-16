@@ -35,6 +35,7 @@ function limpiar()
 
 	$("#id_caso_vig").val("");
 	$("#canhoras_max").val("");
+	$("#fedo_canhoras_max").val("");
 	$("#porc_pago").val("");
 	
 
@@ -133,6 +134,7 @@ function mostrar(id_caso_vig)
 		
 		$("#id_caso_vig").val(data.id_caso_vig);
 		$("#canhoras_max").val(data.canhoras_max);
+		$("#fedo_canhoras_max").val(data.fedo_canhoras_max);
 		$("#porc_pago").val(data.porc_pago);
 
 

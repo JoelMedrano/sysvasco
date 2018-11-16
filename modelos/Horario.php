@@ -12,6 +12,7 @@ Class Horario
 
 	//Implementamos un método para insertar registros
 	public function insertar(		  $descrip,
+	                              	  $id_turno,
 									  $lunes_ingreso, 
 									  $lunes_salida,
 									  $martes_ingreso,
@@ -31,6 +32,7 @@ Class Horario
 									  $fec_reg )
 	{
 		$sql="INSERT INTO horario (descrip,
+								   id_turno,
 								   lunes_ingreso,
 								   lunes_salida, 
 								   martes_ingreso, 
@@ -49,6 +51,7 @@ Class Horario
 								   pc_reg, 
 								   fec_reg )
 						  VALUES ('$descrip',
+						  	      '$id_turno',
 						  		  '$lunes_ingreso',
 						  		  '$lunes_salida',
 						  		  '$martes_ingreso',
@@ -72,6 +75,7 @@ Class Horario
 	//Implementamos un método para editar registros
 	public function editar($id_horario,
 						   $descrip,
+						   $id_turno,
 						   $lunes_ingreso, 
 						   $lunes_salida,
 						   $martes_ingreso,
@@ -91,6 +95,7 @@ Class Horario
 						   $fec_reg)
 	{
 		$sql="UPDATE horario SET descrip='$descrip',
+								 id_turno='$id_turno',
 		                         lunes_ingreso='$lunes_ingreso',
 		                         lunes_salida='$lunes_salida', 
 		                         martes_ingreso='$martes_ingreso',
@@ -129,7 +134,29 @@ Class Horario
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_horario)
 	{
-		$sql="SELECT * FROM horario WHERE id_horario='$id_horario' ";
+		$sql="SELECT hr.id_horario,
+					 hr.descrip, 
+					 hr.id_turno, 
+					 ttur.des_larga AS turno,
+					 hr.lunes_ingreso, 
+					 hr.lunes_salida,  
+					 hr.martes_ingreso, 
+					 hr.martes_salida, 
+					 hr.miercoles_ingreso, 
+					 hr.miercoles_salida ,  
+					 hr.jueves_ingreso,
+					 hr.jueves_salida,
+					 hr.viernes_ingreso,
+					 hr.viernes_salida,
+					 hr.sabado_ingreso,
+					 hr.sabado_salida,
+					 hr.domingo_ingreso,
+					 hr.domingo_salida
+		 FROM horario hr
+		LEFT JOIN tabla_maestra_detalle AS ttur ON
+		ttur.cod_argumento= hr.id_turno
+		AND ttur.cod_tabla='TTUR' 
+		WHERE hr.id_horario='$id_horario' ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 

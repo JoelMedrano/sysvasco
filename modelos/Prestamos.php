@@ -443,7 +443,11 @@ Class Prestamos
 	 TbFpa7.fecha7,  fec_des7, TbFpa8.fecha8,  fec_des8, TbFpa9.fecha9,  fec_des9, TbFpa10.fecha10,  fec_des10, TbFpa11.fecha11,  fec_des11, TbFpa12.fecha12,  fec_des12,
 	 TbFpa13.fecha13,  fec_des13, TbFpa14.fecha14,  fec_des14, TbFpa15.fecha15,  fec_des15, TbFpa16.fecha16,  fec_des16, TbFpa17.fecha17,  fec_des17,TbFpa18.fecha18,  fec_des18,
 	 TbFpa19.fecha19,  fec_des19, TbFpa20.fecha20,  fec_des20, TbFpa21.fecha21,  fec_des21, TbFpa22.fecha22,  fec_des22, TbFpa23.fecha23,  fec_des23, TbFpa24.fecha24,  fec_des24,
-	 TbFpa25.fecha25,  fec_des25, TbFpa26.fecha26,  fec_des26, TbFpa27.fecha27,  fec_des27, TbFpa28.fecha28,  fec_des28, TbFpa29.fecha29,  fec_des29, TbFpa30.fecha30,  fec_des30
+	 TbFpa25.fecha25,  fec_des25, TbFpa26.fecha26,  fec_des26, TbFpa27.fecha27,  fec_des27, TbFpa28.fecha28,  fec_des28, TbFpa29.fecha29,  fec_des29, TbFpa30.fecha30,  fec_des30,
+	 pr.mon_des1, pr.mon_des2, pr.mon_des3, pr.mon_des4,  pr.mon_des5, pr.mon_des6,  pr.mon_des7, pr.mon_des8,  pr.mon_des9, pr.mon_des10,
+	 pr.mon_des11, pr.mon_des12, pr.mon_des13, pr.mon_des14, pr.mon_des15, pr.mon_des16, pr.mon_des17, pr.mon_des18, pr.mon_des18, pr.mon_des19,
+	 pr.mon_des20, pr.mon_des20, pr.mon_des21, pr.mon_des22, pr.mon_des23, pr.mon_des24, pr.mon_des25, pr.mon_des26, pr.mon_des27, pr.mon_des28,
+	 pr.mon_des29, pr.mon_des30 
 			FROM prestamos pr
 				INNER JOIN trabajador sol ON
 				sol.id_trab= pr.solicitante

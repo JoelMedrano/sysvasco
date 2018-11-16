@@ -108,8 +108,8 @@ Class Horasextras_Horasdiasenreloj
 
 	public function listarDetalle($id_cp)
 	{
-		$sql="SELECT hep.id_fec_abono  AS id_cp,
-					 hep.id_hor_ext,
+		$sql="SELECT DISTINCT hep.id_hor_ext,
+	                 hep.id_fec_abono  AS id_cp,
 					 DATE_FORMAT(hep.fecha, '%d/%m/%Y') AS  fecha,
 					 hep.id_trab, 
 					 tr.nombres,
@@ -120,7 +120,8 @@ Class Horasextras_Horasdiasenreloj
 					 IF(hep.abonar='1', 'X ABONAR', 'NO ABONAR') AS situacion,
 					 IF(hep.abonado='2', 'NO ABONADO', 'ABONADO') AS estado ,
 					 hep.observacion,
-					 ff.num
+					 ff.num,
+					 hep.por_pago
 				FROM horas_extras_personal hep
 				LEFT JOIN (
 					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) AS nombres

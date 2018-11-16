@@ -76,7 +76,7 @@ if ($_SESSION['rrhh']==1)
 
                                 <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                   <label>Horas Maximas de Horas Extras:</label>
-                                  <input type="number" class="form-control" name="canhoras_max" id="canhoras_max">
+                                  <input type="text" class="form-control" name="canhoras_max" id="canhoras_max">
                                 </div>
 
 
