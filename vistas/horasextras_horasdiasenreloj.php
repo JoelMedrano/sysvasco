@@ -60,13 +60,13 @@ if ($_SESSION['rrhh']==1)
             <form name="formulario" id="formulario" method="POST">
 
               <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                <label>Codigo.CP:</label>
-                <input type="text" readonly class="form-control" name="id_cp" id="id_cp">
+                
+                <input type="hidden" readonly class="form-control" name="id_cp" id="id_cp">
               </div>
 
               <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                <label>Cantidad ItemS:</label>
-                <input type="text" readonly class="form-control" name="num" id="num">
+                
+                <input type="hidden" readonly class="form-control" name="num" id="num">
               </div>
 
               <br>
