@@ -35,6 +35,9 @@ if ($_SESSION['consultav']==1)
                           <label>Fecha de pago</label>
                           <select name="fecha_pago" id="fecha_pago" class="form-control selectpicker" data-live-search="true" required>
                           </select>
+
+                          <a href="../reportes/rpt_xls_planillaquincenal.php" target="_blank"><button class="btn btn-info">Reporte</button></a> </h1>
+
                         </div>
                        
                     </div>

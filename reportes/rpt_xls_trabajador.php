@@ -12,7 +12,7 @@ session_start();
 include "Classes/PHPExcel.php";
 
 
-$conexion=mysql_connect("192.168.1.24","admin","vasco123");
+$conexion=mysql_connect("192.168.1.23","admin","vasco123");
 mysql_select_db("db_corpvasco",$conexion);   
 
 
@@ -41,7 +41,6 @@ $titulo->applyFromArray(
 ));
  
 $subtitulo = new PHPExcel_Style(); //nuevo estilo
- 
 $subtitulo->applyFromArray(
   array('fill' => array( //relleno de color
       'type' => PHPExcel_Style_Fill::FILL_SOLID,
