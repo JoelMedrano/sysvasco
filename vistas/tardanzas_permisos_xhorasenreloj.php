@@ -54,56 +54,80 @@ if ($_SESSION['rrhh']==1)
                           </tfoot>
                         </table>
                     </div>
-                    <div class="panel-body" style="height: 620px;" id="formularioregistros">
-                        <form name="formulario" id="formulario" method="POST">
-                          
-                          <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                            <label>Codigo.CP:</label>
-                            <input type="text" readonly class="form-control" name="id_cp" id="id_cp">
-                           </div>
-                        
-                          <br>
 
 
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
-                            <a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Permiso-Falta de otro Periodo de Pago</button>
-                            </a>
-                          </div>
+                    <div class="panel-body" id="formularioregistros">
+                      <form name="formulario" id="formulario" method="POST">
+
+                        <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
+
+                          <input type="hidden" readonly class="form-control" name="id_cp" id="id_cp">
+                        </div>
+
+                        <br>
 
 
-                          <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                              <thead style="background-color:#A9D0F5">
-                                    <th>Item</th>
-                                    <th>Fecha</th>
-                                    <th>Trabajador</th>
-                                    <th>Tiempo</th>
-                                    <th>Incidencia</th>
-                                    <th>Tipo</th>
-                                    <th>Motivo</th>
-                                </thead>
-                                <tfoot>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tfoot>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right">
+                          <a data-toggle="modal" href="#myModal">
+                            <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar
+                              Permiso-Falta de otro Periodo de Pago</button>
+                          </a>
+                        </div>
+
+
+
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 table-responsive table-wrapper-scroll-x">
+
+
+
+                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                              <label>Buscar por fecha</label>
+                              <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Fecha">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                              <label>Buscar por Nombre</label>
+                              <input type="text" id="myInput1" onkeyup="myFunction1()" class="form-control" placeholder="Nombre">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                              <label>Buscar por Estado </label>
+                              <input type="text" id="myInput2" onkeyup="myFunction2()" class="form-control" placeholder="Estado">
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                              <label>Buscar por Situación</label>
+                              <input type="text" id="myInput3" onkeyup="myFunction3()" class="form-control" placeholder="Situación">
+                            </div>
+
                           </div>
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+                            <div class="scrollable">
+                              <span class="counter pull-right"></span>
+                              <table id="detalles" class="table table-striped table-bordered table-condensed table-hover scrollable">
 
-                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                              </table>
+                            </div>
+
                           </div>
 
-                        </form>
+                        </div>
+
+
+
+
+
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+
+                          <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i>
+                            Cancelar</button>
+                        </div>
+
+                      </form>
                     </div>
                     <!--Fin centro -->
                   </div><!-- /.box -->
@@ -175,6 +199,9 @@ else
 
 require 'footer.php';
 ?>
+<link rel="stylesheet" href="../public/bootstrap/css/style.css">
+
+
 <script type="text/javascript" src="scripts/tardanzas_permisos_xhorasenreloj.js"></script>
 <?php 
 }

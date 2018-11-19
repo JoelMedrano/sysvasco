@@ -84,45 +84,26 @@ if ($_SESSION['rrhh']==1)
 
                 <div class="scrollable">
 
-
-
                   <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
-
                       <label>Buscar por fecha</label>
                       <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Fecha">
-
                     </div>
 
-
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
-
                       <label>Buscar por Nombre</label>
                       <input type="text" id="myInput1" onkeyup="myFunction1()" class="form-control" placeholder="Nombre">
-
-
                     </div>
 
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
-
-                      <label>Buscar por Tiempo </label>
-                      <input type="text" id="myInput2" onkeyup="myFunction2()" class="form-control" placeholder="Tiempo">
-
-
+                      <label>Buscar por Estado </label>
+                      <input type="text" id="myInput2" onkeyup="myFunction2()" class="form-control" placeholder="Estado">
                     </div>
 
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
-
                       <label>Buscar por Situación</label>
                       <input type="text" id="myInput3" onkeyup="myFunction3()" class="form-control" placeholder="Situación">
-
-
                     </div>
 
                   </div>
@@ -272,7 +253,7 @@ require 'footer.php';
 
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[5];
+      td = tr[i].getElementsByTagName("td")[3];
       if (td) {
         if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
           tr[i].style.display = "";
