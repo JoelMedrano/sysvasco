@@ -284,6 +284,7 @@ function agregarDetalle(idarticulo,articulo,precio_venta)
 
 
 
+
   function evaluar(){
   	if (detalles>0)
     {

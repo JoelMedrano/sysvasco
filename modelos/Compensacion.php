@@ -11,9 +11,9 @@ Class Compensacion
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idcategoria)
+	public function mostrar($id_trab)
 	{
-		$sql="SELECT * FROM categoria WHERE idcategoria='$idcategoria'";
+		$sql="SELECT * FROM trabajador t WHERE t.id_trab='$id_trab'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
@@ -53,7 +53,229 @@ Class Compensacion
 
         return ejecutarConsulta($sql);		
 
-        }
+    }
+
+    public function selectTrab()
+    {
+        $sql="SELECT 
+                        t.id_trab,
+                        CONCAT(t.id_trab,' - ',
+                        t.apepat_trab,
+                        ' ',
+                        t.apemat_trab,
+                        ' ',
+                        SUBSTRING_INDEX(t.nom_trab, ' ', 1)
+                        ) AS nombres 
+                    FROM
+                        trabajador t";
+
+        return ejecutarConsulta($sql);
+    }
+
+    public function selectTardanza($id_trab)
+    {
+        $sql="SELECT 
+                        hpp.id_hor_per,
+                        CONCAT(
+                            hpp.id_hor_per,
+                            ' - ',
+                            hpp.fecha,
+                            ' - ',
+                            tr.id_trab,
+                            ' - ',
+                            tr.nombres,
+                            ' - ',
+                            hpp.tiempo_fin,
+                            ' - ',
+                            hpp.observacion
+                        ) AS tardanza,
+                        hpp.fecha,
+                        tr.id_trab,
+                        tr.nombres,
+                        hpp.tiempo_fin,
+                        hpp.observacion,
+                        IF(
+                            hpp.descontar = '1',
+                            'X DESCONTAR',
+                            'NO DESCONTAR'
+                        ) AS situacion,
+                        IF(
+                            hpp.descontado = '2',
+                            'NO DESCONTADO',
+                            'DESCONTADO'
+                        ) AS estado 
+                        FROM
+                        horas_permiso_personal hpp 
+                        LEFT JOIN 
+                            (SELECT 
+                            tr.id_trab,
+                            CONCAT(
+                                tr.apepat_trab,
+                                ' ',
+                                tr.apemat_trab,
+                                ' ',
+                                SUBSTRING_INDEX(tr.nom_trab, ' ', 1)
+                            ) AS nombres 
+                            FROM
+                            trabajador tr) AS tr 
+                            ON tr.id_trab = hpp.id_trab 
+                        LEFT JOIN 
+                            (SELECT 
+                            pp.id_trab,
+                            pp.tip_permiso,
+                            pp.fecha_procede,
+                            TbPer.Des_Larga AS Permiso,
+                            pp.motivo 
+                            FROM
+                            permiso_personal pp 
+                            LEFT JOIN tabla_maestra_detalle Tbper 
+                                ON TbPer.des_corta = pp.tip_permiso) AS pp 
+                            ON pp.id_trab = hpp.id_trab 
+                            AND pp.fecha_procede = hpp.fecha 
+                        WHERE hpp.id_incidencia IN ('1', '2') 
+                        AND hpp.descontado = '2' 
+                        AND hpp.descontar = '1' 
+                        AND tr.id_trab = '$id_trab'";
+
+        return ejecutarConsulta($sql);
+    }
+
+    //TODO: select para horas de tardanzas
+
+    public function selectHorasT($id_trab,$id_hor_per)
+    {
+        $sql="SELECT 
+                        tr.id_trab,
+                        hpp.id_hor_per,
+                        hpp.fecha,
+                        hpp.tiempo_fin 
+                    FROM
+                        horas_permiso_personal hpp 
+                        LEFT JOIN 
+                        (SELECT 
+                            tr.id_trab,
+                            CONCAT(
+                            tr.apepat_trab,
+                            ' ',
+                            tr.apemat_trab,
+                            ' ',
+                            SUBSTRING_INDEX(tr.nom_trab, ' ', 1)
+                            ) AS nombres 
+                        FROM
+                            trabajador tr) AS tr 
+                        ON tr.id_trab = hpp.id_trab 
+                    WHERE hpp.id_incidencia IN ('1', '2') 
+                        AND hpp.descontado = '2' 
+                        AND hpp.descontar = '1' 
+                        AND tr.id_trab = '$id_trab' 
+                        AND hpp.id_hor_per = '$id_hor_per'";
+
+        return ejecutarConsulta($sql);
+    }
+
+    public function selectExtras($id_trab)
+    {
+        $sql="SELECT DISTINCT 
+        hep.id_hor_ext,
+        DATE_FORMAT(hep.fecha, '%d/%m/%Y') AS fecha,
+        CONCAT(
+          hep.id_hor_ext,
+          ' - ',
+          hep.fecha,
+          ' - ',
+          tr.id_trab,
+          ' - ',
+          tr.nombres,
+          ' - ',
+          hep.tiempo_fin,
+          ' - ',
+          hep.observacion
+        ) AS extra,
+        tr.id_trab,
+        tr.nombres,
+        hep.tiempo_fin,
+        fe.estado AS estado_dia,
+        hep.por_pago,
+        hep.observacion,
+        IF(
+          hep.abonar = '1',
+          'X ABONAR',
+          'NO ABONAR'
+        ) AS situacion,
+        IF(
+          hep.abonado = '2',
+          'NO ABONADO',
+          'ABONADO'
+        ) AS estado 
+      FROM
+        horas_extras_personal hep 
+        LEFT JOIN 
+          (SELECT 
+            tr.id_trab,
+            CONCAT(
+              tr.apepat_trab,
+              ' ',
+              tr.apemat_trab,
+              ' ',
+              SUBSTRING_INDEX(tr.nom_trab, ' ', 1)
+            ) AS nombres 
+          FROM
+            trabajador tr) AS tr 
+          ON tr.id_trab = hep.id_trab 
+        LEFT JOIN fechas fe 
+          ON fe.fecha = hep.fecha 
+        LEFT JOIN 
+          (SELECT 
+            COUNT(hep.id_hor_ext) AS num,
+            hep.id_fec_abono 
+          FROM
+            horas_extras_personal hep) AS ff 
+          ON ff.id_fec_abono = hep.id_fec_abono 
+      WHERE hep.abonar = '1' 
+        AND hep.abonado = '2' 
+        AND tr.id_trab = '$id_trab'";
+
+        return ejecutarConsulta($sql);
+    }
+
+    public function selectHorasE($id_trab,$id_hor_ext)
+    {
+        $sql="SELECT DISTINCT 
+                        tr.id_trab,
+                        hep.id_hor_ext,
+                        DATE_FORMAT(hep.fecha, '%d/%m/%Y') AS fecha,
+                        hep.tiempo_fin 
+                        FROM
+                        horas_extras_personal hep 
+                        LEFT JOIN 
+                            (SELECT 
+                            tr.id_trab,
+                            CONCAT(
+                                tr.apepat_trab,
+                                ' ',
+                                tr.apemat_trab,
+                                ' ',
+                                SUBSTRING_INDEX(tr.nom_trab, ' ', 1)
+                            ) AS nombres 
+                            FROM
+                            trabajador tr) AS tr 
+                            ON tr.id_trab = hep.id_trab 
+                        LEFT JOIN fechas fe 
+                            ON fe.fecha = hep.fecha 
+                        LEFT JOIN 
+                            (SELECT 
+                            COUNT(hep.id_hor_ext) AS num,
+                            hep.id_fec_abono 
+                            FROM
+                            horas_extras_personal hep) AS ff 
+                            ON ff.id_fec_abono = hep.id_fec_abono 
+                        WHERE hep.abonar = '1' 
+                        AND hep.abonado = '2' 
+                        AND tr.id_trab = '$id_trab' 
+                        AND hep.id_hor_ext = '$id_hor_ext'";
+
+        return ejecutarConsulta($sql);
+    }
 
 }
 

@@ -3,6 +3,10 @@ require_once "../modelos/Compensacion.php";
 
 $compensacion=new Compensacion();
 
+$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
+$id_hor_per=isset($_POST["id_hor_per"])? limpiarCadena($_POST["id_hor_per"]):"";
+$id_hor_ext=isset($_POST["id_hor_ext"])? limpiarCadena($_POST["id_hor_ext"]):"";
+
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
 $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
@@ -30,7 +34,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'mostrar':
-		$rspta=$categoria->mostrar($idcategoria);
+		$rspta=$compensacion->mostrar($id_trab);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -62,5 +66,73 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 
 	break;
+
+	//TODO: select trabajador
+	case "selectTrab":
+		
+		$rspta = $compensacion->selectTrab();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_trab . '>' . $reg->nombres . '</option>';
+				}
+	break;
+
+	//TODO: select para tardanzas
+	case 'selectTardanza':
+		
+    $rspta = $compensacion->selectTardanza($id_trab);
+    
+    echo '<option value="">SELECCIONE</option>';
+
+				while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->id_hor_per . '>' . $reg->tardanza . '</option>';
+				}
+
+	break;
+
+	//TODO: select para horas de tardanza
+	case 'selectHorasT':
+	
+	$rspta = $compensacion->selectHorasT($id_trab,$id_hor_per);
+	
+	echo '<option value="">SELECCIONE</option>';
+
+				while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->tiempo_fin . '>' . $reg->tiempo_fin . '</option>';
+				}
+
+	break;
+	
+	//TODO: select para horas extra
+	case 'selectExtras':
+		
+    $rspta = $compensacion->selectExtras($id_trab);
+    
+    echo '<option value="">SELECCIONE</option>';
+
+				while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->id_hor_ext . '>' . $reg->extra . '</option>';
+				}
+
+	  break;
+	  
+	//TODO: select para horas de tardanza
+	case 'selectHorasE':
+	
+	$rspta = $compensacion->selectHorasE($id_trab,$id_hor_ext);
+	
+	echo '<option value="">SELECCIONE</option>';
+
+				while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->tiempo_fin . '>' . $reg->tiempo_fin . '</option>';
+				}
+
+	break;
+
 }
 ?>
