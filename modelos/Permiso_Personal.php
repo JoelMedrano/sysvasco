@@ -10,6 +10,49 @@ Class Permiso_Personal
 
 	}
 
+
+
+	public function consultar_diasdeintervalo( $fecha_procede, $fecha_hasta )
+	{
+		
+		$sql="SELECT DATEDIFF( '$fecha_hasta', '$fecha_procede')+1 AS   dias;
+ 			 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_tipodepagovacaciones($id_trab, $tip_permiso, $dias )
+	{
+		
+		$sql="SELECT id_trab,  id_pag_vac_cts
+			  FROM Trabajador  
+			  WHERE id_trab='$id_trab'  AND  '$tip_permiso'='VC'
+			  AND '$dias'>'0'
+ 			 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_pagodevacacionesjornal($id_trab, $dias  )
+	{
+		
+		$sql="SELECT id_trab, ROUND( ((sueldo_trab/30) * '$dias'),2)  AS monto_a_pagar, sueldo_trab
+			  FROM Trabajador  
+			  WHERE id_trab='$id_trab' 
+ 			 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
 	//Implementamos un método para insertar registros
 	public function insertar($id_permiso,
 							 $id_trab,
@@ -95,7 +138,7 @@ Class Permiso_Personal
 						   $hora_sal, 
 						   $motivo, 
 						   $id_fecha_pago1,
-						   $monto_a_pagar,
+						//   $monto_a_pagar,
 						   $id_fecha_pago2,
 						   $id_fecha_pago3,
 						   $id_fecha_pago4, 
@@ -116,7 +159,6 @@ Class Permiso_Personal
 										  hora_sal='$hora_sal', 
 										  motivo='$motivo', 
 										  id_fecha_pago1='$id_fecha_pago1',
-										  monto_a_pagar='$monto_a_pagar',
 										  id_fecha_pago2='$id_fecha_pago2',
 										  id_fecha_pago3='$id_fecha_pago3',
 										  id_fecha_pago4='$id_fecha_pago4', 

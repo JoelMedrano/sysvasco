@@ -190,6 +190,14 @@ function init(){
 	});
 
 
+    //Cargamos los items al select grupo sanguineo
+	$.post("../ajax/consultasD.php?op=selectPagoVacacionesCts", function(r){
+	            $("#id_pag_vac_cts").html(r);
+	            $('#id_pag_vac_cts').selectpicker('refresh');
+
+	});
+
+
 
 
 
@@ -855,6 +863,11 @@ function mostrar(id_trab)
 
 		$("#id_pag_esp").val(data.id_pag_esp);
 		$('#id_pag_esp').selectpicker('refresh');
+
+
+		$("#id_pag_vac_cts").val(data.id_pag_vac_cts);
+		$('#id_pag_vac_cts').selectpicker('refresh');
+		
 
 
 		$("#id_trab").val(data.id_trab);

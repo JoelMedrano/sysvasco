@@ -432,7 +432,7 @@ switch ($_GET["op"]){
 	break;
 
 
-
+// Trabajador
 	case "selectGrupoSanguineo":
 
 		require_once "../modelos/ConsultasD.php";
@@ -445,6 +445,24 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->id_gru_san . '>' . $reg->grupo_sanguineo . '</option>';
 				}
 	break;
+
+
+
+	// Trabajador 23112018
+
+	case "selectPagoVacacionesCts":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectPagoVacacionesCts();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_pag_vac_cts . '>' . $reg->pago_vac_cts . '</option>';
+				}
+	break;
+
 
 
 

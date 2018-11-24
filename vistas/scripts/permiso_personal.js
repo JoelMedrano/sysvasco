@@ -197,6 +197,10 @@ function mostrar(id_permiso)
 		$("#fecha_hasta").val(data.fecha_hasta);
 		$("#dias").val(data.dias); 
 
+
+		$("#tip_permiso").val(data.tip_permiso);
+		$('#tip_permiso').selectpicker('refresh'); 
+
 		$("#id_fecha_pago1").val(data.id_fecha_pago1);
 		$('#id_fecha_pago1').selectpicker('refresh'); 
 

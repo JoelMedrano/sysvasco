@@ -248,9 +248,7 @@ switch ($_GET["op"]){
  				"3"=>$reg->nombres,
  				"4"=>$reg->area_trab,
  				"5"=>$reg->hor_ent,
- 				"6"=>$reg->hor_sal,
- 				"7"=>$reg->resultado,
- 				"8"=>$reg->motivo
+ 				"6"=>$reg->incidencia
  				);
  		}
  		$results = array(

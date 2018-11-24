@@ -11,30 +11,16 @@ function init(){
 	})
 
 	//Cargamos los items al select Trabajadores Activos
-	$.post("../ajax/renta_quinta_categoria.php?op=selectTrabajadoresActivos", function(r){
+	$.post("../ajax/consultasD.php?op=selectPersonalNombreLargo", function(r){
 	            $("#id_trab").html(r);
 	            $('#id_trab').selectpicker('refresh');
 
 	});
 
 
-	//Cargamos los items al select Tipo de Descuento (Por planilla o interno)
-	$.post("../ajax/renta_quinta_categoria.php?op=selectTipoDsctoPrestamo", function(r){
-	            $("#tip_dscto").html(r);
-	            $('#tip_dscto').selectpicker('refresh');
+	
 
-	});
-
-
-	//Cargamos los items al select Tipo de Descuento (Por planilla o interno)
-	$.post("../ajax/renta_quinta_categoria.php?op=selectModalidadPrestamo", function(r){
-	            $("#modalidad").html(r);
-	            $('#modalidad').selectpicker('refresh');
-
-	});
-
-
-
+	
 
 
 
@@ -44,19 +30,12 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#id_ren_qui_cat").val("");
-	$("#fec_suc").val("");
 	$("#id_trab").val("");
-	$("#modalidad").val("");
-	$("#tip_dscto").val("");
-	$("#cantidad").val("");
-	$("#num_cuotas").val("");
-	$("#pagado").val("");
-	$("#saldo").val("");
-	$("#detalle").val("");
-	$("#fec_des1").val("");
-	$("#fec_des2").val("");
-	$("#fec_des3").val("");
+	$("#id_trab").selectpicker('refresh');
+
+	$("#id_ren_qui_cat").val("");
+	$("#mon_total").val("");
+	
 
 
 }
@@ -113,7 +92,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 12,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -150,42 +129,30 @@ function mostrar(id_ren_qui_cat)
 		data = JSON.parse(data);
 		mostrarform(true);
 
+		
 		$("#id_ren_qui_cat").val(data.id_ren_qui_cat);
-		$("#fec_suc").val(data.fec_suc);
-		$("#detalle").val(data.detalle);
- 		$("#num_cuotas").val(data.num_cuotas);
- 		$("#cantidad").val(data.cantidad);
- 		$("#pagado").val(data.pagado);
- 		$("#saldo").val(data.saldo);
- 		$("#fec_des1").val(data.fec_des1);
- 		$("#fec_des2").val(data.fec_des2);
- 		$("#fec_des3").val(data.fec_des3);
+		$("#mon_total").val(data.mon_total);
+
 
 
  		$("#id_trab").val(data.id_trab);
 		$('#id_trab').selectpicker('refresh');
 
-		$("#tip_dscto").val(data.tip_dscto);
-		$('#tip_dscto').selectpicker('refresh');
-
-		$("#modalidad").val(data.modalidad);
-		$('#modalidad').selectpicker('refresh');
-
-
-	
 
 
  
  	})
 }
 
+
+
 //Función para desactivar registros
-function desactivar(id_ren_qui_cat)
+function desactivar(id_abo_reg)
 {
 	bootbox.confirm("¿Está seguro de desactivar?", function(result){
 		if(result)
         {
-        	$.post("../ajax/renta_quinta_categoria.php?op=desactivar", {id_ren_qui_cat : id_ren_qui_cat}, function(e){
+        	$.post("../ajax/renta_quinta_categoria.php?op=desactivar", {id_abo_reg : id_abo_reg}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -194,12 +161,12 @@ function desactivar(id_ren_qui_cat)
 }
 
 //Función para activar registros
-function activar(id_ant_ade)
+function activar(id_abo_reg)
 {
 	bootbox.confirm("¿Está seguro de activar?", function(result){
 		if(result)
         {
-        	$.post("../ajax/renta_quinta_categoria.php?op=activar", {id_ren_qui_cat : id_ren_qui_cat}, function(e){
+        	$.post("../ajax/renta_quinta_categoria.php?op=activar", {id_abo_reg : id_abo_reg}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});

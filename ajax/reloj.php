@@ -29,12 +29,6 @@ $estado_horario =  date('a');
 
 
 
- //if($estado_horario=='am'){
-//$est_hor='D';
-// }else if($estado_horario=='pm'){
-//  $est_hor='N';
-// }
-
 
 
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";

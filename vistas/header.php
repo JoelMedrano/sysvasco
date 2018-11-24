@@ -286,6 +286,7 @@ if (strlen(session_id()) < 1)
                           <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
                           <li><a href="caso_movilidad.php"><i class="fa fa-circle-o"></i>Caso Movilidad</a></li>
                           <li><a href="caso_vigilancia.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
+                          <li><a href="renta_quinta_categoria.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
                           </li>
                       </ul>
                   </li>
@@ -295,9 +296,13 @@ if (strlen(session_id()) < 1)
 
                   <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refriferio del Trabajador(*)</a></li>
 
+                  <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i>Permisos Personal</a></li>
+
                   <li><a href="contratos.php"><i class="fa fa-circle-o"></i>Contratos</a></li>
 
                   <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i>Vacaciones</a></li>
+
+                  <li><a href="pago_vacaciones_destajeros.php"><i class="fa fa-circle-o"></i>Pago de Vacaciones de Destajeros</a></li>
 
                   <li><a href="prestamos.php"><i class="fa fa-circle-o"></i>Prestamos</a></li>
 
@@ -341,7 +346,7 @@ if (strlen(session_id()) < 1)
 
                   <li><a href="planilla.php"><i class="fa fa-circle-o"></i>Generacion de Planilla</a></li>
 
-                  <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i>Permisos Personal</a></li>
+                  
 
 
           

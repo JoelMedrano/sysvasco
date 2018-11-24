@@ -120,30 +120,31 @@ $fila+=1;
  
 
 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'ITEM');
-$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", 'GENERO');
-$objPHPExcel->getActiveSheet()->SetCellValue("D$fila", 'CIVIL');
-$objPHPExcel->getActiveSheet()->SetCellValue("E$fila", 'LUGAR NAC.');
-$objPHPExcel->getActiveSheet()->SetCellValue("F$fila", 'D.N.I');
-$objPHPExcel->getActiveSheet()->SetCellValue("G$fila", 'APE. PATERNO');
-$objPHPExcel->getActiveSheet()->SetCellValue("H$fila", 'APE. MATERNO');
-$objPHPExcel->getActiveSheet()->SetCellValue("I$fila", 'NOMBRES');
-$objPHPExcel->getActiveSheet()->SetCellValue("J$fila", 'FECHA INGRESO');
-$objPHPExcel->getActiveSheet()->SetCellValue("K$fila", 'AREA');
-$objPHPExcel->getActiveSheet()->SetCellValue("L$fila", 'FUNCION');
-$objPHPExcel->getActiveSheet()->SetCellValue("M$fila", 'HIJ.MEN.EDAD');
-$objPHPExcel->getActiveSheet()->SetCellValue("N$fila", 'HIJ.MAY.EDAD');
-$objPHPExcel->getActiveSheet()->SetCellValue("O$fila", 'FEC.ING.ACTUAL');
-$objPHPExcel->getActiveSheet()->SetCellValue("P$fila", '2DA FEC.ING.ANT');
-$objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", '2DA FEC.SAL.ANT');
-$objPHPExcel->getActiveSheet()->SetCellValue("R$fila", '2DA DETALE SALIDA');
-$objPHPExcel->getActiveSheet()->SetCellValue("S$fila", '1ERA FEC.ING.ANT');
-$objPHPExcel->getActiveSheet()->SetCellValue("T$fila", '1ERA FEC.SAL.ANT');
-$objPHPExcel->getActiveSheet()->SetCellValue("U$fila", '1ERA DETALE SALIDA');
-$objPHPExcel->getActiveSheet()->SetCellValue("V$fila", 'INGRESO INTERNO');
-$objPHPExcel->getActiveSheet()->SetCellValue("W$fila", 'SALIDA INTERNO');
-$objPHPExcel->getActiveSheet()->SetCellValue("X$fila", 'DETALLE SAL.INTERNO');
-$objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "B$fila:X$fila"); //establecer estilo
-$objPHPExcel->getActiveSheet()->getStyle("B$fila:X$fila")->getFont()->setBold(true); //negrita
+$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", 'PLANILLA');
+$objPHPExcel->getActiveSheet()->SetCellValue("D$fila", 'GENERO');
+$objPHPExcel->getActiveSheet()->SetCellValue("E$fila", 'CIVIL');
+$objPHPExcel->getActiveSheet()->SetCellValue("F$fila", 'LUGAR NAC.');
+$objPHPExcel->getActiveSheet()->SetCellValue("G$fila", 'D.N.I');
+$objPHPExcel->getActiveSheet()->SetCellValue("H$fila", 'APE. PATERNO');
+$objPHPExcel->getActiveSheet()->SetCellValue("I$fila", 'APE. MATERNO');
+$objPHPExcel->getActiveSheet()->SetCellValue("J$fila", 'NOMBRES');
+$objPHPExcel->getActiveSheet()->SetCellValue("K$fila", 'FECHA INGRESO');
+$objPHPExcel->getActiveSheet()->SetCellValue("L$fila", 'AREA');
+$objPHPExcel->getActiveSheet()->SetCellValue("M$fila", 'FUNCION');
+$objPHPExcel->getActiveSheet()->SetCellValue("N$fila", 'HIJ.MEN.EDAD');
+$objPHPExcel->getActiveSheet()->SetCellValue("O$fila", 'HIJ.MAY.EDAD');
+$objPHPExcel->getActiveSheet()->SetCellValue("P$fila", 'FEC.ING.ACTUAL');
+$objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", '2DA FEC.ING.ANT');
+$objPHPExcel->getActiveSheet()->SetCellValue("R$fila", '2DA FEC.SAL.ANT');
+$objPHPExcel->getActiveSheet()->SetCellValue("S$fila", '2DA DETALE SALIDA');
+$objPHPExcel->getActiveSheet()->SetCellValue("T$fila", '1ERA FEC.ING.ANT');
+$objPHPExcel->getActiveSheet()->SetCellValue("U$fila", '1ERA FEC.SAL.ANT');
+$objPHPExcel->getActiveSheet()->SetCellValue("V$fila", '1ERA DETALE SALIDA');
+$objPHPExcel->getActiveSheet()->SetCellValue("W$fila", 'INGRESO INTERNO');
+$objPHPExcel->getActiveSheet()->SetCellValue("X$fila", 'SALIDA INTERNO');
+$objPHPExcel->getActiveSheet()->SetCellValue("Y$fila", 'DETALLE SAL.INTERNO');
+$objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "B$fila:Y$fila"); //establecer estilo
+$objPHPExcel->getActiveSheet()->getStyle("B$fila:Y$fila")->getFont()->setBold(true); //negrita
   
 
 
@@ -327,35 +328,36 @@ while($res=mysql_fetch_array($sql)){
  
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($res["id_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", utf8_encode($res["genero"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($res["estado_civil"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($res["lug_nac_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($res["num_doc_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($res["apepat_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", utf8_encode($res["apemat_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($res["nom_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($res["fec_ing_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", utf8_encode($res["area_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($res["funcion"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", utf8_encode($res["MenoresEdad"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", utf8_encode($res["MayoresEdad"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", utf8_encode($res["fec_ing_trab"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", utf8_encode($res["fec_ing2"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", utf8_encode($res["fec_sal2"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("R$fila", utf8_encode($res["mot_sal2"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("S$fila", utf8_encode($res["fec_ing1"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("T$fila", utf8_encode($res["fec_sal1"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("U$fila", utf8_encode($res["mot_sal1"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("V$fila", utf8_encode($res["fec_ing_interno"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("W$fila", utf8_encode($res["fec_sal_interno"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("X$fila", utf8_encode($res["mot_sal_interno"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", utf8_encode($res["tipo_planilla"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($res["genero"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($res["estado_civil"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($res["lug_nac_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($res["num_doc_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", utf8_encode($res["apepat_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($res["apemat_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($res["nom_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", utf8_encode($res["fec_ing_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($res["area_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", utf8_encode($res["funcion"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", utf8_encode($res["MenoresEdad"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", utf8_encode($res["MayoresEdad"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", utf8_encode($res["fec_ing_trab"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", utf8_encode($res["fec_ing2"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("R$fila", utf8_encode($res["fec_sal2"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("S$fila", utf8_encode($res["mot_sal2"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("T$fila", utf8_encode($res["fec_ing1"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("U$fila", utf8_encode($res["fec_sal1"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("V$fila", utf8_encode($res["mot_sal1"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("W$fila", utf8_encode($res["fec_ing_interno"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("X$fila", utf8_encode($res["fec_sal_interno"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("Y$fila", utf8_encode($res["mot_sal_interno"]));
 
 
   //Establecer estilo
 
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:X$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:Y$fila");
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
   $objPHPExcel->getActiveSheet() ->getStyle("C$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
   $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
@@ -405,28 +407,29 @@ while($res=mysql_fetch_array($sql)){
 
   $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
   $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(7);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(9);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(13);
   $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(9);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(25);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(9);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(25);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
   $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(25);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(30);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(25);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(20);
   $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(30);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(30);
   $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(15);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(15);
   $objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(20);
   $objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(35);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(35);
   $objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(35);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(35);
   $objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(35);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(35);
 
 
 

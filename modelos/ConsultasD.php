@@ -322,6 +322,18 @@ Class ConsultasD
 
 
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
+	public function selectPagoVacacionesCts()
+	{
+		$sql="SELECT TbPcv.cod_argumento as id_pag_vac_cts,  TbPcv.des_larga AS pago_vac_cts  
+		FROM tabla_maestra_detalle TbPcv
+		where TbPcv.cod_tabla='TPCV'
+		order by TbPcv.cod_argumento ASC";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectSituacionInformativa()
 	{
 		$sql="SELECT TbSic.cod_argumento as id_sit_inf_act,  TbSic.des_larga AS situacion_informativa_actual ,

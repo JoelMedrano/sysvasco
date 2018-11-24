@@ -38,9 +38,7 @@ if ($_SESSION['reloj']==1)
                             <th>Nombres</th>
                             <th>Area</th>
                             <th>Hora.Entrada</th>
-                            <th>Hora.Salida</th>
-                            <th>Situación</th>
-                            <th>Detalle</th>
+                            <th>Incidencia</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -51,9 +49,7 @@ if ($_SESSION['reloj']==1)
                             <th>Nombres</th>
                             <th>Area</th>
                             <th>Hora.Entrada</th>
-                            <th>Hora.Salida</th>
-                            <th>Situación</th>
-                            <th>Detalle</th>
+                            <th>Incidencia</th>
                           </tfoot>
                         </table>
                     </div>

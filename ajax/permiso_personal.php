@@ -21,7 +21,7 @@ $fecha_hasta=isset($_POST["fecha_hasta"])? limpiarCadena($_POST["fecha_hasta"]):
 $fecha_hasta = date("Y-m-d",strtotime(str_replace('/','-',$fecha_hasta)));
 
 
-$dias=isset($_POST["dias"])? limpiarCadena($_POST["dias"]):"";
+//$dias=isset($_POST["dias"])? limpiarCadena($_POST["dias"]):"";
 
 $tip_permiso=isset($_POST["tip_permiso"])? limpiarCadena($_POST["tip_permiso"]):"";
 $hora_ing=isset($_POST["hora_ing"])? limpiarCadena($_POST["hora_ing"]):"";
@@ -35,7 +35,7 @@ $id_fecha_pago2=isset($_POST["id_fecha_pago2"])? limpiarCadena($_POST["id_fecha_
 $id_fecha_pago3=isset($_POST["id_fecha_pago3"])? limpiarCadena($_POST["id_fecha_pago3"]):"";
 $id_fecha_pago4=isset($_POST["id_fecha_pago4"])? limpiarCadena($_POST["id_fecha_pago4"]):"";
 
-$monto_a_pagar=isset($_POST["monto_a_pagar"])? limpiarCadena($_POST["monto_a_pagar"]):"";
+//$monto_a_pagar=isset($_POST["monto_a_pagar"])? limpiarCadena($_POST["monto_a_pagar"]):"";
 
 
 
@@ -118,9 +118,33 @@ switch ($_GET["op"]){
 			}
 		}
 
+			
+
+			$ci=$permiso_personal->consultar_diasdeintervalo($fecha_procede, $fecha_hasta ); // (Jornal, Destajero o Comision)
+	        $regc=$ci->fetch_object();
+	        $dias=$regc->dias;
+
+
+			$ci=$permiso_personal->consultar_tipodepagovacaciones($id_trab, $tip_permiso,$dias ); // (Jornal, Destajero o Comision)
+	        $regc=$ci->fetch_object();
+	        $id_pag_vac_cts=$regc->id_pag_vac_cts;
+
+	        $ci=$permiso_personal->consultar_pagodevacacionesjornal($id_trab,$dias ); //(Jornal =1 )
+		    $regc=$ci->fetch_object();
+		    $monto_a_pagar=$regc->monto_a_pagar;
 
 
 		if (empty($id_permiso)){
+
+			
+
+	        if ($id_pag_vac_cts=='1') { // Pago de vacaciones como Jornal
+	        	
+	        	
+
+	        }
+
+
 			$rspta=$permiso_personal->insertar($id_permiso,
 											   $id_trab,
 											   $fecha_emision,
@@ -157,7 +181,7 @@ switch ($_GET["op"]){
 											 $hora_sal, 
 											 $motivo,
 											 $id_fecha_pago1,
-											 $monto_a_pagar,
+										//	 $monto_a_pagar,
 											 $id_fecha_pago2,
 											 $id_fecha_pago3,
 											 $id_fecha_pago4,  

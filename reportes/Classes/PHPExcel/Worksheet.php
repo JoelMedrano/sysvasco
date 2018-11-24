@@ -445,9 +445,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             throw new PHPExcel_Exception('Invalid character found in sheet code name');
         }
  
-        // Maximum 31 characters allowed for sheet title
-        if ($CharCount > 31) {
-            throw new PHPExcel_Exception('Maximum 31 characters allowed in sheet code name.');
+        // Maximum 60 characters allowed for sheet title
+        if ($CharCount > 60) {
+            throw new PHPExcel_Exception('Maximum 60 characters allowed in sheet code name.');
         }
  
         return $pValue;
@@ -467,9 +467,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             throw new PHPExcel_Exception('Invalid character found in sheet title');
         }
 
-        // Maximum 31 characters allowed for sheet title
-        if (PHPExcel_Shared_String::CountCharacters($pValue) > 31) {
-            throw new PHPExcel_Exception('Maximum 31 characters allowed in sheet title.');
+        // Maximum 60 characters allowed for sheet title
+        if (PHPExcel_Shared_String::CountCharacters($pValue) > 60) {
+            throw new PHPExcel_Exception('Maximum 60 characters allowed in sheet title.');
         }
 
         return $pValue;
@@ -858,7 +858,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                         if (PHPExcel_Shared_String::CountCharacters($pValue) > 28) {
                             $pValue = PHPExcel_Shared_String::Substring($pValue,0,28);
                         }
-                    } elseif ($i == 100) {
+                    } elseif ($i == 1000) {
                         if (PHPExcel_Shared_String::CountCharacters($pValue) > 27) {
                             $pValue = PHPExcel_Shared_String::Substring($pValue,0,27);
                         }
@@ -2875,7 +2875,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 						if (PHPExcel_Shared_String::CountCharacters($pValue) > 28) {
 							$pValue = PHPExcel_Shared_String::Substring($pValue,0,28);
 						}
-					} elseif ($i == 100) {
+					} elseif ($i == 1000) {
 						if (PHPExcel_Shared_String::CountCharacters($pValue) > 27) {
 							$pValue = PHPExcel_Shared_String::Substring($pValue,0,27);
 						}

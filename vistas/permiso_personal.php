@@ -91,7 +91,7 @@ if ($_SESSION['rrhh']==1)
 
                                   <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                     <label>Dias:</label>
-                                    <input type="text" class="form-control" name="dias" id="dias"   autocomplete="off">
+                                    <input type="text" class="form-control" name="dias" id="dias"  readonly  autocomplete="off">
                                   </div>
 
                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -102,9 +102,10 @@ if ($_SESSION['rrhh']==1)
                                       <label>Fechas de Pago por Vacaciones:</label>
                                       <select id="id_fecha_pago1" name="id_fecha_pago1" class="form-control selectpicker" data-live-search="true"  autocomplete="off"></select>
                                   </div>
+
                                   <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                       <label>Monto a Pagar:</label>
-                                      <input type="text" class="form-control" name="monto_a_pagar" id="monto_a_pagar"   autocomplete="off">
+                                      <input type="text" class="form-control" name="monto_a_pagar" id="monto_a_pagar" readonly   autocomplete="off">
                                   </div>
 
 

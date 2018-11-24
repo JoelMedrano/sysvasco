@@ -19,7 +19,7 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 
 
 
-$id_trab = '1';
+$id_trab=$_GET["id"];
 
 
 
@@ -174,6 +174,7 @@ $bordes->applyFromArray(
 
 $sqlPro=mysql_query("SELECT CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, 
                             tr.id_trab,
+                            IF(tda.foto_trab='', 'nulos.jpg', tda.foto_trab) AS foto_trab,
                             IF(tda.dni_trab='', 'nulos.jpg', tda.dni_trab) AS dni_trab,
                             IF(tda.dat_ant_pol='', 'nulos.jpg',tda.dat_ant_pol ) AS dat_ant_pol,
                             IF(tda.dat_luz_agua='', 'nulos.jpg', tda.dat_luz_agua) AS dat_luz_agua,
@@ -676,7 +677,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
   //incluir una imagen
   $objDrawing = new PHPExcel_Worksheet_Drawing();
-  $objDrawing->setPath('../files/trabajador_data_adjunta/'.$resPro["dat_ant_pol"].''); //ruta
+  $objDrawing->setPath('../files/trabajador_data_adjunta/'.$resPro["dat_luz_agua"].''); //ruta
   $objDrawing->setWidthAndHeight(300,400);
   //$objDrawing->setWeight(100); //altura
   $objDrawing->setCoordinates('B2');
@@ -767,6 +768,71 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 //FIN SEGUNDA HOJA
 
 
+//INICIO SEGUNDA HOJA
+
+$objPHPExcel->createSheet(0); //crear hoja
+$objPHPExcel->setActiveSheetIndex(0); //seleccionar hora
+$objPHPExcel->getActiveSheet()->setTitle("Dni"); //establecer titulo de hoja
+
+//orientacion hoja
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+
+//tipo papel
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+
+
+//establecer impresion a pagina completa
+$objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
+//fin: establecer impresion a pagina completa
+
+
+//establecer margenes
+$margin = 0.5 / 3.54; // 0.5 centimetros
+$marginBottom = 1.2 / 3.54; //1.2 centimetros
+$objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+//fin: establecer margenes
+
+
+//establecer titulos de impresion en cada hoja
+$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 10);
+
+  
+
+  $fila=2;
+
+  //incluir una imagen
+  $objDrawing = new PHPExcel_Worksheet_Drawing();
+  $objDrawing->setPath('../files/trabajador_data_adjunta/'.$resPro["dni_trab"].''); //ruta
+  $objDrawing->setWidthAndHeight(300,400);
+  //$objDrawing->setWeight(100); //altura
+  $objDrawing->setCoordinates('B2');
+  $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
+  //fin: incluir una imagen
+
+ 
+ 
+
+  $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(5);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+//FIN SEGUNDA HOJA
+
+
+
+
 
 //INICIO PRIMERA HOJA
 $objPHPExcel->createSheet(0); //crear hoja
@@ -806,7 +872,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
   //incluir una imagen
   $objDrawing = new PHPExcel_Worksheet_Drawing();
-  $objDrawing->setPath('../files/trabajador_data_adjunta/'.$resPro["dni_trab"].''); //ruta
+  $objDrawing->setPath('../files/trabajador_data_adjunta/'.$resPro["foto_trab"].''); //ruta
   $objDrawing->setWidthAndHeight(300,400);
   //$objDrawing->setWeight(100); //altura
   $objDrawing->setCoordinates('B2');

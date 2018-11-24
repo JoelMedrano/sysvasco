@@ -390,6 +390,10 @@ if ($_SESSION['rrhh']==1)
                                     <div class="col-lg-2">
                                       <input type="text" class="form-control" name="cusp_trab" id="cusp_trab"  autocomplete="off">
                                     </div>
+                                    <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Cts/Vacaciones:</label>
+                                    <div class="col-lg-2">
+                                      <select id="id_pag_vac_cts" name="id_pag_vac_cts" class="form-control selectpicker" data-live-search="true"></select>
+                                    </div>
 
                             </div>
 
