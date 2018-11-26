@@ -1199,8 +1199,8 @@ switch ($_GET["op"]){
  				"5"=>$reg->nombres,
  				"6"=>$reg->area_trab,
  				"7"=>$reg->funcion,
- 				"8"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>',
+ 				"8"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
+ 				'<span class="label bg-red">Cesado</span>',
  				"9"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',

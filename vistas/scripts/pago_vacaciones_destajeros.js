@@ -19,6 +19,14 @@ function init(){
 	});	
 
 
+	//Cargamos los items al select cliente
+	$.post("../ajax/consultasD.php?op=selectMesesyAno", function(r){
+	            $("#id_mes").html(r);
+	            $('#id_mes').selectpicker('refresh');
+	});	
+
+
+
 }
 
 //Función limpiar
@@ -89,7 +97,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/vacaciones.php?op=listar',
+					url: '../ajax/pago_vacaciones_destajeros.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -116,7 +124,7 @@ function listarArticulos()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/vacaciones.php?op=selectPeriodosVacaciones',
+					url: '../ajax/pago_vacaciones_destajeros.php?op=selectPeriodosVacaciones',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -137,7 +145,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/vacaciones.php?op=guardaryeditar",
+		url: "../ajax/pago_vacaciones_destajeros.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -156,7 +164,7 @@ function guardaryeditar(e)
 
 function mostrar(nro_doc)
 {
-		$.post("../ajax/vacaciones.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
+		$.post("../ajax/pago_vacaciones_destajeros.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
@@ -185,7 +193,7 @@ function mostrar(nro_doc)
 		$("#btnAgregarArt").show();
  	});
 
- 	$.post("../ajax/vacaciones.php?op=listarDetalle&id="+nro_doc,function(r){
+ 	$.post("../ajax/pago_vacaciones_destajeros.php?op=listarDetalle&id="+nro_doc,function(r){
 	        $("#detalles").html(r);
 	});	
 }
@@ -196,7 +204,7 @@ function anular(nro_doc)
 	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/vacaciones.php?op=anular", {nro_doc : nro_doc}, function(e){
+        	$.post("../ajax/pago_vacaciones_destajeros.php?op=anular", {nro_doc : nro_doc}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	

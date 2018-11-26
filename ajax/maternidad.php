@@ -23,6 +23,12 @@ $id_maternidad=isset($_POST["id_maternidad"])? limpiarCadena($_POST["id_maternid
 
 
 
+$fec_ini_lac=isset($_POST["fec_ini_lac"])? limpiarCadena($_POST["fec_ini_lac"]):"";
+$fec_fin=isset($_POST["fec_fin"])? limpiarCadena($_POST["fec_fin"]):"";
+
+
+
+
 $fec_nac_c1=isset($_POST["fec_nac_c1"])? limpiarCadena($_POST["fec_nac_c1"]):"";
 $lugar_c1=isset($_POST["lugar_c1"])? limpiarCadena($_POST["lugar_c1"]):"";
 $observa_c1=isset($_POST["observa_c1"])? limpiarCadena($_POST["observa_c1"]):"";
@@ -208,6 +214,8 @@ switch ($_GET["op"]){
 		
 		if (empty($id_maternidad)){
 			$rspta=$maternidad->insertar(			$id_trab,
+													$fec_ini_lac,
+													$fec_fin,
 												    $fec_nac_c1,
 												    $lugar_c1,
 												    $observa_c1,
@@ -234,6 +242,8 @@ switch ($_GET["op"]){
 		else {
 			$rspta=$maternidad->editar(             $id_maternidad, 	
 													$id_trab,
+													$fec_ini_lac,
+													$fec_fin,
 												    $fec_nac_c1,
 												    $lugar_c1,
 												    $observa_c1,

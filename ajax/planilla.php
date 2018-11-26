@@ -320,8 +320,11 @@ $CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
 $anoperiodo = date("Y", strtotime($fec_ing_trab));
 
 
+$primera_quincena=isset($_POST["primera_quincena"])? limpiarCadena($_POST["primera_quincena"]):"";
+$segunda_quincena=isset($_POST["segunda_quincena"])? limpiarCadena($_POST["segunda_quincena"]):"";
+$est_reg_1eraquin=isset($_POST["est_reg_1eraquin"])? limpiarCadena($_POST["est_reg_1eraquin"]):"";
+$est_reg_2daquin=isset($_POST["est_reg_2daquin"])? limpiarCadena($_POST["est_reg_2daquin"]):"";
 
-$id_trab_data_adjunta=isset($_POST["id_trab_data_adjunta"])? limpiarCadena($_POST["id_trab_data_adjunta"]):"";
 
 
 
@@ -1176,6 +1179,21 @@ switch ($_GET["op"]){
  		echo json_encode($rspta);
 	break;
 
+	case 'cerrar_primeraquincena':
+
+		$rspta=$planilla->cerrar_primeraquincena($primera_quincena);
+	//  $rspta=$planilla->ingresar_informacion_tablaplanillaquincenal($primera_quincena);
+ 		echo $rspta ? "Quincena Cerrada" : "Quincena no se puede cerrar";
+	break;
+
+	case 'cerrar_segundaquincena':
+		$rspta=$planilla->cerrar_segundaquincena($segunda_quincena);
+	//	$rspta=$planilla->ingresar_informacion_tablaplanillaquincenal($segunda_quincena);
+ 		echo $rspta ? "Quincena Cerrada" : "Quincena no se puede cerrar";
+	break;
+
+
+
 
 	case 'listar':
 		$rspta=$planilla->listar();
@@ -1194,16 +1212,16 @@ switch ($_GET["op"]){
  				"1"=>$reg->ano,
  				"2"=>$reg->mes,
  				"3"=>'<a target="_blank" href="'.$url.$reg->cod_argumento.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"4"=>($reg->est_reg_1eraquin)?'<span class="label bg-red">Cerrado</span>': 
- 				'<span class="label bg-blue">Abierto</span>',
- 				"5"=>($reg->est_reg_2daquin)?'<span class="label bg-red">Cerrado</span>': 
- 				'<span class="label bg-blue">Abierto</span>',
- 				"6"=>($reg->est_reg_1eraquin)?
- 					' <button class="btn btn-danger" onclick="cerrar_primeraquincena('.$reg->primera_quincena.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" ><i class="fa fa-check"></i></button>',
- 				"7"=>($reg->est_reg_2daquin)?
- 					' <button class="btn btn-danger" onclick="cerrar_segundaquincena('.$reg->segunda_quincena.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" ><i class="fa fa-check"></i></button>'
+ 				"4"=>($reg->est_reg_1eraquin=='1')?'<span class="label bg-blue">Abierto</span>': 
+ 				'<span class="label bg-red">Cerrado</span>', 
+ 				"5"=>($reg->est_reg_2daquin=='1')?'<span class="label bg-blue">Abierto</span>': 
+ 				'<span class="label bg-red">Cerrado</span>', 
+ 				"6"=>($reg->est_reg_1eraquin=='1')?
+ 					' <button class="btn btn-primary"  onclick="cerrar_primeraquincena('.$reg->primera_quincena.')"><i class="fa fa-check"></i></button>':
+ 					' <button class="btn btn-danger"   onclick="cerrar_primeraquincena('.$reg->primera_quincena.')"><i class="fa fa-close"></i></button>',
+ 				"7"=>($reg->est_reg_2daquin=='1')?
+ 					' <button class="btn btn-primary"   onclick="cerrar_segundaquincena('.$reg->segunda_quincena.')"><i class="fa fa-check"></i></button>':
+ 					' <button class="btn btn-danger"    onclick="cerrar_segundaquincena('.$reg->segunda_quincena.')"><i class="fa fa-close"></i></button>'
  				);
  		}
  		$results = array(

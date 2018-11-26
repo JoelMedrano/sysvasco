@@ -379,6 +379,19 @@ Class ConsultasD
 
 
 
+	// Pago de Vacaciones - Meses y Año  Implementar un método para listar los registros y mostrar en el select
+	public function selectMesesyAno()
+	{
+		$sql="SELECT cod_argumento AS id_mes,
+		CONCAT( des_larga , ' ' ,des_corta) AS mes
+		FROM tabla_maestra_detalle 
+		WHERE cod_tabla='TMES'";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+
 	
 
 

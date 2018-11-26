@@ -544,6 +544,23 @@ switch ($_GET["op"]){
 
 
 
+	case "selectMesesyAno":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectMesesyAno();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_mes . '>' . $reg->mes . '</option>';
+				}
+	break;
+
+
+
+
+
 
 
 

@@ -278,10 +278,13 @@ if (strlen(session_id()) < 1)
           
                       <ul class="treeview-menu">
                           <li class="treeview">
+                          <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>Trabajador</a></li>
+                          <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refriferio del Trabajador(*)</a></li>
                           <li><a href="horario.php"><i class="fa fa-circle-o"></i>Horarios</a></li>
                           <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
                           <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>Regimen Pensionario</a></li>
                           <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i>Cronograma de Pagos</a></li>
+                          <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
                           <li><a href="horas_lactancia.php"><i class="fa fa-circle-o"></i>Horas de Lactancia Quincenal</a></li>
                           <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
                           <li><a href="caso_movilidad.php"><i class="fa fa-circle-o"></i>Caso Movilidad</a></li>
@@ -291,22 +294,30 @@ if (strlen(session_id()) < 1)
                       </ul>
                   </li>
 
+                  <li class="treeview">
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Vacaciones</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+                          <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i>Registros de Vacaciones</a></li>
+                          <li><a href="pago_vacaciones_destajeros.php"><i class="fa fa-circle-o"></i>Calculo de Pago de Vacaciones de Destajeros</a></li>
 
-                  <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>Trabajador</a></li>
+                          </li>
+                      </ul>
+                  </li>
 
-                  <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refriferio del Trabajador(*)</a></li>
 
+                  
                   <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i>Permisos Personal</a></li>
 
                   <li><a href="contratos.php"><i class="fa fa-circle-o"></i>Contratos</a></li>
 
-                  <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i>Vacaciones</a></li>
-
-                  <li><a href="pago_vacaciones_destajeros.php"><i class="fa fa-circle-o"></i>Pago de Vacaciones de Destajeros</a></li>
-
                   <li><a href="prestamos.php"><i class="fa fa-circle-o"></i>Prestamos</a></li>
 
-                  <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
+                  
           
 
                   <li class="treeview">
@@ -322,15 +333,14 @@ if (strlen(session_id()) < 1)
                           <li><a href="descuentos_varios.php"><i class="fa fa-circle-o"></i> Descuentos Varios(Prendas)</a></li>
                           <li><a href="descuentos_menu.php"><i class="fa fa-circle-o"></i> Descuento Menu</a></li>
                           <li><a href="anticipo_adelanto.php"><i class="fa fa-circle-o"></i> Anticipo adelanto</a></li>
+                          <li><a href="tardanzas_permisos_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Descuentos de Permisos y Tardanzas en "Horas" del Reloj</a></li>
+                          <li><a href="habilitardscto_permisostardanzas_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Habilitar Descuentos en "Horas" de Permisos y Tardanzas</a></li>
+                
                           </li>
                       </ul>
                  </li> 
-                 <li><a href="tardanzas_permisos_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Descuentos de Permisos y Tardanzas en "Horas" del Reloj</a></li>
-                 <li><a href="habilitardscto_permisostardanzas_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Habilitar Descuentos en "Horas" de Permisos y Tardanzas</a></li>
-                 <li><a href="horasextras_horasdiasenreloj.php"><i class="fa fa-circle-o"></i>Horas Extras en Horas y Dias del Reloj</a></li>
-                 <li><a href="habilitarabono_tiempoextra_enreloj.php"><i class="fa fa-circle-o"></i>Habilitar Abono por Horas Extras en Horas y Dias del Reloj</a></li>
-
-                 <li><a href="compensacion.php"><i class="fa fa-circle-o"></i>Compensacion</a></li>
+                 
+                
                  
           
                   <li class="treeview">
@@ -343,9 +353,15 @@ if (strlen(session_id()) < 1)
                           <li class="treeview">
                           <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i> Abono - Regularización</a></li>
                           <li><a href="pago_destajeros.php"><i class="fa fa-circle-o"></i> Pago Destajeros</a></li>
+                          <li><a href="horasextras_horasdiasenreloj.php"><i class="fa fa-circle-o"></i>Horas Extras en Horas y Dias del Reloj</a></li>
+                          <li><a href="habilitarabono_tiempoextra_enreloj.php"><i class="fa fa-circle-o"></i>Habilitar Abono por Horas Extras en Horas y Dias del Reloj</a></li>
+
                           </li>
                       </ul>
                   </li>
+
+
+                  <li><a href="compensacion.php"><i class="fa fa-circle-o"></i>Compensacion de Horas</a></li>
 
                   <li><a href="planilla.php"><i class="fa fa-circle-o"></i>Generacion de Planilla</a></li>
 

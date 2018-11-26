@@ -81,12 +81,12 @@ if ($_SESSION['rrhh']==1)
                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                     <label>Fec.Procede:</label>
                                     <input type="hidden" class="form-control" name="fecha_emision" id="fecha_emision"   value= "<?=$fecha ?>" required  autocomplete="off">
-                                    <input type="text" class="form-control" name="fecha_procede" id="fecha_procede"  value= "<?=$fecha ?>"  required  autocomplete="off">
+                                    <input type="date" class="form-control" name="fecha_procede" id="fecha_procede"  value= "<?=$fecha ?>"  required  autocomplete="off">
                                   </div>
 
                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                     <label>Fec.Hasta:</label>
-                                    <input type="text" class="form-control" name="fecha_hasta" id="fecha_hasta"  value= "<?=$fecha ?>"  required autocomplete="off">
+                                    <input type="date" class="form-control" name="fecha_hasta" id="fecha_hasta"  value= "<?=$fecha ?>"  required autocomplete="off">
                                   </div>
 
                                   <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">

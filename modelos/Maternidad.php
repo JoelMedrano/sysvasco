@@ -12,6 +12,8 @@ Class Maternidad
 
 	//Implementamos un método para insertar registros
 	public function insertar(                       $id_trab,
+													$fec_ini_lac,
+													$fec_fin,
 												    $fec_nac_c1,
 												    $lugar_c1,
 												    $observa_c1,
@@ -39,6 +41,8 @@ Class Maternidad
 		
 
 			$sql="INSERT INTO maternidad (          id_trab,
+													$fec_ini_lac,
+													$fec_fin,
 													fec_nac_c1,
 													lugar_c1,
 													observa_c1,
@@ -62,6 +66,8 @@ Class Maternidad
 													usu_reg,
 													pc_reg)
 											VALUES ('$id_trab',	
+												    '$fec_ini_lac',
+													'$fec_fin',
 		                                            '$fec_nac_c1',	
 												    '$lugar_c1',
 													'$observa_c1',
@@ -92,6 +98,8 @@ Class Maternidad
 	//Implementamos un método para editar registros
 	public function editar(                         $id_maternidad, 	
 													$id_trab,
+													$fec_ini_lac,
+													$fec_fin,
 												    $fec_nac_c1,
 												    $lugar_c1,
 												    $observa_c1,
@@ -115,6 +123,8 @@ Class Maternidad
 												    $pc_reg)
 	{
 		$sql="UPDATE maternidad SET            id_trab='$id_trab',
+											   fec_ini_lac='$fec_ini_lac',
+											   fec_fin='$fec_fin',
 											   fec_nac_c1='$fec_nac_c1',
 											   lugar_c1='$lugar_c1',
 											   observa_c1='$observa_c1',
@@ -144,7 +154,11 @@ Class Maternidad
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_trab)
 	{
-		$sql="SELECT DISTINCT ma.id_trab AS id_trab , tr.num_doc_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, ma.id_maternidad,
+		$sql="SELECT DISTINCT ma.id_trab AS id_trab ,
+					DATE(ma.fec_ini_lac) AS fec_ini_lac,
+					DATE(ma.fec_fin) AS fec_fin,
+					tr.num_doc_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+					ma.id_maternidad,
 					DATE(ma.fec_nac_c1) AS  fec_nac_c1, ma.lugar_c1, ma.observa_c1, ma.data_adjunta_hij1_c1, ma.data_adjunta_hij2_c1,  ma.data_adjunta_hij3_c1,
 					CASE 
 					WHEN  DATE(DATE_ADD(fec_nac_c1, INTERVAL 1 YEAR)) >= CURDATE() THEN 'ACTIVO'

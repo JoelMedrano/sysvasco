@@ -1306,12 +1306,12 @@ function mostrar_data_adjunta(id_trab)
 
 
 //Función para desactivar registros
-function desactivar(id_trab)
+function cerrar_primeraquincena(primera_quincena)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el Trabajador?", function(result){
+	bootbox.confirm("¿Está seguro de cerrar la quincena?", function(result){
 		if(result)
         {
-        	$.post("../ajax/planilla.php?op=desactivar", {id_trab : id_trab}, function(e){
+        	$.post("../ajax/planilla.php?op=cerrar_primeraquincena", {primera_quincena : primera_quincena}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -1320,12 +1320,12 @@ function desactivar(id_trab)
 }
 
 //Función para activar registros
-function activar(id_trab)
+function cerrar_segundaquincena(segunda_quincena)
 {
-	bootbox.confirm("¿Está Seguro de activar el Trabajador?", function(result){
+	bootbox.confirm("¿Está seguro de cerrar la quincena?", function(result){
 		if(result)
         {
-        	$.post("../ajax/planilla.php?op=activar", {id_trab : id_trab}, function(e){
+        	$.post("../ajax/planilla.php?op=cerrar_segundaquincena", {segunda_quincena : segunda_quincena}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	

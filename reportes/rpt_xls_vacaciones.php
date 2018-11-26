@@ -12,7 +12,7 @@ session_start();
 include "Classes/PHPExcel.php";
 
 
-$conexion=mysql_connect("192.168.1.24","admin","vasco123");
+$conexion=mysql_connect("192.168.1.26","admin","vasco123");
 mysql_select_db("db_corpvasco",$conexion);   
 
 

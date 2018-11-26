@@ -34,7 +34,10 @@ function limpiar()
 	$("#id_trab").selectpicker('refresh');
 
 
-	
+	$("#fec_ini_lac").val("");
+	$("#fec_fin").val("");
+
+
 	$("#fec_nac_hij1_c1").val("");
 	$("#fec_nac_hij2_c1").val("");
 	$("#fec_nac_hij3_c1").val("");
@@ -156,6 +159,10 @@ function mostrar(id_trab)
 		$('#id_trab').selectpicker('refresh'); 
 
 		$("#id_maternidad").val(data.id_maternidad);
+
+		$("#fec_ini_lac").val(data.fec_ini_lac);
+		$("#fec_fin").val(data.fec_fin);
+
 
 
 		$("#fec_nac_c1").val(data.fec_nac_c1);

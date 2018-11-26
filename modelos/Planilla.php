@@ -254,16 +254,16 @@ Class Planilla
 
 
 	//Implementamos un método para desactivar registros
-	public function desactivar($id_trab, $usu_reg, $pc_reg, $fec_reg )
+	public function cerrar_primeraquincena($primera_quincena)
 	{
-		$sql="UPDATE trabajador SET est_reg='0', usu_anu='$usu_reg', pc_anu='$pc_reg', fec_anu='$fec_reg'  WHERE id_trab='$id_trab'";
+		$sql="UPDATE tabla_maestra_detalle SET valor_3='2' WHERE cod_tabla='TMES' AND  valor_1='$primera_quincena'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar registros
-	public function activar($id_trab)
+	public function cerrar_segundaquincena($segunda_quincena)
 	{
-		$sql="UPDATE trabajador SET est_reg='1' WHERE id_trab='$id_trab'";
+		$sql="UPDATE tabla_maestra_detalle SET valor_4='2' WHERE cod_tabla='TMES' AND  valor_2='$segunda_quincena'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -565,7 +565,7 @@ Class Planilla
         des_larga AS mes, 
         des_corta AS ano, 
         valor_1 AS primera_quincena, 
-        valor_2  AS primera_quincena,
+        valor_2  AS segunda_quincena,
         valor_3 AS est_reg_1eraquin,
         valor_4 AS est_reg_2daquin
 		FROM `tabla_maestra_detalle` 

@@ -102,7 +102,7 @@ Class Permiso_Personal
 											imagen4 )
 									VALUES ('$id_permiso',
 										    '$id_trab',
-										    '$fecha_emision',
+										    '$fec_reg',
 										    '$fecha_procede',
 										    '$fecha_hasta', 
 										    '$dias', 
@@ -225,8 +225,8 @@ Class Permiso_Personal
 	{
 		$sql="SELECT DATE_FORMAT(fecha_emision, '%d/%m/%Y') AS fecha_emision,
 		   			 dias,
-		             DATE_FORMAT(fecha_procede, '%d/%m/%Y') AS fecha_procede,
-		             DATE_FORMAT(fecha_hasta, '%d/%m/%Y') AS fecha_hasta,
+		             DATE(fecha_procede) AS fecha_procede,
+		             DATE(fecha_hasta) AS fecha_hasta,
 		             tip_permiso, 
 		             id_trab, 
 		             id_permiso, 

@@ -64,7 +64,29 @@ if ($_SESSION['rrhh']==1)
                                   <input type="hidden" class="form-control" name="id_maternidad"  id="id_maternidad"   autocomplete="off">
                                   <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
+
+
+                              
                          </div>
+
+
+                         <div class="box-header with-border">
+
+                                <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                   <label>Fec.Inicio:</label>
+                                   <input type="date" class="form-control" name="fec_ini_lac"  id="fec_ini_lac"   autocomplete="off">
+                                </div>
+
+                               
+
+                                <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                   <label>Fec.Fin:</label>
+                                   <input type="date" class="form-control" name="fec_fin"  id="fec_fin"    autocomplete="off">
+                                </div>
+
+                        </div>
+
+
                          
 
                           <div class="box-header with-border">

@@ -83,7 +83,8 @@ function limpiar()
 	$("#tip_permiso").val("COMISION");
 	$("#tip_permiso").selectpicker('refresh');
 
-
+	$("#id_trab").val("AGUILAR CAMACHO LUISA");
+	$("#id_trab").selectpicker('refresh');
 
 
 	$("#imagenmuestra1").attr("src","");

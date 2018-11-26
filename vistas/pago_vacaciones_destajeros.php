@@ -68,27 +68,34 @@ if ($_SESSION['rrhh']==1)
 
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                   <select id="id_nomtrab" name="id_nomtrab" class="form-control selectpicker" data-live-search="true" required>
                                   </select>
                                 </div>
                           
 
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Paterno(*):</label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
-                                </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Ap.Materno(*):</label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Id.trabajador(*):</label>
                                 <div class="col-lg-1">
                                    <input type="text" readonly class="form-control" name="id_trab" id="id_trab"  autocomplete="off">
                                 </div>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes a Salir(*):</label>
+                                <div class="col-lg-3">
+                                  <select id="id_mes" name="id_mes" class="form-control selectpicker" data-live-search="true" required>
+                                  </select>
+                                </div>
+
                              
                            </div>
 
+
+
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
 
 
                        
@@ -97,12 +104,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes6:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="mon_mes6_hist" id="mon_mes6_hist" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                                
                              
                            </div>
 
@@ -111,12 +115,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes5:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="mon_mes5_hist" id="mon_mes5_hist" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                                
                              
                            </div>
 
@@ -127,12 +128,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes4:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="mon_mes4_hist" id="mon_mes4_hist" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                               
                              
                            </div>
 
@@ -142,12 +140,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes3:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="mon_mes3_hist" id="mon_mes3_hist" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                                
                              
                            </div>
 
@@ -157,12 +152,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes2:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="mon_mes2_hist" id="mon_mes2_hist" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                                
                              
                            </div>
 
@@ -171,12 +163,9 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Mes1:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="mon_mes1_hist" id="mon_mes1_hist" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                                
                              
                            </div>
 
@@ -186,14 +175,28 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Asig.Familiar:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="asig_familiar" id="asig_familiar" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
-                             
+                                
                            </div>
+
+
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+
+
+
+
 
 
 
@@ -201,14 +204,22 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Total.Promedio:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="total_prom" id="total_prom" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
+                                
                              
                            </div>
+
+
+
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+                           <div class="form-group  col-xs-12">
+                                   <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
+                           </div>
+
+
 
 
 
@@ -216,16 +227,10 @@ if ($_SESSION['rrhh']==1)
 
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Pago a Considerar Vacaciones:</label>
                                 <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apepat_trab" id="apepat_trab" required autocomplete="off">
+                                   <input type="text" class="form-control" name="pago_a_considerar" id="pago_a_considerar" required autocomplete="off">
                                 </div>
-                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label"></label>
-                                <div class="col-lg-2">
-                                   <input type="text" class="form-control" name="apemat_trab" id="apemat_trab" required autocomplete="off">
-                                </div>
-                             
+                                
                            </div>
-
-
 
 
 
@@ -327,7 +332,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/vacaciones.js"></script>
+<script type="text/javascript" src="scripts/pago_vacaciones_destajeros.js"></script>
 <?php 
 }
 ob_end_flush();
