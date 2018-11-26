@@ -18,12 +18,12 @@ function init() {
 
 	$('#id_hor_per').change(function () {
 		selectHorasT();
-		
+
 	});
 
 	$('#id_hor_ext').change(function () {
 		selectHorasE();
-		
+
 	});
 }
 
@@ -90,7 +90,7 @@ function guardaryeditar(e) {
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/categoria.php?op=guardaryeditar",
+		url: "../ajax/compensacion.php?op=guardaryeditar",
 		type: "POST",
 		data: formData,
 		contentType: false,
@@ -155,8 +155,8 @@ function selectHorasT() {
 		id_trab: id_trab,
 		id_hor_per: id_hor_per
 	}, function (r) {
-		$("#cant_horas").html(r);
-		$('#cant_horas').selectpicker('refresh');
+		$("#hor_per").html(r);
+		$('#hor_per').selectpicker('refresh');
 	});
 }
 
@@ -184,59 +184,170 @@ function selectHorasE() {
 		id_trab: id_trab,
 		id_hor_ext: id_hor_ext
 	}, function (r) {
-		$("#cant_horasE").html(r);
-		$('#cant_horasE').selectpicker('refresh');
+		$("#hor_ext").html(r);
+		$('#hor_ext').selectpicker('refresh');
 	});
 }
 
 function restarHoras() {
 
-	id_hor_per = document.getElementById("cant_horas").value;
-	id_hor_ext = document.getElementById("cant_horasE").value;
+	id_hor_per = document.getElementById("hor_per").value;
+	id_hor_ext = document.getElementById("hor_ext").value;
 
-	console.log(id_hor_per);
-	console.log(id_hor_ext);
+	permiso = parseInt(id_hor_per.replace(":", ""));
+	extra = parseInt(id_hor_ext.replace(":", ""));
+
+	if (permiso > extra) {
+		//console.log(permiso);
+		//console.log(extra);
+
+		//para inicio
+
+		inicioSegundos = parseInt(id_hor_per.substr(6, 2))
+		//console.log(inicioSegundos);
+
+		inicioMinutos = parseInt(id_hor_per.substr(3, 2));
+		//console.log(inicioMinutos);
+
+		inicioHoras = parseInt(id_hor_per.substr(0, 2));
+		//console.log(inicioHoras);
+
+		//para fin
+
+		finSegundos = parseInt(id_hor_ext.substr(6, 2))
+		//console.log(finSegundos);
+
+		finMinutos = parseInt(id_hor_ext.substr(3, 2));
+		//console.log(finMinutos);
+
+		finHoras = parseInt(id_hor_ext.substr(0, 2));
+		//console.log(finHoras);
+
+		//calculo
+
+		transcurridoSegundos = inicioSegundos - finSegundos;
+		//console.log(transcurridoSegundos);
+
+		transcurridoMinutos = inicioMinutos - finMinutos;
+		transcurridoHoras = inicioHoras - finHoras;
 
 
-	inicioMinutos = parseInt(id_hor_per.substr(3, 2));
-	console.log(inicioMinutos);
+		if (transcurridoHoras <= 0) {
+			transcurridoHoras = transcurridoHoras * 0;
+		}
 
-	inicioHoras = parseInt(id_hor_per.substr(0, 2));
-	console.log(inicioHoras);
+		//console.log(transcurridoHoras);
 
-	finMinutos = parseInt(id_hor_ext.substr(3, 2));
-	console.log(finMinutos);
+		if (transcurridoMinutos < 0) {
+			transcurridoHoras--;
+			transcurridoMinutos = 60 + transcurridoMinutos;
+		}
+		//console.log(transcurridoMinutos);
 
-	finHoras = parseInt(id_hor_ext.substr(0, 2));
-	console.log(finHoras);
+		if (transcurridoSegundos < 0) {
+			transcurridoMinutos--;
+			transcurridoSegundos = 60 + transcurridoSegundos;
+		}
+		//console.log(transcurridoSegundos);	
+		horas = transcurridoHoras.toString();
+		minutos = transcurridoMinutos.toString();
+		segundos = transcurridoSegundos.toString();
 
-	transcurridoMinutos = inicioMinutos - finMinutos;
-	transcurridoHoras = inicioHoras - finHoras;
-	
-	if(transcurridoHoras <= 0){
-		transcurridoHoras=transcurridoHoras*0;
+
+		if (segundos.length < 2) {
+			segundos = "0" + segundos;
+		}
+
+		if (minutos.length < 2) {
+			minutos = "0" + minutos;
+		}
+
+		if (horas.length < 2) {
+			horas = "0" + horas;
+		}
+
+		//TODO: IMPRIMIR HORAS
+		document.getElementById("total").value = horas + ":" + minutos + ":" + segundos;
+
+
+	} else {
+
+		//console.log(permiso);
+		//console.log(extra);
+
+		//para inicio
+
+		inicioSegundos = parseInt(id_hor_per.substr(6, 2))
+		//console.log(inicioSegundos);
+
+		inicioMinutos = parseInt(id_hor_per.substr(3, 2));
+		//console.log(inicioMinutos);
+
+		inicioHoras = parseInt(id_hor_per.substr(0, 2));
+		//console.log(inicioHoras);
+
+		//para fin
+
+		finSegundos = parseInt(id_hor_ext.substr(6, 2))
+		//console.log(finSegundos);
+
+		finMinutos = parseInt(id_hor_ext.substr(3, 2));
+		//console.log(finMinutos);
+
+		finHoras = parseInt(id_hor_ext.substr(0, 2));
+		//console.log(finHoras);
+
+		//calculo
+
+		transcurridoSegundos = finSegundos - inicioSegundos;
+		//console.log(transcurridoSegundos);
+
+		transcurridoMinutos = finMinutos - inicioMinutos;
+		//console.log(transcurridoMinutos);
+
+		transcurridoHoras = finHoras - inicioHoras;
+		//console.log(transcurridoHoras);
+
+
+		if (transcurridoHoras <= 0) {
+			transcurridoHoras = transcurridoHoras * 0;
+		}
+
+		//console.log(transcurridoHoras);
+
+		if (transcurridoMinutos < 0) {
+			transcurridoHoras--;
+			transcurridoMinutos = 60 + transcurridoMinutos;
+		}
+		//console.log(transcurridoMinutos);
+
+		if (transcurridoSegundos < 0) {
+			transcurridoMinutos--;
+			transcurridoSegundos = 60 + transcurridoSegundos;
+		}
+		//console.log(transcurridoSegundos);	
+		horas = transcurridoHoras.toString();
+		minutos = transcurridoMinutos.toString();
+		segundos = transcurridoSegundos.toString();
+
+
+		if (segundos.length < 2) {
+			segundos = "0" + segundos;
+		}
+
+		if (minutos.length < 2) {
+			minutos = "0" + minutos;
+		}
+
+		if (horas.length < 2) {
+			horas = "0" + horas;
+		}
+
+		//TODO: IMPRIMIR HORAS
+		document.getElementById("total").value = horas + ":" + minutos + ":" + segundos;
+
+
 	}
-
-	if (transcurridoMinutos < 0) {
-		transcurridoHoras--;
-		transcurridoMinutos = 60 + transcurridoMinutos;
-	}
-
-	horas = transcurridoHoras.toString();
-	minutos = transcurridoMinutos.toString();
-
-	if (minutos.length < 2) {
-		minutos = "0" + minutos;
-	}
-
-	if (horas.length < 2) {
-		horas = "0" + horas;
-	}
-
-	
-
-
-	document.getElementById("total").value = horas + ":" + minutos;
 
 }
 

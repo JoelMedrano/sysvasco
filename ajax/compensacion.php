@@ -3,18 +3,37 @@ require_once "../modelos/Compensacion.php";
 
 $compensacion=new Compensacion();
 
+$id_compensacion=isset($_POST["id_compensacion"])? limpiarCadena($_POST["id_compensacion"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $id_hor_per=isset($_POST["id_hor_per"])? limpiarCadena($_POST["id_hor_per"]):"";
 $id_hor_ext=isset($_POST["id_hor_ext"])? limpiarCadena($_POST["id_hor_ext"]):"";
+$hor_per=isset($_POST["hor_per"])? limpiarCadena($_POST["hor_per"]):"";
+$hor_ext=isset($_POST["hor_ext"])? limpiarCadena($_POST["hor_ext"]):"";
+$total=isset($_POST["total"])? limpiarCadena($_POST["total"]):"";
 
-$idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
-$nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
-$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
-		if (empty($idcategoria)){
-			$rspta=$categoria->insertar($nombre,$descripcion);
+		if (empty($id_compensacion)){
+			$rspta=$compensacion->insertar($id_trab,$id_hor_per,$hor_per,$id_hor_ext,$hor_ext,$total);
+
+
+			$ev=$compensacion->evaluarHoras($id_hor_per, $id_hor_ext);
+			$regc=$ev->fetch_object();
+			$dif=$regc->dif;
+			
+
+			if($dif > 0){
+				$rspta=$compensacion->UpdPermiso($id_trab,$id_hor_per,$total);
+				$rspta=$compensacion->UpdExtra($id_trab,$id_hor_ext,'00:00:00');
+			}
+			else{
+				$rspta=$compensacion->UpdPermiso($id_trab,$id_hor_per,'00:00:00');
+				$rspta=$compensacion->UpdExtra($id_trab,$id_hor_ext,$total);
+			}
+
+			
 			echo $rspta ? "Categoría registrada" : "Categoría no se pudo registrar";
 		}
 		else {
