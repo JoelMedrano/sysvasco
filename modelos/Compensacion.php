@@ -8,7 +8,55 @@ Class Compensacion
 	public function __construct()
 	{
 
-	}
+    }
+    
+	
+	public function insertar($id_trab,$id_hor_per,$hor_per,$id_hor_ext,$hor_ext,$total)
+	{
+        
+        $sql="INSERT INTO compensacion (id_trab,id_hor_per,hor_per,id_hor_ext,hor_ext,total)
+        VALUES ('$id_trab','$id_hor_per','$hor_per','$id_hor_ext','$hor_ext','$total')";
+        
+		return ejecutarConsulta($sql);
+
+    }
+    
+    public function UpdPermiso($id_trab,$id_hor_per,$total)
+    {
+        $sql="UPDATE horas_permiso_personal SET tiempo_fin='$total' WHERE id_trab='$id_trab' AND id_hor_per='$id_hor_per';";
+
+        return ejecutarConsulta($sql);
+    }
+
+    public function UpdExtra($id_trab,$id_hor_ext,$total)
+    {
+        $sql="UPDATE horas_extras_personal SET tiempo_fin='$total' WHERE id_trab='$id_trab' AND id_hor_ext='$id_hor_ext';";
+
+        return ejecutarConsulta($sql);
+    }
+
+    public function evaluarHoras($id_hor_per,$id_hor_ext)
+    {
+        $sql="SELECT 
+        hpp.id_trab,
+        hpp.id_hor_per,
+        hpp.tiempo_fin,
+        hep.id_hor_ext,
+        hep.tiempo_fin,
+        CASE
+          WHEN hpp.tiempo_fin < hep.tiempo_fin 
+          THEN '-1' 
+          ELSE '1' 
+        END AS dif 
+      FROM
+        horas_permiso_personal hpp 
+        LEFT JOIN horas_extras_personal hep 
+          ON hpp.id_trab = hep.id_trab 
+      WHERE hpp.id_hor_per = '$id_hor_per' 
+        AND hep.id_hor_ext = '$id_hor_ext'";
+
+        return ejecutarConsulta($sql);
+    }
 
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_trab)

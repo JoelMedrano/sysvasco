@@ -66,6 +66,7 @@ if ($_SESSION['rrhh']==1)
 
                       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <label>Trabajador(*):</label>
+                        <input type="text" name="id_compensacion" id="id_compensacion">
                         <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required></select>
                       </div>
 
@@ -80,7 +81,7 @@ if ($_SESSION['rrhh']==1)
 
                       <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label>Cantidad de Horas(*):</label>
-                        <select id="cant_horas" name="cant_horas" class="form-control selectpicker" data-live-search="true" required></select>
+                        <select id="hor_per" name="hor_per" class="form-control selectpicker" data-live-search="true" required></select>
                       </div>
 
                       <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -90,7 +91,7 @@ if ($_SESSION['rrhh']==1)
 
                       <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label>Cantidad de Horas Extra(*):</label>
-                        <select id="cant_horasE" name="cant_horasE" class="form-control selectpicker" data-live-search="true" required></select>
+                        <select id="hor_ext" name="hor_ext" class="form-control selectpicker" data-live-search="true" required></select>
                       </div>
 
                       <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
