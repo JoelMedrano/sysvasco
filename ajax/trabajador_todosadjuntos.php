@@ -1130,15 +1130,15 @@ switch ($_GET["op"]){
  				"7"=>$reg->funcion,
  				"8"=>($reg->est_reg)?'<span class="label bg-green">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"9"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"9"=>'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
+ 				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  				"12"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"13"=>'<a target="_blank" href="'.$url2.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"14"=>($reg->est_reg)?
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(

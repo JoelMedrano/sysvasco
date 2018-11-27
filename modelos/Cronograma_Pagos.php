@@ -96,7 +96,7 @@ Class Cronograma_Pagos
 					 DATE(fec_pag) AS fec_pag,
 					 DATE(desde) AS desde,
 					 DATE(hasta) AS hasta,
-					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
+					 IFNULL(DATEDIFF(hasta,desde),0) +1 AS cant_dias,
 		 			 est_reg 
 			FROM cronograma_pagos cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
@@ -122,7 +122,7 @@ Class Cronograma_Pagos
 		 			 DATE(fec_pag) AS fec_pag,
 		 			 DATE(desde) AS desde,
 					 DATE(hasta) AS hasta,
-					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
+					 IFNULL(DATEDIFF(hasta,desde),0) +1 AS cant_dias, /*Agregado el  27112018*/
 					 est_reg 
 			FROM cronograma_pagos cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
@@ -141,7 +141,7 @@ Class Cronograma_Pagos
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT DISTINCT 'CP' AS cp, obs,   id_ano, TbPea.Des_Corta AS Ano, est_reg FROM cronograma_pagos cp
+		$sql="SELECT DISTINCT 'CP' AS cp, obs,   id_ano, TbPea.Des_Corta AS Ano, cp.est_reg FROM cronograma_pagos cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano
 				AND TbPea.Cod_tabla='TPEA'

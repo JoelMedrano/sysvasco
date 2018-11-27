@@ -73,8 +73,8 @@ switch ($_GET["op"]){
                 "5"=>$reg->area_trab,
                 "6"=>$reg->est_reg,
                 "7"=>$reg->num_doc_trab,
-                "8"=>($reg->id_trab)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>'
+                "8"=>($reg->id_trab)?'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>'
  				);
  		}
  		$results = array(

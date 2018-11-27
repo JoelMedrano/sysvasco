@@ -325,22 +325,54 @@ $id_trab_data_adjunta=isset($_POST["id_trab_data_adjunta"])? limpiarCadena($_POS
 
 
 
+
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		if (empty($id_trab)){
-			$rspta=$trabajador->insertar($nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
+
+			//Agregado el 27/11/2018
+		
+			$codigo_ingresado=$trabajador->traernuevocodigo($id_tip_plan);
+	        $regc=$codigo_ingresado->fetch_object();
+	        $id=$regc->id;
+
+	         //obtengop el largo del numero
+			 $largo_numero = strlen($id);
+			 //especifico el largo maximo de la cadena
+			 $largo_maximo = 4;
+			 //tomo la cantidad de ceros a agregar
+			 $agregar = $largo_maximo - $largo_numero;
+			 //agrego los ceros
+			 for($i =0; $i<$agregar; $i++){
+			 $id = "0".$id;
+			 }
+
+			 if ($id_tip_plan=='1') {
+			 	$id = "P".$id;
+			 }else if ($id_tip_plan=='2') {
+			 	$id = "I".$id;
+			 }
+
+			  
+
+
+
+			
+
+
+			$rspta=$trabajador->insertar($id, $nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
 										 $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost,
 									     $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
 									     $fec_ing_interno, $fec_sal_interno, $nro_cta_cts, $nro_cta_sue, $id_pag_vac_cts );
 
-			$rspta=$trabajador->insertar_trabajador_familia( $fec_reg, $usu_reg, $pc_reg );
-			$rspta=$trabajador->insertar_trabajador_estudios( $fec_reg, $usu_reg, $pc_reg );
-			$rspta=$trabajador->insertar_trabajador_conocimiento( $fec_reg, $usu_reg, $pc_reg );
-			$rspta=$trabajador->insertar_trabajador_exp_laboral( $fec_reg, $usu_reg, $pc_reg );
-            $rspta=$trabajador->insertar_trabajador_salud( $fec_reg, $usu_reg, $pc_reg );
-			$rspta=$trabajador->insertar_trabajador_afiliacion( $fec_reg, $usu_reg, $pc_reg );
-			$rspta=$trabajador->insertar_trabajador_data_adjunta( $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_familia( $id, $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_estudios( $id, $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_conocimiento( $id, $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_exp_laboral( $id, $fec_reg, $usu_reg, $pc_reg );
+            $rspta=$trabajador->insertar_trabajador_salud( $id, $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_afiliacion( $id, $fec_reg, $usu_reg, $pc_reg );
+			$rspta=$trabajador->insertar_trabajador_data_adjunta( $id,  $fec_reg, $usu_reg, $pc_reg );
 
 			
 
@@ -1200,16 +1232,16 @@ switch ($_GET["op"]){
  				"6"=>$reg->area_trab,
  				"7"=>$reg->funcion,
  				"8"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
- 				'<span class="label bg-red">Cesado</span>',
- 				"9"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				'<span class="label bg-red">Cesado</span>',  
+ 				"9"=>'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
- 				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>',
+ 				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
+ 				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  				"12"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"13"=>'<a target="_blank" href="'.$url2.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"14"=>($reg->est_reg)?
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_trab.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_trab.')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(

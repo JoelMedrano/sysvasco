@@ -113,8 +113,8 @@ switch ($_GET["op"]){
  				"0"=>$reg->cp,
  				"1"=>$reg->Ano,
  				"2"=>$reg->obs,
- 				"3"=>($reg->est_reg=='Aceptado')?'<span class="label bg-green">Aceptado</span>':
- 				'<span class="label bg-red">Anulado</span>',
+ 				"3"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
+ 				'<span class="label bg-red">Inactivo</span>',
  				"4"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ano.')"><i class="fa fa-pencil"></i></button>',
  				);
  		}

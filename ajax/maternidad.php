@@ -294,8 +294,8 @@ switch ($_GET["op"]){
  				"4"=>$reg->nombres,
  				"5"=>($reg->est_reg=='1')?'<span class="label bg-green">ACTIVO</span>':
  				'<span class="label bg-red">INACTIVO</span>',
- 				"6"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_trab.')"><i class="fa fa-pencil"></i></button>'
+ 				"6"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>'
  				); 
  		}
  		$results = array(
