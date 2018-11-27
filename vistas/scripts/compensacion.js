@@ -38,10 +38,38 @@ function limpiar() {
 function mostrarform(flag) {
 	limpiar();
 	if (flag) {
+
+
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
 		$("#btnGuardar").prop("disabled", false);
 		$("#btnagregar").hide();
+
+		$("#id_trab").val("0");
+		$('#id_trab').selectpicker('refresh');
+		$("#id_trab").val("").trigger('change');
+
+		$("#id_hor_per").val("0");
+		$('#id_hor_per').selectpicker('refresh');
+		$("#id_hor_per").val("").trigger('change');
+
+		$("#hor_per").val("0");
+		$('#hor_per').selectpicker('refresh');
+		$("#hor_per").val("").trigger('change');
+
+		$("#id_hor_ext").val("0");
+		$('#id_hor_ext').selectpicker('refresh');
+		$("#id_hor_ext").val("").trigger('change');
+
+		$("#hor_ext").val("0");
+		$('#hor_ext').selectpicker('refresh');
+		$("#hor_ext").val("").trigger('change');
+
+		$("#total").val("");
+
+
+
+
 	} else {
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();

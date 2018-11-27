@@ -66,7 +66,7 @@ if ($_SESSION['rrhh']==1)
 
                       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <label>Trabajador(*):</label>
-                        <input type="text" name="id_compensacion" id="id_compensacion">
+                        <input type="hidden" name="id_compensacion" id="id_compensacion">
                         <select id="id_trab" name="id_trab" class="form-control selectpicker" data-live-search="true" required></select>
                       </div>
 
@@ -97,7 +97,7 @@ if ($_SESSION['rrhh']==1)
                       <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
 
                         <label>Compensar:</label>
-                        <input type="text" class="form-control" name="total" id="total" placeholder="00:00">
+                        <input type="text" class="form-control" name="total" id="total" placeholder="00:00:00" readonly>
                         <br>
                         <button class="btn btn-success" type="button" onclick="restarHoras()">Restar</button>
 

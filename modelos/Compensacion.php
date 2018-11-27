@@ -120,6 +120,8 @@ Class Compensacion
         return ejecutarConsulta($sql);
     }
 
+
+    //TODO: QUERY SELECT TARDANZAS
     public function selectTardanza($id_trab)
     {
         $sql="SELECT 
@@ -183,7 +185,8 @@ Class Compensacion
                         WHERE hpp.id_incidencia IN ('1', '2') 
                         AND hpp.descontado = '2' 
                         AND hpp.descontar = '1' 
-                        AND tr.id_trab = '$id_trab'";
+                        AND tr.id_trab = '$id_trab'
+                        AND  hpp.tiempo_fin <> '00:00:00'";
 
         return ejecutarConsulta($sql);
     }
@@ -221,6 +224,7 @@ Class Compensacion
         return ejecutarConsulta($sql);
     }
 
+    //TODO: SELECT HORAS EXTRA
     public function selectExtras($id_trab)
     {
         $sql="SELECT DISTINCT 
@@ -281,7 +285,8 @@ Class Compensacion
           ON ff.id_fec_abono = hep.id_fec_abono 
       WHERE hep.abonar = '1' 
         AND hep.abonado = '2' 
-        AND tr.id_trab = '$id_trab'";
+        AND tr.id_trab = '$id_trab'
+        AND hep.tiempo_fin<>'00:00:00'";
 
         return ejecutarConsulta($sql);
     }
