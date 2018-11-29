@@ -97,39 +97,77 @@ if ($_SESSION['escritorio']==1)
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
-                    <div class="panel-body">
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                      <div class="panel-body">
+
+                        <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
                           <div class="small-box bg-aqua">
-                              <div class="inner">
-                                <h4 style="font-size:17px;">
-                                  <strong><?php echo $totalprod; ?> Unidades</strong>
-                                </h4>
-                                <p>Produccion del Mes</p>
-                              </div>
-                              <div class="icon">
-                                <i class="ion ion-bag"></i>
-                              </div>
-                              <a href="movimientos_detalle.php" class="small-box-footer">Produccion del Mes <i class="fa fa-arrow-circle-right"></i></a>
+                            <div class="inner">
+                              <h4 style="font-size:17px;">
+                                <strong>
+                                  <?php echo $totalprod; ?> Unidades</strong>
+                              </h4>
+                              <p>Produccion del Mes</p>
                             </div>
+                            <div class="icon">
+                              <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="movimientos_detalle.php" class="small-box-footer">Produccion del Mes <i class="fa fa-arrow-circle-right"></i></a>
+                          </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
                           <div class="small-box bg-green">
-                              <div class="inner">
-                                <h4 style="font-size:17px;">
-                                  <strong><?php echo $totalvent; ?> Unidades</strong>
-                                </h4>
-                                <p>Ventas del Mes</p>
-                              </div>
-                              <div class="icon">
-                                <i class="ion ion-bag"></i>
-                              </div>
-                              <a href="venta.php" class="small-box-footer">Ventas del Mes <i class="fa fa-arrow-circle-right"></i></a>
+                            <div class="inner">
+                              <h4 style="font-size:17px;">
+                                <strong>
+                                  <?php echo $totalvent; ?> Unidades</strong>
+                              </h4>
+                              <p>Ventas del Mes</p>
                             </div>
+                            <div class="icon">
+                              <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="venta.php" class="small-box-footer">Ventas del Mes <i class="fa fa-arrow-circle-right"></i></a>
+                          </div>
                         </div>
+
+                      </div>
 
                     </div>
+
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                      <div class="box-header with-border">
+                        <b>TARDANZAS DEL DIA</b>
+                      </div>
+
+                      <div class="panel-body table-responsive" id="listadoregistros">
+                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                          <thead>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                          <tfoot>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                          </tfoot>
+                        </table>
+                      </div>
+
+                    </div>
+
+
+
 
                     <div class="panel-body">
 
@@ -192,7 +230,8 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/categoria.js"></script>
+
+<script type="text/javascript" src="scripts/etardanzas.js"></script>
 <script src="../public/js/chart.min.js"></script>
 <script src="../public/js/Chart.bundle.min.js"></script>
 <script type="text/javascript">

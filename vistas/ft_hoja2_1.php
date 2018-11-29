@@ -85,37 +85,37 @@ if ($_SESSION['udp']==1)
 
                 <div class="form-group col-lg-8 col-md-8 col-sm-7 col-xs-12">
                   <label>Tela 1(*):</label>
-                  <select id="tela1" name="tela1" class="form-control selectpicker" data-live-search="true" required>
+                  <select id="tela1" name="tela1" class="form-control selectpicker" data-live-search="true">
                   </select>
                 </div>
 
                 <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-12">
                   <label>Color 1(*):</label>
-                  <select id="color1" name="color1" class="form-control selectpicker" data-live-search="true" required>
+                  <select id="color1" name="color1" class="form-control selectpicker" data-live-search="true">
                   </select>
                 </div>
 
                 <div class="form-group col-lg-8 col-md-8 col-sm-7 col-xs-12">
                   <label>Tela 2(*):</label>
-                  <select id="tela2" name="tela2" class="form-control selectpicker" data-live-search="true" required>
+                  <select id="tela2" name="tela2" class="form-control selectpicker" data-live-search="true">
                   </select>
                 </div>
 
                 <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-12">
                   <label>Color 2(*):</label>
-                  <select id="color2" name="color2" class="form-control selectpicker" data-live-search="true" required>
+                  <select id="color2" name="color2" class="form-control selectpicker" data-live-search="true">
                   </select>
                 </div>
 
                 <div class="form-group col-lg-8 col-md-8 col-sm-7 col-xs-12">
                   <label>Tela 3(*):</label>
-                  <select id="tela3" name="tela3" class="form-control selectpicker" data-live-search="true" required>
+                  <select id="tela3" name="tela3" class="form-control selectpicker" data-live-search="true">
                   </select>
                 </div>
 
                 <div class="form-group col-lg-4 col-md-4 col-sm-5 col-xs-12">
                   <label>COLOR 3(*):</label>
-                  <select id="color3" name="color3" class="form-control selectpicker" data-live-search="true" required>
+                  <select id="color3" name="color3" class="form-control selectpicker" data-live-search="true">
                   </select>
                 </div>
 

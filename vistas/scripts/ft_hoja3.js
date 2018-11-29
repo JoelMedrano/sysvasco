@@ -23,6 +23,10 @@ function limpiar() {
 	$("#num_comprobante").val("");
 	$("#impuesto").val("0");
 
+
+	$("#avios_muestra").attr("src", "");
+	$("#aviosactual_avios").val("");
+
 	$("#total_venta").val("");
 	$(".filas").remove();
 	$("#total").html("0");
@@ -155,6 +159,10 @@ function mostrar(idavios) {
 		$("#idmft_color").val(data.idmft_color);
 		$("#idmft_color").selectpicker('refresh');
 
+		$("#avios_muestra").show();
+		$("#avios_muestra").attr("src", "../files/avios/" + data.avios);
+		$("#aviosactual_avios").val(data.avios);
+
 
 		$("#idavios").val(data.idavios);
 
@@ -204,7 +212,7 @@ function marcarImpuesto() {
 
 function agregarDetalle(idarticulo, articulo,color,cod_linea, und, prov) {
 	var consumo = 1;
-	var consumo_tenido = 1;
+	var consumo_tenido = 0;
 	//var descuento = 0;
 
 	if (idarticulo != "") {
@@ -216,8 +224,8 @@ function agregarDetalle(idarticulo, articulo,color,cod_linea, und, prov) {
 			'<td><input type="text" name="cod_linea[]" id="cod_linea[]" value="' + cod_linea + '" readonly></td>' +
 			'<td><input type="text" name="und[]" id="und[]" value="' + und + '" readonly></td>' +
 			'<td><input type="text" name="ubicacion[]"></td>' +
-			'<td><input type="number" name="consumo[]" id="consumo[]" value="' + consumo + '"></td>' +
-			'<td><input type="number" name="consumo_tenido[]" id="consumo_tenido[]" value="' + consumo_tenido + '"></td>' +
+			'<td><input type="number" step="any" name="consumo[]" id="consumo[]" value="' + consumo + '"></td>' +
+			'<td><input type="number" step="any" name="consumo_tenido[]" id="consumo_tenido[]" value="' + consumo_tenido + '"></td>' +
 			'<td><input type="text" name="prov[]" id="prov[]" value="' + prov + '" readonly></td>' +
 			'<td></td>' +
 			'</tr>';

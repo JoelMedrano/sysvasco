@@ -8,21 +8,26 @@ $mft=new FT_hoja3();
 
 $idavios=isset($_POST["idavios"])? limpiarCadena($_POST["idavios"]):"";
 $idmft_color=isset($_POST["idmft_color"])? limpiarCadena($_POST["idmft_color"]):"";
+$avios=isset($_POST["avios"])? limpiarCadena($_POST["avios"]):"";
 
-$idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
-$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
-$idusuario=$_SESSION["idusuario"];
-$tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
-$serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
-$num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
-$fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
-$impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
-$total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
+
+		if (!file_exists($_FILES['avios']['tmp_name']) || !is_uploaded_file($_FILES['avios']['tmp_name'])) {
+			$avios = $_POST["aviosactual_avios"];
+		} else {
+			$ext = explode(".", $_FILES["avios"]["name"]);
+			if ($_FILES['avios']['type'] == "image/jpg" || $_FILES['avios']['type'] == "image/jpeg" || $_FILES['avios']['type'] == "image/png") {
+				$avios = round(microtime(true)).
+				'.'.end($ext);
+				move_uploaded_file($_FILES["avios"]["tmp_name"], "../files/avios/".$avios);
+			}
+		}
+
 		if (empty($idavios)){
-			$rspta=$mft->insertar($idmft_color,
+			$rspta=$mft->insertar(	$idmft_color,
+									$avios,
 									$_POST["idarticulo"],
 									$_POST["ubicacion"],
 									$_POST["consumo"],
@@ -33,10 +38,6 @@ switch ($_GET["op"]){
 		}
 	break;
 
-	case 'anular':
-		$rspta=$venta->anular($idventa);
- 		echo $rspta ? "Venta anulada" : "Venta no se puede anular";
-	break;
 
 	case 'mostrar':
 		$rspta=$mft->mostrar($idavios);
@@ -98,12 +99,12 @@ switch ($_GET["op"]){
  				"4"=>$reg->nom_mod,
  				"5"=>$reg->cod_color,
 				"6"=>$reg->color,
-				"7"=>($reg->estado=='por aprobar')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.                                       
+				"7"=>($reg->estado=='por aprobar')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idavios.')"><i class="fa fa-eye"></i></button>'.                                       
 				'<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'):
-				(($reg->estado=='rechazado')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.
-				' <button class="btn btn-danger" onclick="eliminar('.$reg->idmft.')"><i class="fa fa-trash"></i></button>'.
+				(($reg->estado=='rechazado')?('<button class="btn btn-warning" onclick="mostrar('.$reg->idavios.')"><i class="fa fa-eye"></i></button>'.
+				' <button class="btn btn-danger" onclick="eliminar('.$reg->idavios.')"><i class="fa fa-trash"></i></button>'.
 				'<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'):
-			  	( '<button class="btn btn-warning" onclick="mostrar('.$reg->idmft.')"><i class="fa fa-eye"></i></button>'.
+			  	( '<button class="btn btn-warning" onclick="mostrar('.$reg->idavios.')"><i class="fa fa-eye"></i></button>'.
 				'<a target="_blank" href="'.$url.$reg->idmft.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'))
 
  				);

@@ -322,6 +322,32 @@ Class ConsultasJ
 
 		return ejecutarConsulta($sql);
 	}
+	
+	public function listarTardanzas()
+	{
+		$sql="SELECT 
+		r.id_trab,
+		r.fecha,
+		r.hor_ent,
+		CONCAT(
+		  t.apepat_trab,
+		  ' ',
+		  t.apemat_trab,
+		  ', ',
+		  SUBSTRING_INDEX(t.nom_trab, ' ', 1)
+		) AS trabajador 
+	  FROM
+		reloj r 
+		LEFT JOIN trabajador t 
+		  ON r.id_trab = t.id_trab 
+	  WHERE YEAR(fecha) = YEAR(NOW()) 
+		AND MONTH(fecha) = MONTH(NOW()) 
+		AND DAY(fecha) = DAY(NOW()) 
+		AND r.hor_ent > '08:00:00' 
+	  ORDER BY r.hor_ent DESC";
+
+		return ejecutarConsulta($sql);
+	}
 
 
 }

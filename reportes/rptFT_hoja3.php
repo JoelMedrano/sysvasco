@@ -27,7 +27,7 @@ $idmft = $_GET["id"];
 include "Classes/PHPExcel.php";
 //include "../library/consulSQL.php";
 
- $conexion=mysql_connect("192.168.1.23","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
+ $conexion=mysql_connect("192.168.1.26","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
     mysql_select_db("db_corpvasco",$conexion);
 
       $fechaactual = getdate();
@@ -488,6 +488,8 @@ $subtitulo3->applyFromArray(
         'size' => 48
       )
   ));
+
+  
 //TODO:FIN DE RELLENO DE CUERPO
 
 //TODO:ESTILOS PARA LAS ESPECIFICACIONES
@@ -566,13 +568,30 @@ $sub21->applyFromArray(
       'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
     ),
     'borders' => array( //bordes
-      'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
-      'bottom' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
-      'left' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+      'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
     ),
-    'font' => array( //fuente
+      'font' => array( //fuente
       'bold' => false,
-      'size' => 40
+      'size' => 45
+    )
+));
+
+$sub22 = new PHPExcel_Style(); //nuevo estilo
+$sub22->applyFromArray(
+  array('alignment' => array( //alineacion
+      'wrap' => false,
+      'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+      'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+    ),
+    'borders' => array( //bordes
+      'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
+      'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+    ),
+      'font' => array( //fuente
+      'bold' => false,
+      'size' => 45
     )
 ));
 
@@ -1082,12 +1101,793 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($tex2, "Q$fila");
 
+  $fila=13; 
+  $objPHPExcel->getActiveSheet()->getRowDimension('13')->setRowHeight(203.25);
+
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "N°");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "B$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", "DESCRIPCION");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "C$fila");
+  $objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "C$fila:E$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("C$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", "ITEM");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "F$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("F$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "UNIDAD DE MEDIDA");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "G$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("G$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true); 
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", "UBICACION DE PRENDA");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "H$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("H$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", "CONSUMO x PRENDA");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "I$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true); 
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", "CONSUMO x PDA. + % TEÑIDO");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "J$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true); 
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", "PROVEEDOR");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "K$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", "COMBO 1");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "L$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("L$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", "COMBO 2");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "M$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", "COMBO 3");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "N$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("N$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", "COMBO 4");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "O$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("O$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   
+  $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", "COMBO 5");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "P$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("P$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
- 
+  $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", "COMBO 6");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "Q$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("Q$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-  //TODO:LARGO DE CELDAS
+    //TODO:DETALLE DE TELAS
+
+    $sql=mysql_query("SELECT 
+                              fc.idmft,
+                              fc.cod_color,
+                              da.ubicacion,
+                              da.consumo,
+                              da.consumo_tenido,
+                              mp.cod_linea,
+                              mp.descripcion,
+                              mp.und,
+                              mp.prov,
+                              MAX(
+                                
+                                CASE
+                                  
+                                  WHEN cc.contador = '1' 
+                                  THEN mp.color 
+                                  ELSE '-' 
+                                END
+                              ) AS '1',
+                              MAX(
+                                
+                                CASE
+                                  
+                                  WHEN cc.contador = '2' 
+                                  THEN mp.color 
+                                  ELSE '-' 
+                                END
+                              ) AS '2',
+                              MAX(
+                                
+                                CASE
+                                  
+                                  WHEN cc.contador = '3' 
+                                  THEN mp.color 
+                                  ELSE '-' 
+                                END
+                              ) AS '3',
+                              MAX(
+                                
+                                CASE
+                                  
+                                  WHEN cc.contador = '4' 
+                                  THEN mp.color 
+                                  ELSE '-' 
+                                END
+                              ) AS '4',
+                              MAX(
+                                
+                                CASE
+                                  
+                                  WHEN cc.contador = '5' 
+                                  THEN mp.color 
+                                  ELSE '-' 
+                                END
+                              ) AS '5',
+                              MAX(
+                                
+                                CASE
+                                  
+                                  WHEN cc.contador = '6' 
+                                  THEN mp.color 
+                                  ELSE '-' 
+                                END
+                              ) AS '6' 
+                            FROM
+                              fictec_color fc 
+                              LEFT JOIN 
+                                (SELECT 
+                                  (@i := @i + 1) AS contador,
+                                  idmft_color 
+                                FROM
+                                  
+                                  (SELECT 
+                                    @i := 0) r,
+                                  fictec_color fc 
+                                WHERE fc.idmft = '$idmft') AS cc 
+                                ON fc.idmft_color = cc.idmft_color 
+                              LEFT JOIN avios a 
+                                ON fc.idmft_color = a.idmft_color 
+                              LEFT JOIN detalle_avios da 
+                                ON a.idavios = da.idavios 
+                              LEFT JOIN 
+                                (SELECT DISTINCT 
+                                  SUBSTRING(p.CodFab, 1, 6) AS cod_linea,
+                                  p.Codpro AS codpro,
+                                  p.DesPro AS descripcion,
+                                  tmd.Des_Larga AS color,
+                                  Tb2.Des_Corta AS und,
+                                  IFNULL(prov.razpro, 'PENDIENTE') AS prov 
+                                FROM
+                                  Producto AS p 
+                                  LEFT JOIN 
+                                    (SELECT 
+                                      pmp.codpro,
+                                      pro.razpro 
+                                    FROM
+                                      preciomp pmp 
+                                      LEFT JOIN proveedor pro 
+                                        ON pmp.CodProv1 = pro.CodRuc) AS prov 
+                                    ON prov.codpro = p.Codpro,
+                                  Tabla_M_Detalle AS tmd,
+                                  Tabla_M_Detalle AS Tb1,
+                                  Tabla_M_Detalle AS Tb2,
+                                  Tabla_M_Detalle AS Tb4 
+                                WHERE tmd.Cod_Tabla IN ('TCOL') 
+                                  AND Tb2.Cod_Tabla IN ('TUND') 
+                                  AND tB4.Cod_Tabla IN ('TLIN') 
+                                  AND Tb1.Cod_Tabla IN ('TSUB') 
+                                  AND tmd.Cod_Argumento = p.ColPro 
+                                  AND Tb2.Cod_Argumento = p.UndPro 
+                                  AND LEFT(p.CodFab, 3) = Tb4.Des_Corta 
+                                  AND SUBSTRING(p.CodFab, 4, 3) = Tb1.Valor_3 
+                                  AND Tb4.Des_Corta = Tb1.Des_Corta) AS mp 
+                                ON da.idarticulo = mp.codpro 
+                            WHERE fc.idmft = '$idmft' 
+                              AND a.idavios IS NOT NULL 
+                            GROUP BY fc.idmft,
+                              mp.descripcion ") or die(mysql_error());
+
+
+
+
+while($res=mysql_fetch_array($sql)){
+
+
+$fila+=1;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+
+$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", utf8_encode($res["descripcion"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($res["cod_linea"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($res["und"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("H$fila", utf8_encode($res["ubicacion"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($res["consumo"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($res["consumo_tenido"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("K$fila", utf8_encode($res["prov"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($res["1"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("M$fila", utf8_encode($res["2"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("N$fila", utf8_encode($res["3"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("O$fila", utf8_encode($res["4"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("P$fila", utf8_encode($res["5"]));
+$objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", utf8_encode($res["6"]));
+
+
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+}
+//NOTAS:FIN DE WHILE DETALLES
+
+//NOTAS:INICIO DE RELLENO
+
+$fila=14;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "1");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=15;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "2");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=16;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "3");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=17;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "4");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=18;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "5");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=19;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "6");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=20;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "7");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=21;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "8");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=22;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "9");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=23;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "10");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=24;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "11");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=25;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "12");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=26;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "13");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=27;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "14");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=28;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "15");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=29;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "16");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=30;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "17");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=31;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "18");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=32;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "19");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=33;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "20");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=34;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "21");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=35;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "22");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+$fila=36;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(84);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "23");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub9, "B$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "C$fila:E$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "F$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "G$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "H$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "I$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "J$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "K$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "L$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "M$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "N$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "O$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub21, "P$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub12, "Q$fila");
+
+
+
+
+//NOTAS:FIN DE RELLENO
+
+//NOTAS: SEGUNDA PARTE DEL CUERPO
+
+$fila=37;
+$objPHPExcel->getActiveSheet()->getRowDimension($fila)->setRowHeight(81);
+
+$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "GRAFICO DE AVIOS");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "B$fila");
+$objPHPExcel->getActiveSheet()->mergeCells("B$fila:Q$fila");
+$objPHPExcel->getActiveSheet()->setSharedStyle($sub4, "B$fila:Q$fila");
+$objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+  //TODO:incluir una imagen
+
+  $sqlIma=mysql_query(" SELECT 
+                        fc.idmft,
+                        a.avios 
+                      FROM
+                        fictec_color fc 
+                        LEFT JOIN avios a 
+                          ON fc.idmft_color = a.idmft_color 
+                      WHERE fc.idmft = '$idmft' 
+                        AND avios IS NOT NULL 
+                      GROUP BY fc.idmft " ) or die(mysql_error());
+
+
+$resIma=mysql_fetch_array($sqlIma);
+
+
+  $objDrawing = new PHPExcel_Worksheet_Drawing();
+  $objDrawing->setPath('../files/avios/'.$resIma["avios"].''); //ruta
+  $objDrawing->setWidthAndHeight(3430,2404);
+  //$objDrawing->setWeight(100); //altura
+  $objDrawing->setCoordinates('B38');
+  $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
+
+
+
+
+
+  //TODO:fin: incluir una imagen
+
+
+  //FIXME:LARGO DE CELDAS
 
   $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(3.86);
   $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(23.71);

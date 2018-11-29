@@ -11,10 +11,10 @@ Class FT_hoja3
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idmft_color,$idarticulo,$ubicacion,$consumo,$consumo_tenido)
+	public function insertar($idmft_color,$avios,$idarticulo,$ubicacion,$consumo,$consumo_tenido)
 	{
-		$sql="INSERT INTO avios (idmft_color,estado)
-		VALUES ('$idmft_color','por aprobar')";
+		$sql="INSERT INTO avios (idmft_color,estado,avios)
+		VALUES ('$idmft_color','por aprobar','$avios')";
 		//return ejecutarConsulta($sql);
 		$idaviosnew=ejecutarConsulta_retornarID($sql);
 
@@ -174,7 +174,7 @@ Class FT_hoja3
 		  ON fc.cod_color = c.cod_color 
 		LEFT JOIN avios a 
 		  ON fc.idmft_color = a.idmft_color 
-	  ORDER BY mft.cod_mod";
+	  ORDER BY mft.cod_mod,fc.idmft_color ASC";
 
 
 

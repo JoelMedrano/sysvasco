@@ -23,7 +23,7 @@ if ($_SESSION['udp']==1)
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h1 class="box-title">Venta <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i
+            <h1 class="box-title">AVIOS <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i
                   class="fa fa-plus-circle"></i> Agregar</button></h1>
             <div class="box-tools pull-right">
             </div>
@@ -59,13 +59,20 @@ if ($_SESSION['udp']==1)
           <div class="panel-body" style="height: 400px;" id="formularioregistros">
             <form name="formulario" id="formulario" method="POST">
 
-              <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+              <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label>COMBOS(*):</label>
                 <input type="hidden" name="idavios" id="idavios">
                 <select id="idmft_color" name="idmft_color" class="form-control selectpicker" data-live-search="true"
                   required>
 
                 </select>
+              </div>
+
+              <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <label>Imagen de Avios:</label>
+                <input type="file" class="form-control" name="avios" id="avios">
+                <input type="hidden" name="aviosactual_avios" id="aviosactual_avios">
+                <img src="" width="150px" height="180px" id="avios_muestra">
               </div>
 
               <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
