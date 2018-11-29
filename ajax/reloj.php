@@ -40,6 +40,8 @@ switch ($_GET["op"]){
 		$codigo_ingresado=$reloj->consultar_turno($id_trab);
         $regc=$codigo_ingresado->fetch_object();
         $id_turno=$regc->id_turno;
+
+       // console.log($ID_TURNO);
        
 
 		 if($id_turno=='1'){

@@ -46,7 +46,7 @@ Class Horario_Refrigerio_Trabajador
 															$usu_reg,
 															$pc_reg)
 	{
-		$sql="UPDATE horario_refrigerio_trabajador SET   id_trab='$id_trab',
+		$sql="UPDATE horario_refrigerio_trabajador SET 
 														 id_horario='$id_horario',
 														 cod_ref='$cod_ref',
 														 fec_mod='$fec_reg',
@@ -125,7 +125,8 @@ Class Horario_Refrigerio_Trabajador
 				hrt.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tra.id_area
-				AND tare.cod_tabla='TARE'";
+				AND tare.cod_tabla='TARE'
+				WHERE tra.est_reg='1'";
 		return ejecutarConsulta($sql);
 	}
 

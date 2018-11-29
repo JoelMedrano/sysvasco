@@ -3,6 +3,9 @@
     overflow: scroll;
 }
 
+.form-control{
+	text-transform: uppercase;
+}
 
 
 

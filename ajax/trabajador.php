@@ -478,7 +478,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dni_trab"]["name"]);
 			if ($_FILES['dni_trab']['type'] == "image/jpg" || $_FILES['dni_trab']['type'] == "image/jpeg" || $_FILES['dni_trab']['type'] == "image/png")
 			{
-				$dni_trab = round(microtime(true)) . '.' . end($ext);
+				$dni_trab = round(microtime(true)) .'2'. '.' . end($ext);
 				move_uploaded_file($_FILES["dni_trab"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dni_trab);
 			}
 		}
@@ -496,7 +496,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_dip_cur_esp"]["name"]);
 			if ($_FILES['dat_dip_cur_esp']['type'] == "image/jpg" || $_FILES['dat_dip_cur_esp']['type'] == "image/jpeg" || $_FILES['dat_dip_cur_esp']['type'] == "image/png")
 			{
-				$dat_dip_cur_esp = round(microtime(true)) . '.' . end($ext);
+				$dat_dip_cur_esp = round(microtime(true)) .'3'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_dip_cur_esp"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_dip_cur_esp);
 			}
 		}
@@ -512,7 +512,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_liquidacion"]["name"]);
 			if ($_FILES['dat_liquidacion']['type'] == "image/jpg" || $_FILES['dat_liquidacion']['type'] == "image/jpeg" || $_FILES['dat_liquidacion']['type'] == "image/png")
 			{
-				$dat_liquidacion = round(microtime(true)) . '.' . end($ext);
+				$dat_liquidacion = round(microtime(true)) .'4'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_liquidacion"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_liquidacion);
 			}
 		}
@@ -536,7 +536,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_hij1"]["name"]);
 			if ($_FILES['dat_hij1']['type'] == "image/jpg" || $_FILES['dat_hij1']['type'] == "image/jpeg" || $_FILES['dat_hij1']['type'] == "image/png")
 			{
-				$dat_hij1 = round(microtime(true)) . '.' . end($ext);
+				$dat_hij1 = round(microtime(true)) .'5'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_hij1"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij1);
 			}
 		}
@@ -553,7 +553,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_hij2"]["name"]);
 			if ($_FILES['dat_hij2']['type'] == "image/jpg" || $_FILES['dat_hij2']['type'] == "image/jpeg" || $_FILES['dat_hij2']['type'] == "image/png")
 			{
-				$dat_hij2 = round(microtime(true)) . '.' . end($ext);
+				$dat_hij2 = round(microtime(true)) .'6'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_hij2"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij2);
 			}
 		}
@@ -570,7 +570,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_hij3"]["name"]);
 			if ($_FILES['dat_hij3']['type'] == "image/jpg" || $_FILES['dat_hij3']['type'] == "image/jpeg" || $_FILES['dat_hij3']['type'] == "image/png")
 			{
-				$dat_hij3 = round(microtime(true)) . '.' . end($ext);
+				$dat_hij3 = round(microtime(true)) .'7'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_hij3"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij3);
 			}
 		}
@@ -586,7 +586,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_hij4"]["name"]);
 			if ($_FILES['dat_hij4']['type'] == "image/jpg" || $_FILES['dat_hij4']['type'] == "image/jpeg" || $_FILES['dat_hij4']['type'] == "image/png")
 			{
-				$dat_hij4 = round(microtime(true)) . '.' . end($ext);
+				$dat_hij4 = round(microtime(true)) .'8'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_hij4"]["tmp_name"], "../files/trabajador_familia/" . $dat_hij4);
 			}
 		}
@@ -602,7 +602,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_con"]["name"]);
 			if ($_FILES['dat_con']['type'] == "image/jpg" || $_FILES['dat_con']['type'] == "image/jpeg" || $_FILES['dat_con']['type'] == "image/png")
 			{
-				$dat_con = round(microtime(true)) . '.' . end($ext);
+				$dat_con = round(microtime(true)) .'9'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_con"]["tmp_name"], "../files/trabajador_familia/" . $dat_con);
 			}
 		}
@@ -618,7 +618,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_luz_agua"]["name"]);
 			if ($_FILES['dat_luz_agua']['type'] == "image/jpg" || $_FILES['dat_luz_agua']['type'] == "image/jpeg" || $_FILES['dat_luz_agua']['type'] == "image/png")
 			{
-				$dat_luz_agua = round(microtime(true)) . '.' . end($ext);
+				$dat_luz_agua = round(microtime(true)) .'10'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_luz_agua"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_luz_agua);
 			}
 		}
@@ -637,7 +637,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_ant_pol"]["name"]);
 			if ($_FILES['dat_ant_pol']['type'] == "image/jpg" || $_FILES['dat_ant_pol']['type'] == "image/jpeg" || $_FILES['dat_ant_pol']['type'] == "image/png")
 			{
-				$dat_ant_pol = round(microtime(true)) . '.' . end($ext);
+				$dat_ant_pol = round(microtime(true)) .'11'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_ant_pol"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_ant_pol);
 			}
 		}
@@ -653,7 +653,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_med"]["name"]);
 			if ($_FILES['dat_cer_med']['type'] == "image/jpg" || $_FILES['dat_cer_med']['type'] == "image/jpeg" || $_FILES['dat_cer_med']['type'] == "image/png")
 			{
-				$dat_cer_med = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_med = round(microtime(true)) .'12'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_med"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_med);
 			}
 		}
@@ -669,7 +669,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_dec_dom"]["name"]);
 			if ($_FILES['dat_dec_dom']['type'] == "image/jpg" || $_FILES['dat_dec_dom']['type'] == "image/jpeg" || $_FILES['dat_dec_dom']['type'] == "image/png")
 			{
-				$dat_dec_dom = round(microtime(true)) . '.' . end($ext);
+				$dat_dec_dom = round(microtime(true)) .'13'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_dec_dom"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_dec_dom);
 			}
 		}
@@ -685,7 +685,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cv"]["name"]);
 			if ($_FILES['dat_cv']['type'] == "image/jpg" || $_FILES['dat_cv']['type'] == "image/jpeg" || $_FILES['dat_cv']['type'] == "image/png")
 			{
-				$dat_cv = round(microtime(true)) . '.' . end($ext);
+				$dat_cv = round(microtime(true)) .'14'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cv"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cv);
 			}
 		}
@@ -701,7 +701,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_gra_tit"]["name"]);
 			if ($_FILES['dat_gra_tit']['type'] == "image/jpg" || $_FILES['dat_gra_tit']['type'] == "image/jpeg" || $_FILES['dat_gra_tit']['type'] == "image/png")
 			{
-				$dat_gra_tit = round(microtime(true)) . '.' . end($ext);
+				$dat_gra_tit = round(microtime(true)) .'15'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_gra_tit"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_gra_tit);
 			}
 		}
@@ -717,7 +717,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_idi"]["name"]);
 			if ($_FILES['dat_idi']['type'] == "image/jpg" || $_FILES['dat_idi']['type'] == "image/jpeg" || $_FILES['dat_idi']['type'] == "image/png")
 			{
-				$dat_idi = round(microtime(true)) . '.' . end($ext);
+				$dat_idi = round(microtime(true)) .'16'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_idi"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_idi);
 			}
 		}
@@ -733,7 +733,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_tec"]["name"]);
 			if ($_FILES['dat_cer_tec']['type'] == "image/jpg" || $_FILES['dat_cer_tec']['type'] == "image/jpeg" || $_FILES['dat_cer_tec']['type'] == "image/png")
 			{
-				$dat_cer_tec = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_tec = round(microtime(true)) .'17'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_tec"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tec);
 			}
 		}
@@ -749,7 +749,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_adi"]["name"]);
 			if ($_FILES['dat_adi']['type'] == "image/jpg" || $_FILES['dat_adi']['type'] == "image/jpeg" || $_FILES['dat_adi']['type'] == "image/png")
 			{
-				$dat_adi = round(microtime(true)) . '.' . end($ext);
+				$dat_adi = round(microtime(true)) .'18'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_adi"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_adi);
 			}
 		}
@@ -765,7 +765,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_tra1"]["name"]);
 			if ($_FILES['dat_cer_tra1']['type'] == "image/jpg" || $_FILES['dat_cer_tra1']['type'] == "image/jpeg" || $_FILES['dat_cer_tra1']['type'] == "image/png")
 			{
-				$dat_cer_tra1 = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_tra1 = round(microtime(true)) .'19'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_tra1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra1);
 			}
 		}
@@ -780,7 +780,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_tra2"]["name"]);
 			if ($_FILES['dat_cer_tra2']['type'] == "image/jpg" || $_FILES['dat_cer_tra2']['type'] == "image/jpeg" || $_FILES['dat_cer_tra2']['type'] == "image/png")
 			{
-				$dat_cer_tra2 = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_tra2 = round(microtime(true)) .'20'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_tra2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra2);
 			}
 		}
@@ -795,7 +795,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_tra3"]["name"]);
 			if ($_FILES['dat_cer_tra3']['type'] == "image/jpg" || $_FILES['dat_cer_tra3']['type'] == "image/jpeg" || $_FILES['dat_cer_tra3']['type'] == "image/png")
 			{
-				$dat_cer_tra3 = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_tra3 = round(microtime(true)) .'21'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_tra3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_tra3);
 			}
 		}
@@ -811,7 +811,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_res1"]["name"]);
 			if ($_FILES['dat_cer_res1']['type'] == "image/jpg" || $_FILES['dat_cer_res1']['type'] == "image/jpeg" || $_FILES['dat_cer_res1']['type'] == "image/png")
 			{
-				$dat_cer_res1 = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_res1 = round(microtime(true)) .'22'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_res1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_res1);
 			}
 		}
@@ -826,7 +826,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_res2"]["name"]);
 			if ($_FILES['dat_cer_res2']['type'] == "image/jpg" || $_FILES['dat_cer_res2']['type'] == "image/jpeg" || $_FILES['dat_cer_res2']['type'] == "image/png")
 			{
-				$dat_cer_res2 = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_res2 = round(microtime(true)) .'23'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_res2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_res2);
 			}
 		}
@@ -841,7 +841,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_cer_res3"]["name"]);
 			if ($_FILES['dat_cer_res3']['type'] == "image/jpg" || $_FILES['dat_cer_res3']['type'] == "image/jpeg" || $_FILES['dat_cer_res3']['type'] == "image/png")
 			{
-				$dat_cer_res3 = round(microtime(true)) . '.' . end($ext);
+				$dat_cer_res3 = round(microtime(true)) .'24'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_cer_res3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_cer_res3);
 			}
 		}
@@ -866,7 +866,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_pas"]["name"]);
 			if ($_FILES['dat_pas']['type'] == "image/jpg" || $_FILES['dat_pas']['type'] == "image/jpeg" || $_FILES['dat_pas']['type'] == "image/png")
 			{
-				$dat_pas = round(microtime(true)) . '.' . end($ext);
+				$dat_pas = round(microtime(true)) .'25'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_pas"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pas);
 			}
 		}
@@ -882,7 +882,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_bre"]["name"]);
 			if ($_FILES['dat_bre']['type'] == "image/jpg" || $_FILES['dat_bre']['type'] == "image/jpeg" || $_FILES['dat_bre']['type'] == "image/png")
 			{
-				$dat_bre = round(microtime(true)) . '.' . end($ext);
+				$dat_bre = round(microtime(true)) .'26'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_bre"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_bre);
 			}
 		}
@@ -898,7 +898,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_pla_liq1"]["name"]);
 			if ($_FILES['dat_pla_liq1']['type'] == "image/jpg" || $_FILES['dat_pla_liq1']['type'] == "image/jpeg" || $_FILES['dat_pla_liq1']['type'] == "image/png")
 			{
-				$dat_pla_liq1 = round(microtime(true)) . '.' . end($ext);
+				$dat_pla_liq1 = round(microtime(true)) .'27'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_pla_liq1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pla_liq1);
 			}
 		}
@@ -913,7 +913,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_pla_liq2"]["name"]);
 			if ($_FILES['dat_pla_liq2']['type'] == "image/jpg" || $_FILES['dat_pla_liq2']['type'] == "image/jpeg" || $_FILES['dat_pla_liq2']['type'] == "image/png")
 			{
-				$dat_pla_liq2 = round(microtime(true)) . '.' . end($ext);
+				$dat_pla_liq2 = round(microtime(true)) .'28'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_pla_liq2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pla_liq2);
 			}
 		}
@@ -928,7 +928,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_pla_liq3"]["name"]);
 			if ($_FILES['dat_pla_liq3']['type'] == "image/jpg" || $_FILES['dat_pla_liq3']['type'] == "image/jpeg" || $_FILES['dat_pla_liq3']['type'] == "image/png")
 			{
-				$dat_pla_liq3 = round(microtime(true)) . '.' . end($ext);
+				$dat_pla_liq3 = round(microtime(true)) .'29'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_pla_liq3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_pla_liq3);
 			}
 		}
@@ -943,7 +943,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_int_liq1"]["name"]);
 			if ($_FILES['dat_int_liq1']['type'] == "image/jpg" || $_FILES['dat_int_liq1']['type'] == "image/jpeg" || $_FILES['dat_int_liq1']['type'] == "image/png")
 			{
-				$dat_int_liq1 = round(microtime(true)) . '.' . end($ext);
+				$dat_int_liq1 = round(microtime(true)) .'30'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_int_liq1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_int_liq1);
 			}
 		}
@@ -958,7 +958,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_int_liq2"]["name"]);
 			if ($_FILES['dat_int_liq2']['type'] == "image/jpg" || $_FILES['dat_int_liq2']['type'] == "image/jpeg" || $_FILES['dat_int_liq2']['type'] == "image/png")
 			{
-				$dat_int_liq2 = round(microtime(true)) . '.' . end($ext);
+				$dat_int_liq2 = round(microtime(true)) .'31'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_int_liq2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_int_liq2);
 			}
 		}
@@ -974,7 +974,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_int_liq3"]["name"]);
 			if ($_FILES['dat_int_liq3']['type'] == "image/jpg" || $_FILES['dat_int_liq3']['type'] == "image/jpeg" || $_FILES['dat_int_liq3']['type'] == "image/png")
 			{
-				$dat_int_liq3 = round(microtime(true)) . '.' . end($ext);
+				$dat_int_liq3 = round(microtime(true)) .'32'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_int_liq3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_int_liq3);
 			}
 		}
@@ -996,7 +996,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_car_ret_cts1"]["name"]);
 			if ($_FILES['dat_car_ret_cts1']['type'] == "image/jpg" || $_FILES['dat_car_ret_cts1']['type'] == "image/jpeg" || $_FILES['dat_car_ret_cts1']['type'] == "image/png")
 			{
-				$dat_car_ret_cts1 = round(microtime(true)) . '.' . end($ext);
+				$dat_car_ret_cts1 = round(microtime(true)) .'33'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_car_ret_cts1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ret_cts1);
 			}
 		}
@@ -1011,7 +1011,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_car_ret_cts2"]["name"]);
 			if ($_FILES['dat_car_ret_cts2']['type'] == "image/jpg" || $_FILES['dat_car_ret_cts2']['type'] == "image/jpeg" || $_FILES['dat_car_ret_cts2']['type'] == "image/png")
 			{
-				$dat_car_ret_cts2 = round(microtime(true)) . '.' . end($ext);
+				$dat_car_ret_cts2 = round(microtime(true)) .'34'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_car_ret_cts2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ret_cts2);
 			}
 		}
@@ -1027,7 +1027,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_car_ret_cts3"]["name"]);
 			if ($_FILES['dat_car_ret_cts3']['type'] == "image/jpg" || $_FILES['dat_car_ret_cts3']['type'] == "image/jpeg" || $_FILES['dat_car_ret_cts3']['type'] == "image/png")
 			{
-				$dat_car_ret_cts3 = round(microtime(true)) . '.' . end($ext);
+				$dat_car_ret_cts3 = round(microtime(true)) .'35'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_car_ret_cts3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ret_cts3);
 			}
 		}
@@ -1045,7 +1045,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_alt_reg1"]["name"]);
 			if ($_FILES['dat_alt_reg1']['type'] == "image/jpg" || $_FILES['dat_alt_reg1']['type'] == "image/jpeg" || $_FILES['dat_alt_reg1']['type'] == "image/png")
 			{
-				$dat_alt_reg1 = round(microtime(true)) . '.' . end($ext);
+				$dat_alt_reg1 = round(microtime(true)) .'36'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_alt_reg1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_alt_reg1);
 			}
 		}
@@ -1060,7 +1060,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_alt_reg2"]["name"]);
 			if ($_FILES['dat_alt_reg2']['type'] == "image/jpg" || $_FILES['dat_alt_reg2']['type'] == "image/jpeg" || $_FILES['dat_alt_reg2']['type'] == "image/png")
 			{
-				$dat_alt_reg2 = round(microtime(true)) . '.' . end($ext);
+				$dat_alt_reg2 = round(microtime(true)) .'37'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_alt_reg2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_alt_reg2);
 			}
 		}
@@ -1076,7 +1076,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_alt_reg3"]["name"]);
 			if ($_FILES['dat_alt_reg3']['type'] == "image/jpg" || $_FILES['dat_alt_reg3']['type'] == "image/jpeg" || $_FILES['dat_alt_reg3']['type'] == "image/png")
 			{
-				$dat_alt_reg3 = round(microtime(true)) . '.' . end($ext);
+				$dat_alt_reg3 = round(microtime(true)) .'38'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_alt_reg3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_alt_reg3);
 			}
 		}
@@ -1092,7 +1092,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_baj_reg1"]["name"]);
 			if ($_FILES['dat_alt_reg3']['type'] == "image/jpg" || $_FILES['dat_baj_reg1']['type'] == "image/jpeg" || $_FILES['dat_baj_reg1']['type'] == "image/png")
 			{
-				$dat_baj_reg1 = round(microtime(true)) . '.' . end($ext);
+				$dat_baj_reg1 = round(microtime(true)) .'39'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_baj_reg1"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_baj_reg1);
 			}
 		}
@@ -1108,7 +1108,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_baj_reg2"]["name"]);
 			if ($_FILES['dat_baj_reg2']['type'] == "image/jpg" || $_FILES['dat_baj_reg2']['type'] == "image/jpeg" || $_FILES['dat_baj_reg2']['type'] == "image/png")
 			{
-				$dat_baj_reg2 = round(microtime(true)) . '.' . end($ext);
+				$dat_baj_reg2 = round(microtime(true)) .'40'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_baj_reg2"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_baj_reg2);
 			}
 		}
@@ -1123,7 +1123,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_baj_reg3"]["name"]);
 			if ($_FILES['dat_baj_reg3']['type'] == "image/jpg" || $_FILES['dat_baj_reg3']['type'] == "image/jpeg" || $_FILES['dat_baj_reg3']['type'] == "image/png")
 			{
-				$dat_baj_reg3 = round(microtime(true)) . '.' . end($ext);
+				$dat_baj_reg3 = round(microtime(true)) .'41'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_baj_reg3"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_baj_reg3);
 			}
 		}
@@ -1139,7 +1139,7 @@ switch ($_GET["op"]){
 			$ext = explode(".", $_FILES["dat_car_ren"]["name"]);
 			if ($_FILES['dat_car_ren']['type'] == "image/jpg" || $_FILES['dat_car_ren']['type'] == "image/jpeg" || $_FILES['dat_car_ren']['type'] == "image/png")
 			{
-				$dat_car_ren = round(microtime(true)) . '.' . end($ext);
+				$dat_car_ren = round(microtime(true)) .'42'. '.' . end($ext);
 				move_uploaded_file($_FILES["dat_car_ren"]["tmp_name"], "../files/trabajador_data_adjunta/" . $dat_car_ren);
 			}
 		}
@@ -1237,8 +1237,8 @@ switch ($_GET["op"]){
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"10"=>'<button class="btn btn-warning" onclick="mostrar_datos(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
- 				"12"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"13"=>'<a target="_blank" href="'.$url2.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+ 				"12"=>'<a target="_blank" href="'.$url.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+ 				"13"=>'<a target="_blank" href="'.$url2.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"14"=>($reg->est_reg)?
  					' <button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'

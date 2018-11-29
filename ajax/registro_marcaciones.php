@@ -2,9 +2,9 @@
 if (strlen(session_id()) < 1) 
   session_start();
 
-require_once "../modelos/Contratos.php";
+require_once "../modelos/Registro_Marcaciones.php";
 
-$contratos=new Contratos();
+$rm=new Registro_Marcaciones();
 
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
@@ -143,7 +143,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
-		$rspta=$contratos->listar();
+		$rspta=$rm->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -151,14 +151,14 @@ switch ($_GET["op"]){
  			
 
  			$data[]=array(
- 				"0"=>$reg->est_reg,
- 				"1"=>$reg->sucursal_anexo,
- 				"2"=>$reg->area_trab,
- 				"3"=>$reg->funcion,
- 				"4"=>$reg->nombres,
- 				"5"=>$reg->fec_fin_con,
- 				"6"=>$reg->situacion,
- 				"7"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-pencil"></i></button>',
+ 				"0"=>$reg->Fecha,
+ 				"1"=>$reg->estado,
+ 				"2"=>$reg->sucursal_anexo,
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->area_trab,
+ 				"5"=>$reg->hor_ent,
+ 				"6"=>$reg->hor_sal,
+ 				"7"=>$reg->detalle
  				);
  		}
  		$results = array(

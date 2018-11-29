@@ -41,8 +41,8 @@ Class Maternidad
 		
 
 			$sql="INSERT INTO maternidad (          id_trab,
-													$fec_ini_lac,
-													$fec_fin,
+													fec_ini_lac,
+													fec_fin,
 													fec_nac_c1,
 													lugar_c1,
 													observa_c1,

@@ -87,6 +87,8 @@ function limpiar()
 	$("#id_trab").selectpicker('refresh');
 
 
+
+
 	$("#imagenmuestra1").attr("src","");
 	$("#imagenactual1").val("");
 
@@ -245,6 +247,15 @@ function mostrar(id_permiso)
 
 
  	})
+}
+
+
+function restarHoras() {
+
+	motivo = document.getElementById("motivo").value;
+	console.log(motivo);
+
+
 }
 
 //Función para desactivar registros

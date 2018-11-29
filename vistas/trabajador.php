@@ -119,7 +119,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Departamento:</label>
                                 <div class="col-lg-2">
-                                  <input type="text" class="form-control" name="departamento" id="departamento"  autocomplete="off">
+                                  <input type="text" class="form-control" name="departamento" id="departamento"   >
                                 </div>
                             </div>
 
@@ -1070,11 +1070,13 @@ if ($_SESSION['rrhh']==1)
                                           <select id="id_gru_san" name="id_gru_san" class="form-control selectpicker" data-live-search="true"></select>
                                         </div>
                                         
-                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Peso:</label>
+                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Peso(KG):</label>
                                         <div class="col-lg-2">
                                         <input type="text" class="form-control" name="peso" id="peso" autocomplete="off">
                                         </div>
-                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Talla:</label>
+                                      
+
+                                        <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">Talla(CM):</label>
                                         <div class="col-lg-2">
                                         <input type="text" class="form-control" name="talla" id="talla" autocomplete="off">
                                         </div>

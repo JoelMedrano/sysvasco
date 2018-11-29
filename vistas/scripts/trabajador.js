@@ -251,15 +251,17 @@ function limpiar()
 	$("#id_distrito").val("LIMA");
 	$("#id_distrito").selectpicker('refresh');
 
+	$("#departamento").val("LIMA");
 
-
-	$("#departamento").val("");
+	//$("#departamento").val("");
 	$("#fec_nac_trab").val("");
 	$("#lug_nac_trab").val("");
 	$("#edad_trab").val("");
 	$("#nacionalidad").val("");
 	$("#id_est_civil").val("");
 	
+
+
 
 	$("#id_tip_doc").val("DNI");
 	$("#id_tip_doc").selectpicker('refresh');

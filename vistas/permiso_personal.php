@@ -108,6 +108,8 @@ if ($_SESSION['rrhh']==1)
                                       <input type="text" class="form-control" name="monto_a_pagar" id="monto_a_pagar" readonly   autocomplete="off">
                                   </div>
 
+                                                       
+
 
                          </div>    
 
@@ -169,7 +171,10 @@ if ($_SESSION['rrhh']==1)
 
                                      <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                       <label>Motivo:</label>
-                                      <input type="text" class="form-control" name="motivo" id="motivo"  required autocomplete="off">
+                                      <input type="text" class="form-control" style="text-transform: uppercase" name="motivo" id="motivo"  required autocomplete="off">
+                                    <br>
+                                                          <button class="btn btn-success" type="button" onclick="restarHoras()">Restar</button>
+
                                     </div>
 
                                      <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">

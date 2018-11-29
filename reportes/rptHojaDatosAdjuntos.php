@@ -23,6 +23,7 @@ $id_trab=$_GET["id"];
 
 
 
+
 //ajuntar la libreria excel
 include "Classes/PHPExcel.php";
 //include "../library/consulSQL.php";

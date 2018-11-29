@@ -93,7 +93,7 @@ Class ConsultasD
 	// Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectArea()
 	{
-		$sql="SELECT cod_argumento AS id_area , des_larga AS  area_trab FROM tabla_maestra_detalle where cod_tabla='TARE' ";
+		$sql="SELECT cod_argumento AS id_area , des_larga AS  area_trab FROM tabla_maestra_detalle where cod_tabla='TARE' order by des_larga ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -118,7 +118,7 @@ Class ConsultasD
    //  Trabajador - Implementar un método para listar los registros y mostrar en el select
 	public function selectCentroCostos()
 	{
-		$sql="SELECT cod_argumento AS id_cen_cost , des_larga AS  centro_costos FROM tabla_maestra_detalle where cod_tabla='TCCO' ORDER BY cod_argumento ASC ";
+		$sql="SELECT cod_argumento AS id_cen_cost , des_larga AS  centro_costos FROM tabla_maestra_detalle where cod_tabla='TCCO' ORDER BY des_larga ASC ";
 		return ejecutarConsulta($sql);		
 	}
 
@@ -260,7 +260,7 @@ Class ConsultasD
 	{
 		$sql="SELECT id_trab AS aprob_por,   CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab   )    AS apro_apellidosynombres 
 		FROM Trabajador
-		where id_trab in ('11', '12', '103' , '37' )
+		where id_trab in ('P0001', 'P0003', 'P0100' , 'P0043' )
 		order by  apepat_trab DESC";
 		return ejecutarConsulta($sql);		
 	}

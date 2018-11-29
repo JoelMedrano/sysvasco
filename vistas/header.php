@@ -279,7 +279,7 @@ if (strlen(session_id()) < 1)
                       <ul class="treeview-menu">
                           <li class="treeview">
                           <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>Trabajador</a></li>
-                          <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refriferio del Trabajador(*)</a></li>
+                          <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refrigerio del Trabajador(*)</a></li>
                           <li><a href="horario.php"><i class="fa fa-circle-o"></i>Horarios</a></li>
                           <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
                           <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>Regimen Pensionario</a></li>
@@ -289,7 +289,7 @@ if (strlen(session_id()) < 1)
                           <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
                           <li><a href="caso_movilidad.php"><i class="fa fa-circle-o"></i>Caso Movilidad</a></li>
                           <li><a href="caso_vigilancia.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
-                          <li><a href="renta_quinta_categoria.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
+                          <li><a href="renta_quinta_categoria.php"><i class="fa fa-circle-o"></i>Renta Quinta Categoria</a></li>
                           </li>
                       </ul>
                   </li>
@@ -389,7 +389,7 @@ if (strlen(session_id()) < 1)
               <ul class="treeview-menu">
                 <li><a href="reloj.php"><i class="fa fa-circle-o"></i> Reloj</a></li>
                 <li><a href="reporte_diario_asistencia.php"><i class="fa fa-circle-o"></i> Reporte Diario Asistencia</a></li>
-                <li><a href="reporte_mensual_asistencia.php"><i class="fa fa-circle-o"></i> Reporte Mensual Asistencia</a></li>
+                <li><a href="registro_marcaciones.php"><i class="fa fa-circle-o"></i> Registro de Marcaciones</a></li>
               </ul>
             </li>';
             }

@@ -23,7 +23,7 @@ if ($_SESSION['rrhh']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Contratos</h1>
+                          <h1 class="box-title">Registro de Marcaciones</h1>
                           <a href="../reportes/rpt_xls_contratos.php" target="_blank"><button class="btn btn-info">Reporte</button></a> </h1>
                         <div class="box-tools pull-right">
                         </div>
@@ -33,26 +33,29 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Est.</th>
-                            <th>Sucursal Anexo</th>
+                            
+                            <th>Dia</th>
+                            <th>Estado de Dia</th>
+                            <th>Sucursal</th>
+                            <th>Trabajador</th>
                             <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Nombres</th>
-                            <th>Fin Ultimo Contrato</th>
-                            <th>Estado x Fecha Finalizacion</th>
-                            <th>Crear</th>
+                            <th>Hora Ingreso</th>
+                            <th>Hora Salida</th>
+                            <th>Detalle</th>
+                            
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Est.</th>
-                            <th>Sucursal Anexo</th>
+                            
+                            <th>Dia</th>
+                            <th>Estado de Dia</th>
+                            <th>Sucursal</th>
+                            <th>Trabajador</th>
                             <th>Area</th>
-                            <th>Funcion</th>
-                            <th>Nombres</th>
-                            <th>Fin Ultimo Contrato</th>
-                            <th>Estado x Fecha Finalizacion</th>
-                            <th>Crear</th>
+                            <th>Hora Ingreso</th>
+                            <th>Hora Salida</th>
+                            <th>Detalle</th>
                           </tfoot>
                         </table>
                     </div>
@@ -270,7 +273,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/contratos.js"></script>
+<script type="text/javascript" src="scripts/registro_marcaciones.js"></script>
 <?php 
 }
 ob_end_flush();
