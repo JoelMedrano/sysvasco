@@ -1235,7 +1235,7 @@ a:focus {
  * ---------------
  */
 .form-control {
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   border-radius: 0;
   box-shadow: none;
   border-color: #d2d6de;
