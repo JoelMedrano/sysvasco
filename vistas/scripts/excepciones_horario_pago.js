@@ -145,12 +145,12 @@ function mostrar(id_excepcion)
 }
 
 //Función para desactivar registros
-function desactivar(id_abo_reg)
+function anular(id_excepcion)
 {
-	bootbox.confirm("¿Está seguro de desactivar?", function(result){
+	bootbox.confirm("¿Está seguro de anular?", function(result){
 		if(result)
         {
-        	$.post("../ajax/excepciones_horario_pago.php?op=desactivar", {id_abo_reg : id_abo_reg}, function(e){
+        	$.post("../ajax/excepciones_horario_pago.php?op=anular", {id_excepcion : id_excepcion}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});
@@ -159,12 +159,12 @@ function desactivar(id_abo_reg)
 }
 
 //Función para activar registros
-function activar(id_abo_reg)
+function activar(id_excepcion)
 {
 	bootbox.confirm("¿Está seguro de activar?", function(result){
 		if(result)
         {
-        	$.post("../ajax/excepciones_horario_pago.php?op=activar", {id_abo_reg : id_abo_reg}, function(e){
+        	$.post("../ajax/excepciones_horario_pago.php?op=activar", {id_excepcion : id_excepcion}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});

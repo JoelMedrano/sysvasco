@@ -45,13 +45,13 @@ switch ($_GET["op"]){
 		
 	break;
 
-	case 'desactivar':
-		$rspta=$excepciones_horario_pago->desactivar(  $id_excepcion,
+	case 'anular':
+		$rspta=$excepciones_horario_pago->anular(  $id_excepcion,
 												       $fec_reg,
 												       $usu_reg,
 												       $pc_reg
 												  );
- 		echo $rspta ? "Desactivado" : "No se puede desactivar";
+ 		echo $rspta ? "Anulado" : "No se puede anular";
 	break;
 
 	case 'activar':
@@ -82,8 +82,13 @@ switch ($_GET["op"]){
  				"1"=>$reg->id_trab,
  				"2"=>$reg->trab_apellidosynombres,
  				"3"=>$reg->des_area,
- 				"4"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_excepcion.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_excepcion.')"><i class="fa fa-pencil"></i></button>'
+ 				"4"=>($reg->est_reg=='1')?'<span class="label bg-green">Activado</span>':
+ 				'<span class="label bg-red">Anulado</span>',
+ 				"5"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_excepcion.')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_excepcion.')"><i class="fa fa-pencil"></i></button>',
+ 				"6"=>($reg->est_reg)=='1'?
+ 					' <button class="btn btn-danger" onclick="anular('.$reg->id_excepcion.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_excepcion.')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(

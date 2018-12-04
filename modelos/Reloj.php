@@ -156,12 +156,51 @@ Class Reloj
 		//$sql="SELECT id_trab, tip_pla, hor_sal FROM reloj WHERE id_trab='$id_trab'  and fecha='$fecha' AND  hor_sal!='' ";
 
 
-		$sql="SELECT id_trab,  id_trab as  id_trab_noche, tip_pla, hor_sal FROM reloj WHERE id_trab='$id_trab'  AND  hor_sal!=''
- 			AND fecha= ( SELECT MAX(fecha) FROM reloj WHERE id_trab='$id_trab'  AND  hor_sal!='' )";
+	//HASTA EL 30112018	//$sql="SELECT id_trab,  id_trab as  id_trab_noche, tip_pla, hor_sal FROM reloj WHERE id_trab='$id_trab'  AND  hor_sal!=''
+ 		//	AND fecha= ( SELECT MAX(fecha) FROM reloj WHERE id_trab='$id_trab'  AND  hor_sal!='' )";
 
+
+ 		$sql="SELECT id_trab,  id_trab, fecha AS  id_trab_noche, tip_pla, hor_sal FROM reloj WHERE id_trab='$id_trab'
+ 			AND fecha= ( SELECT MAX(fecha) FROM reloj WHERE id_trab='$id_trab') ";
 
 
 		return ejecutarConsulta($sql);
+
+	}
+
+	//AGREGADO EL 30112018 - VALIDA EL REGISTRO MAYOR A  MINUTOS 
+
+	public function consultarIngresoEnReloj($id_trab, $fecha, $hora)
+	{
+
+
+	 $sql="SELECT r.id_trab, r.hor_ent, REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', r.hor_ent ) ) ,'-', '')  AS intervalo_1ing_1sal   FROM reloj r WHERE id_trab='$id_trab'  AND fecha='$fecha' ";
+
+	 return ejecutarConsulta($sql);
+
+	}
+
+
+	//AGREGADO EL 30112018 - VALIDA EL REGISTRO MAYOR A  MINUTOS 
+	public function consultarPrimeraSalidaEnReloj($id_trab, $fecha, $hora)
+	{
+
+
+	 $sql="SELECT r.id_trab, r.hor_sal, REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', r.hor_sal ) ) ,'-', '')  AS intervalo_1sal_2ing   FROM reloj r WHERE id_trab='$id_trab'  AND fecha='$fecha' ";
+
+	 return ejecutarConsulta($sql);
+
+	}
+
+
+	//AGREGADO EL 30112018 - VALIDA EL REGISTRO MAYOR A  MINUTOS 
+	public function consultarSegundoIngresoEnReloj($id_trab, $fecha, $hora)
+	{
+
+
+	 $sql="SELECT r.id_trab, r.segunda_hor_ent, REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', r.segunda_hor_ent ) ) ,'-', '')  AS intervalo_2ing_2sal  FROM reloj r WHERE id_trab='$id_trab'  AND fecha='$fecha' ";
+
+	 return ejecutarConsulta($sql);
 
 	}
 

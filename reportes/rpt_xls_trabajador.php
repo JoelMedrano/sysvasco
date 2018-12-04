@@ -188,16 +188,16 @@ $objPHPExcel->getActiveSheet()->getStyle("B$fila:Y$fila")->getFont()->setBold(tr
     tr.num_tlf_dom,
     tr.email_trab,
     tr.id_turno, ttur.des_larga AS turno,
-    DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y') AS fec_ing_trab,
-    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y') AS fec_sal_trab,
-    DATE_FORMAT(tr.fec_ing2, '%d/%m/%Y')  AS fec_ing2,
-    DATE_FORMAT(tr.fec_sal2, '%d/%m/%Y')  AS fec_sal2,
+    IF(DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y'))  AS fec_ing_trab,
+    IF(DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')) AS fec_sal_trab,
+    IF(DATE_FORMAT(tr.fec_ing2, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_ing2, '%d/%m/%Y'))  AS fec_ing2,
+    IF(DATE_FORMAT(tr.fec_sal2, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_sal2, '%d/%m/%Y'))  AS fec_sal2,
     tr.mot_sal2,
-    DATE_FORMAT(tr.fec_ing1, '%d/%m/%Y')  AS fec_ing1,
-    DATE_FORMAT(tr.fec_sal1, '%d/%m/%Y')  AS fec_sal1,
+    IF(DATE_FORMAT(tr.fec_ing1, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_ing1, '%d/%m/%Y')) AS fec_ing1,
+    IF(DATE_FORMAT(tr.fec_sal1, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_sal1, '%d/%m/%Y')) AS fec_sal1,
     tr.mot_sal1,
-    DATE_FORMAT(tr.fec_ing_interno, '%d/%m/%Y')  AS fec_ing_interno,
-    DATE_FORMAT(tr.fec_sal_interno, '%d/%m/%Y')  AS fec_sal_interno,
+    IF(DATE_FORMAT(tr.fec_ing_interno, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_ing_interno, '%d/%m/%Y') )  AS fec_ing_interno,
+    IF(DATE_FORMAT(tr.fec_sal_interno, '%d/%m/%Y')='00/00/0000' , '', DATE_FORMAT(tr.fec_ing_interno, '%d/%m/%Y') )  AS fec_sal_interno,
     tr.mot_sal_interno,
     tr.sueldo_trab,
     tr.bono_trab,
@@ -216,8 +216,8 @@ $objPHPExcel->getActiveSheet()->getStyle("B$fila:Y$fila")->getFont()->setBold(tr
     tf.edad_hij2,
     tf.edad_hij3,
     tf.edad_hij4,
-    SUM(IF(h1=1,1,0)+ IF(h2=1,1,0) + IF(h3=1,1,0) + IF(h4=1,1,0)) AS MayoresEdad,
-    SUM(IF(h1=2,1,0)+ IF(h2=2,1,0) + IF(h3=2,1,0) + IF(h4=2,1,0)) AS MenoresEdad
+    IF( SUM(IF(h1=1,1,0)+ IF(h2=1,1,0) + IF(h3=1,1,0) + IF(h4=1,1,0)) = '0', '', SUM(IF(h1=1,1,0)+ IF(h2=1,1,0) + IF(h3=1,1,0) + IF(h4=1,1,0))  ) AS MayoresEdad,
+    IF( SUM(IF(h1=2,1,0)+ IF(h2=2,1,0) + IF(h3=2,1,0) + IF(h4=2,1,0)) = '0', '', SUM(IF(h1=2,1,0)+ IF(h2=2,1,0) + IF(h3=2,1,0) + IF(h4=2,1,0))  ) AS MenoresEdad
     FROM trabajador tr
         LEFT JOIN tabla_maestra_detalle AS tpla ON
         tpla.cod_argumento= tr.id_tip_plan
@@ -231,7 +231,7 @@ $objPHPExcel->getActiveSheet()->getStyle("B$fila:Y$fila")->getFont()->setBold(tr
         LEFT JOIN tabla_maestra_detalle AS tare ON
         tare.cod_argumento= tr.id_area
         AND tare.cod_tabla='TARE'
-                                LEFT JOIN tabla_maestra_detalle AS tgen ON
+        LEFT JOIN tabla_maestra_detalle AS tgen ON
         tgen.cod_argumento= tr.id_genero
         AND tgen.cod_tabla='TGEN' 
         LEFT JOIN tabla_maestra_detalle AS tdoc ON
@@ -308,6 +308,7 @@ $objPHPExcel->getActiveSheet()->getStyle("B$fila:Y$fila")->getFont()->setBold(tr
         FROM trabajador_familia ) AS tf2 ON tf2.id_trab=tf1.id_trab
          ) AS tf ON
         tf.id_trab= tr.id_trab
+        where tr.est_reg='1'
         GROUP BY tr.id_trab
  ");  
 

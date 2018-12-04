@@ -168,6 +168,32 @@ if ($_SESSION['escritorio']==1)
 
 
 
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                      <div class="box-header with-border">
+                        <b>TRABAJADORES A LA FECHA ACTUAL</b>
+                      </div>
+
+                      <div class="panel-body table-responsive" id="listadoregistros_resumen">
+                        <table id="tbllistado_resumen" class="table table-striped table-bordered table-condensed table-hover">
+                          <thead>
+                            <th>(*)Total Activos</th>
+                            <th>(*)Activos Planilla</th>
+                            <th>(*)Activos Internos</th>
+                            <th>(*)Cesados Planilla</th>
+                            <th>(*)Cesados Internos</th>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                          
+                        </table>
+                      </div>
+
+                    </div>
+
+
+
+
 
                     <div class="panel-body">
 
@@ -230,7 +256,7 @@ else
 
 require 'footer.php';
 ?>
-
+<script type="text/javascript" src="scripts/trabajador.js"></script>
 <script type="text/javascript" src="scripts/etardanzas.js"></script>
 <script src="../public/js/chart.min.js"></script>
 <script src="../public/js/Chart.bundle.min.js"></script>

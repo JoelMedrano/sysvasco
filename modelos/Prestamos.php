@@ -760,6 +760,8 @@ Class Prestamos
 					 des_fec_pag, 
 					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga) AS fecha1,
 					 id_cp AS fec_des1,
+					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga) AS copia_fecha1,
+					 id_cp AS copia_fec_des1,
 					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga) AS fecha2,
 					 id_cp AS fec_des2,
 					 CONCAT(TbPea.Des_Corta, ' - ' ,TbFpa.Des_Larga) AS fecha3,

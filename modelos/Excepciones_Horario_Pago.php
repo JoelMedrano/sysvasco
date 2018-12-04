@@ -47,7 +47,7 @@ Class Excepciones_Horario_Pago
 	}
 
 	//Implementamos un método para desactivar registros
-	public function desactivar(                   $id_excepcion,
+	public function anular(                      $id_excepcion,
 												  $fec_reg,
 												  $usu_reg,
 												  $pc_reg)

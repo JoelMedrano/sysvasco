@@ -39,6 +39,18 @@ Class Trabajador
 	}
 
 
+	
+	// Implementar un método para consultar que tipo de planilla posee el colaborador - Agregado:30112018 - Leydi Godos 
+	public function consultarTipoPlanilla($id_trab)
+	{
+		$sql="SELECT tr.id_tip_plan AS ant_tip_plan
+			  FROM trabajador tr
+			  WHERE tr.id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
 
 
 	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
@@ -279,6 +291,16 @@ Class Trabajador
 		return ejecutarConsulta($sql);
 	}
 
+
+	//Implementamos un método para activar registros
+	public function eliminar($id_trab)
+	{
+		$sql="DELETE trabajador WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_trab)
 	{
@@ -353,21 +375,33 @@ Class Trabajador
 		tf.dep_con,
 		tf.tel_con,
 		DATE(tf.nac_hij1) AS nac_hij1,
+		IF(YEAR(CURDATE())-YEAR(tf.nac_hij1) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij1,'%m-%d'), 0 , -1 )=YEAR(CURDATE()), '',
+	    YEAR(CURDATE())-YEAR(tf.nac_hij1) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij1,'%m-%d'), 0 , -1 )
+	     ) AS edad_hij1,
 		tf.nom_hij1,
 		tf.ocu_hij1,
 		tf.dep_hij1,
 		tf.tel_hij1,
 		DATE(tf.nac_hij2) AS nac_hij2,
+		IF( YEAR(CURDATE())-YEAR(tf.nac_hij2) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij2,'%m-%d'), 0 , -1 ) =YEAR(CURDATE()), '',
+	    YEAR(CURDATE())-YEAR(tf.nac_hij2) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij2,'%m-%d'), 0 , -1 ) 
+	    )AS edad_hij2,
 		tf.nom_hij2,
 		tf.ocu_hij2,
 		tf.dep_hij2,
 		tf.tel_hij2,
 		DATE(tf.nac_hij3) AS nac_hij3,
+		IF(   YEAR(CURDATE())-YEAR(tf.nac_hij3) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij3,'%m-%d'), 0 , -1 ) =YEAR(CURDATE()), '',
+	    YEAR(CURDATE())-YEAR(tf.nac_hij3) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij3,'%m-%d'), 0 , -1 )
+	      )AS edad_hij3,
 		tf.nom_hij3,
 		tf.ocu_hij3,
 		tf.dep_hij3,
 		tf.tel_hij3,
 		DATE(tf.nac_hij4) AS nac_hij4,
+		IF(  YEAR(CURDATE())-YEAR(tf.nac_hij4) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij4,'%m-%d'), 0 , -1 )  =YEAR(CURDATE()), '',
+	    YEAR(CURDATE())-YEAR(tf.nac_hij4) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(tf.nac_hij4,'%m-%d'), 0 , -1 ) 
+	    ) AS edad_hij4,
 		tf.nom_hij4,
 		tf.ocu_hij4,
 		tf.dep_hij4,
@@ -591,6 +625,19 @@ Class Trabajador
 	";
 		return ejecutarConsulta($sql);		
 	}
+
+
+
+	public function listar_Resumen()
+	{
+		$sql="SELECT ( SELECT  COUNT(id_trab) FROM Trabajador WHERE est_reg='1' /*ACTIVOS*/) AS total_act, 
+     		  ( SELECT  COUNT(id_trab) FROM Trabajador WHERE est_reg='1'  AND id_tip_plan='1' /*ACTIVOS Y PLANILLA*/) AS tot_act_pla,
+       		  ( SELECT  COUNT(id_trab) FROM Trabajador WHERE est_reg='1'  AND id_tip_plan='2' /*ACTIVOS Y INTERNOS*/ )  AS tot_act_int,
+			  ( SELECT  COUNT(id_trab) FROM Trabajador WHERE est_reg='0'  AND id_tip_plan='1' /*CESADOS Y PLANILLA*/ ) AS tot_ces_pla,
+			  ( SELECT  COUNT(id_trab) FROM Trabajador WHERE est_reg='0'  AND id_tip_plan='2' /*CESADOS Y INTERNOS*/ ) AS tot_ces_int";
+		return ejecutarConsulta($sql);		
+	}
+
 
 	//Implementar un método para listar los registros activos
 	public function listarActivos()

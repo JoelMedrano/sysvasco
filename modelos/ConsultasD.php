@@ -302,7 +302,7 @@ Class ConsultasD
 	// Vacaciones - Implementar un método para listar los registros y mostrar en el select
 	public function selectFechaAnualCronogramaPagos()
 	{
-		$sql="SELECT  TbPea.Cod_Argumento AS id_ano, TbPea.Des_Corta AS Ano
+		$sql="SELECT  TbPea.Cod_Argumento AS id_ano, TbPea.Des_Corta AS Ano, TbPea.Des_Corta AS ano
 				FROM 	tabla_maestra_detalle TbPea 
 				WHERE  TbPea.Cod_tabla='TPEA'
 				ORDER BY   TbPea.Des_Corta DESC";
