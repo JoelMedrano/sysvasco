@@ -117,7 +117,7 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
 
-      if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3') {
+      if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3' || $_SESSION["idusuario"]=='11') {
 
         $url='../reportes/rptFichaTecnica.php?id=';
 

@@ -63,10 +63,19 @@ Class ConsultasJ
 
 	public function selectDiseñador()
 	{
-		$sql="SELECT	t.id_trab,
-									CONCAT(t.apepat_trab,' ',t.apemat_trab,' ',t.nom_trab) AS diseñador
-									FROM trabajador t
-									WHERE id_area IN ('6','7')";
+		$sql="SELECT 
+		t.id_trab,
+		CONCAT(
+		  t.apepat_trab,
+		  ' ',
+		  t.apemat_trab,
+		  ' ',
+		  t.nom_trab
+		) AS diseñador 
+	  FROM
+		trabajador t 
+	  WHERE id_area IN ('6', '7') 
+		AND t.est_reg = '1'";
 
 		return ejecutarConsulta($sql);
 	}

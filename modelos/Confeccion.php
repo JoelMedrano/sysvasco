@@ -1,8 +1,8 @@
-<?php 
+<?php
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
-Class Venta
+Class Confeccion
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -11,47 +11,130 @@ Class Venta
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$idarticulo,$cantidad,$precio_venta,$descuento)
+	public function insertar($idmft,$id_operacion,$descripcion,$idtipo_maquina,$idcodigo_puntada,$ancho_costura,$puntadas_pulgadas)
 	{
-		$sql="INSERT INTO venta (idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total_venta,estado)
-		VALUES ('$idcliente','$idusuario','$tipo_comprobante','$serie_comprobante','$num_comprobante','$fecha_hora','$impuesto','$total_venta','Aceptado')";
-		//return ejecutarConsulta($sql);
-		$idventanew=ejecutarConsulta_retornarID($sql);
+		$sql="INSERT INTO confeccion (idmft,id_operacion,descripcion,idtipo_maquina,idcodigo_puntada,ancho_costura,puntadas_pulgadas)
+		VALUES ('$idmft','$id_operacion','$descripcion','$idtipo_maquina','$idcodigo_puntada','$ancho_costura','$puntadas_pulgadas')";
 
-		$num_elementos=0;
-		$sw=true;
-
-		while ($num_elementos < count($idarticulo))
-		{
-			$sql_detalle = "INSERT INTO detalle_venta(idventa, idarticulo,cantidad,precio_venta,descuento) VALUES ('$idventanew', '$idarticulo[$num_elementos]','$cantidad[$num_elementos]','$precio_venta[$num_elementos]','$descuento[$num_elementos]')";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-		}
-
-		return $sw;
-	}
-
-	
-	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idventa)
-	{
-		$sql="SELECT v.idventa,DATE(v.fecha_hora) as fecha,v.idcliente,p.nombre as cliente,u.idusuario,u.nombre as usuario,v.tipo_comprobante,v.serie_comprobante,v.num_comprobante,v.total_venta,v.impuesto,v.estado FROM venta v INNER JOIN persona p ON v.idcliente=p.idpersona INNER JOIN usuario u ON v.idusuario=u.idusuario WHERE v.idventa='$idventa'";
-		return ejecutarConsultaSimpleFila($sql);
-	}
-
-	public function listarDetalle($idventa)
-	{
-		$sql="SELECT dv.idventa,dv.idarticulo,a.nombre,dv.cantidad,dv.precio_venta,dv.descuento,(dv.cantidad*dv.precio_venta-dv.descuento) as subtotal FROM detalle_venta dv inner join articulo a on dv.idarticulo=a.idarticulo where dv.idventa='$idventa'";
 		return ejecutarConsulta($sql);
+
+
+	}
+
+	//Implementamos un método para editar registros
+	public function editar($idconfeccion,$idmft,$id_operacion,$descripcion,$idtipo_maquina,$idcodigo_puntada,$ancho_costura,$puntadas_pulgadas)
+	{
+		$sql="UPDATE confeccion SET idmft='$idmft',id_operacion='$id_operacion',descripcion='$descripcion',idtipo_maquina='$idtipo_maquina',idcodigo_puntada='$idcodigo_puntada',ancho_costura='$ancho_costura',puntadas_pulgadas='$puntadas_pulgadas' WHERE idconfeccion='$idconfeccion'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function eliminar($idconfeccion)
+	{
+		$sql="DELETE FROM confeccion WHERE idconfeccion='$idconfeccion'";
+
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementar un método para mostrar los datos de un registro a modificar
+	public function mostrar($idconfeccion)
+	{
+		$sql="SELECT * FROM confeccion where idconfeccion='$idconfeccion'";
+		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT v.idventa,DATE(v.fecha_hora) as fecha,v.idcliente,p.nombre as cliente,u.idusuario,u.nombre as usuario,v.tipo_comprobante,v.serie_comprobante,v.num_comprobante,v.total_venta,v.impuesto,v.estado FROM venta v INNER JOIN persona p ON v.idcliente=p.idpersona INNER JOIN usuario u ON v.idusuario=u.idusuario ORDER by v.idventa desc";
-		return ejecutarConsulta($sql);		
+		$sql="SELECT 
+						c.idconfeccion,
+						mft.idmft,
+						m.cod_mod,
+						m.nom_mod,
+						c.id_operacion,
+						o.nombre AS operacion,
+						c.descripcion,
+						c.idtipo_maquina,
+						tm.nombre AS tipo_maquina,
+						c.idcodigo_puntada,
+						cp.nombre AS codigo_puntada,
+						c.ancho_costura,
+						c.puntadas_pulgadas 
+						FROM
+						confeccion c 
+						LEFT JOIN maestro_ficha_tecnica mft 
+							ON c.idmft = mft.idmft 
+						LEFT JOIN modelojf m 
+							ON mft.cod_mod = m.cod_mod 
+						LEFT JOIN operacion o 
+							ON o.id_operacion = c.id_operacion 
+						LEFT JOIN tipo_maquina tm 
+							ON c.idtipo_maquina = tm.idtipo_maquina 
+						LEFT JOIN codigo_puntada cp 
+							ON c.idcodigo_puntada = cp.idcodigo_puntada";
+	
+		return ejecutarConsulta($sql);
+
 	}
 
-	
+	public function selectFT()
+	{
+		$sql="SELECT 
+					mft.idmft,
+					CONCAT(mft.idmft,' - ',mft.cod_mod,' - ',m.nom_mod) AS ft
+				FROM
+					maestro_ficha_tecnica mft
+					LEFT JOIN modelojf m
+					ON mft.cod_mod=m.cod_mod";
+
+		return ejecutarConsulta($sql);
+
+	}
+
+	public function selectOP()
+	{
+		$sql="SELECT 
+					o.id_operacion,
+					o.nombre 
+				FROM
+					operacion o ";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function selectTM()
+	{
+		$sql="SELECT 
+					idtipo_maquina,
+					nombre 
+				FROM
+					tipo_maquina ";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function selectCP($idtipo_maquina)
+	{
+		$sql="SELECT 
+		idcodigo_puntada,
+		nombre 
+	  FROM
+		codigo_puntada 
+	  WHERE idtipo_maquina = '$idtipo_maquina' ";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function selectCP2()
+	{
+		$sql="SELECT 
+		idcodigo_puntada,
+		nombre 
+	  FROM
+		codigo_puntada ";
+
+		return ejecutarConsulta($sql);
+	}
+
 }
+
 ?>
