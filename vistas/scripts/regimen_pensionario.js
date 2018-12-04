@@ -18,12 +18,31 @@ function init(){
 
 	});
 
+
+
+	//Cargamos los items al select Fechas 
+	$.post("../ajax/prestamos.php?op=selectCopiaFechaDscto1", function(r){
+	            $("#copia_fec_des1").html(r);
+	            $('#copia_fec_des1').selectpicker('refresh');
+
+	});
+
+
 	$("#imagenmuestra").hide();
 }
 
 //Función limpiar
 function limpiar()
 {
+
+    $("#fec_des1").val("");
+    $("#fec_des1").selectpicker('refresh');
+
+
+    $("#copia_fec_des1").val("");
+    $("#copia_fec_des1").selectpicker('refresh');
+
+
 	$("#id_ano").val("");
 	$("#obs_reg_pen").val("");
 	$("#id_reg_pen").val("");
@@ -206,6 +225,12 @@ function mostrar(id_cp)
  		$("#sj_apo_obl").val(data.sj_apo_obl);
  		$("#sj_com_men_rem").val(data.sj_com_men_rem);
  		$("#sj_apo_mix").val(data.sj_apo_mix);
+
+
+	 	$("#sum_sj_apo_obl").val(data.sum_sj_apo_obl);
+
+
+
 
  	})
 }

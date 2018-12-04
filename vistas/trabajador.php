@@ -48,7 +48,8 @@ if ($_SESSION['rrhh']==1)
                             <th>Adjuntos</th>
                             <th>Imprimir</th>
                             <th>Imp.Adjuntos</th>
-                            <th>Activar</th>
+                            <th>Estado</th>
+                            <th>Eliminar</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -67,7 +68,8 @@ if ($_SESSION['rrhh']==1)
                             <th>Adjuntos</th>
                             <th>Imprimir</th>
                             <th>Imp.Adjuntos</th>
-                            <th>Activar</th>
+                            <th>Estado</th>
+                            <th>Eliminar</th>
                           </tfoot>
                         </table>
                     </div>
@@ -493,6 +495,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control"  readonly>
+                                </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_pad" id="nom_pad"  autocomplete="off">
                                 </div>
@@ -524,6 +529,9 @@ if ($_SESSION['rrhh']==1)
                                  <div class="col-lg-2">
                                    <input type="text"  class="form-control" readonly>
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control"  readonly>
+                                </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_mad" id="nom_mad"  autocomplete="off">
                                 </div>
@@ -554,6 +562,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="text"  class="form-control"  readonly>
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control"  readonly>
+                                </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_con" id="nom_con"  autocomplete="off">
                                 </div>
@@ -583,6 +594,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="date"  class="form-control" name="nac_hij1" id="nac_hij1"  autocomplete="off">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="edad_hij1" id="edad_hij1" readonly>
+                                </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij1" id="nom_hij1"  autocomplete="off">
                                 </div>
@@ -609,6 +623,9 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="date"  class="form-control" name="nac_hij2" id="nac_hij2" autocomplete="off">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="edad_hij2" id="edad_hij2" readonly>
+                                </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij2" id="nom_hij2" autocomplete="off">
                                 </div>
@@ -632,6 +649,11 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="date"  class="form-control" name="nac_hij3" id="nac_hij3" autocomplete="off">
+                                </div>
+
+
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="edad_hij3" id="edad_hij3" readonly>
                                 </div>
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij3" id="nom_hij3" autocomplete="off">
@@ -657,6 +679,10 @@ if ($_SESSION['rrhh']==1)
                                 <div class="col-lg-2">
                                    <input type="date"  class="form-control" name="nac_hij4" id="nac_hij4" autocomplete="off">
                                 </div>
+                                <div class="col-lg-1">
+                                   <input type="text" class="form-control" name="edad_hij4" id="edad_hij4" readonly>
+                                </div>
+
                                 <div class="col-lg-2">
                                    <input type="text" class="form-control" name="nom_hij4" id="nom_hij4"  autocomplete="off">
                                 </div>

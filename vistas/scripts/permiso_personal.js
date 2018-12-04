@@ -250,13 +250,7 @@ function mostrar(id_permiso)
 }
 
 
-function restarHoras() {
 
-	motivo = document.getElementById("motivo").value;
-	console.log(motivo);
-
-
-}
 
 //Función para desactivar registros
 function desactivar(id_permiso)

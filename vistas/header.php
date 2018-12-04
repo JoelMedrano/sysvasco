@@ -290,6 +290,7 @@ if (strlen(session_id()) < 1)
                           <li><a href="caso_movilidad.php"><i class="fa fa-circle-o"></i>Caso Movilidad</a></li>
                           <li><a href="caso_vigilancia.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
                           <li><a href="renta_quinta_categoria.php"><i class="fa fa-circle-o"></i>Renta Quinta Categoria</a></li>
+                          <li><a href="fechas_calendario.php"><i class="fa fa-circle-o"></i>Fechas Calendario</a></li>
                           </li>
                       </ul>
                   </li>
@@ -450,7 +451,7 @@ if (strlen(session_id()) < 1)
                               <li><a href="ft_hoja1.php"><i class="fa fa-circle-o"></i> Presentacion</a></li>
                               <li>
                                   <a href="#">
-                                      <i class="fa fa-circle-o"></i> <span>Combinaciones  </span>
+                                      <i class="fa fa-circle-o"></i> <span>Combinaciones</span>
                                       <i class="fa fa-angle-left pull-right"></i>
                                   </a>
                                   <ul class="treeview-menu">

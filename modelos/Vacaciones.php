@@ -141,6 +141,7 @@ Class Vacaciones
 				tare.cod_argumento= tr.id_area
 				AND tare.cod_tabla='TARE'
 				WHERE tr.id_tip_plan='1'
+				AND tr.est_reg='1'
 				order by apepat_trab ASC";
 		return ejecutarConsulta($sql);		
 	}

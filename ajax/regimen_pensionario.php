@@ -25,6 +25,11 @@ $id_cp=isset($_POST["id_cp"])? limpiarCadena($_POST["id_cp"]):"";
 
 $fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
 
+$copia_fec_des1=isset($_POST["copia_fec_des1"])? limpiarCadena($_POST["copia_fec_des1"]):"";
+
+
+
+
 $id_reg_pen=isset($_POST["id_reg_pen"])? limpiarCadena($_POST["id_reg_pen"]):"";
 
 $id_ano=isset($_POST["id_ano"])? limpiarCadena($_POST["id_ano"]):"";  
@@ -128,7 +133,13 @@ switch ($_GET["op"]){
 			echo $rspta ? "Regimen pensionario registrado" : "Regimen pensionario no se pudo registrar";
 		}
 		else {
-			$rspta=$regimen_pensionario->editar(	$fec_des1,
+
+
+
+			if ($copia_fec_des1=='0' OR $copia_fec_des1=='') {
+
+				$rspta=$regimen_pensionario->editar($fec_des1,
+													$obs_reg_pen,
 													$id_reg_pen,
 													$onp_apo_obl,
 													$onp_com_men_rem,
@@ -171,7 +182,105 @@ switch ($_GET["op"]){
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-			echo $rspta ? "Regimen pensionario actualizado" : "Regimen pensionario no se pudo actualizar";
+				echo $rspta ? "Regimen pensionario actualizado" : "Regimen pensionario no se pudo actualizar";
+				
+			}else {
+
+				$rspta=$regimen_pensionario->editar(
+													$obs_reg_pen,
+													$id_reg_pen,
+													$onp_apo_obl,
+													$onp_com_men_rem,
+													$onp_com_anu,
+													$onp_com_men,
+													$onp_pri_seg,
+													$onp_apo_act,
+													$onp_apo_mix,
+													$int_apo_obl,
+													$int_com_men_rem,
+													$int_com_anu,
+													$int_com_men,
+													$int_pri_seg,
+													$int_apo_act,
+													$int_apo_mix,
+													$pri_apo_obl,
+													$pri_com_men_rem,
+													$pri_com_anu,
+													$pri_com_men,
+													$pri_pri_seg,
+													$pri_apo_act,
+													$pri_apo_mix,
+													$pro_apo_obl,
+													$pro_com_men_rem,
+													$pro_com_anu,
+													$pro_com_men,
+													$pro_pri_seg,
+													$pro_apo_act,
+													$pro_apo_mix,
+													$hab_apo_obl,
+													$hab_com_men_rem,
+													$hab_com_anu,
+													$hab_com_men,
+													$hab_pri_seg,
+													$hab_apo_act,
+													$hab_apo_mix,
+													$sj_apo_obl,
+													$sj_com_men_rem,
+													$sj_apo_mix,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg);
+				
+				$rspta=$regimen_pensionario->insertar($copia_fec_des1,
+													$id_ano,
+													$obs_reg_pen,
+													$onp_apo_obl,
+													$onp_com_men_rem,
+													$onp_com_anu,
+													$onp_com_men,
+													$onp_pri_seg,
+													$onp_apo_act,
+													$onp_apo_mix,
+													$int_apo_obl,
+													$int_com_men_rem,
+													$int_com_anu,
+													$int_com_men,
+													$int_pri_seg,
+													$int_apo_act,
+													$int_apo_mix,
+													$pri_apo_obl,
+													$pri_com_men_rem,
+													$pri_com_anu,
+													$pri_com_men,
+													$pri_pri_seg,
+													$pri_apo_act,
+													$pri_apo_mix,
+													$pro_apo_obl,
+													$pro_com_men_rem,
+													$pro_com_anu,
+													$pro_com_men,
+													$pro_pri_seg,
+													$pro_apo_act,
+													$pro_apo_mix,
+													$hab_apo_obl,
+													$hab_com_men_rem,
+													$hab_com_anu,
+													$hab_com_men,
+													$hab_pri_seg,
+													$hab_apo_act,
+													$hab_apo_mix,
+													$sj_apo_obl,
+													$sj_com_men_rem,
+													$sj_apo_mix,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg
+													);
+
+
+				echo $rspta ? "Regimen pensionario actualizado " : "Regimen pensionario no se pudo actualizar";
+			}
+
 		}
 		
 	break;

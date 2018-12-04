@@ -224,103 +224,148 @@ switch ($_GET["op"]){
 				
 	            }else{
 	            	// REGISTRO DE HORA DE SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
-	            	if ($primera_salida=='') {
+	            	if ($primera_salida=='' OR $primera_salida=='00:00:00' ) { //Actualizado de '' a '00:00:00' 30/11/2018
 
 
-			         	 $rspta=$reloj->editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+	            		 $codigo_ingresado=$reloj->consultarIngresoEnReloj($id_trab, $fecha, $hora);
+						 $regc=$codigo_ingresado->fetch_object();
+						 $intervalo_1ing_1sal=$regc->intervalo_1ing_1sal;
 
-			         	   
-
-			         	    $codigo_ingresado=$reloj->consultarHoraExtra($id_trab, $fecha, $hora);
-					        $regc=$codigo_ingresado->fetch_object();
-					        $tiempo=$regc->tiempo_largo;
-
-					       
-					       //Porcentaje pago sr.pascual
-						
-					     
-					        
-					        //DIA DONDE TIENE SU HORARIO DE INGRESO(LABORABLE)
-					        if ($hora_salida!='00:00:00' and $cant_tiempo_hs_he>='3600' )  
-					        {
-
-					        	if ($id_trab=$id_casovigilancia and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado='LABORABLE') {
-					        		
-					        		
-					        		$tiempo_largo_hs_he=$cantidad_horas;
-					        	//	$tiempo=$cantidad_horas;
-					        	//	$hora_ingreso=$hora;
-					        	//	$hora=$hora_salida;
-
-					        	  
-
-					        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-
-					        	//	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);  
-					        
+	            		if ($intervalo_1ing_1sal<='300') {
+	            			# code...
+	            		}
+	            		else if ($intervalo_1ing_1sal>'300') {
+	            			# code...
+	            		
 
 
 
-					        	} else if ($id_trab=$id_casomovilidad and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado='LABORABLE') {
-					        		$tiempo_largo_hs_he=$canthoras_mov;
-					        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+						         	 $rspta=$reloj->editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+
+						         	   
+
+						         	    $codigo_ingresado=$reloj->consultarHoraExtra($id_trab, $fecha, $hora);
+								        $regc=$codigo_ingresado->fetch_object();
+								        $tiempo=$regc->tiempo_largo;
+
+								       
+								       //Porcentaje pago sr.pascual
+									
+								     
+								        
+								        //DIA DONDE TIENE SU HORARIO DE INGRESO(LABORABLE)
+								        if ($hora_salida!='00:00:00' and $cant_tiempo_hs_he>='3600' )  
+								        {
+
+								        	if ($id_trab=$id_casovigilancia and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado='LABORABLE') {
+								        		
+								        		
+								        		$tiempo_largo_hs_he=$cantidad_horas;
+								        	//	$tiempo=$cantidad_horas;
+								        	//	$hora_ingreso=$hora;
+								        	//	$hora=$hora_salida;
+
+								        	  
+
+								        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+
+								        	//	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);  
+								        
 
 
-					        	
-					        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad) {
-					        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-					        	
-					        	}
 
-					        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO, DIA NO LABORABLE)
-					        } else if ($hora_ingreso='00:00:00' ) 
-					        {	
-
-					        	if ($estado='NO LABORABLE' OR $estado='FERIADO') {
-					        	     $por_pago='100';
-					        	}else {
-					        	     $por_pago='25';
-					        	}
+								        	} else if ($id_trab=$id_casomovilidad and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado='LABORABLE') {
+								        		$tiempo_largo_hs_he=$canthoras_mov;
+								        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
 
-					        	
-					        	if ($id_trab=$id_casovigilancia or $id_trab=$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
-					        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
-					        		$tiempo_fin=$tiempo;
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin,  $por_pago );
+								        	
+								        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad) {
+								        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+								        	
+								        	}
 
-					        	}else if ($cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200') {
-					        		$tiempo_fin=$tiempo;
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
+								        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO, DIA NO LABORABLE)
+								        } else if ($hora_ingreso='00:00:00' ) 
+								        {	
 
-					        	}else if ($id_trab=$id_casovigilancia and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
-					        		$tiempo_fin=$fedo_canhoras_max;
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
+								        	if ($estado='NO LABORABLE' OR $estado='FERIADO') {
+								        	     $por_pago='100';
+								        	}else {
+								        	     $por_pago='25';
+								        	}
 
 
-					        	}else if ( $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
+								        	
+								        	if ($id_trab=$id_casovigilancia or $id_trab=$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
+								        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
+								        		$tiempo_fin=$tiempo;
+								        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin,  $por_pago );
 
-					        		$tiempo_fin='12:00:00';
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
+								        	}else if ($cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200') {
+								        		$tiempo_fin=$tiempo;
+								        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
 
-					        	}
+								        	}else if ($id_trab=$id_casovigilancia and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
+								        		$tiempo_fin=$fedo_canhoras_max;
+								        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
 
-			         	   		
 
-			         		}
+								        	}else if ( $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
+
+								        		$tiempo_fin='12:00:00';
+								        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
+
+								        	}
+
+						         	   		
+
+						         		}
+
+
+
+						    }
 
 
 						 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
 					}
 					// REGISTRO DE HORA DE SEGUNDO INGRESO ACTUALIZANDO LA LINEA DEL RELOJ
-	 				else if ($segunda_entrada=='') {
-	 					 $rspta=$reloj->editar_segunda_entrada($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-				    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+	 				else if ($segunda_entrada=='' OR $segunda_entrada=='00:00:00' ) {
+
+
+				 					 $codigo_ingresado=$reloj->consultarPrimeraSalidaEnReloj($id_trab, $fecha, $hora);
+									 $regc=$codigo_ingresado->fetch_object();
+									 $intervalo_1sal_2ing=$regc->intervalo_1sal_2ing;
+
+				            		if ($intervalo_1sal_2ing<='300') {
+				            			
+				            		}
+				            		else if ($intervalo_1sal_2ing>'300') {
+
+
+							 					 $rspta=$reloj->editar_segunda_entrada($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+										    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+
+			 						}
+
 	 				}
 	 				// REGISTRO DE HORA DE SEGUNDA SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
 	 				else if ($segunda_salida=='') {
-	 					 $rspta=$reloj->editar_segunda_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-				    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+
+	 								 $codigo_ingresado=$reloj->consultarSegundoIngresoEnReloj($id_trab, $fecha, $hora);
+									 $regc=$codigo_ingresado->fetch_object();
+									 $intervalo_2ing_2sal=$regc->intervalo_2ing_2sal;
+
+				            		if ($intervalo_2ing_2sal<='300') {
+				            			
+				            		}
+				            		else if ($intervalo_2ing_2sal>'300') {
+	 					 
+							 					 $rspta=$reloj->editar_segunda_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+										    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+	 								}
+
+
 	 				}
 
 	            }

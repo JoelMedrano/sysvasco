@@ -408,7 +408,7 @@ switch ($_GET["op"]){
 				}
 	break;
 
-
+	// USADO EN PRESTAMOS Y REGIMEN PENSIONARIO
 	case "selectFechaDscto1":
 	
 		
@@ -420,6 +420,23 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->fec_des1 . '>' . $reg->fecha1 . '</option>';
 				}
 	break;
+
+
+		// USADO EN PRESTAMOS Y REGIMEN PENSIONARIO
+	case "selectCopiaFechaDscto1":
+	
+		
+
+		$rspta = $prestamos->selectFechas();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->copia_fec_des1 . '>' . $reg->copia_fecha1 . '</option>';
+				}
+	break;
+
+
+
 
 
 	case "selectFechaDscto2":

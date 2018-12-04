@@ -38,8 +38,8 @@ if ($_SESSION['rrhh']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                           
-                            <th>Fec.Emision</th>
-                            <th>Fec.Procede</th>
+                            <th  style="width:10px">Fec.Emision</th>
+                            <th  style="width:10px">Fec.Procede</th>
                             <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
@@ -51,6 +51,7 @@ if ($_SESSION['rrhh']==1)
                             <th>JEF.OPE</th>
                             <th>RR.HH</th>
                             <th>Anular</th>
+                            <th>Exportar</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -68,6 +69,7 @@ if ($_SESSION['rrhh']==1)
                             <th>JEF.OPE</th>
                             <th>RR.HH</th>
                             <th>Anular</th>
+                            <th>Exportar</th>
                           </tfoot>
                         </table>
                     </div>
@@ -169,15 +171,13 @@ if ($_SESSION['rrhh']==1)
                                       <input type="time" class="form-control" name="hora_sal" id="hora_sal" autocomplete="off">
                                     </div>
 
-                                     <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                     <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                       <label>Motivo:</label>
                                       <input type="text" class="form-control" style="text-transform: uppercase" name="motivo" id="motivo"  required autocomplete="off">
-                                    <br>
-                                                          <button class="btn btn-success" type="button" onclick="restarHoras()">Restar</button>
-
+                                  
                                     </div>
 
-                                     <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                      </div>
 
                                   

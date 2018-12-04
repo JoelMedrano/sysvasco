@@ -10,6 +10,10 @@ function init(){
 
 	listar();
 
+
+	listarresumen();
+
+
 	$("#formulario").on("submit",function(e)
 	{
 		guardaryeditar(e);	
@@ -721,6 +725,37 @@ function listar()
 }
 //Función para guardar o editar
 
+
+
+//Función Listar
+function listarresumen()
+{
+	tabla=$('#tbllistado_resumen').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            
+		        ],
+		"ajax":
+				{
+					url: '../ajax/trabajador.php?op=listar_Resumen',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"iDisplayLength": 10,//Paginación
+	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
+	}).DataTable();
+}
+//Función para guardar o editar
+
+
+
 function guardaryeditar(e)
 {
 	e.preventDefault(); //No se activará la acción predeterminada del evento
@@ -973,6 +1008,8 @@ function mostrar_datos(id_trab)
 		$("#ocu_hij1").val(data.ocu_hij1);
 		$("#dep_hij1").val(data.dep_hij1);
 		$("#tel_hij1").val(data.tel_hij1);
+		$("#edad_hij1").val(data.edad_hij1);
+
 
 		$("#dat_hij1_muestra").show();
 		$("#dat_hij1_muestra").attr("src","../files/trabajador_familia/"+data.dat_hij1);
@@ -985,6 +1022,7 @@ function mostrar_datos(id_trab)
 		$("#ocu_hij2").val(data.ocu_hij2);
 		$("#dep_hij2").val(data.dep_hij2);
 		$("#tel_hij2").val(data.tel_hij2);
+		$("#edad_hij2").val(data.edad_hij2);
 
 
 		$("#nac_hij3").val(data.nac_hij3);
@@ -992,12 +1030,14 @@ function mostrar_datos(id_trab)
 		$("#ocu_hij3").val(data.ocu_hij3);
 		$("#dep_hij3").val(data.dep_hij3);
 		$("#tel_hij3").val(data.tel_hij3);
+		$("#edad_hij3").val(data.edad_hij3);
 
         $("#nac_hij4").val(data.nac_hij4);
 		$("#nom_hij4").val(data.nom_hij4);
 		$("#ocu_hij4").val(data.ocu_hij4);
 		$("#dep_hij4").val(data.dep_hij4);
 		$("#tel_hij4").val(data.tel_hij4);
+		$("#edad_hij4").val(data.edad_hij4);
 
 		$("#nom_otro").val(data.nom_otro);
 		$("#ocu_otro").val(data.ocu_otro);

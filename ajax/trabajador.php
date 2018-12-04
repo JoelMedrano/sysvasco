@@ -325,13 +325,7 @@ $id_trab_data_adjunta=isset($_POST["id_trab_data_adjunta"])? limpiarCadena($_POS
 
 
 
-
-switch ($_GET["op"]){
-	case 'guardaryeditar':
-
-		if (empty($id_trab)){
-
-			//Agregado el 27/11/2018
+//Agregado el 27/11/2018
 		
 			$codigo_ingresado=$trabajador->traernuevocodigo($id_tip_plan);
 	        $regc=$codigo_ingresado->fetch_object();
@@ -354,8 +348,18 @@ switch ($_GET["op"]){
 			 	$id = "I".$id;
 			 }
 
-			  
 
+
+
+switch ($_GET["op"]){
+	case 'guardaryeditar':
+
+		
+
+
+
+		if (empty($id_trab)){
+ 		
 
 
 			
@@ -391,24 +395,69 @@ switch ($_GET["op"]){
 
 		}
 		else {
-			$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab, $id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
-				$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_sal_trab, $id_tip_plan, $sueldo_trab,
-				 $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
-				 $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno, $mot_sal_interno, $fec_ing2,  $fec_sal2, $mot_sal2,
-				 $fec_ing1, $fec_sal1, $mot_sal1, $nro_cta_cts, $nro_cta_sue , $id_pag_vac_cts  );
-		
+
+				$dato=$trabajador->consultarTipoPlanilla($id_trab);
+       			$regc=$dato->fetch_object();
+       			$ant_tip_plan=$regc->ant_tip_plan;
 
 
 
-			$rsptac = $trabajador->mostrar_idperiodovacaciones($anoperiodo); 
-			$regc=$rsptac->fetch_object();
-			$id_ano_periodo=$regc->id_ano_periodo;
+				if($id_tip_plan==$ant_tip_plan){
+
+
+								$rspta=$trabajador->editar($id_trab,$nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab, $id_distrito, $departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad,$id_est_civil,
+											$id_tip_doc,$num_doc_trab,$num_tlf_dom,$num_tlf_cel,$email_trab,$id_sucursal,$id_funcion,$id_area,$id_turno,$fec_ing_trab,$fec_sal_trab, $id_tip_plan, $sueldo_trab,
+										 	$bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost, $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen,$id_com_act, $id_genero, $id_t_registro, 
+											$fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, $fec_ing_interno, $fec_sal_interno, $mot_sal_interno, $fec_ing2,  $fec_sal2, $mot_sal2,
+											$fec_ing1, $fec_sal1, $mot_sal1, $nro_cta_cts, $nro_cta_sue , $id_pag_vac_cts  );
+					
+
+								$rsptac = $trabajador->mostrar_idperiodovacaciones($anoperiodo); 
+								$regc=$rsptac->fetch_object();
+								$id_ano_periodo=$regc->id_ano_periodo;
 
 
 
-			if ($id_tip_plan=='1' AND  $CantItems=='0') {
-			$rspta=$trabajador->insertar_primerperiodovacaciones( $num_doc_trab, $fec_ing_trab, $id_tip_plan,  $CantItems, $id_ano_periodo, $anoperiodo, $fec_reg, $usu_reg, $pc_reg  );
-			}
+								if ($id_tip_plan=='1' AND  $CantItems=='0') {
+								$rspta=$trabajador->insertar_primerperiodovacaciones( $num_doc_trab, $fec_ing_trab, $id_tip_plan,  $CantItems, $id_ano_periodo, $anoperiodo, $fec_reg, $usu_reg, $pc_reg  );
+								}
+
+
+				} else if ($id_tip_plan!=$ant_tip_plan) {
+
+								
+
+								$rspta=$trabajador->insertar($id, $nom_trab,$apepat_trab,$apemat_trab,$dir_trab,$urb_trab,$id_distrito,$departamento, $fec_nac_trab,$lug_nac_trab,$nacionalidad, $id_est_civil, $id_tip_doc, $num_doc_trab,
+												 $num_tlf_dom,$num_tlf_cel, $email_trab, $id_sucursal, $id_funcion, $id_area, $id_turno,$fec_ing_trab, $id_tip_plan, $sueldo_trab, $bono_trab, $bono_des_trab, $asig_trab, $id_pag_esp, $obs_trab, $id_cen_cost,
+											     $id_tip_man_ob, $id_categoria, $id_form_pag, $id_tip_cont, $id_reg_pen, $id_com_act, $id_genero, $id_t_registro,  $fecfin_con_ant, $fecfin_con_act, $cusp_trab, $usu_reg, $pc_reg, $fec_reg, 
+											     $fec_ing_interno, $fec_sal_interno, $nro_cta_cts, $nro_cta_sue, $id_pag_vac_cts );
+
+								$rspta=$trabajador->insertar_trabajador_familia( $id, $fec_reg, $usu_reg, $pc_reg );
+								$rspta=$trabajador->insertar_trabajador_estudios( $id, $fec_reg, $usu_reg, $pc_reg );
+								$rspta=$trabajador->insertar_trabajador_conocimiento( $id, $fec_reg, $usu_reg, $pc_reg );
+								$rspta=$trabajador->insertar_trabajador_exp_laboral( $id, $fec_reg, $usu_reg, $pc_reg );
+					            $rspta=$trabajador->insertar_trabajador_salud( $id, $fec_reg, $usu_reg, $pc_reg );
+								$rspta=$trabajador->insertar_trabajador_afiliacion( $id, $fec_reg, $usu_reg, $pc_reg );
+								$rspta=$trabajador->insertar_trabajador_data_adjunta( $id,  $fec_reg, $usu_reg, $pc_reg );
+
+								
+
+								  $rsptac = $trabajador->mostrar_idperiodovacaciones($anoperiodo); 
+								  $regc=$rsptac->fetch_object();
+								  $id_ano_periodo=$regc->id_ano_periodo;
+
+
+
+								if ($id_tip_plan=='1') {
+								$rspta=$trabajador->insertar_primerperiodovacaciones( $num_doc_trab, $fec_ing_trab, $id_tip_plan,  $CantItems, $id_ano_periodo, $anoperiodo, $fec_reg, $usu_reg, $pc_reg  );
+								}
+							
+
+
+				}
+
+
+			
 
 			echo $rspta ? "Trabajador actualizado" : "Trabajador no se pudo actualizar";
 
@@ -1189,6 +1238,22 @@ switch ($_GET["op"]){
  		echo $rspta ? "Trabajador Activo" : "Trabajador no se puede activar";
 	break;
 
+
+
+	case 'eliminar':
+		$rspta=$trabajador->eliminar_trabajador($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_afiliacion($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_conocimiento($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_data_adjunta($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_estudios($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_exp_laboral($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_familia($id_trab);
+		$rspta=$trabajador->eliminar_trabajador_salud($id_trab);
+ 		echo $rspta ? "Trabajador Eliminado" : "Trabajador no se puede eliminar";
+	break;
+
+
+
 	case 'mostrar':
 		$rspta=$trabajador->mostrar($id_trab);
  		//Codificar el resultado utilizando json
@@ -1231,7 +1296,7 @@ switch ($_GET["op"]){
  				"5"=>$reg->nombres,
  				"6"=>$reg->area_trab,
  				"7"=>$reg->funcion,
- 				"8"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
+ 				"8"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
  				'<span class="label bg-red">Cesado</span>',  
  				"9"=>'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
@@ -1239,9 +1304,12 @@ switch ($_GET["op"]){
  				"11"=>'<button class="btn btn-warning" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  				"12"=>'<a target="_blank" href="'.$url.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"13"=>'<a target="_blank" href="'.$url2.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"14"=>($reg->est_reg)?
+ 				"14"=>($reg->est_reg=='0')?
  					' <button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>',
+ 				"15"=>($reg->est_reg)?
+ 					' <button class="btn btn-danger" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(
@@ -1252,6 +1320,30 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 
 	break;
+
+	  case 'listar_Resumen':
+	   $rspta=$trabajador->listar_Resumen();
+	     //Vamos a declarar un array
+	     $data= Array();
+
+	     while ($reg=$rspta->fetch_object()){
+	         $data[]=array(
+	             "0"=>$reg->total_act,
+	             "1"=>$reg->tot_act_pla,
+	             "2"=>$reg->tot_act_int,
+	             "3"=>$reg->tot_ces_pla,
+	             "4"=>$reg->tot_ces_int,
+	             );
+	     }
+	     $results = array(
+	         "sEcho"=>1, //Información para el datatables
+	         "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+	         "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+	         "aaData"=>$data);
+	     echo json_encode($results);
+
+    break;
+
 
 	
 

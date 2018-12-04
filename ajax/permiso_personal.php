@@ -260,6 +260,8 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
 
+ 				 $url='../reportes/rptPermisoTrabajador.php?id=';
+
 
     		if ( $_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='2' || $_SESSION["idusuario"]=='7') {
 
@@ -293,6 +295,7 @@ switch ($_GET["op"]){
 
  				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  						
  				);
 
@@ -319,7 +322,9 @@ switch ($_GET["op"]){
  					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
  				"11"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
- 						
+ 				"12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+
+
  				);
 
 
@@ -348,7 +353,8 @@ switch ($_GET["op"]){
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
  				"9"=>$reg->ninguno,
  				"10"=>$reg->ninguno,
- 				"11"=>$reg->ninguno	
+ 				"11"=>$reg->ninguno,
+ 				"12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  				);
 
 			 }
