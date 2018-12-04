@@ -83,17 +83,17 @@ if ($_SESSION['escritorio']==1)
 
 ?>
 <!--Contenido-->
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-        <!-- Main content -->
-        <section class="content">
-            <div class="row">
-              <div class="col-md-12">
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content">
+              <div class="row">
+                <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Escritorio </h1>
-                        <div class="box-tools pull-right">
-                        </div>
+                      <h1 class="box-title">Escritorio </h1>
+                      <div class="box-tools pull-right">
+                      </div>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
@@ -185,7 +185,7 @@ if ($_SESSION['escritorio']==1)
                           </thead>
                           <tbody>
                           </tbody>
-                          
+
                         </table>
                       </div>
 
@@ -199,12 +199,12 @@ if ($_SESSION['escritorio']==1)
 
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="box box-primary">
-                            <div class="box-header with-border">
-                              VENTAS vs PRODUCCION
-                            </div>
-                            <div class="box-body">
-                                <canvas id="versus" width="1000" height="300"></canvas>
-                            </div>
+                          <div class="box-header with-border">
+                            VENTAS vs PRODUCCION
+                          </div>
+                          <div class="box-body">
+                            <canvas id="versus" width="1000" height="300"></canvas>
+                          </div>
                         </div>
                       </div>
 
@@ -213,27 +213,27 @@ if ($_SESSION['escritorio']==1)
 
                     <div class="panel-body">
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                          <div class="box box-primary">
-                              <div class="box-header with-border">
-                                Compras de los últimos 10 días
-                              </div>
-                              <div class="box-body">
-                                <canvas id="compras" width="400" height="300"></canvas>
-                              </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="box box-primary">
+                          <div class="box-header with-border">
+                            Compras de los últimos 10 días
+                          </div>
+                          <div class="box-body">
+                            <canvas id="compras" width="400" height="300"></canvas>
                           </div>
                         </div>
+                      </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                          <div class="box box-primary">
-                              <div class="box-header with-border">
-                                Ventas de los últimos 12 meses
-                              </div>
-                              <div class="box-body">
-                                <canvas id="ventas" width="400" height="300"></canvas>
-                              </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="box box-primary">
+                          <div class="box-header with-border">
+                            Ventas de los últimos 12 meses
+                          </div>
+                          <div class="box-body">
+                            <canvas id="ventas" width="400" height="300"></canvas>
                           </div>
                         </div>
+                      </div>
 
                     </div>
 
@@ -241,11 +241,11 @@ if ($_SESSION['escritorio']==1)
 
                     <!--Fin centro -->
                   </div><!-- /.box -->
-              </div><!-- /.col -->
-          </div><!-- /.row -->
-      </section><!-- /.content -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </section><!-- /.content -->
 
-    </div><!-- /.content-wrapper -->
+          </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
 }
@@ -256,7 +256,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/trabajador.js"></script>
+
 <script type="text/javascript" src="scripts/etardanzas.js"></script>
 <script src="../public/js/chart.min.js"></script>
 <script src="../public/js/Chart.bundle.min.js"></script>
