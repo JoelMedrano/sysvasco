@@ -324,8 +324,34 @@ Class Reporte_Diario_Asistencia
 					LEFT JOIN tabla_maestra_detalle AS tare ON
 						tare.cod_argumento= tr.id_area
 						AND tare.cod_tabla='TARE'
+					LEFT JOIN (
+						SELECT  hrt.id_trab, CASE 
+								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
+								WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
+								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso 
+								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso 
+								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso 
+								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso 
+								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso 
+								ELSE '-'  END
+								AS hora_ingreso,
+								ref.hora_ini AS hora_ini_ref,
+								ref.hora_fin AS hora_fin_ref,
+								ref.tiempo AS tiempo_ref,
+								fe.estado
+						FROM horario_refrigerio_trabajador AS hrt 
+							LEFT JOIN horario  AS  hor ON
+							hrt.id_horario= hor.id_horario
+							LEFT JOIN refrigerio AS ref ON
+							ref.cod_ref= hrt.cod_ref 
+							LEFT JOIN(
+								SELECT  fe.nom_dia, fe.estado ,  fe.fecha
+								FROM fechas AS fe  
+								WHERE fe.fecha=CURDATE()
+							) AS fe ON fe.fecha=CURDATE()
+					) AS ft  ON ft.id_trab= tr.id_trab
 					WHERE   tr.id_trab NOT IN  ( SELECT  ehp.id_trab  FROM excepciones_horario_pago ehp WHERE ehp.est_reg='1')  
-					AND re.hor_ent >'08:00:00' 
+					AND re.hor_ent >ft.hora_ingreso
 					AND  re.fecha= CURDATE() /*OK TARDANZA*/
 					UNION ALL 
 					SELECT  tr.id_trab,

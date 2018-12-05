@@ -83,12 +83,7 @@ switch ($_GET["op"]){
 
 		if (empty($id_rmhd)){
 
-			if ($id=='') {
-			
-			
-
-
-			$rspta=$rmhd->insertar(			   $id_trab,
+				$rspta=$rmhd->insertar(		   $id_trab,
 											   $fecha,
 											   $hora_ing, 
 											   $hora_sal, 
@@ -99,22 +94,31 @@ switch ($_GET["op"]){
 											   $usu_reg
 											    );
 
-			$rspta=$rmhd->insertar_reloj($id_trab,
-										 $fecha,
-			 							 $fec_reg,
-			 							 $pc_reg, 
-										 $usu_reg,
-										 $hora_ing, 
-										 $hora_sal,
-									     $id_tip_plan,
-									     $dia,
-									     $est_hor,
-			      						 $id_turno); 
-									    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
+
+				if ($id==''  AND $id_accion=='1') {
+			
+	
+						$rspta=$rmhd->insertar_reloj($id_trab,
+													 $fecha,
+						 							 $fec_reg,
+						 							 $pc_reg, 
+													 $usu_reg,
+													 $hora_ing, 
+													 $hora_sal,
+												     $id_tip_plan,
+												     $dia,
+												     $est_hor,
+						      						 $id_turno); 
+						echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
 
 
 
-		}
+				} else if ($id!='' AND $id_accion=='2') { //ELIMINAR  
+					
+
+				} else if ($id!='' AND $id_accion=='3') { //ACTUALIZAR
+
+				}
 
 
 			echo $rspta ? "Registrado" : "No se pudo registrar";
