@@ -138,36 +138,6 @@ if ($_SESSION['escritorio']==1)
 
                     </div>
 
-
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-
-                      <div class="box-header with-border">
-                        <b>TARDANZAS DEL DIA</b>
-                      </div>
-
-                      <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
-                          <thead>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                          <tfoot>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                          </tfoot>
-                        </table>
-                      </div>
-
-                    </div>
-
-
-
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 
                       <div class="box-header with-border">
@@ -190,6 +160,45 @@ if ($_SESSION['escritorio']==1)
                       </div>
 
                     </div>
+
+                    <div class="col-lg-12 col-md-6 col-sm-6 col-xs-6">
+
+                      <div class="box-header with-border">
+                        <b>INCIDENCIAS DEL DIA</b>
+                      </div>
+
+                      <div class="panel-body table-responsive" id="listadoregistros">
+                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                          <thead>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Tipo Planilla</th>
+                            <th>Sucursal</th>
+                            <th>Funcion</th>
+                            <th>Area</th>
+                            <th>Incidencia</th>
+                            <th>Tiempo</th>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                          <tfoot>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Tipo Planilla</th>
+                            <th>Sucursal</th>
+                            <th>Funcion</th>
+                            <th>Area</th>
+                            <th>Incidencia</th>
+                            <th>Tiempo</th>
+                          </tfoot>
+                        </table>
+                      </div>
+
+                    </div>
+
+
+
+
 
 
 

@@ -32,8 +32,8 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
-	    "order": [[ 3, "desc" ]]//Ordenar (columna,orden)
+		"iDisplayLength": 15,//Paginación
+	    "order": [[ 7, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
 

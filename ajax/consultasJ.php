@@ -14,10 +14,16 @@ switch ($_GET["op"]){
      while ($reg=$rspta->fetch_object()){
          $data[]=array(
              "0"=>$reg->id_trab,
-             "1"=>$reg->trabajador,
-             "2"=>$reg->fecha,
-             "3"=>$reg->hor_ent
+             "1"=>$reg->nombres,
+             "2"=>($reg->tipo_planilla=='PLANILLA')?'<span class="label label-primary">PLANILLA</span>':'<span class="label label-success">INTERNO</span>',
+             "3"=>$reg->sucursal_anexo,
+             "4"=>$reg->funcion,
+             "5"=>$reg->area_trab,
+             "6"=>($reg->incidencia=="TARDANZA")?('<span class="label label-warning">TARDANZA</span>'):(($reg->incidencia=='FALTA')?('<span class="label label-danger">FALTA</span>'):('<span class="label label-info">VACACIONES</span>')),
+             "7"=>$reg->hor_ent
              );
+
+             
      }
      $results = array(
          "sEcho"=>1, //Información para el datatables
