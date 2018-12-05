@@ -196,6 +196,15 @@ switch ($_GET["op"]){
 
 							 				//INICIO - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO  EN UN DIA LABORABLE
 							 				 if ($hora_ingreso>$hora  AND  $cantidad_tiempo>='3600'  ) {
+
+
+							 				 		// INICIO - Agregado el  051222018(Leydi Godos) 
+							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+													$regc=$dato->fetch_object();
+													$tiempo=$regc->tiempo_redondeado;  
+
+							 				 		// FIN - Agregado el  051222018(Leydi Godos)
+
 								            	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 								            }else if ($hora_ingreso='00:00:00') {
 							 				 //INICIO - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO  EN UN DIA LABORABLE PERO SIN INGRESO
@@ -265,6 +274,17 @@ switch ($_GET["op"]){
 								        	//	$hora_ingreso=$hora;
 								        	//	$hora=$hora_salida;
 
+
+
+								        		// INICIO - Agregado el  051222018(Leydi Godos) 
+								        		    $tiempo=$tiempo_largo_hs_he;
+							 				 		
+							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+													$regc=$dato->fetch_object();
+													$tiempo_largo_hs_he=$regc->tiempo_redondeado;  
+
+							 				 	// FIN - Agregado el  051222018(Leydi Godos)
+
 								        	  
 
 								        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
@@ -276,11 +296,26 @@ switch ($_GET["op"]){
 
 								        	} else if ($id_trab=$id_casomovilidad and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado='LABORABLE') {
 								        		$tiempo_largo_hs_he=$canthoras_mov;
+
+
+								        		// INICIO - Agregado el  051222018(Leydi Godos) 
+								        		    $tiempo=$tiempo_largo_hs_he;
+							 				 		
+							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+													$regc=$dato->fetch_object();
+													$tiempo_largo_hs_he=$regc->tiempo_redondeado;  
+
+							 				 	// FIN - Agregado el  051222018(Leydi Godos)
+
+
 								        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
 
 								        	
 								        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad) {
+
+
+								        		
 								        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 								        	
 								        	}

@@ -361,6 +361,7 @@ if (strlen(session_id()) < 1)
                       </ul>
                   </li>
 
+                  <li><a href="registro_manual_horas_dias.php"><i class="fa fa-circle-o"></i>Registro Manual Horas Dias</a></li>
 
                   <li><a href="compensacion.php"><i class="fa fa-circle-o"></i>Compensacion de Horas</a></li>
 

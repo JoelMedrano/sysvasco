@@ -459,6 +459,20 @@ Class Reloj
 
 
 
+	public function calcular_redondeo_tiempo($tiempo)
+	{
+		$sql="SELECT	CASE 
+						WHEN  SUBSTRING('$tiempo', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo', 1, 2), ':00:00')	
+						WHEN  SUBSTRING('$tiempo', 4, 2)>=30  AND SUBSTRING('$tiempo', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo', 1, 2), ':30:00')	
+						ELSE '-'  END
+						AS tiempo_redondeado;";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
 
 
 

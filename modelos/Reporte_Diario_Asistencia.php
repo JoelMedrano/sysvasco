@@ -324,7 +324,8 @@ Class Reporte_Diario_Asistencia
 					LEFT JOIN tabla_maestra_detalle AS tare ON
 						tare.cod_argumento= tr.id_area
 						AND tare.cod_tabla='TARE'
-					WHERE  re.hor_ent >'08:00:00' 
+					WHERE   tr.id_trab NOT IN  ( SELECT  ehp.id_trab  FROM excepciones_horario_pago ehp WHERE ehp.est_reg='1')  
+					AND re.hor_ent >'08:00:00' 
 					AND  re.fecha= CURDATE() /*OK TARDANZA*/
 					UNION ALL 
 					SELECT  tr.id_trab,
