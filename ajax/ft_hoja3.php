@@ -32,7 +32,7 @@ switch ($_GET["op"]){
 									$_POST["ubicacion"],
 									$_POST["consumo"],
 									$_POST["consumo_tenido"]);
-			echo $rspta ? "Avios registrado" : "No se pudieron registrar todos los datos de la Avios";
+			echo $rspta ? "Venta registrada" : "No se pudieron registrar todos los datos de la venta";
 		}
 		else {
 		}

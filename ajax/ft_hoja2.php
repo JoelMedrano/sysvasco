@@ -57,7 +57,7 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
 
-      if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3' || $_SESSION["idusuario"]=='11') {
+      if ($_SESSION["idusuario"]=='1' || $_SESSION["idusuario"]=='3') {
 
         $url='../reportes/rptFT_hoja2.php?id=';
 
@@ -86,7 +86,7 @@ switch ($_GET["op"]){
 
       }else {
 
-        $url='../reportes/rptFT_hoja2.php?id=';
+        $url='../reportes/rptCotizacion.php?id=';
 
         $data[]=array(
           "0"=>$reg->idmft,

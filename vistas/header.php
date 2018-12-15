@@ -464,10 +464,44 @@ if (strlen(session_id()) < 1)
                       <li><a href="ft_hoja2_1.php">Combinaciones</a></li>
                     </ul>
 
-
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Maestros UDP</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+                          <li><a href="modelo.php"><i class="fa fa-circle-o"></i> Modelos</a></li>
+                          <li><a href="cotizacion.php"><i class="fa fa-circle-o"></i> Cotizacion</a></li>
+                          <li><a href="detalle_cotizacion.php"><i class="fa fa-circle-o"></i> Editar Cotizacion</a></li>
+                          </li>
+                      </ul>
               </li> 
           
+                  <li class="treeview">
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Fichas Técnicas</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+                              <li><a href="ft_hoja1.php"><i class="fa fa-circle-o"></i> Presentacion</a></li>
+                              <li>
+                                  <a href="#">
+                                      <i class="fa fa-circle-o"></i> <span>Combinaciones</span>
+                                      <i class="fa fa-angle-left pull-right"></i>
+                                  </a>
+                                  <ul class="treeview-menu">
+                                      <li><a href="ft_hoja2.php">Especificaciones</a></li>
+                                      <li><a href="ft_hoja2_1.php">Combinaciones</a></li>
+                                  </ul>
+                              </li>
+                              <li><a href="ft_hoja3.php"><i class="fa fa-circle-o"></i> Avios</a></li>
+                          </li>
+                      </ul>
 
+                  </li>
                   <li><a href="ft_hoja3.php"><i class="fa fa-circle-o"></i> Avios</a></li>
                   <li><a href="confeccion.php"><i class="fa fa-circle-o"></i> Confeccion</a></li>
               </li>

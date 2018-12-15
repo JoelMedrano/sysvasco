@@ -22,7 +22,7 @@ if ($_SESSION['udp']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">FICHAS TECNICAS - Presentación <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">FICHAS TECNICAS - Especificaciones Técnicas <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -81,7 +81,7 @@ if ($_SESSION['udp']==1)
 
                             <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
                               <label>Color:</label>
-                              <input type="text" class="form-control" name="color_mod" id="color_mod" placeholder="Color">
+                              <input type="text" class="form-control" name="color_mod" id="color_mod" placeholder="Color" autocomplete="off">
                             </div>
 
                             <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">
@@ -97,13 +97,7 @@ if ($_SESSION['udp']==1)
 
                             <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
                               <label>División:</label>
-                             
-                              <select id="div_mod" name="div_mod" class="form-control selectpicker" data-live-search="true">
-                                <option value="DAMAS">DAMAS</option>
-                                <option value="CABALLEROS">CABALLEROS</option>
-                                <option value="NIÑOS">NIÑOS</option>
-                                <option value="NIÑAS">NIÑAS</option>
-                              </select>
+                              <input type="text" class="form-control" name="div_mod" id="div_mod">
                             </div>
 
                             <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
@@ -113,7 +107,7 @@ if ($_SESSION['udp']==1)
 
                             <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">
                               <label>Destino:</label>
-                              <input type="text"  class="form-control" value="NACIONAL" name="dest_mod" id="dest_mod" >
+                              <input type="text" class="form-control" name="dest_mod" id="dest_mod">
                             </div>
 
                             <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
@@ -157,7 +151,7 @@ if ($_SESSION['udp']==1)
 
 
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                              <label>Delantero:</label>
+                              <label>Imagen 2:</label>
                               <input type="file" class="form-control" name="imagen" id="imagen">
                               <input type="hidden" name="imagenactual_imagen" id="imagenactual_imagen">
                               <img src="" width="150px" height="120px" id="imagen_muestra">
@@ -165,7 +159,7 @@ if ($_SESSION['udp']==1)
 
 
                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                             <label>Posterior:</label>
+                             <label>Imagen 2:</label>
                              <input type="file" class="form-control" name="imagen2" id="imagen2">
                              <input type="hidden" name="imagenactual_imagen2" id="imagenactual_imagen2">
                              <img src="" width="150px" height="120px" id="imagen2_muestra">
