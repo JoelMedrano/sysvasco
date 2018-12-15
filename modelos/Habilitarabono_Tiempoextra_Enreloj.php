@@ -210,6 +210,7 @@ Class Habilitarabono_Tiempoextra_Enreloj
 			WHERE  cp.des_fec_pag  NOT IN  ('0')
 			AND hepc.habilitar_abono='1'
 			AND hep.abonado='2'
+			AND hep.est_reg='1'
 			ORDER BY  cp.id_cp DESC;";
 		return ejecutarConsulta($sql);		
 	}

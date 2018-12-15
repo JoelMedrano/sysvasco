@@ -70,6 +70,8 @@ switch ($_GET["op"]){
 			$dato=$rmhd->consultar_registroenelreloj($id_trab, $fecha ); // Consultar si tiene registro dentro de la tabla del  reloj
 	        $regc=$dato->fetch_object();
 	        $id=$regc->id;// Si esta vacio es porque no tiene registro en el reloj
+ 			$hor_ent_reloj=$regc->hor_ent;
+ 			$hor_sal_reloj=$regc->hor_sal;
 
 
 	//		$dato=$rmhd->consultar_registroenhorasextras($id_trab, $fecha ); // Consultar si tiene registro dentro de la tabla del  horas extras
@@ -83,7 +85,12 @@ switch ($_GET["op"]){
 
 		if (empty($id_rmhd)){
 
-				$rspta=$rmhd->insertar(		   $id_trab,
+				
+
+
+				if ($id==''  AND $id_accion=='1') {
+
+						$rspta=$rmhd->insertar($id_trab,
 											   $fecha,
 											   $hora_ing, 
 											   $hora_sal, 
@@ -93,9 +100,6 @@ switch ($_GET["op"]){
 											   $pc_reg, 
 											   $usu_reg
 											    );
-
-
-				if ($id==''  AND $id_accion=='1') {
 			
 	
 						$rspta=$rmhd->insertar_reloj($id_trab,
@@ -114,14 +118,76 @@ switch ($_GET["op"]){
 
 
 				} else if ($id!='' AND $id_accion=='2') { //ELIMINAR  
+
+
+					$hora_ing=$hor_ent_reloj;
+					$hora_sal=$hor_sal_reloj;
+
+					$rspta=$rmhd->insertar(	   $id_trab,
+											   $fecha,
+											   $hora_ing, 
+											   $hora_sal, 
+											   $id_accion, 
+											   $obs, 
+											   $fec_reg, 
+											   $pc_reg, 
+											   $usu_reg
+											    );
+
+					$rspta=$rmhd->insertar_reloj_data_eliminada(   $id_trab,
+																   $fecha,
+																   $fec_reg,
+																   $pc_reg,
+																   $usu_reg
+											    );
+
+					$rspta=$rmhd->eliminar_reloj($id_trab,
+											     $fecha
+											    );
+
+
+
+					$rspta=$rmhd->anular_hora_extra($id_trab,
+												    $fecha,
+												    $fec_reg,
+												    $pc_reg,
+												    $usu_reg
+											    );
+
+					$rspta=$rmhd->anular_hora_falta($id_trab,
+											        $fecha,
+											        $fec_reg,
+											        $pc_reg,
+											        $usu_reg
+											    );
+
+
+
+					echo $rspta ? "Se elimino la Marcación" : "Marcación no se pudo eliminar";
+					// ELIMINACION OK
+
 					
 
-				} else if ($id!='' AND $id_accion=='3') { //ACTUALIZAR
+				} else if ($id!='' AND $id_accion=='3') { //ACTUALIZAR - 
+					//Cuando  marcaron hora de ingreso pero no marcaron su hora de salida 
+					//CUando  marcaron solo hora de salida y no hora de ingreso
 
-				}
 
 
-			echo $rspta ? "Registrado" : "No se pudo registrar";
+
+
+				} else{ 
+
+					echo  "No se registro, verifique su información"; // CUando no ingresa a ninguno de los casos
+
+					} 
+
+
+
+
+				
+
+			
 		}
 		else {
 			$rspta=$rmhd->editar(			  
@@ -155,10 +221,19 @@ switch ($_GET["op"]){
 	break;
 
 	case 'mostrar':
-		$rspta=$rmhd->mostrar($id_permiso, $fec_reg, $pc_reg, $usu_reg);
+		$rspta=$rmhd->mostrar($id_rmhd);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
+
+
+
+	case 'filtrar':
+		$rspta=$rmhd->filtrar($id_trab,  $fecha);
+ 		//Codificar el resultado utilizando json
+ 		echo json_encode($rspta);
+	break;
+
 
 	case 'aprobar':
 		$rspta=$rmhd->aprobar($id_permiso, $fec_reg, $pc_reg, $usu_reg);

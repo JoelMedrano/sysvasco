@@ -152,7 +152,8 @@ Class Habilitardscto_Permisostardanzas_Xhorasenreloj
 					TbPer.des_corta= pp.tip_permiso
 					) AS pp ON pp.id_trab= hpp.id_trab
 				     AND       pp.fecha_procede=hpp.fecha 
-				where hpp.id_fec_dscto ='$id_cp'";
+				where hpp.id_fec_dscto ='$id_cp'
+				AND hpp.est_reg='1' ";
 		return ejecutarConsulta($sql);
 	}
 
@@ -213,6 +214,7 @@ Class Habilitardscto_Permisostardanzas_Xhorasenreloj
 			WHERE  cp.des_fec_pag  NOT IN  ('0')
 			AND hppc.habilitar_dscto='1'
 			AND hpp.descontado='2'
+			AND hpp.est_reg='1'
 			ORDER BY  cp.id_cp DESC;";
 		return ejecutarConsulta($sql);		
 	}

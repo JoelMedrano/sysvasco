@@ -38,58 +38,6 @@ Class Registro_Manual_Horas_Dias
 	
 
 
-	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultar_tipodepagovacaciones( $id_trab, $fecha )
-	{
-		
-		$sql="SELECT  id_trab AS id from horas_extras_personal where fecha ='$fecha' AND id_trab ='$id_trab'
- 			 ";
-		return ejecutarConsulta($sql);
-
-	}
-
-
-	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultar_pagodevacacionesjornal($id_trab, $dias  )
-	{
-		
-		$sql="SELECT id_trab, ROUND( ((sueldo_trab/30) * '$dias'),2)  AS monto_a_pagar, sueldo_trab
-			  FROM Trabajador  
-			  WHERE id_trab='$id_trab' 
- 			 ";
-		return ejecutarConsulta($sql);
-
-	}
-
-
-
-
-	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultar_turno($id_trab)
-	{
-		$sql="SELECT hr.id_turno, hrt.id_trab  
-			  FROM horario_refrigerio_trabajador hrt
-			  LEFT JOIN horario hr  ON
-			   hr.id_horario= hrt.id_horario
-			  WHERE hrt.id_trab='$id_trab'  ";
-		return ejecutarConsulta($sql);
-
-	}
-
-
-	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultarDataPersonal($id_trab)
-	{
-		$sql="SELECT  id_tip_plan, id_turno FROM trabajador WHERE id_trab='$id_trab'  ";
-		return ejecutarConsulta($sql);
-
-	}
-
-
-
-
-
-
 	//Implementamos un método para insertar registros
 	public function insertar(				   $id_trab,
 											   $fecha,
@@ -149,6 +97,85 @@ Class Registro_Manual_Horas_Dias
 
 
 
+	//Implementamos un método para insertar registros
+	public function insertar_reloj_data_eliminada(  $id_trab,
+													$fecha,
+													$fec_reg,
+													$pc_reg,
+													$usu_reg)
+	{
+
+
+		$sql="INSERT INTO reloj_data_eliminada
+					SELECT * FROM reloj WHERE fecha='$fecha' and id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_reloj(  				$id_trab,
+													$fecha)
+	{
+
+
+		$sql="DELETE FROM reloj WHERE fecha='$fecha' and id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+	//Implementamos un método para editar registros
+	public function anular_hora_extra(		   $id_trab,
+											   $fecha,
+											   $fec_reg,
+											   $pc_reg,
+											   $usu_reg
+											   )
+	{
+		$sql="UPDATE horas_extras_personal SET 
+											   est_reg='2', 
+											   fec_anu='$fec_reg', 
+											   pc_anu='$pc_reg', 
+											   usu_anu='$usu_reg' 
+								    WHERE id_trab='$id_trab'
+									AND   fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	//Implementamos un método para editar registros
+	public function anular_hora_falta(		   $id_trab,
+											   $fecha,
+											   $fec_reg,
+											   $pc_reg,
+											   $usu_reg
+											   )
+	{
+		$sql="UPDATE horas_permiso_personal SET 
+											   est_reg='2', 
+											   fec_anu='$fec_reg', 
+											   pc_anu='$pc_reg', 
+											   usu_anu='$usu_reg' 
+								    WHERE id_trab='$id_trab'
+									AND   fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+
+
+
 
 	//Implementamos un método para editar registros
 	public function editar(				       $id_rmhd,
@@ -175,6 +202,56 @@ Class Registro_Manual_Horas_Dias
 								    WHERE id_rmhd='$id_rmhd'";
 		return ejecutarConsulta($sql);
 	}
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_tipodepagovacaciones( $id_trab, $fecha )
+	{
+		
+		$sql="SELECT  id_trab AS id from horas_extras_personal where fecha ='$fecha' AND id_trab ='$id_trab'
+ 			 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_pagodevacacionesjornal($id_trab, $dias  )
+	{
+		
+		$sql="SELECT id_trab, ROUND( ((sueldo_trab/30) * '$dias'),2)  AS monto_a_pagar, sueldo_trab
+			  FROM Trabajador  
+			  WHERE id_trab='$id_trab' 
+ 			 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_turno($id_trab)
+	{
+		$sql="SELECT hr.id_turno, hrt.id_trab  
+			  FROM horario_refrigerio_trabajador hrt
+			  LEFT JOIN horario hr  ON
+			   hr.id_horario= hrt.id_horario
+			  WHERE hrt.id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultarDataPersonal($id_trab)
+	{
+		$sql="SELECT  id_tip_plan, id_turno FROM trabajador WHERE id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
 
 	//Implementamos un método para desactivar registros
 	public function desactivar($id_permiso, $fec_reg, $pc_reg, $usu_reg)
@@ -224,32 +301,57 @@ Class Registro_Manual_Horas_Dias
 
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($id_permiso)
+	public function mostrar($id_rmhd)
 	{
-		$sql="SELECT DATE_FORMAT(fecha_emision, '%d/%m/%Y') AS fecha_emision,
-		   			 dias,
-		             DATE(fecha_procede) AS fecha_procede,
-		             DATE(fecha_hasta) AS fecha_hasta,
-		             tip_permiso, 
-		             id_trab, 
-		             id_permiso, 
-		             hora_ing, 
-		             hora_sal, 
-		             motivo, 
-		             id_fecha_pago1,
-		             monto_a_pagar,
-		             id_fecha_pago2,
-		             id_fecha_pago3,
-		             id_fecha_pago4,
-		             est_reg, 
-		             imagen1, 
-		             imagen2, 
-		             imagen3, 
-		             imagen4  
-		             FROM permiso_personal 
-		             WHERE id_permiso='$id_permiso'";
+		$sql="SELECT      id_rmhd, 
+						  IFNULL(tsua.des_larga,'')  AS sucursal_anexo,
+						  tare.des_larga AS area_trab, 
+						  CONCAT_WS(' ',    tr.nom_trab , tr.apepat_trab, tr.apemat_trab) AS nombres,
+						  DATE(rm.fecha) AS fecha,
+						  rm.id_trab,
+						  rm.id_accion,
+						  rm.hora_ing,
+						  rm.hora_sal,
+						  rm.obs
+			 FROM registro_manual_horas_dias rm
+			 LEFT JOIN Trabajador tr ON
+			 tr.id_trab= rm.id_trab
+			 LEFT JOIN tabla_maestra_detalle AS tsua ON
+			 tsua.cod_argumento= tr.id_sucursal
+			 AND tsua.cod_tabla='TSUA' OR tsua.cod_tabla IS NULL 
+			 LEFT JOIN tabla_maestra_detalle AS tare ON
+			 tare.cod_argumento= tr.id_area
+			 AND tare.cod_tabla='TARE'
+		     WHERE id_rmhd='$id_rmhd'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar
+	public function filtrar($id_trab, $fecha)
+	{
+		$sql="SELECT     '$id_trab' AS id_trab, 
+						'$fecha' AS fecha, 
+				CASE 
+					WHEN  re.hor_ent='00:00:00' THEN '00:00:00'
+					WHEN  re.hor_ent!='00:00:00' OR re.hor_ent!='' THEN re.hor_ent
+					ELSE ''  END
+				AS hora_ing,
+		                  CASE 
+					WHEN  re.hor_sal='00:00:00' THEN '00:00:00'
+					WHEN  re.hor_sal!='00:00:00' OR re.hor_sal!='' THEN re.hor_sal
+					ELSE ''  END
+				AS hora_sal
+			 FROM  trabajador  tr 
+			 LEFT JOIN reloj re ON 
+			 		  re.id_trab= tr.id_trab
+			      AND re.id_trab='$id_trab'
+			      AND re.fecha='$fecha'
+		     WHERE tr.id_trab='$id_trab'
+		     ";
+		return ejecutarConsultaSimpleFila($sql);
+	}
+
 
 	//Implementar un método para listar los registros
 	public function listar()

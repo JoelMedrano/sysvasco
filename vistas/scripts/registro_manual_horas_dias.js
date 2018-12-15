@@ -13,7 +13,7 @@ function init(){
 	
 
 	//Cargamos los items al select personal
-	$.post("../ajax/consultasD.php?op=selectPersonalNombreCorto", function(r){
+	$.post("../ajax/consultasD.php?op=selectPersonalNombreLargo", function(r){
 	            $("#id_trab").html(r);
 	            $('#id_trab').selectpicker('refresh');
 
@@ -147,68 +147,66 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_permiso)
+function mostrar(id_rmhd)
 {
-	$.post("../ajax/registro_manual_horas_dias.php?op=mostrar",{id_permiso : id_permiso}, function(data, status)
+	$.post("../ajax/registro_manual_horas_dias.php?op=mostrar",{id_rmhd : id_rmhd}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
 		$("#id_trab").val(data.id_trab);
 		$('#id_trab').selectpicker('refresh');
-		$("#id_permiso").val(data.id_permiso);
-		$("#fecha_emision").val(data.fecha_emision);
-		$("#fecha_procede").val(data.fecha_procede); 
-		$("#fecha_hasta").val(data.fecha_hasta);
-		$("#dias").val(data.dias); 
+
+		$("#id_rmhd").val(data.id_rmhd);
+		$("#fecha").val(data.fecha);
+		$("#hora_ing").val(data.hora_ing); 
+		$("#hora_sal").val(data.hora_sal);
+		$("#obs").val(data.obs);
 
 
-		$("#tip_permiso").val(data.tip_permiso);
-		$('#tip_permiso').selectpicker('refresh'); 
+		$("#id_accion").val(data.id_accion);
+		$('#id_accion').selectpicker('refresh'); 
 
-		$("#id_fecha_pago1").val(data.id_fecha_pago1);
-		$('#id_fecha_pago1').selectpicker('refresh'); 
+	
+ 	})
 
-		$("#monto_a_pagar").val(data.monto_a_pagar); 
+
+}
+
+
+
+//AGREGADO EL 06122018 - LEYDI GODOS
+
+function filtrar()
+{
+
+	id_trab = $("#id_trab").val();
+	fecha = $("#fecha").val();
+
+
+
+	$.post("../ajax/registro_manual_horas_dias.php?op=filtrar",{id_trab : id_trab, fecha : fecha  }, function(data, status)
+	{
+		data = JSON.parse(data);		
+		mostrarform(true);
 
 		
-		$("#id_fecha_pago2").val(data.id_fecha_pago2);
-		$('#id_fecha_pago2').selectpicker('refresh'); 
-
-		$("#id_fecha_pago3").val(data.id_fecha_pago3);
-		$('#id_fecha_pago3').selectpicker('refresh'); 
-
-		$("#id_fecha_pago4").val(data.id_fecha_pago4);
-		$('#id_fecha_pago4').selectpicker('refresh'); 
-
-
-		$("#hora_ing").val(data.hora_ing);
+		$("#hora_ing").val(data.hora_ing); 
 		$("#hora_sal").val(data.hora_sal);
- 		$("#motivo").val(data.motivo);
+		$("#fecha").val(data.fecha);
 
+		$("#id_trab").val(data.id_trab);
+		$('#id_trab').selectpicker('refresh'); 
 
+		
+		
 
- 		$("#imagenmuestra1").show();
-		$("#imagenmuestra1").attr("src","../files/permisos_personal/"+data.imagen1);
-		$("#imagenactual1").val(data.imagen1);
-
-		$("#imagenmuestra2").show();
-		$("#imagenmuestra2").attr("src","../files/permisos_personal/"+data.imagen2);
-		$("#imagenactual2").val(data.imagen2);
-
-
-		$("#imagenmuestra3").show();
-		$("#imagenmuestra3").attr("src","../files/permisos_personal/"+data.imagen3);
-		$("#imagenactual3").val(data.imagen3);
-
-
-		$("#imagenmuestra4").show();
-		$("#imagenmuestra4").attr("src","../files/permisos_personal/"+data.imagen4);
-		$("#imagenactual4").val(data.imagen4);
-
-
-
+	
  	})
+
+
+
+
 }
 
 

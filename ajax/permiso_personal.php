@@ -133,6 +133,11 @@ switch ($_GET["op"]){
 		    $regc=$ci->fetch_object();
 		    $monto_a_pagar=$regc->monto_a_pagar;
 
+		    $ci=$permiso_personal->consultar_id_cronograma_pago($fecha_procede, $fecha_hasta ); // (Jornal, Destajero o Comision)
+	        $regc=$ci->fetch_object();
+	        $id_cp=$regc->id_cp;
+
+
 
 		if (empty($id_permiso)){
 
@@ -152,6 +157,7 @@ switch ($_GET["op"]){
 											   $fecha_hasta,  
 											   $dias, 
 											   $tip_permiso,
+											   $id_cp,
 											   $hora_ing, 
 											   $hora_sal, 
 											   $motivo,  
@@ -177,6 +183,7 @@ switch ($_GET["op"]){
 											 $fecha_hasta, 
 											 $dias, 
 											 $tip_permiso,
+											 $id_cp,
 											 $hora_ing, 
 											 $hora_sal, 
 											 $motivo,
