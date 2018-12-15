@@ -54,13 +54,17 @@ function limpiar() {
 
 	$("#empresa").val("1");
 	$('#empresa').selectpicker('refresh');
+
 	$("#cod_mod").val("0");
 	$('#cod_mod').selectpicker('refresh');
 	$("#color_mod").val("");
 	$("#tallas_mod").val("");
 	$("#id_trab").val("0");
 	$('#id_trab').selectpicker('refresh');
-	$("#div_mod").val("");
+
+	$("#div_mod").val("DAMAS");
+	$('#div_mod').selectpicker('refresh');
+
 	$("#temp_mod").val("");
 	$("#dest_mod").val("");
 	$("#tela1_mod").val("0");
@@ -174,13 +178,19 @@ function mostrar(idmft) {
 
 		$("#cod_mod").val(data.cod_mod);
 		$("#cod_mod").selectpicker('refresh');
+
 		$("#empresa").val(data.empresa);
 		$("#empresa").selectpicker('refresh');
+
 		$("#color_mod").val(data.color_mod);
 		$("#tallas_mod").val(data.tallas_mod);
 		$("#id_trab").val(data.id_trab);
 		$("#id_trab").selectpicker('refresh');
+
 		$("#div_mod").val(data.div_mod);
+		$("#div_mod").selectpicker('refresh');
+
+
 		$("#temp_mod").val(data.temp_mod);
 		$("#dest_mod").val(data.dest_mod);
 		$("#tela1_mod").val(data.tela1_mod);

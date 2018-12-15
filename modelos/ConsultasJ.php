@@ -413,7 +413,7 @@ Class ConsultasJ
 		WHERE ehp.est_reg = '1') 
 		AND re.hor_ent > ft.hora_ingreso 
 		AND re.fecha = CURDATE() 
-		AND tr.id_tip_plan='1' /*comentar*/
+		
 		/*OK TARDANZA*/
 		UNION
 		ALL 
@@ -505,7 +505,7 @@ Class ConsultasJ
 		  WHERE CURDATE() BETWEEN pp.fecha_procede 
 			AND pp.fecha_hasta) 
 		  AND tr.est_reg = '1' 
-		  AND tr.id_tip_plan='1' /*comentar*/
+		  
 		  /*OK FALTA*/
 		  AND DATE_FORMAT(NOW(), '%H:%i:%S') > ft.hora_ingreso 
 		  /*OK FALTA*/
@@ -550,7 +550,7 @@ Class ConsultasJ
 			AND tare.cod_tabla = 'TARE' 
 		WHERE CURDATE() BETWEEN pp.fecha_procede 
 		  AND pp.fecha_hasta 
-		  AND tr.id_tip_plan='1' /*comentar*/
+		 
 		  /*OK PERMISO O LICENCIA*/
 		  AND tr.est_reg = '1' ";
 
