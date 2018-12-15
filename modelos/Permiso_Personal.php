@@ -52,6 +52,18 @@ Class Permiso_Personal
 	}
 
 
+		public function consultar_id_cronograma_pago( $fecha_procede, $fecha_hasta )
+	{
+		
+		$sql="SELECT id_cp  FROM cronograma_pagos cp WHERE  '$fecha_procede' BETWEEN cp.desde and cp.hasta
+ 			 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
 
 	//Implementamos un método para insertar registros
 	public function insertar($id_permiso,
@@ -61,6 +73,7 @@ Class Permiso_Personal
 							 $fecha_hasta, 
 							 $dias,  
 							 $tip_permiso, 
+							 $id_cp,
 							 $hora_ing, 
 							 $hora_sal, 
 							 $motivo, 
@@ -83,7 +96,8 @@ Class Permiso_Personal
 											fecha_procede, 
 											fecha_hasta, 
 											dias,  
-											tip_permiso, 
+											tip_permiso,
+											id_cp, 
 											hora_ing, 
 											hora_sal,  
 											motivo, 
@@ -107,6 +121,7 @@ Class Permiso_Personal
 										    '$fecha_hasta', 
 										    '$dias', 
 										    '$tip_permiso',
+										    '$id_cp',
 										    '$hora_ing', 
 										    '$hora_sal',  
 										    '$motivo', 
@@ -134,6 +149,7 @@ Class Permiso_Personal
 						   $fecha_hasta, 
 						   $dias,  
 						   $tip_permiso, 
+						   $id_cp,
 						   $hora_ing, 
 						   $hora_sal, 
 						   $motivo, 

@@ -41,7 +41,7 @@ if ($_SESSION['rrhh']==1)
                             <th>Sucursal</th>
                             <th>Area</th>
                             <th>Colaborador</th>
-                            <th>Fecha</th>
+                            <th>Fecha de Registro</th>
                             <th>Ver</th>
                           </thead>
                           <tbody>                            
@@ -50,7 +50,7 @@ if ($_SESSION['rrhh']==1)
                             <th>Sucursal</th>
                             <th>Area</th>
                             <th>Colaborador</th>
-                            <th>Fecha</th>
+                            <th>Fecha de Registro</th>
                             <th>Ver</th>
                           </tfoot>
                         </table>
@@ -71,8 +71,19 @@ if ($_SESSION['rrhh']==1)
                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                     <label>Fecha Reloj</label>
                                     <input type="date" class="form-control" name="fecha" id="fecha"   required autocomplete="off">
+                                  
+                                    
                                   </div>
 
+
+                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                    <label></label>
+                                     <br>
+                                    <button class="btn btn-success" type="button" onclick="filtrar()">Filtrar</button>
+                                  </div>
+
+
+                                  
 
                                                        
 
@@ -84,11 +95,11 @@ if ($_SESSION['rrhh']==1)
 
                                     <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                       <label>Hora Ingreso:</label>
-                                      <input type="time" class="form-control" name="hora_ing" id="hora_ing" autocomplete="off">
+                                      <input type="varchar" class="form-control" name="hora_ing" id="hora_ing" autocomplete="off">
                                     </div>
                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                       <label>Hora Salida:</label>
-                                      <input type="time" class="form-control" name="hora_sal" id="hora_sal" autocomplete="off">
+                                      <input type="varchar" class="form-control" name="hora_sal" id="hora_sal" autocomplete="off">
                                     </div>
 
 
@@ -115,9 +126,7 @@ if ($_SESSION['rrhh']==1)
                                      <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                      </div>
 
-                                  
-
-                                   
+                                
 
                           </div>
 

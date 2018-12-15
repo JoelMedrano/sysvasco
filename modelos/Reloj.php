@@ -36,7 +36,7 @@ Class Reloj
 	//Implementamos un método para editar registros
 	public function editar_primera_salida_noche($id_trab,  $fecha_noche, $fec_reg, $pc_reg, $usu_reg, $hora)
 	{
-		$sql="UPDATE reloj SET hor_sal='$hora'  WHERE id_trab='$id_trab'  AND  hor_sal='00:00:00'
+		$sql="UPDATE reloj SET hor_sal='$hora'  WHERE id_trab='$id_trab'  AND  hor_sal=''
  			AND fecha= '$fecha_noche'";
 		return ejecutarConsulta($sql);
 	}
@@ -121,10 +121,22 @@ Class Reloj
 
 	public function consultar_ultimoregistro_xtrabajador($id_trab)
 	{
-		$sql="SELECT MAX(fecha)  AS fecha_noche, hor_sal AS hor_sal_noche FROM reloj WHERE id_trab='$id_trab'  AND  hor_sal='00:00:00'  ";
+		$sql="SELECT MAX(fecha)  AS fecha_noche, hor_sal AS hor_sal_noche FROM reloj WHERE id_trab='$id_trab'  AND  hor_sal=''  ";
 		return ejecutarConsulta($sql);
 
 	}
+
+
+	// INICIO - AGREGADO EL 12/12/2018 - Leydi Godos
+
+	public function consultarInformacionDiaAnterior($id_trab, $fecha)
+	{
+		$sql=" SELECT  DATE(DATE(NOW())-1) AS fecha_dia_anterior, hor_ent AS hora_ing_anterior , hor_sal AS hor_sal_anterior FROM reloj WHERE id_trab='$id_trab'  AND  fecha= DATE(DATE(NOW())-1)   ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	// FIN  - AGREGADO EL 12/12/2018 - Leydi Godos
 
 
 
@@ -238,16 +250,16 @@ Class Reloj
 
 
 	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultaridfechaasociada($fecha)
+	public function consultaridfechaasociada_horaextra($fecha)
 	{
 		$sql="SELECT '-' AS pd ,
-					 cp.id_cp,
+					 cp.id_cp  AS id_cp_he, 
 					 id_ano,
 		 			 TbPea.Des_Corta AS Ano,
 		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
 					 fe.fecha,
 					 est_reg 
-			FROM cronograma_pagos cp
+			FROM cronograma_horasextras cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano
 				AND TbPea.Cod_tabla='TPEA'
@@ -263,6 +275,37 @@ Class Reloj
 		return ejecutarConsulta($sql);
 
 	}
+
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultaridfechaasociada_descuentos($fecha)
+	{
+		$sql="SELECT '-' AS pd ,
+					 cp.id_cp AS id_cp_des,
+					 id_ano,
+		 			 TbPea.Des_Corta AS Ano,
+		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
+					 fe.fecha,
+					 est_reg 
+			FROM cronograma_dsctos_horasdias cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+				TbFpa.cod_argumento=  cp.des_fec_pag
+				AND TbFpa.Cod_tabla='TFPA'
+				LEFT JOIN fechas fe ON
+				fe.fecha BETWEEN cp.desde AND cp.hasta
+			WHERE  cp.des_fec_pag  NOT IN  ('0')
+			AND fe.fecha='$fecha'
+			ORDER BY  cp.id_cp ASC
+				";
+		return ejecutarConsulta($sql);
+
+	}
+
+
 
 
 	
@@ -325,6 +368,7 @@ Class Reloj
 				AND hep.fecha= '$fecha'
 				AND hep.id_trab NOT IN  ( SELECT  ehp.id_trab  FROM excepciones_horario_pago ehp WHERE ehp.est_reg='1') 
 				AND hep.id_trab='$id_trab'
+				AND hep.est_reg='1'
 			 ";
 		return ejecutarConsulta($sql);
 
@@ -423,7 +467,8 @@ Class Reloj
 				      REPLACE(TIME_TO_SEC( TIMEDIFF(  hep.hora_inicio, '$hora' ) ) ,'-', '')  AS cantidad_HE_DOyFE		
 			 FROM horas_extras_personal AS hep 
 			 WHERE  hep.id_trab= '$id_trab'
-			 AND hep.fecha='$fecha'";
+			 AND hep.fecha='$fecha'
+			 AND hep.est_reg='1' ";
 		return ejecutarConsulta($sql);
 
 	}
@@ -472,17 +517,30 @@ Class Reloj
 
 
 
+		public function calcular_redondeo_tiempo_horas_faltas($tiempo)
+	{
+		$sql="SELECT	CASE 
+						WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)<=30   AND SUBSTRING('$tiempo', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)>30    AND SUBSTRING('$tiempo', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo', 1, 2)+1), 2, '0' ) , ':00:00')	
+						ELSE '-'  END
+						AS tiempo_redondeado_falta;";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
 
 
 
 
 	//Implementamos un método para insertar registros
-	public function registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	public function registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado, $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
 	{									
 
 
-		$sql="INSERT INTO horas_extras_personal (id_trab,   fecha ,  hora_inicio,  hora_fin,    cantidad,  tiempo_fin,   id_fec_abono, abonar, abonado,   est_dia,   por_pago,    pc_reg,    usu_reg,    fec_reg)
-					  					VALUES ('$id_trab', '$fecha', '$hora' , '$hora_ingreso', '$tiempo',  '$tiempo',  '$id_cp',    '1' ,    '2',      '$estado', '$por_pago', '$pc_reg', '$usu_reg', '$fec_reg' )";
+		$sql="INSERT INTO horas_extras_personal (id_trab,   fecha ,  hora_inicio,  hora_fin,    cantidad,  tiempo_fin,   id_fec_abono, abonar, abonado,   est_dia,   por_pago,   est_reg,   pc_reg,    usu_reg,    fec_reg)
+					  					VALUES ('$id_trab', '$fecha', '$hora' , '$hora_ingreso', '$tiempo',  '$tiempo_redondeado',  '$id_cp',    '1' ,    '2',      '$estado', '$por_pago',   '1',    '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 
@@ -492,12 +550,12 @@ Class Reloj
 
 
 	//Implementamos un método para insertar registros de horas extras fuera del horario de salida en un dia laborable
-	public function registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	public function registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
 	{									
 
 
 		$sql="INSERT INTO horas_extras_personal (id_trab,    fecha ,     hora_inicio,   hora_fin,       cantidad,               tiempo_fin,        id_fec_abono,   abonar,   abonado,   est_dia,     por_pago,   est_reg,  fec_reg ,    usu_reg,    pc_reg  )
-					  					VALUES ('$id_trab', '$fecha',   '$hora_salida', '$hora',   '$tiempo_largo_hs_he',  '$tiempo_largo_hs_he',    '$id_cp',      '1' ,     '2',     '$estado',   '$por_pago',  '1',    '$fec_reg',  '$usu_reg', '$pc_reg'  )";
+					  					VALUES ('$id_trab', '$fecha',   '$hora_salida', '$hora',   '$tiempo_largo_hs_he',  '$tiempo_redondeado',    '$id_cp',      '1' ,     '2',     '$estado',   '$por_pago',  '1',    '$fec_reg',  '$usu_reg', '$pc_reg'  )";
 		return ejecutarConsulta($sql); 
 
 
@@ -512,9 +570,9 @@ Class Reloj
 
 
 	//Implementamos un método para insertar registros
-	public function editar_hora_extra($id_trab, $fecha, $hora,  $tiempo, $por_pago )
+	public function editar_hora_extra($id_trab, $fecha, $hora, $tiempo, $tiempo_fin, $por_pago )
 	{		
-			$sql="UPDATE horas_extras_personal SET hora_fin='$hora',  cantidad='$tiempo', tiempo_fin='$tiempo',  por_pago='$por_pago'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+			$sql="UPDATE horas_extras_personal SET hora_fin='$hora',  cantidad='$tiempo', tiempo_fin='$tiempo_fin',  por_pago='$por_pago'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -524,12 +582,12 @@ Class Reloj
 
 
 	//Implementamos un método para insertar registros
-	public function registrar_hora_permiso($id_trab, $fecha, $hora, $tiempo_ref, $hora_ingreso, $tiempo, $tiempo_dscto,  $id_incidencia, $id_permiso,  $id_cp, $descontar,  $fec_reg, $pc_reg, $usu_reg )
+	public function registrar_hora_permiso($id_trab, $fecha, $hora, $tiempo_ref, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia, $id_permiso,  $id_cp, $descontar,  $fec_reg, $pc_reg, $usu_reg )
 	{
 
 
-		$sql="INSERT INTO horas_permiso_personal(id_trab,   fecha ,     hora_inicio,  hora_fin,    cantidad,    tiempo_ref,       tiempo_des,       tiempo_fin,     id_incidencia,   id_permiso,   id_fec_dscto,    descontar,  descontado,  pc_reg,   usu_reg,    fec_reg)
-					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',  '$tiempo_ref',  '$tiempo_dscto',  '$tiempo_dscto', '$id_incidencia', '$id_permiso',    '$id_cp',  '$descontar',  '2',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		$sql="INSERT INTO horas_permiso_personal(id_trab,   fecha ,     hora_inicio,  hora_fin,    cantidad,    tiempo_ref,       tiempo_des,       tiempo_fin,     id_incidencia,   id_permiso,   id_fec_dscto,    descontar,  descontado,    est_reg,      pc_reg,   usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',  '$tiempo_ref',  '$tiempo',  '$tiempo_dscto', '$id_incidencia', '$id_permiso',    '$id_cp',  '$descontar',  '2',            '1',      '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 
@@ -538,11 +596,11 @@ Class Reloj
 
 
 	//Implementamos un método para insertar registros
-	public function registrar_hora_permiso_sinrefrigerio($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	public function registrar_hora_permiso_sinrefrigerio($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
 	{
                    
-		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, pc_reg,    usu_reg,    fec_reg)
-					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$tiempo',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',       '$pc_reg', '$usu_reg', '$fec_reg' )";
+		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 

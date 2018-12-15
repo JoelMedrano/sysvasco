@@ -134,7 +134,8 @@ Class Horasextras_Horasdiasenreloj
 				FROM horas_extras_personal hep
 				WHERE hep.id_fec_abono='$id_cp'
 				) AS ff  ON ff.id_fec_abono= hep.id_fec_abono
-				WHERE hep.id_fec_abono='$id_cp'";
+				WHERE hep.id_fec_abono='$id_cp'
+				AND hep.est_reg='1'";
 		return ejecutarConsulta($sql);
 	}
 

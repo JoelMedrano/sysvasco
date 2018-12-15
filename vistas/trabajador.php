@@ -43,13 +43,13 @@ if ($_SESSION['rrhh']==1)
                             <th>Area</th>
                             <th>Funcion</th>
                             <th>Estado</th>
+                            <th>Cesar</th>
                             <th>Principal</th>
                             <th>Datos</th>
                             <th>Adjuntos</th>
                             <th>Imprimir</th>
                             <th>Imp.Adjuntos</th>
-                            <th>Estado</th>
-                            <th>Eliminar</th>
+                            <th>NO UTILIZAR *Elimina todos los registros</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -63,13 +63,13 @@ if ($_SESSION['rrhh']==1)
                             <th>Area</th>
                             <th>Funcion</th>
                             <th>Estado</th>
+                            <th>Cesar</th>
                             <th>Principal</th>
                             <th>Datos</th>
                             <th>Adjuntos</th>
                             <th>Imprimir</th>
                             <th>Imp.Adjuntos</th>
-                            <th>Estado</th>
-                            <th>Eliminar</th>
+                            <th>NO UTILIZAR *Elimina todos los registros</th>
                           </tfoot>
                         </table>
                     </div>

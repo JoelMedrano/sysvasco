@@ -111,7 +111,8 @@ Class Tardanzas_Permisos_Xhorasenreloj
 					TbPer.des_corta= pp.tip_permiso
 					) AS pp ON pp.id_trab= hpp.id_trab
 				     AND       pp.fecha_procede=hpp.fecha 
-				where hpp.id_fec_dscto ='$id_cp'";
+				where hpp.id_fec_dscto ='$id_cp'
+				and hpp.est_reg='1'";
 		return ejecutarConsulta($sql);
 	}
 

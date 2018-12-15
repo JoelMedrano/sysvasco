@@ -284,6 +284,8 @@ if (strlen(session_id()) < 1)
                           <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
                           <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>Regimen Pensionario</a></li>
                           <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i>Cronograma de Pagos</a></li>
+                          <li><a href="cronograma_horasextras.php"><i class="fa fa-circle-o"></i>Cronograma de Horas Extras</a></li>
+                          <li><a href="cronograma_dsctos_horasdias.php"><i class="fa fa-circle-o"></i>Cronograma Dsctox Horas y Dias</a></li>
                           <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
                           <li><a href="horas_lactancia.php"><i class="fa fa-circle-o"></i>Horas de Lactancia Quincenal</a></li>
                           <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
@@ -464,44 +466,10 @@ if (strlen(session_id()) < 1)
                       <li><a href="ft_hoja2_1.php">Combinaciones</a></li>
                     </ul>
 
-                      <a href="#">
-                          <i class="fa fa-circle-o"></i> <span>Maestros UDP</span>
-                          <i class="fa fa-angle-left pull-right"></i>
-                      </a>
-          
-                      <ul class="treeview-menu">
-                          <li class="treeview">
-                          <li><a href="modelo.php"><i class="fa fa-circle-o"></i> Modelos</a></li>
-                          <li><a href="cotizacion.php"><i class="fa fa-circle-o"></i> Cotizacion</a></li>
-                          <li><a href="detalle_cotizacion.php"><i class="fa fa-circle-o"></i> Editar Cotizacion</a></li>
-                          </li>
-                      </ul>
+
               </li> 
           
-                  <li class="treeview">
-                      <a href="#">
-                          <i class="fa fa-circle-o"></i> <span>Fichas Técnicas</span>
-                          <i class="fa fa-angle-left pull-right"></i>
-                      </a>
-          
-                      <ul class="treeview-menu">
-                          <li class="treeview">
-                              <li><a href="ft_hoja1.php"><i class="fa fa-circle-o"></i> Presentacion</a></li>
-                              <li>
-                                  <a href="#">
-                                      <i class="fa fa-circle-o"></i> <span>Combinaciones</span>
-                                      <i class="fa fa-angle-left pull-right"></i>
-                                  </a>
-                                  <ul class="treeview-menu">
-                                      <li><a href="ft_hoja2.php">Especificaciones</a></li>
-                                      <li><a href="ft_hoja2_1.php">Combinaciones</a></li>
-                                  </ul>
-                              </li>
-                              <li><a href="ft_hoja3.php"><i class="fa fa-circle-o"></i> Avios</a></li>
-                          </li>
-                      </ul>
 
-                  </li>
                   <li><a href="ft_hoja3.php"><i class="fa fa-circle-o"></i> Avios</a></li>
                   <li><a href="confeccion.php"><i class="fa fa-circle-o"></i> Confeccion</a></li>
               </li>
