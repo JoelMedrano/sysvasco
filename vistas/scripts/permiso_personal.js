@@ -18,7 +18,7 @@ function init(){
 	});
 
 	//Cargamos los items al select personal
-	$.post("../ajax/consultasD.php?op=selectPersonalNombreCorto", function(r){
+	$.post("../ajax/consultasD.php?op=selectPersonalNombreLargo", function(r){
 	            $("#id_trab").html(r);
 	            $('#id_trab').selectpicker('refresh');
 
@@ -80,11 +80,30 @@ function limpiar()
 	$("#hora_sal").val("");
 	$("#motivo").val("");
 
+
+	$("#monto_a_pagar").val("");
+
+	
+
 	$("#tip_permiso").val("COMISION");
 	$("#tip_permiso").selectpicker('refresh');
 
-	$("#id_trab").val("AGUILAR CAMACHO LUISA");
+	$("#id_trab").val("AGUILAR CAMACHO LUISA FLORA");
 	$("#id_trab").selectpicker('refresh');
+
+
+
+	$("#id_fecha_pago1").val("");
+	$("#id_fecha_pago1").selectpicker('refresh');
+
+	$("#id_fecha_pago2").val("");
+	$("#id_fecha_pago2").selectpicker('refresh');
+
+	$("#id_fecha_pago3").val("");
+	$("#id_fecha_pago3").selectpicker('refresh');
+
+	$("#id_fecha_pago4").val("");
+	$("#id_fecha_pago4").selectpicker('refresh');
 
 
 

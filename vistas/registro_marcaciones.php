@@ -24,7 +24,10 @@ if ($_SESSION['rrhh']==1)
                   <div class="box">
                     <div class="box-header with-border">
                           <h1 class="box-title">Registro de Marcaciones</h1>
-                          <a href="../reportes/rpt_xls_contratos.php" target="_blank"><button class="btn btn-info">Reporte</button></a> </h1>
+                          <a href="../reportes/rpt_xls_contratos.php" target="_blank">
+
+                          <!--<button class="btn btn-info">Reporte</button> --> 
+                          </a></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -33,29 +36,26 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            
-                            <th>Dia</th>
-                            <th>Estado de Dia</th>
-                            <th>Sucursal</th>
-                            <th>Trabajador</th>
-                            <th>Area</th>
-                            <th>Hora Ingreso</th>
-                            <th>Hora Salida</th>
-                            <th>Detalle</th>
-                            
+                            <th width="1px"></th>
+                            <th width="1px">Fecha</th>
+                            <th width="1px">Dia</th>
+                            <th width="15px">Sucursal</th>
+                            <th width="10px">Area</th>
+                            <th width="150px">Trabajador</th>
+                            <th width="20px">Ingreso - Salida</th>
+                            <th width="20px">Detalle</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            
-                            <th>Dia</th>
-                            <th>Estado de Dia</th>
-                            <th>Sucursal</th>
-                            <th>Trabajador</th>
-                            <th>Area</th>
-                            <th>Hora Ingreso</th>
-                            <th>Hora Salida</th>
-                            <th>Detalle</th>
+                             <th width="1px"></th>
+                            <th width="1px">Fecha</th>
+                            <th width="5px">Dia</th>
+                            <th width="15px">Sucursal</th>
+                            <th width="150px">Area</th>
+                            <th width="10px">Trabajador</th>
+                            <th width="20px">Ingreso - Salida</th>
+                            <th width="20px">Detalle</th>
                           </tfoot>
                         </table>
                     </div>

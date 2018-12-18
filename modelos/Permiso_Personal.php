@@ -116,7 +116,7 @@ Class Permiso_Personal
 											imagen4 )
 									VALUES ('$id_permiso',
 										    '$id_trab',
-										    '$fec_reg',
+										    '$fecha_emision',
 										    '$fecha_procede',
 										    '$fecha_hasta', 
 										    '$dias', 
@@ -167,6 +167,7 @@ Class Permiso_Personal
 						   $imagen4)
 	{
 		$sql="UPDATE permiso_personal SET id_trab='$id_trab',
+										  fecha_emision='$fecha_emision',
 										  fecha_procede='$fecha_procede',
 										  fecha_hasta='$fecha_hasta', 
 										  dias='$dias',  
@@ -239,7 +240,7 @@ Class Permiso_Personal
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_permiso)
 	{
-		$sql="SELECT DATE_FORMAT(fecha_emision, '%d/%m/%Y') AS fecha_emision,
+		$sql="SELECT DATE(fecha_emision)  AS fecha_emision,
 		   			 dias,
 		             DATE(fecha_procede) AS fecha_procede,
 		             DATE(fecha_hasta) AS fecha_hasta,
@@ -268,7 +269,7 @@ Class Permiso_Personal
 	public function listar()
 	{
 		$sql="SELECT   CONCAT_WS(' ',  tr1.apepat_trab,  SUBSTRING_INDEX(tr1.nom_trab, ' ',1) ) AS solicitante,
-		 CONCAT_WS(' ',     SUBSTRING_INDEX(tr.nom_trab, ' ',1) , tr.apepat_trab ) AS nombres,
+		 CONCAT(  tr.nom_trab, ' ' , tr.apepat_trab , ' ' , tr.apemat_trab ) AS nombres,
 		    DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,  DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro , pp.est_apro_rrhh, NULL AS ninguno
 		 FROM permiso_personal pp
 		 LEFT JOIN Trabajador tr ON

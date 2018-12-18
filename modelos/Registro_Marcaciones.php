@@ -129,23 +129,24 @@ Class Registro_Marcaciones
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT  				DATE_FORMAT(re.Fecha, '%d/%m/%Y')  AS Fecha,
-				        re.id_trab,
-					CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
-					tsua.des_larga AS sucursal_anexo,
-					tfun.des_larga AS funcion,
-					tare.des_larga AS area_trab,
-					tr.est_reg, 
-					tr.num_doc_trab,
-					re.hor_ent,
-					re.hor_sal,
-					fe.estado,
-					'' AS detalle
+		$sql="SELECT  * FROM (/*INICIO MARCACIONES EN RELOJ A LA FECHA */ 
+				SELECT  	'-' AS mar, 
+						DATE_FORMAT(re.Fecha, '%d/%m/%Y')  AS Fecha,
+						fe.nom_dia AS nom_dia,
+						fe.dia,
+						fe.mes,
+						re.id_trab,
+						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+						tsua.des_larga AS sucursal_anexo,
+						tfun.des_larga AS funcion,
+						tare.des_larga AS area_trab,
+						tr.num_doc_trab,
+						 CONCAT(re.hor_ent, ' - ', re.hor_sal) hor_ent_sal,
+						fe.estado,
+						'' AS detalle
 				FROM  reloj re 
 					INNER JOIN trabajador  tr  ON  
 					re.id_trab= tr.id_trab  
-					LEFT JOIN contratos co ON
-					tr.id_trab= co.id_trab	
 					LEFT JOIN tabla_maestra_detalle AS tsua ON
 					tsua.cod_argumento= tr.id_sucursal
 					AND tsua.cod_tabla='TSUA'
@@ -157,8 +158,188 @@ Class Registro_Marcaciones
 					AND tare.cod_tabla='TARE'
 					LEFT JOIN fechas fe ON
 					fe.fecha= re.fecha
-					WHERE tr.`est_reg`='1'
-				ORDER BY re.fecha DESC;";
+				/*FIN MARCACIONES EN RELOJ A LA FECHA */ 
+				UNION ALL
+				/*INICIO  -  FALTAS REGISTRADAS EN LA TABLA CON DIAS INTEGROS*/
+				SELECT  '-' AS mar, 
+						DATE_FORMAT(hpp.Fecha, '%d/%m/%Y')  AS Fecha,
+						fe.nom_dia AS nom_dia,
+						fe.dia,
+						fe.mes,
+						hpp.id_trab,
+						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+						tsua.des_larga AS sucursal_anexo,
+						tfun.des_larga AS funcion,
+						tare.des_larga AS area_trab,
+						tr.num_doc_trab,
+						'FALTA' hor_ent_sal,
+						fe.estado,
+						pp.permiso AS detalle
+				FROM  horas_permiso_personal hpp
+				INNER JOIN trabajador  tr  ON  
+					hpp.id_trab= tr.id_trab  
+					LEFT JOIN tabla_maestra_detalle AS tsua ON
+					tsua.cod_argumento= tr.id_sucursal
+					AND tsua.cod_tabla='TSUA'
+					LEFT JOIN tabla_maestra_detalle AS tfun ON
+					tfun.cod_argumento= tr.id_funcion
+					AND tfun.cod_tabla='TFUN'
+					LEFT JOIN tabla_maestra_detalle AS tare ON
+					tare.cod_argumento= tr.id_area
+					AND tare.cod_tabla='TARE'
+					LEFT JOIN fechas fe ON
+					fe.fecha= hpp.fecha
+					LEFT JOIN(
+						SELECT  pp.fecha_procede, pp.fecha_hasta , pp.id_trab, tbm.des_larga AS permiso
+						FROM permiso_personal pp 
+						LEFT JOIN tabla_maestra_detalle  tbm ON
+						tbm.des_corta= pp.tip_permiso
+						AND tbm.cod_tabla='TPER'
+						WHERE pp.tip_permiso NOT IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
+					) AS pp ON pp.id_trab= hpp.id_trab
+					AND hpp.fecha BETWEEN pp.fecha_procede AND  pp.fecha_hasta 
+					WHERE hpp.cant_dia_fin='1'
+					/*FIN  -  FALTAS REGISTRADAS EN LA TABLA CON DIAS INTEGROS*/
+					 UNION ALL 
+					 /*INICIO -  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
+					 SELECT  '-' AS mar, 
+						DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
+						fe.nom_dia AS nom_dia,
+						fe.dia,
+						fe.mes,
+						pp.id_trab,
+						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+						tsua.des_larga AS sucursal_anexo,
+						tfun.des_larga AS funcion,
+						tare.des_larga AS area_trab,
+						tr.num_doc_trab,
+						tbm.des_larga AS  hor_ent_sal, /**/
+						fe.estado,
+						'' AS detalle
+					 FROM fechas fe
+					 INNER JOIN permiso_personal pp ON
+					 fe.fecha BETWEEN  pp.fecha_procede  AND pp.fecha_hasta 
+					 LEFT JOIN Trabajador tr ON
+					 pp.id_trab= tr.id_trab
+					 LEFT JOIN tabla_maestra_detalle  tbm ON
+					 tbm.des_corta= pp.tip_permiso
+					 AND tbm.cod_tabla='TPER'
+					 LEFT JOIN tabla_maestra_detalle AS tpla ON
+						tpla.cod_argumento= tr.id_tip_plan
+						AND tpla.cod_tabla='TPLA'
+					 LEFT JOIN tabla_maestra_detalle AS tsua ON
+						tsua.cod_argumento= tr.id_sucursal
+						AND tsua.cod_tabla='TSUA'
+					LEFT JOIN tabla_maestra_detalle AS tfun ON
+						tfun.cod_argumento= tr.id_funcion
+						AND tfun.cod_tabla='TFUN'
+					LEFT JOIN tabla_maestra_detalle AS tare ON
+						tare.cod_argumento= tr.id_area
+						AND tare.cod_tabla='TARE'
+					WHERE  NOT EXISTS (  SELECT  NULL FROM reloj re WHERE pp.id_trab= re.id_trab AND fe.fecha= re.fecha)
+					AND pp.tip_permiso IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
+					AND fe.fecha <= CURDATE()
+					/*FIN  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
+					UNION ALL
+					/* FERIADOS Y DOMINGOS*/
+					SELECT   '-' AS mar, 
+							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
+							fe.nom_dia AS nom_dia,
+						    fe.dia,
+		                    fe.mes,
+		                    tr.id_trab,
+		                    CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+		                    tsua.des_larga AS sucursal_anexo,
+		                    tfun.des_larga AS funcion,
+		                    tare.des_larga AS area_trab,
+		                    tr.num_doc_trab,
+		                    fe.estado AS  hor_ent_sal, /**/
+	                    	fe.estado,
+		                    '' AS detalle
+				    FROM Trabajador AS tr CROSS JOIN  Fechas AS fe
+					LEFT JOIN tabla_maestra_detalle AS tpla ON
+						tpla.cod_argumento= tr.id_tip_plan
+						AND tpla.cod_tabla='TPLA'
+					LEFT JOIN tabla_maestra_detalle AS tsua ON
+						tsua.cod_argumento= tr.id_sucursal
+						AND tsua.cod_tabla='TSUA'
+					LEFT JOIN tabla_maestra_detalle AS tfun ON
+						tfun.cod_argumento= tr.id_funcion
+						AND tfun.cod_tabla='TFUN'
+					LEFT JOIN tabla_maestra_detalle AS tare ON
+						tare.cod_argumento= tr.id_area
+						AND tare.cod_tabla='TARE'
+					WHERE fe.fecha<= CURDATE()
+				    AND fe.estado IN ('FERIADO','NO LABORABLE')
+                    AND  NOT EXISTS(  SELECT  NULL 
+		  				              FROM reloj re 
+		  							  WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha
+	    		    ) /*CASOS COMO VIGILANCIA*/
+					AND NOT EXISTS(  SELECT NULL 
+		 							 FROM permiso_personal pp 
+		  							 WHERE  fe.fecha BETWEEN  pp.fecha_procede  AND pp.fecha_hasta 
+		 							 AND pp.id_trab=tr.id_trab
+	    			)
+					/*FIN - FERIADOS Y DOMINGOS */
+					UNION ALL
+					/*INICIO - DIAS NO LABORABLES SEGUN HORARIO */
+					SELECT  '-' AS mar, 
+							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
+							fe.nom_dia AS nom_dia,
+							fe.dia,
+							fe.mes,
+							tr.id_trab,
+							CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+							tsua.des_larga AS sucursal_anexo,
+							tfun.des_larga AS funcion,
+							tare.des_larga AS area_trab,
+							tr.num_doc_trab,
+							'NO LABORABLE SEGUN HORARIO' AS  hor_ent_sal, /**/
+							fe.estado,
+							'' AS detalle
+						FROM  trabajador tr CROSS JOIN fechas fe
+						LEFT JOIN tabla_maestra_detalle AS tpla ON
+							  tpla.cod_argumento= tr.id_tip_plan
+							  AND tpla.cod_tabla='TPLA'
+						LEFT JOIN tabla_maestra_detalle AS tsua ON
+							  tsua.cod_argumento= tr.id_sucursal
+							  AND tsua.cod_tabla='TSUA'
+						LEFT JOIN tabla_maestra_detalle AS tfun ON
+							 tfun.cod_argumento= tr.id_funcion
+							 AND tfun.cod_tabla='TFUN'
+						LEFT JOIN tabla_maestra_detalle AS tare ON
+							 tare.cod_argumento= tr.id_area
+							AND tare.cod_tabla='TARE'
+						LEFT JOIN 
+						( 				SELECT  hrt.id_trab, fe.fecha, 
+										CASE 
+														WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
+														WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
+														WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso 
+														WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso 
+														WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso 
+														WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso 
+														WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso 
+														ELSE '-'  END
+														AS hora_ingreso
+										FROM horario_refrigerio_trabajador AS hrt 
+										LEFT JOIN horario  AS  hor ON
+										hrt.id_horario= hor.id_horario
+										LEFT JOIN refrigerio AS ref ON
+										ref.cod_ref= hrt.cod_ref 
+										LEFT JOIN  fechas AS fe  ON
+										fe.estado='LABORABLE'
+										
+						) AS dato  ON dato.id_trab= tr.id_trab
+						AND dato.fecha=fe.fecha
+						WHERE  fe.fecha <= CURDATE()
+						AND dato.hora_ingreso='00:00:00'
+						AND  NOT EXISTS (  SELECT  NULL FROM reloj re WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha)
+
+					/*FIN - DIAS NO LABORABLES SEGUN HORARIO*/
+
+					) rm order by rm.mes DESC, rm.dia DESC
+					";
 		return ejecutarConsulta($sql);		
 	}
 

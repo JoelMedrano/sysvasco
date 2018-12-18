@@ -6,9 +6,9 @@ $permiso_personal=new Permiso_Personal();
 
 $id_permiso=isset($_POST["id_permiso"])? limpiarCadena($_POST["id_permiso"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
+
+
 $fecha_emision=isset($_POST["fecha_emision"])? limpiarCadena($_POST["fecha_emision"]):"";
-
-
 $fecha_emision = date("Y-m-d",strtotime(str_replace('/','-',$fecha_emision)));
 
 
@@ -149,6 +149,12 @@ switch ($_GET["op"]){
 
 	        }
 
+	        if ($tip_permiso=='VC') {
+	        	
+	        }else if ($tip_permiso!='VC') {
+	        	$monto_a_pagar='0.00';
+	        }
+
 
 			$rspta=$permiso_personal->insertar($id_permiso,
 											   $id_trab,
@@ -277,32 +283,31 @@ switch ($_GET["op"]){
  				
  				"0"=>$reg->fecha_emision,
  				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->solicitante,
- 				"3"=>$reg->nombres,
- 				"4"=>$reg->tipo_permiso,
- 				"5"=>$reg->motivo,
+ 				"2"=>$reg->nombres,
+ 				"3"=>$reg->tipo_permiso,
+ 				"4"=>$reg->motivo,
 
- 				"6"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
+ 				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"7"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				"6"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"8"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				"7"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
 
- 				"9"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 				"8"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
 
- 				"10"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"9"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
 
- 				"11"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"10"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
 
- 				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"11"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
-                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+                "12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  						
  				);
 
@@ -313,7 +318,7 @@ switch ($_GET["op"]){
  				
  				"0"=>$reg->fecha_emision,
  				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->apepat_trab,
+ 				"2"=>$reg->nombres,
  				"3"=>$reg->tipo_permiso,
  				"4"=>$reg->motivo,
  				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
@@ -343,7 +348,7 @@ switch ($_GET["op"]){
  				
  				"0"=>$reg->fecha_emision,
  				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->apepat_trab,
+ 				"2"=>$reg->nombres,
  				"3"=>$reg->tipo_permiso,
  				"4"=>$reg->motivo,
 

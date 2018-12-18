@@ -376,12 +376,25 @@ Class Reloj
 
 
 
+	public function consultar_Excepciones_Horario_Pago($id_trab)
+	{
+		$sql="SELECT  ehp.id_trab AS id_trab_excep  FROM excepciones_horario_pago ehp WHERE id_trab='$id_trab' and  ehp.est_reg='1'
+		     ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
 	public function consultarHoraSalida_HoraExtra($id_trab, $fecha, $hora )
 	{
 		$sql="SELECT    tr.id_trab, 
 						REPLACE(TIMEDIFF( '$hora', ft.hora_salida ) ,'-', '')  AS tiempo_largo_hs_he , 
 						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', ft.hora_salida ) ) ,'-', '')  AS cant_tiempo_hs_he, 
 						ft.hora_salida AS hora_sal,
+						ft.hora_salida AS hora_salida_sh,
+						ft.hora_ingreso AS hora_ingreso_sh,
 						ft.hora_ini_ref,
 						ft.hora_fin_ref,
 						ft.tiempo_ref,
@@ -398,6 +411,16 @@ Class Reloj
 								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_salida
 								ELSE '-'  END
 								AS hora_salida,
+								CASE 
+								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
+								WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
+								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso
+								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso
+								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso
+								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso
+								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso
+								ELSE '-'  END
+								AS hora_ingreso,
 								ref.hora_ini AS hora_ini_ref,
 								ref.hora_fin AS hora_fin_ref,
 								ref.tiempo AS tiempo_ref,
@@ -517,13 +540,32 @@ Class Reloj
 
 
 
-		public function calcular_redondeo_tiempo_horas_faltas($tiempo)
+	public function calcular_redondeo_tiempo_horas_faltas($tiempo)
 	{
 		$sql="SELECT	CASE 
 						WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)<=30   AND SUBSTRING('$tiempo', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo', 1, 2), ':30:00')	
 						WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)>30    AND SUBSTRING('$tiempo', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo', 1, 2)+1), 2, '0' ) , ':00:00')	
 						ELSE '-'  END
 						AS tiempo_redondeado_falta;";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	public function consultar_Diferencia_HActual_HoraSalida($hora, $hora_salida_sh)
+	{
+		$sql="SELECT  REPLACE(TIMEDIFF( '$hora', '$hora_salida_sh' ) ,'-', '')  AS tiempo_largo_ha_hs , 
+					  REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', '$hora_salida_sh' ) ) ,'-', '')  AS cant_tiempo_ha_hs
+						 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	public function calcular_diferencia_tiempodscto_tiemporef($tiempo_largo_ha_hs, $tiempo_ref)
+	{
+		$sql="SELECT  REPLACE(TIMEDIFF( '$tiempo_largo_ha_hs', '$tiempo_ref' ) ,'-', '')  AS tiempo_dscto_con_ref 
+						 ";
 		return ejecutarConsulta($sql);
 
 	}
@@ -601,6 +643,20 @@ Class Reloj
                    
 		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
 					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora' ,   '$hora_salida_sh' , '$tiempo_largo_ha_hs',    '$tiempo_ref',  '$tiempo_largo_ha_hs',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 

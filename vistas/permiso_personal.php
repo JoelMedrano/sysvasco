@@ -40,7 +40,6 @@ if ($_SESSION['rrhh']==1)
                           
                             <th  style="width:10px">Fec.Emision</th>
                             <th  style="width:10px">Fec.Procede</th>
-                            <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
@@ -58,7 +57,6 @@ if ($_SESSION['rrhh']==1)
                           <tfoot>
                             <th>Fec.Emision</th>
                             <th>Fec.Procede</th>
-                            <th>Solicitante</th>
                             <th>Colaborador</th>
                             <th>Tipo Permiso</th>
                             <th>Motivo</th>
@@ -78,17 +76,19 @@ if ($_SESSION['rrhh']==1)
                  
                        <div class="form-group  col-xs-12">
 
-                                  
+                                  <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                    <label>Fec.Emisión:</label>
+                                    <input type="date" class="form-control" name="fecha_emision" id="fecha_emision"    required  autocomplete="off">
+                                  </div>
 
                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                     <label>Fec.Procede:</label>
-                                    <input type="hidden" class="form-control" name="fecha_emision" id="fecha_emision"   value= "<?=$fecha ?>" required  autocomplete="off">
-                                    <input type="date" class="form-control" name="fecha_procede" id="fecha_procede"  value= "<?=$fecha ?>"  required  autocomplete="off">
+                                    <input type="date" class="form-control" name="fecha_procede" id="fecha_procede"    required  autocomplete="off">
                                   </div>
 
                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                     <label>Fec.Hasta:</label>
-                                    <input type="date" class="form-control" name="fecha_hasta" id="fecha_hasta"  value= "<?=$fecha ?>"  required autocomplete="off">
+                                    <input type="date" class="form-control" name="fecha_hasta" id="fecha_hasta"        required autocomplete="off">
                                   </div>
 
                                   <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
@@ -106,7 +106,7 @@ if ($_SESSION['rrhh']==1)
                                   </div>
 
                                   <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                      <label>Monto a Pagar:</label>
+                                      <label>Monto:</label>
                                       <input type="text" class="form-control" name="monto_a_pagar" id="monto_a_pagar" readonly   autocomplete="off">
                                   </div>
 
@@ -164,20 +164,16 @@ if ($_SESSION['rrhh']==1)
 
                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                       <label>Hora Ingreso:</label>
-                                      <input type="time" class="form-control" name="hora_ing" id="hora_ing" autocomplete="off">
+                                      <input type="text" class="form-control" name="hora_ing" id="hora_ing" autocomplete="off">
                                     </div>
                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                       <label>Hora Salida:</label>
-                                      <input type="time" class="form-control" name="hora_sal" id="hora_sal" autocomplete="off">
+                                      <input type="text" class="form-control" name="hora_sal" id="hora_sal" autocomplete="off">
                                     </div>
 
-                                     <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                      <label>Motivo:</label>
-                                      <input type="text" class="form-control" style="text-transform: uppercase" name="motivo" id="motivo"  required autocomplete="off">
-                                  
-                                    </div>
+                                    
 
-                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                                     <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
                                      </div>
 
                                   
@@ -192,6 +188,18 @@ if ($_SESSION['rrhh']==1)
                                     </div>
 
                           </div>
+
+
+                          <div class="form-group  col-xs-12">  
+
+                                    <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                      <label>Motivo:</label>
+                                      <input type="text" class="form-control" style="text-transform: uppercase" name="motivo" id="motivo"  required autocomplete="off">
+                                     </div>
+
+
+                           </div>
+
 
 
                           <div class="form-group  col-xs-12">  

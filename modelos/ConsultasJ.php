@@ -386,7 +386,7 @@ Class ConsultasJ
 					) AS ft  ON ft.id_trab= tr.id_trab
 					WHERE   tr.id_trab NOT IN  ( SELECT  ehp.id_trab  FROM excepciones_horario_pago ehp WHERE ehp.est_reg='1')  
 					AND re.hor_ent >ft.hora_ingreso
-					AND ft.hora_ingreso NOT IN ('00:00:00') /*AGREGADO EL  15122018 - LEYDI GODOS*/
+					AND ft.hora_ingreso!='00:00:00'
 					AND  re.fecha= CURDATE() /*OK TARDANZA*/
 					UNION ALL 
 					SELECT  tr.id_trab,
@@ -436,12 +436,13 @@ Class ConsultasJ
 								WHERE fe.fecha=CURDATE()
 							) AS fe ON fe.fecha=CURDATE()
 					) AS ft  ON ft.id_trab= tr.id_trab
-					WHERE ft.hora_ingreso NOT IN ('00:00:00')
-					AND tr.id_trab NOT IN  ( SELECT  re.id_trab  FROM reloj  re  WHERE fecha= CURDATE() ) 
+					WHERE 
+					 tr.id_trab NOT IN  ( SELECT  re.id_trab  FROM reloj  re  WHERE fecha= CURDATE() ) 
 					AND tr.id_trab NOT IN  ( SELECT  ehp.id_trab  FROM excepciones_horario_pago ehp WHERE ehp.est_reg='1') 
 					AND tr.id_trab NOT IN  ( SELECT  pp.id_trab  FROM  permiso_personal pp WHERE CURDATE() BETWEEN  pp.fecha_procede  AND pp.fecha_hasta)
 					AND tr.est_reg='1'  /*OK FALTA*/
 					AND  DATE_FORMAT(NOW( ), '%H:%i:%S' )>ft.hora_ingreso /*OK FALTA*/
+					AND ft.hora_ingreso!='00:00:00'
 					UNION ALL 
 					SELECT    tr.id_trab,
 					    CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,

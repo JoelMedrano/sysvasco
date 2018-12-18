@@ -19,7 +19,7 @@ switch ($_GET["op"]){
              "3"=>$reg->sucursal_anexo,
              "4"=>$reg->funcion,
              "5"=>$reg->area_trab,
-             "6"=>($reg->incidencia=="TARDANZA")?('<span class="label label-warning">TARDANZA</span>'):(($reg->incidencia=='FALTA')?('<span class="label label-danger">FALTA</span>'):('<span class="label label-info">VACACIONES</span>')),
+             "6"=>($reg->incidencia=="TARDANZA")?('<span class="label label-warning">TARDANZA</span>'):(($reg->incidencia=='FALTA')?('<span class="label label-danger">FALTA</span>'):('<span class="label label-info">('.$reg->incidencia.')</span>')),
              "7"=>$reg->hor_ent
              );
 
