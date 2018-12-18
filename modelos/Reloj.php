@@ -552,6 +552,21 @@ Class Reloj
 	}
 
 
+		public function calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo)
+	{
+		$sql="SELECT	CASE 
+				WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)<=30   AND SUBSTRING('$tiempo', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo', 1, 2), ':30:00')	
+				WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)>30    AND SUBSTRING('$tiempo', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo', 1, 2)+1), 2, '0' ) , ':00:00')	
+				WHEN SUBSTRING('$tiempo', 2, 2)='0:' AND SUBSTRING('$tiempo', 4, 2)>=30    AND SUBSTRING('$tiempo', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo', 1, 2)+1), 2, '0' ) , ':00:00')
+				WHEN SUBSTRING('$tiempo', 2, 2)='0:' AND SUBSTRING('$tiempo', 4, 2)<30    AND SUBSTRING('$tiempo', 4, 2)>01  THEN  '00:30:00'
+				ELSE '-'  END
+				AS tiempo_redondeado_falta;";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
 	public function consultar_Diferencia_HActual_HoraSalida($hora, $hora_salida_sh)
 	{
 		$sql="SELECT  REPLACE(TIMEDIFF( '$hora', '$hora_salida_sh' ) ,'-', '')  AS tiempo_largo_ha_hs , 
@@ -652,7 +667,7 @@ Class Reloj
 
 
 	//Implementamos un método para insertar registros
-	public function registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	public function registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
 	{
                    
 		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
@@ -661,6 +676,19 @@ Class Reloj
 
 
 	}
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,       id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora' ,   '$hora_salida_sh' , '$tiempo_largo_ha_hs',    '$tiempo_ref',     '$tiempo_des',      '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
 
 	
 

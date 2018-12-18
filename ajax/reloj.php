@@ -506,7 +506,9 @@ switch ($_GET["op"]){
 
 
 
-								            	if ( $hora_fin_ref<$hora ) { // Si la hora de salida esta despues de la hora fin del refrigerio asociado
+							            		//CASO 1
+							            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MAYOR A LA HORA FIN DEL REFRIGERIO
+								            	if ( $hora_fin_ref<$hora ) { 
 								            		//14:00 pm < 15:20:00
 								            		//14:00 pm < 15:40:00
 								            		
@@ -516,7 +518,7 @@ switch ($_GET["op"]){
 
 
 								            		// INICIO - Agregado el  061222018(Leydi Godos)
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo_largo_ha_hs);
+							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_largo_ha_hs);
 													$regc=$dato->fetch_object();
 													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 							 				 		// FIN - Agregado el  061222018(Leydi Godos)
@@ -531,24 +533,27 @@ switch ($_GET["op"]){
 
 
 
-								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
 								            	
 
-
+								            	//CASO 2
+							            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MENOR A LA HORA FIN DEL REFRIGERIO Y MAYOR QUE LA HORA DE INICIO DEL REFRIGERIO 
 								            	} else if ( $hora>=$hora_ini_ref  AND  $hora<=$hora_fin_ref ) {
 								            	   //13:15 pm < 14:56:00
 								            	   //13:00 pm < 13:53:00
 								            		
 								            		
-								            	//	$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($hora_fin_ref, $hora_salida_sh);
-												//	$regc=$dato->fetch_object();
-												//	$tiempo_des=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
+								            		$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($hora_fin_ref, $hora_salida_sh);
+													$regc=$dato->fetch_object();
+													$tiempo_largo_ha_hs=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
 
+
+													//HORA FIN DEL REFRIGERIO PASA A SER LA HORA DE INICIO DEL PERMISO
 													$hora=$hora_fin_ref;
 
 
 								            		// INICIO - Agregado el  061222018(Leydi Godos)
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo_des);
+							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_largo_ha_hs);
 													$regc=$dato->fetch_object();
 													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 							 				 		// FIN - Agregado el  061222018(Leydi Godos)
@@ -564,23 +569,29 @@ switch ($_GET["op"]){
 
 
 
-								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
 								            	
 
-
+								            	//CASO 3
+							            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MENOR A LA HORA HORA  DE INICIO DEL REFRIGERIO 
+								            	// DESCONTAR AL TIEMPO DE DIFERENCIA 45 MINUTOS QUE ES EL TIEMPO ESTABLECIDO PARA EL REFRIGERIO
 								            	} else if (  $hora<$hora_ini_ref){
 
 
 
-								            		$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($hora_fin_ref, $hora_salida_sh);
+								            		 
+
+
+													$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($tiempo_largo_ha_hs, $tiempo_ref);
 													$regc=$dato->fetch_object();
 													$tiempo_des=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
+
 
 													
 
 
 								            		// INICIO - Agregado el  061222018(Leydi Godos)
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo_des);
+							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_des);
 													$regc=$dato->fetch_object();
 													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 							 				 		// FIN - Agregado el  061222018(Leydi Godos)
