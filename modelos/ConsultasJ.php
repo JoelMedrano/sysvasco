@@ -479,7 +479,26 @@ Class ConsultasJ
 		return ejecutarConsulta($sql);
 	}
 
+	public function selectTrab(){
 
+		$sql="SELECT 
+  t.id_trab,
+  CONCAT(
+    id_trab,
+    ' - ',
+  
+    apepat_trab,
+    ' ',
+    apemat_trab,
+    ', ',
+    nom_trab
+  ) AS trabajador 
+FROM
+  trabajador t
+  ORDER BY apepat_trab";
+		
+		return ejecutarConsulta($sql);
+	}
 }
 
 ?>

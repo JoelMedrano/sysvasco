@@ -143,7 +143,12 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
-		$rspta=$rm->listar();
+
+	$fecha_inicio=$_REQUEST["fecha_inicio"];
+	$fecha_fin=$_REQUEST["fecha_fin"];
+	$id_trab=$_REQUEST["id_trab"];
+
+		$rspta=$rm->listar($fecha_inicio,$fecha_fin,$id_trab);
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -203,6 +208,22 @@ switch ($_GET["op"]){
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
  		echo json_encode($results);
+	break;
+
+	case 'selectTrab':
+
+	require_once "../modelos/ConsultasJ.php";
+
+	$con = new ConsultasJ();
+
+	echo '<option value="">SELECCIONE</option>';
+
+	$rspta = $con->selectTrab();
+
+	while ($reg = $rspta->fetch_object())
+			{
+			echo '<option value=' . $reg->id_trab . '>' . $reg->trabajador . '</option>';
+			}
 	break;
 
 

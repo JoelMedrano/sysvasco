@@ -16,251 +16,78 @@ if ($_SESSION['rrhh']==1)
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">        
-        <!-- Main content -->
-        <section class="content">
+        <div class="content-wrapper">
+          <!-- Main content -->
+          <section class="content">
             <div class="row">
               <div class="col-md-12">
-                  <div class="box">
-                    <div class="box-header with-border">
-                          <h1 class="box-title">Registro de Marcaciones</h1>
-                          <a href="../reportes/rpt_xls_contratos.php" target="_blank"><button class="btn btn-info">Reporte</button></a> </h1>
-                        <div class="box-tools pull-right">
-                        </div>
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h1 class="box-title">Registro de Marcaciones</h1>
+                    <a href="../reportes/rpt_xls_contratos.php" target="_blank"><button class="btn btn-info">Reporte</button></a>
+                    </h1>
+                    <div class="box-tools pull-right">
                     </div>
-                    <!-- /.box-header -->
-                    <!-- centro -->
-                    <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
-                          <thead>
-                            
-                            <th>Dia</th>
-                            <th>Estado de Dia</th>
-                            <th>Sucursal</th>
-                            <th>Trabajador</th>
-                            <th>Area</th>
-                            <th>Hora Ingreso</th>
-                            <th>Hora Salida</th>
-                            <th>Detalle</th>
-                            
-                          </thead>
-                          <tbody>                            
-                          </tbody>
-                          <tfoot>
-                            
-                            <th>Dia</th>
-                            <th>Estado de Dia</th>
-                            <th>Sucursal</th>
-                            <th>Trabajador</th>
-                            <th>Area</th>
-                            <th>Hora Ingreso</th>
-                            <th>Hora Salida</th>
-                            <th>Detalle</th>
-                          </tfoot>
-                        </table>
+                  </div>
+                  <!-- /.box-header -->
+                  <!-- centro -->
+                  <div class="panel-body table-responsive" id="listadoregistros">
+
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                      <label>Fecha Inicio</label>
+                      <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio" value="<?php echo date("Y-m-d"); ?>">
                     </div>
-                    <div class="panel-body" style="height: 620px;" id="formularioregistros">
-                        <form name="formulario" id="formulario" method="POST">
-
-                        <div class="form-group  col-xs-12">
-
-                                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                      <label>Trabajador(*):</label>
-                                      <select id="id_nomtrab" name="id_nomtrab" class="form-control selectpicker" data-live-search="true" required>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                                      <label>Codigo.Trab:</label>
-                                      <input type="text" readonly class="form-control" name="id_trab" id="id_trab">
-                                      <input type="hidden" class="form-control" name="CantItems" id="CantItems">
-                                    </div>
-                                    <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                                      <label>Dni:</label>
-                                      <input type="text" readonly class="form-control" name="nro_doc" id="nro_doc">
-                                    </div>
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                      <label>Sucursal:</label>
-                                      <input type="text" readonly class="form-control" name="sucursal" id="sucursal"  placeholder="Sucursal">
-                                    </div>
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                      <label>Area:</label>
-                                      <input type="text" readonly class="form-control" name="area_trab" id="area_trab"  placeholder="Area" >
-                                    </div>
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                      <label>Fec.Ingreso:</label>
-                                      <input type="text" readonly class="form-control" name="fec_ing_trab" id="fec_ing_trab"  placeholder="Fecha de Ingreso">
-                                    </div>
-
-                        </div>
-
-                         <div class="form-group  col-xs-12">
-
-                               <br>
-                               </br>
-
-                        </div>
-
-
-                         <div class="form-group  col-xs-12">
-
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Meses Renovados:</label>
-                                      <input type="number"  class="form-control"  name="tie_ren_ant" id="tie_ren_ant">  
-                                      <input type="hidden"  class="form-control"  name="id_con_trab" id="id_con_trab"> 
-                                    </div>
-
-
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fec.Inicio Anterior:</label>
-                                      <input type="date"  class="form-control"  name="fec_ini_ant" id="fec_ini_ant">
-                                    </div>
-
-
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fec.Fin Anterior:</label>
-                                      <input type="date"  class="form-control"  name="fec_fin_ant" id="fec_fin_ant">
-                                    </div>
-
-                                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                      <label>Situacion Informativa:</label>
-                                      <select id="id_sit_inf_ant" name="id_sit_inf_ant" class="form-control selectpicker" data-live-search="true" required>
-                                      </select>
-                                    </div>
-
-                           </div>
-
-                          <div class="form-group  col-xs-12">
-                          </div>
-
-
-                          <div class="form-group  col-xs-12">
-
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Meses a Renovar:</label>
-                                      <input type="number"  class="form-control" name="tie_ren_con" id="tie_ren_con"  autocomplete="off">
-                                    </div>
-
-
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fec.Inicio Renovacion:</label>
-                                      <input type="date"  class="form-control" name="fec_ini_con" id="fec_ini_con">
-                                    </div>
-
-
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                      <label>Fec.Fin Renovacion::</label>
-                                      <input type="date"  class="form-control" name="fec_fin_con" id="fec_fin_con">
-                                    </div>
-
-                                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                      <label>Situacion Informativa:</label>
-                                      <select id="id_sit_inf_act" name="id_sit_inf_act" class="form-control selectpicker" data-live-search="true" required>
-                                      </select>
-                                    </div>
-
-
-                         </div>
-
-
-                         <div class="form-group  col-xs-12">
-
-                               <br>
-                               </br>
-
-                         </div>
-
-
-
-                         
-
-                        
-
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
-
-                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
-
-                          </div>
-
-
-                          
-
-                        </form>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                      <label>Fecha Fin</label>
+                      <input type="date" class="form-control" name="fecha_fin" id="fecha_fin" value="<?php echo date("Y-m-d"); ?>">
                     </div>
-                    <!--Fin centro -->
-                  </div><!-- /.box -->
+                    <div class="form-inline col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <label>Trabajador</label>
+                      <select name="id_trab" id="id_trab" class="form-control selectpicker" data-live-search="true"
+                        required>
+                      </select>
+                      <button class="btn btn-success" onclick="listar()">Mostrar</button>
+                    </div>
+
+                    <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                      <thead>
+
+                        <th>Dia</th>
+                        <th>Estado de Dia</th>
+                        <th>Sucursal</th>
+                        <th>Trabajador</th>
+                        <th>Area</th>
+                        <th>Hora Ingreso</th>
+                        <th>Hora Salida</th>
+                        <th>Detalle</th>
+
+                      </thead>
+                      <tbody>
+                      </tbody>
+                      <tfoot>
+
+                        <th>Dia</th>
+                        <th>Estado de Dia</th>
+                        <th>Sucursal</th>
+                        <th>Trabajador</th>
+                        <th>Area</th>
+                        <th>Hora Ingreso</th>
+                        <th>Hora Salida</th>
+                        <th>Detalle</th>
+                      </tfoot>
+                    </table>
+                  </div>
+
+
+
+                  <!--Fin centro -->
+                </div><!-- /.box -->
               </div><!-- /.col -->
-          </div><!-- /.row -->
-      </section><!-- /.content -->
+            </div><!-- /.row -->
+          </section><!-- /.content -->
 
-    </div><!-- /.content-wrapper -->
+        </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" style="width: 65% !important;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Periodo</h4>
-        </div>
-        <div class="modal-body">
-          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-            <thead>
-                <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
-            </thead>
-            <tbody>
-              
-            </tbody>
-            <tfoot>
-              <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
-            </tfoot>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>        
-      </div>
-    </div>
-  </div>  
-  <!-- Fin modal -->
-
-   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" style="width: 65% !important;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Seleccione un Periodo</h4>
-        </div>
-        <div class="modal-body">
-          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-            <thead>
-                <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
-            </thead>
-            <tbody>
-              
-            </tbody>
-            <tfoot>
-              <th>Opciones</th>
-                <th>Id.Periodo</th>
-                <th>Periodo</th>
-            </tfoot>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>        
-      </div>
-    </div>
-  </div>  
-  <!-- Fin modal -->
 
   
 
