@@ -166,7 +166,7 @@ Class Registro_Marcaciones
 		  ON fe.fecha = re.fecha 
 	  WHERE tr.`est_reg` = '1' 
 	  	AND re.id_trab LIKE '%$id_trab%'
-		AND DATE(re.fecha)>'$fecha_inicio' AND DATE(re.fecha)<'$fecha_fin'
+		AND DATE(re.fecha)>='$fecha_inicio' AND DATE(re.fecha)<='$fecha_fin'
 	  ORDER BY re.fecha DESC";
 
 		return ejecutarConsulta($sql);		
