@@ -156,13 +156,13 @@ switch ($_GET["op"]){
  			
 
  			$data[]=array(
- 				"0"=>$reg->Fecha,
- 				"1"=>$reg->estado,
- 				"2"=>$reg->sucursal_anexo,
- 				"3"=>$reg->nombres,
- 				"4"=>$reg->area_trab,
- 				"5"=>$reg->hor_ent,
- 				"6"=>$reg->hor_sal,
+ 				"0"=>$reg->mar,
+ 				"1"=>$reg->nom_dia,
+ 				"2"=>$reg->Fecha,
+ 				"3"=>$reg->sucursal_anexo,
+ 				"4"=>$reg->nombres,
+ 				"5"=>$reg->area_trab,
+ 				"6"=>$reg->hor_ent_sal,
  				"7"=>$reg->detalle
  				);
  		}

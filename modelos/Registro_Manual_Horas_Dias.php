@@ -35,7 +35,237 @@ Class Registro_Manual_Horas_Dias
 	}
 
 
-	
+
+
+	public function consultar_cantidad_digitos_hora_ing_hora_sal($hora_ing, $hora_sal  )
+	{
+		
+		$sql=" SELECT LENGTH('$hora_ing') AS  cantdig_hora_ing,  LENGTH('$hora_sal') AS  cantdig_hora_sal  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	public function formatear_hora_ing_hora_sal( $hora_ing, $hora_sal  )
+	{
+		
+		$sql="SELECT  IF ( CONCAT('$hora_ing', ':00') =':00' , '',  CONCAT('$hora_ing', ':00') ) AS format_hora_ing,   IF(CONCAT('$hora_sal', ':00')=':00', '', CONCAT('$hora_sal', ':00')) AS format_hora_sal";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
+	public function consultar_IngresoSalida_SegunReloj($id_trab, $fecha,  $hora_ing,  $hora_sal  )
+	{
+		$sql="SELECT    tr.id_trab, 
+						ft.hora_salida AS hora_salida_sh,
+						ft.hora_ingreso AS hora_ingreso_sh,
+						REPLACE(TIMEDIFF( '$hora_ing', ft.hora_ingreso ) ,'-', '')  AS dif_hish_hire , 
+						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora_ing', ft.hora_ingreso ) ) ,'-', '')  AS cant_dif_hish_hire, 
+						REPLACE(TIMEDIFF( '$hora_sal', ft.hora_salida ) ,'-', '')  AS dif_hssh_hsre , 
+						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora_sal', ft.hora_salida ) ) ,'-', '')  AS cant_dif_hssh_hsre,
+						/*LINEA DE DIFERENICA ENTRE LAS SALIDAS CON EL REFRIGERIO*/
+						TIMEDIFF(REPLACE(TIMEDIFF( '$hora_sal', ft.hora_salida ) ,'-', '') , REPLACE( ft.tiempo_ref  ,'-', '')  ) AS dif_hssh_hsre_ref,
+						/*LINEA DE DIFERENCIA ENTRE HORA SALIDA Y HORA FIN DE REFRIGERIO*/
+						REPLACE(TIMEDIFF( ft.hora_salida , ft.hora_fin_ref ) ,'-', '') AS dif_hfref_hsre_ref,
+						/*LINEA DE DIFERENCIA ENTRE HORA DE INGRESO SEGUN HORARIO  Y HORA INICIO  DEL REFRIGERIO*/
+						REPLACE(TIMEDIFF( ft.hora_ingreso , ft.hora_ini_ref ) ,'-', '') AS dif_hish_hiref,
+						ft.hora_ini_ref,
+						ft.hora_fin_ref,
+						ft.tiempo_ref,
+						ft.estado as estado_dia
+				FROM trabajador tr 
+				LEFT JOIN 	
+				(SELECT  hrt.id_trab, CASE 
+								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_salida
+								WHEN  fe.nom_dia='MARTES' THEN hor.martes_salida
+								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_salida
+								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_salida
+								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_salida
+								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_salida
+								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_salida
+								ELSE '-'  END
+								AS hora_salida,
+								CASE 
+								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
+								WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
+								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso
+								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso
+								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso
+								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso
+								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso
+								ELSE '-'  END
+								AS hora_ingreso,
+								ref.hora_ini AS hora_ini_ref,
+								ref.hora_fin AS hora_fin_ref,
+								ref.tiempo AS tiempo_ref,
+								fe.estado
+				FROM horario_refrigerio_trabajador AS hrt 
+				LEFT JOIN horario  AS  hor ON
+				hrt.id_horario= hor.id_horario
+				LEFT JOIN refrigerio AS ref ON
+				ref.cod_ref= hrt.cod_ref 
+				LEFT JOIN(
+					SELECT  fe.nom_dia, fe.estado ,  fe.fecha
+					FROM fechas AS fe  
+					WHERE fe.fecha='$fecha'
+				) AS fe ON fe.fecha='$fecha'
+				WHERE  hrt.id_trab='$id_trab'
+				) AS ft  ON ft.id_trab= tr.id_trab
+				WHERE ft.id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	 //Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_ExcepcionesHorarioPago($id_trab)
+	{
+		$sql=" SELECT  ehp.id_trab  AS id_excep 
+			   FROM excepciones_horario_pago ehp 
+			   WHERE  ehp.id_trab='$id_trab'
+				  AND ehp.est_reg='1' ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	public function consultarCasoMovilidad($id_trab, $fecha )
+	{
+		$sql="  SELECT id_trab, 
+					   id_trab AS id_casomovilidad,					   
+					   canhoras_max AS canthoras_mov,
+					   porc_pago  AS por_pago_mov
+				FROM caso_movilidad 
+				WHERE est_reg='1'
+		         AND  id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	public function consultarCasoVigilancia($id_trab, $fecha )
+	{
+		$sql="SELECT  cv.id_trab, cv.id_trab AS id_casovigilancia, porc_pago   AS por_pago_vig , fedo_canhoras_max,  CASE 
+								WHEN  fe.nom_dia='LUNES' THEN cv.canhoras_max
+								WHEN  fe.nom_dia='MARTES' THEN cv.canhoras_max
+								WHEN  fe.nom_dia='MIERCOLES' THEN cv.canhoras_max
+								WHEN  fe.nom_dia='JUEVES' THEN cv.canhoras_max
+								WHEN  fe.nom_dia='VIERNES' THEN cv.canhoras_max
+								WHEN  fe.nom_dia='SABADO' THEN cv.canhoras_max
+								ELSE '-'  END
+								AS cantidad_horas,
+								fe.estado
+				FROM caso_vigilancia AS cv
+				LEFT JOIN(
+					SELECT  fe.nom_dia, fe.estado ,  fe.fecha
+					FROM fechas AS fe  
+					WHERE fe.fecha='$fecha'
+				) AS fe ON fe.fecha='$fecha'
+		    WHERE cv.id_trab='$id_trab' ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+	public function calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal)
+	{
+		$sql="SELECT	CASE 
+						WHEN  SUBSTRING('$tiempo_ing', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_ing', 1, 2), ':00:00')	
+						WHEN  SUBSTRING('$tiempo_ing', 4, 2)>=30  AND SUBSTRING('$tiempo_ing', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_ing', 1, 2), ':30:00')	
+						ELSE '-'  END
+						AS tiempo_redondeado_ing,
+						CASE 
+						WHEN  SUBSTRING('$tiempo_sal', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_sal', 1, 2), ':00:00')	
+						WHEN  SUBSTRING('$tiempo_sal', 4, 2)>=30  AND SUBSTRING('$tiempo_sal', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_sal', 1, 2), ':30:00')	
+						ELSE '-'  END
+						AS tiempo_redondeado_sal
+						;";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+	public function calcular_redondeo_tiempo_dscto($tiempo_ing_dscto, $tiempo_sal_dscto,  $tiempo_salconref_dscto, $tiempo_salconfinref_dscto, $tiempo_ingconref_dscto)
+	{
+		$sql="SELECT	CASE 
+						WHEN SUBSTRING('$tiempo_ing_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_dscto', 4, 2)<=30   AND SUBSTRING('$tiempo_ing_dscto', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_ing_dscto', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$tiempo_ing_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_dscto', 4, 2)>30    AND SUBSTRING('$tiempo_ing_dscto', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_dscto', 1, 2)+1), 2, '0' ) , ':00:00')	
+						WHEN SUBSTRING('$tiempo_ing_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_dscto', 4, 2)>=30    AND SUBSTRING('$tiempo_ing_dscto', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_dscto', 1, 2)+1), 2, '0' ) , ':00:00')
+						WHEN SUBSTRING('$tiempo_ing_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_dscto', 4, 2)<30    AND SUBSTRING('$tiempo_ing_dscto', 4, 2)>01  THEN  '00:30:00'
+						ELSE '-'  END
+						AS tiempo_redondeado_ing_dscto,
+						CASE 
+						WHEN SUBSTRING('$tiempo_sal_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_sal_dscto', 4, 2)<=30   AND SUBSTRING('$tiempo_sal_dscto', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_sal_dscto', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$tiempo_sal_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_sal_dscto', 4, 2)>30    AND SUBSTRING('$tiempo_sal_dscto', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_sal_dscto', 1, 2)+1), 2, '0' ) , ':00:00')	
+						WHEN SUBSTRING('$tiempo_sal_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_sal_dscto', 4, 2)>=30    AND SUBSTRING('$tiempo_sal_dscto', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_sal_dscto', 1, 2)+1), 2, '0' ) , ':00:00')
+						WHEN SUBSTRING('$tiempo_sal_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_sal_dscto', 4, 2)<30    AND SUBSTRING('$tiempo_sal_dscto', 4, 2)>01  THEN  '00:30:00'
+						ELSE '-'  END
+						AS tiempo_redondeado_sal_dscto,
+						CASE 
+						WHEN SUBSTRING('$tiempo_salconref_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)<=30   AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_salconref_dscto', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$tiempo_salconref_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)>30    AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_salconref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')	
+						WHEN SUBSTRING('$tiempo_salconref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)>=30    AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_salconref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')
+						WHEN SUBSTRING('$tiempo_salconref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)<30    AND SUBSTRING('$tiempo_salconref_dscto', 4, 2)>01  THEN  '00:30:00'
+						ELSE '-'  END
+						AS tiempo_redondeado_salconref_dscto,
+						CASE 
+						WHEN SUBSTRING('$tiempo_salconfinref_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)<=30   AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_salconfinref_dscto', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$tiempo_salconfinref_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)>30    AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_salconfinref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')	
+						WHEN SUBSTRING('$tiempo_salconfinref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)>=30    AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_salconfinref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')
+						WHEN SUBSTRING('$tiempo_salconfinref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)<30    AND SUBSTRING('$tiempo_salconfinref_dscto', 4, 2)>01  THEN  '00:30:00'
+						ELSE '-'  END
+						AS tiempo_redondeado_salconfinref_dscto,
+						CASE 
+						WHEN SUBSTRING('$tiempo_ingconref_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)<=30   AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_ingconref_dscto', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$tiempo_ingconref_dscto', 2, 2)>=1 AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)>30    AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ingconref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')	
+						WHEN SUBSTRING('$tiempo_ingconref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)>=30    AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ingconref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')
+						WHEN SUBSTRING('$tiempo_ingconref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)<30    AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)>01  THEN  '00:30:00'
+						ELSE '-'  END
+						AS tiempo_redondeado_ingconref_dscto
+						;";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultaridfechaasociada($fecha)
+	{
+		$sql="SELECT '-' AS pd ,
+					 cp.id_cp  AS id_cp, 
+					 id_ano,
+		 			 TbPea.Des_Corta AS Ano,
+		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
+					 fe.fecha,
+					 est_reg 
+			FROM cronograma_dsctos_abonos_horasdias cp
+				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+				TbPea.cod_argumento=  cp.id_ano
+				AND TbPea.Cod_tabla='TPEA'
+				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+				TbFpa.cod_argumento=  cp.des_fec_pag
+				AND TbFpa.Cod_tabla='TFPA'
+				LEFT JOIN fechas fe ON
+				fe.fecha BETWEEN cp.desde AND cp.hasta
+			WHERE  cp.des_fec_pag  NOT IN  ('0')
+			AND fe.fecha='$fecha'
+			ORDER BY  cp.id_cp ASC
+				";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
+
+
+
 
 
 	//Implementamos un método para insertar registros
@@ -89,7 +319,7 @@ Class Registro_Manual_Horas_Dias
 
 
 		$sql="INSERT INTO reloj (id_trab,  fecha , hor_ent,       hor_sal,       pc_reg,    usu_reg,   fec_reg,       tip_pla,     tip_mov,   est_hor,     turno )
-					VALUES ('$id_trab', '$fecha', '$hora_ing' ,  '$hora_sal' , '$pc_reg', '$usu_reg', '$fec_reg', '$id_tip_plan' ,  '$dia' , '$est_hor', '$id_turno' )";
+					VALUES ('$id_trab', '$fecha', '$hora_ing' ,  '$hora_sal' , '$pc_reg', '$usu_reg', '$fec_reg', '$id_tip_plan' ,  '$dia' , '$est_hor', '$id_turno' ) ";
 		return ejecutarConsulta($sql);
 
 
@@ -98,11 +328,35 @@ Class Registro_Manual_Horas_Dias
 
 
 	//Implementamos un método para insertar registros
+	public function registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	{									
+
+
+		$sql="INSERT INTO horas_extras_personal (id_trab,   fecha ,    hora_inicio,      hora_fin,   cantidad,      tiempo_fin,   id_fec_abono,      abonar, abonado,    est_dia,   por_pago,   est_reg,   pc_reg,    usu_reg,    fec_reg)
+					  					VALUES ('$id_trab', '$fecha', '$hora_inicio' , '$hora_fin', '$cantidad',  '$tiempo_fin',  '$id_fec_abono',    '1' ,    '2',      '$estado', '$por_pago',   '1',    '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_dscto_despuesdelingresorefrigerio($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal (id_trab,   fecha ,   hora_inicio,          hora_fin,      cantidad,     tiempo_ref,     tiempo_des,    tiempo_fin,        id_incidencia,     id_permiso,      id_fec_dscto,      descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_inicio' ,   '$hora_fin' , '$cantidad',    '$tiempo_ref',  '$tiempo_des',  '$tiempo_fin',     '$id_incidencia',  '$id_permiso',   '$id_fec_dscto',    '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+
+	//Implementamos un método para insertar registros
 	public function insertar_reloj_data_eliminada(  $id_trab,
-													$fecha,
-													$fec_reg,
-													$pc_reg,
-													$usu_reg)
+													$fecha)
 	{
 
 
@@ -113,7 +367,21 @@ Class Registro_Manual_Horas_Dias
 
 	}
 
-
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_reloj(  $id_trab,
+													$fecha,
+													$fec_reg,
+													$pc_reg,
+													$usu_reg
+											   )
+	{
+		$sql="UPDATE reloj_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND   fecha='$fecha' ";
+		return ejecutarConsulta($sql);
+	}
 
 
 
@@ -121,56 +389,98 @@ Class Registro_Manual_Horas_Dias
 	public function eliminar_reloj(  				$id_trab,
 													$fecha)
 	{
-
-
 		$sql="DELETE FROM reloj WHERE fecha='$fecha' and id_trab='$id_trab'  ";
 		return ejecutarConsulta($sql);
-
-
 	}
 
 
-	//Implementamos un método para editar registros
-	public function anular_hora_extra(		   $id_trab,
-											   $fecha,
-											   $fec_reg,
-											   $pc_reg,
-											   $usu_reg
-											   )
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_extra_data_eliminada(  $id_trab,
+										 			     $fecha)
 	{
-		$sql="UPDATE horas_extras_personal SET 
-											   est_reg='2', 
-											   fec_anu='$fec_reg', 
-											   pc_anu='$pc_reg', 
-											   usu_anu='$usu_reg' 
-								    WHERE id_trab='$id_trab'
-									AND   fecha='$fecha'";
+		$sql="INSERT INTO horas_extras_personal_data_eliminada
+					SELECT * FROM horas_extras_personal WHERE fecha='$fecha' and id_trab='$id_trab'  ";
 		return ejecutarConsulta($sql);
 	}
 
 
 
 	//Implementamos un método para editar registros
-	public function anular_hora_falta(		   $id_trab,
-											   $fecha,
-											   $fec_reg,
-											   $pc_reg,
-											   $usu_reg
+	public function actualizar_quienelimino_hora_extra(  $id_trab,
+													$fecha,
+													$fec_reg,
+													$pc_reg,
+													$usu_reg
 											   )
 	{
-		$sql="UPDATE horas_permiso_personal SET 
-											   est_reg='2', 
-											   fec_anu='$fec_reg', 
-											   pc_anu='$pc_reg', 
-											   usu_anu='$usu_reg' 
-								    WHERE id_trab='$id_trab'
-									AND   fecha='$fecha'";
+		$sql="UPDATE horas_extras_personal_data_eliminada SET   fec_mod='$fec_reg', 
+															  	pc_mod='$pc_reg', 
+														 		usu_mod='$usu_reg' 
+												    	  WHERE id_trab='$id_trab'
+												          AND   fecha='$fecha' ";
 		return ejecutarConsulta($sql);
 	}
 
 
 
 
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_extra(  			$id_trab,
+													$fecha)
+	{
+		$sql="DELETE FROM horas_extras_personal WHERE fecha='$fecha' and id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_falta_data_eliminada(  $id_trab,
+										  $fecha)
+	{
+		$sql="INSERT INTO horas_permiso_personal_data_eliminada
+					SELECT * FROM horas_permiso_personal WHERE fecha='$fecha' and id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_falta( $id_trab,
+														$fecha,
+														$fec_reg,
+														$pc_reg,
+														$usu_reg
+												   )
+	{
+		$sql="UPDATE horas_permiso_personal_data_eliminada SET      fec_mod='$fec_reg', 
+																  	pc_mod='$pc_reg', 
+															 		usu_mod='$usu_reg' 
+													    	  WHERE id_trab='$id_trab'
+													          AND   fecha='$fecha' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_falta(  			$id_trab,
+													$fecha)
+	{
+		$sql="DELETE FROM horas_permiso_personal WHERE fecha='$fecha' and id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+
+
+	
 
 
 
@@ -356,7 +666,8 @@ Class Registro_Manual_Horas_Dias
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT    id_rmhd, 
+		$sql="SELECT    ''  As marca,
+						id_rmhd, 
 				  IFNULL(tsua.des_larga,'')  AS sucursal_anexo,
 				  tare.des_larga AS area_trab, 
 				  CONCAT_WS(' ',    tr.nom_trab , tr.apepat_trab, tr.apemat_trab) AS nombres,
@@ -370,6 +681,7 @@ Class Registro_Manual_Horas_Dias
 			 LEFT JOIN tabla_maestra_detalle AS tare ON
 			 tare.cod_argumento= tr.id_area
 			 AND tare.cod_tabla='TARE'
+			 ORDER  BY fecha DESC
 				
 		 ";
 		return ejecutarConsulta($sql);	

@@ -87,7 +87,7 @@ Class Horasextras_Horasdiasenreloj
 					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
 					 est_reg,
 					 ff.num 
-			FROM cronograma_pagos cp
+			FROM cronograma_dsctos_abonos_horasdias cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano
 				AND TbPea.Cod_tabla='TPEA'
@@ -155,7 +155,7 @@ Class Horasextras_Horasdiasenreloj
 					 cp.est_reg,
 					 hepc.habilitar_abono
 			FROM horas_extras_personal_cab hepc 
-				LEFT JOIN cronograma_pagos cp  ON 
+				LEFT JOIN cronograma_dsctos_abonos_horasdias cp  ON 
 				hepc.id_cp=cp.id_cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano

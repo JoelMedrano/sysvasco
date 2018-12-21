@@ -68,7 +68,8 @@ Class Compensacion
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT    tr.id_trab,
+		$sql="SELECT   '' AS comp,
+                        tr.id_trab,
                         CONCAT_WS(
                             ' ',
                             tr.apepat_trab,
@@ -81,9 +82,11 @@ Class Compensacion
                         tare.des_larga AS area_trab,
                         tr.est_reg,
                         tr.num_doc_trab,
-                        'TR' AS TR 
-                        FROM
-                        trabajador tr 
+                        'TR' AS TR ,
+                        DATE_FORMAT(co.fecha , '%d/%m/%Y') AS fecha_registro
+                        FROM compensacion AS co
+                        LEFT JOIN trabajador tr ON 
+                            tr.id_trab= co.id_trab
                         LEFT JOIN tabla_maestra_detalle AS tpla 
                             ON tpla.cod_argumento = tr.id_tip_plan 
                             AND tpla.cod_tabla = 'TPLA' 
@@ -97,7 +100,7 @@ Class Compensacion
                             ON tare.cod_argumento = tr.id_area 
                             AND tare.cod_tabla = 'TARE' 
                         WHERE tr.est_reg = '1' 
-                        ORDER BY tr.apepat_trab ASC";
+                        ORDER BY co.fecha  DESC";
 
         return ejecutarConsulta($sql);		
 

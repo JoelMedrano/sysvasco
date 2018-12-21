@@ -17,6 +17,19 @@ function init(){
 
 	});
 
+
+	//Cargamos los items al select tipo de permiso
+	$.post("../ajax/consultasD.php?op=selectVacacionesCompradas", function(r){
+	            $("#id_vac_com").html(r);
+	            $('#id_vac_com').selectpicker('refresh');
+
+	});
+
+
+
+
+
+
 	//Cargamos los items al select personal
 	$.post("../ajax/consultasD.php?op=selectPersonalNombreLargo", function(r){
 	            $("#id_trab").html(r);

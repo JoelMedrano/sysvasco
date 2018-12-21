@@ -67,7 +67,7 @@ Class Tardanzas_Permisos_Xhorasenreloj
 					 DATE(hasta) AS hasta,
 					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
 					 est_reg 
-			FROM cronograma_pagos cp
+			FROM cronograma_dsctos_abonos_horasdias cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano
 				AND TbPea.Cod_tabla='TPEA'
@@ -132,7 +132,7 @@ Class Tardanzas_Permisos_Xhorasenreloj
 					 cp.est_reg,
 					 hppc.habilitar_dscto 
 			FROM horas_permiso_personal_cab hppc 
-				LEFT JOIN cronograma_pagos cp  ON 
+				LEFT JOIN cronograma_dsctos_abonos_horasdias cp  ON 
 				hppc.id_cp=cp.id_cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano

@@ -37,20 +37,21 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                          
+                            <th>-</th>
+                            <th>Fecha de Registro</th>
                             <th>Sucursal</th>
                             <th>Area</th>
                             <th>Colaborador</th>
-                            <th>Fecha de Registro</th>
                             <th>Ver</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
+                            <th>-</th>
+                            <th>Fecha de Registro</th>
                             <th>Sucursal</th>
                             <th>Area</th>
                             <th>Colaborador</th>
-                            <th>Fecha de Registro</th>
                             <th>Ver</th>
                           </tfoot>
                         </table>
@@ -129,6 +130,10 @@ if ($_SESSION['rrhh']==1)
                                 
 
                           </div>
+
+
+
+                          
 
 
                          

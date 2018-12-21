@@ -385,6 +385,7 @@ Class ConsultasJ
 							) AS fe ON fe.fecha=CURDATE()
 					) AS ft  ON ft.id_trab= tr.id_trab
 					WHERE   tr.id_trab NOT IN  ( SELECT  ehp.id_trab  FROM excepciones_horario_pago ehp WHERE ehp.est_reg='1')  
+					AND tr.id_trab NOT IN  ( SELECT  pp.id_trab  FROM permiso_personal pp WHERE CURDATE() BETWEEN pp.fecha_procede AND pp.fecha_hasta) 
 					AND re.hor_ent >ft.hora_ingreso
 					AND ft.hora_ingreso!='00:00:00'
 					AND  re.fecha= CURDATE() /*OK TARDANZA*/

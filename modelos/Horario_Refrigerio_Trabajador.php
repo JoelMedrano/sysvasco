@@ -119,13 +119,18 @@ Class Horario_Refrigerio_Trabajador
 				         tare.`des_larga` AS des_area,
 				         hrt.id_horario,
 				         hrt.cod_ref,
-				         hrt.est_reg
+				         hrt.est_reg,
+				         hor.descrip
 				         FROM horario_refrigerio_trabajador hrt
 				LEFT JOIN trabajador  tra ON
 				hrt.id_trab= tra.id_trab
 				LEFT JOIN tabla_maestra_detalle AS tare ON
 				tare.cod_argumento= tra.id_area
 				AND tare.cod_tabla='TARE'
+				LEFT JOIN horario AS hor ON
+				hor.id_horario=hrt.id_horario
+				LEFT JOIN refrigerio AS ref ON
+				ref.cod_ref= hrt.cod_ref
 				WHERE tra.est_reg='1'";
 		return ejecutarConsulta($sql);
 	}

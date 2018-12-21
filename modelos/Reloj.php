@@ -25,6 +25,22 @@ Class Reloj
 
 	}
 
+
+	//Implementamos un método para insertar registros
+	public function insertar_reloj_vacacionescompradas($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno )
+	{
+
+
+		$sql="INSERT INTO reloj_vacacionescompradas (id_trab, fecha , hor_ent,  pc_reg, usu_reg, fec_reg, tip_pla, tip_mov, est_hor, turno )
+		VALUES ('$id_trab', '$fecha', '$hora' , '$pc_reg', '$usu_reg', '$fec_reg', '$id_tip_plan' ,  '$dia' , '$est_hor', '$id_turno' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+
 	//Implementamos un método para editar registros
 	public function editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
 	{
@@ -236,6 +252,33 @@ Class Reloj
 
 
 
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultarVacacionesCompradas($id_trab, $fecha)
+	{
+		$sql="SELECT pp.id_trab AS id_vacaciones_compradas
+				FROM permiso_personal pp
+				WHERE pp.tip_permiso='VC'
+				AND pp.id_trab='$id_trab'
+				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta
+				AND pp.id_vac_com='1'	";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultarVacaciones($id_trab, $fecha)
+	{
+		$sql="SELECT pp.id_trab AS id_vacaciones
+				FROM permiso_personal pp
+				WHERE pp.tip_permiso='VC'
+				AND pp.id_trab='$id_trab'
+				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta	";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
    //Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
 	public function consultarUsuariosQuePuedenRealizarHE_FP($id_trab)
 	{
@@ -259,7 +302,7 @@ Class Reloj
 		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
 					 fe.fecha,
 					 est_reg 
-			FROM cronograma_horasextras cp
+			FROM cronograma_dsctos_abonos_horasdias cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano
 				AND TbPea.Cod_tabla='TPEA'
@@ -288,7 +331,7 @@ Class Reloj
 		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
 					 fe.fecha,
 					 est_reg 
-			FROM cronograma_dsctos_horasdias cp
+			FROM cronograma_dsctos_abonos_horasdias cp
 				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
 				TbPea.cod_argumento=  cp.id_ano
 				AND TbPea.Cod_tabla='TPEA'

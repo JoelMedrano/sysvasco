@@ -391,6 +391,19 @@ Class ConsultasD
 
 
 
+	// Select de Pago de Vacaciones
+	public function selectVacacionesCompradas()
+	{
+		$sql="SELECT cod_argumento AS id_vac_com,
+					 des_larga AS vac_compradas
+			  FROM tabla_maestra_detalle  
+			  WHERE cod_tabla='TVCO'";
+		return ejecutarConsulta($sql);		
+	}
+
+
+
+
 
 	
 

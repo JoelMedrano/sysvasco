@@ -51,28 +51,26 @@ if ($_SESSION['rrhh']==1)
 
                     <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                       <thead>
-
+                        <th>-</th>
                         <th>Dia</th>
-                        <th>Estado de Dia</th>
+                        <th>Fecha</th>
                         <th>Sucursal</th>
                         <th>Trabajador</th>
                         <th>Area</th>
-                        <th>Hora Ingreso</th>
-                        <th>Hora Salida</th>
+                        <th>Ingreso - Salida</th>
                         <th>Detalle</th>
 
                       </thead>
                       <tbody>
                       </tbody>
                       <tfoot>
-
+                        <th>-</th>
                         <th>Dia</th>
-                        <th>Estado de Dia</th>
+                        <th>Fecha</th>
                         <th>Sucursal</th>
                         <th>Trabajador</th>
                         <th>Area</th>
-                        <th>Hora Ingreso</th>
-                        <th>Hora Salida</th>
+                        <th>Ingreso - Salida</th>
                         <th>Detalle</th>
                       </tfoot>
                     </table>

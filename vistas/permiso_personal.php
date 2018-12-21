@@ -142,9 +142,15 @@ if ($_SESSION['rrhh']==1)
                                       <select id="tip_permiso" name="tip_permiso" class="form-control selectpicker" data-live-search="true"  autocomplete="off"></select>
                                     </div>
                                   
+                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Caso Vacaciones:</label>
+                                      <select id="id_vac_com" name="id_vac_com" class="form-control selectpicker" data-live-search="true"  autocomplete="off"></select>
+                                    </div>
+                                  
+
                                     
 
-                                     <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                     <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                      </div>
 
 

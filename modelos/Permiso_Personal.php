@@ -73,6 +73,7 @@ Class Permiso_Personal
 							 $fecha_hasta, 
 							 $dias,  
 							 $tip_permiso, 
+							 $id_vac_com,
 							 $id_cp,
 							 $hora_ing, 
 							 $hora_sal, 
@@ -97,6 +98,7 @@ Class Permiso_Personal
 											fecha_hasta, 
 											dias,  
 											tip_permiso,
+											id_vac_com,
 											id_cp, 
 											hora_ing, 
 											hora_sal,  
@@ -121,6 +123,7 @@ Class Permiso_Personal
 										    '$fecha_hasta', 
 										    '$dias', 
 										    '$tip_permiso',
+										    '$id_vac_com',
 										    '$id_cp',
 										    '$hora_ing', 
 										    '$hora_sal',  
@@ -149,6 +152,7 @@ Class Permiso_Personal
 						   $fecha_hasta, 
 						   $dias,  
 						   $tip_permiso, 
+						   $id_vac_com,
 						   $id_cp,
 						   $hora_ing, 
 						   $hora_sal, 
@@ -171,7 +175,8 @@ Class Permiso_Personal
 										  fecha_procede='$fecha_procede',
 										  fecha_hasta='$fecha_hasta', 
 										  dias='$dias',  
-										  tip_permiso='$tip_permiso', 
+										  tip_permiso='$tip_permiso',
+										  id_vac_com='$id_vac_com', 
 										  hora_ing='$hora_ing',
 										  hora_sal='$hora_sal', 
 										  motivo='$motivo', 
@@ -285,6 +290,8 @@ Class Permiso_Personal
 		 ";
 		return ejecutarConsulta($sql);	
 	}
+
+	
 
 	//Implementar un método para listar los registros
 	public function listarfiltrado($idusuario)

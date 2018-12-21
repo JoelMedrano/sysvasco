@@ -90,7 +90,8 @@ switch ($_GET["op"]){
  				"1"=>$reg->id_trab,
  				"2"=>$reg->trab_apellidosynombres,
  				"3"=>$reg->des_area,
- 				"4"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_hor_ref.')"><i class="fa fa-pencil"></i></button>':
+ 				"4"=>$reg->descrip,
+ 				"5"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_hor_ref.')"><i class="fa fa-pencil"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_hor_ref.')"><i class="fa fa-pencil"></i></button>'
  				);
  		}

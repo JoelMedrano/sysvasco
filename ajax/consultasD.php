@@ -559,6 +559,21 @@ switch ($_GET["op"]){
 
 
 
+    case "selectVacacionesCompradas":
+
+		require_once "../modelos/ConsultasD.php";
+		$consultasD = new ConsultasD();
+		
+		$rspta = $consultasD->selectVacacionesCompradas();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_vac_com . '>' . $reg->vac_compradas . '</option>';
+				}
+	break;
+
+
+
 
 
 

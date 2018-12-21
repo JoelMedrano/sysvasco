@@ -169,659 +169,685 @@ switch ($_GET["op"]){
         $tiempo_largo_ha_hs=$regc->tiempo_largo_ha_hs;
         $cant_tiempo_ha_hs=$regc->cant_tiempo_ha_hs;
 
+        //CONSULTAR SI EL TRABAJADOR ESTA DE  VACACIONES COMPRADAS
+		$dato=$reloj->consultarVacacionesCompradas($id_trab, $fecha);
+        $regc=$dato->fetch_object();
+        $id_vacaciones_compradas=$regc->id_vacaciones_compradas;
 
 
-    
+        //CONSULTAR SI EL TRABAJADOR ESTA DE  VACACIONES 
+		$dato=$reloj->consultarVacaciones($id_trab, $fecha);
+        $regc=$dato->fetch_object();
+        $id_vacaciones=$regc->id_vacaciones;
 
-		$por_pago='25';
+        
+       if ($id_vacaciones_compradas==$id_trab) {
+       //EN CASO QUE  TENGA VACACIONES COMPRADAS
 
-        if ($id_turno=='1') { //TURNO DIA 
+       		//No se esta contabilizando las horas extras 
+       		
+       		//Ingresa a la tabla de reloj_vacacionescompradas
+       		$rspta=$reloj->insertar_reloj_vacacionescompradas($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
+			echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
 
-        									//PRIMER REGISTRO COMO HORA DE INGRESO DENTRO DEL RELOJ
-			 	if ($codigo==''){
 
 
+      
+       }else if ($id_vacaciones_compradas!=$id_trab AND  $id_vacaciones!=$id_trab ) { 
+       	//EN CASO QUE  NO TENGA VACACIONES COMPRADAS
+       	
+     
+				    	
 
-					 		if ($id_permitido=='') {
+						$por_pago='25';
 
+				        if ($id_turno=='1') { //TURNO DIA 
 
-					 		}else if ($id_permitido==$id_trab) {
+				        									//PRIMER REGISTRO COMO HORA DE INGRESO DENTRO DEL RELOJ
+							 	if ($codigo==''){
 
-	  									
 
-							 			//INICIO - REGISTRO DE HORAS PERMISO ANTES DE LA HORA DE INGRESO ESTABLECIDO, horas despues de su hora de entrada  
-							            if ($hora_ingreso<$hora  AND $hora_ingreso!='00:00:00' ) {
-							            	//15:08:00 < 08:00:00
-							            		$id_incidencia='0';
-							            		if ($id_permiso=='' ) {
-							            			$id_incidencia='2';
-							            			# code...
-							            		}else  {
-							            			$id_incidencia='1';
-							            		}
 
-							            		//Tiempo de Tolerancia
-							            		if ($cantidad_tiempo<='300') {
-							            			$descontar='2';
-							            		}else if ($cantidad_tiempo>='300') {
-							            			$descontar='1';
-							            		}
+									 		if ($id_permitido=='') {
 
 
+									 		}else if ($id_permitido==$id_trab) {
 
+					  									
 
-								            	if ( $hora_fin_ref<$hora ) { // Si la 15:00:00  es mayor a su hora almuerzo asignado 14:00:00
-								            		
-								            		// INICIO - Agregado el  061222018(Leydi Godos) 
+											 			//INICIO - REGISTRO DE HORAS PERMISO ANTES DE LA HORA DE INGRESO ESTABLECIDO, horas despues de su hora de entrada  
+											            if ($hora_ingreso<$hora  AND $hora_ingreso!='00:00:00' ) {
+											            	//15:08:00 < 08:00:00
+											            		$id_incidencia='0';
+											            		if ($id_permiso=='' ) {
+											            			$id_incidencia='2';
+											            			# code...
+											            		}else  {
+											            			$id_incidencia='1';
+											            		}
 
-								            		$tiempo=$tiempo_dscto;
+											            		//Tiempo de Tolerancia
+											            		if ($cantidad_tiempo<='300') {
+											            			$descontar='2';
+											            		}else if ($cantidad_tiempo>='300') {
+											            			$descontar='1';
+											            		}
 
 
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo);
-													$regc=$dato->fetch_object();
-													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 
-							 				 		// FIN - Agregado el  061222018(Leydi Godos)
 
+												            	if ( $hora_fin_ref<$hora ) { // Si la 15:00:00  es mayor a su hora almuerzo asignado 14:00:00
+												            		
+												            		// INICIO - Agregado el  061222018(Leydi Godos) 
 
-													//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
-							 				 		$id_cp=$id_cp_des;
+												            		$tiempo=$tiempo_dscto;
 
 
-								            		$rspta=$reloj->registrar_hora_permiso($id_trab, $fecha, $hora, $tiempo_ref,  $hora_ingreso, $tiempo, $tiempo_dscto, $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
-								            	} else if ( $hora_fin_ref>$hora ) {// Si la hora de ingreso (13:15:00) es menor que  a su hora almuerzo asignado 14:00:00
-								            		
-								            		// INICIO - Agregado el  061222018(Leydi Godos) 
+											 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo);
+																	$regc=$dato->fetch_object();
+																	$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 
-								            		
+											 				 		// FIN - Agregado el  061222018(Leydi Godos)
 
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo);
-													$regc=$dato->fetch_object();
-													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 
-							 				 		// FIN - Agregado el  061222018(Leydi Godos)
+																	//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
+											 				 		$id_cp=$id_cp_des;
 
-													//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
-							 				 		$id_cp=$id_cp_des;
 
-								            		$rspta=$reloj->registrar_hora_permiso_sinrefrigerio($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
-								            	}
-							            
+												            		$rspta=$reloj->registrar_hora_permiso($id_trab, $fecha, $hora, $tiempo_ref,  $hora_ingreso, $tiempo, $tiempo_dscto, $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+												            	} else if ( $hora_fin_ref>$hora ) {// Si la hora de ingreso (13:15:00) es menor que  a su hora almuerzo asignado 14:00:00
+												            		
+												            		// INICIO - Agregado el  061222018(Leydi Godos) 
 
-							            }
+												            		
 
-							                //FIN - REGISTRO DE HORAS PERMISO ANTES DE LA HORA DE INGRESO ESTABLECIDO
-							            	
+											 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas($tiempo);
+																	$regc=$dato->fetch_object();
+																	$tiempo_dscto=$regc->tiempo_redondeado_falta;  
 
-							 				//INICIO - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO  EN UN DIA LABORABLE
-							 				 if ($hora_ingreso>$hora  AND  $cantidad_tiempo>='3600'  ) {
+											 				 		// FIN - Agregado el  061222018(Leydi Godos)
 
+																	//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
+											 				 		$id_cp=$id_cp_des;
 
-							 				 		// INICIO - Agregado el  051222018(Leydi Godos) 
-							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-													$regc=$dato->fetch_object();
-													$tiempo_redondeado=$regc->tiempo_redondeado;  
+												            		$rspta=$reloj->registrar_hora_permiso_sinrefrigerio($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+												            	}
+											            
 
-							 				 		// FIN - Agregado el  051222018(Leydi Godos)
+											            }
 
-							 				 	//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-							 				  	$id_cp=$id_cp_he;
+											                //FIN - REGISTRO DE HORAS PERMISO ANTES DE LA HORA DE INGRESO ESTABLECIDO
+											            	
 
-								            	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-								            }else if ($hora_ingreso=='00:00:00') {
-							 				 //INICIO - REGISTRO DE HORAS EXTRAS DE UN DIA LABORABLE PERO SIN INGRESO - CASO ELASTICOS / POR SU HORARIO NO ES NECESARIO QUE VENGAN 
+											 				//INICIO - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO  EN UN DIA LABORABLE
+											 				 if ($hora_ingreso>$hora  AND  $cantidad_tiempo>='3600'  ) {
 
-							 				 	$tiempo='00:00:00'; 
 
-							 				 	$id_cp=$id_cp_he;
+											 				 		// INICIO - Agregado el  051222018(Leydi Godos) 
+											 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																	$regc=$dato->fetch_object();
+																	$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-								            	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-								           
-								            }
-								            //FIN - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO  EN UN DIA LABORABLE PERO SIN INGRESO
+											 				 		// FIN - Agregado el  051222018(Leydi Godos)
 
+											 				 	//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+											 				  	$id_cp=$id_cp_he;
 
+												            	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+												            }else if ($hora_ingreso=='00:00:00') {
+											 				 //INICIO - REGISTRO DE HORAS EXTRAS DE UN DIA LABORABLE PERO SIN INGRESO - CASO ELASTICOS / POR SU HORARIO NO ES NECESARIO QUE VENGAN 
 
-	 	
+											 				 	$tiempo='00:00:00'; 
 
+											 				 	$id_cp=$id_cp_he;
 
-					 		}
+												            	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+												           
+												            }
+												            //FIN - REGISTRO DE HORAS EXTRAS ANTES DE LA HORA DE INGRESO ESTABLECIDO  EN UN DIA LABORABLE PERO SIN INGRESO
 
 
-					 					$rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
-									    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
 
+					 	
 
-			 		        
 
+									 		}
 
-				
-	            }else{
-	            	// REGISTRO DE HORA DE SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
-	            	if ($primera_salida=='' OR $primera_salida=='00:00:00' ) { //Actualizado de '' a '00:00:00' 30/11/2018
 
+									 					$rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
+													    echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
 
-	            		 $codigo_ingresado=$reloj->consultarIngresoEnReloj($id_trab, $fecha, $hora);
-						 $regc=$codigo_ingresado->fetch_object();
-						 $intervalo_1ing_1sal=$regc->intervalo_1ing_1sal;
 
-	            		if ($intervalo_1ing_1sal<='300') {
-	            			# code...
-	            		}
-	            		else if ($intervalo_1ing_1sal>'300') {
+							 		        
 
-	            		//	$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-					        
-	            		
 
+								
+					            }else{
+					            	// REGISTRO DE HORA DE SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
+					            	if ($primera_salida=='' OR $primera_salida=='00:00:00' ) { //Actualizado de '' a '00:00:00' 30/11/2018
 
 
-										//EJECUTA PARA TODOS (INGRESA HORA DE SALIDA)
-						         	   $rspta=$reloj->editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+					            		 $codigo_ingresado=$reloj->consultarIngresoEnReloj($id_trab, $fecha, $hora);
+										 $regc=$codigo_ingresado->fetch_object();
+										 $intervalo_1ing_1sal=$regc->intervalo_1ing_1sal;
 
-						         	   $id_trab=$id_trab;
+					            		if ($intervalo_1ing_1sal<='300') {
+					            			# code...
+					            		}
+					            		else if ($intervalo_1ing_1sal>'300') {
 
-						         	    $codigo_ingresado=$reloj->consultarHoraExtra($id_trab, $fecha, $hora);
-								        $regc=$codigo_ingresado->fetch_object();
-								        $tiempo=$regc->tiempo_largo;
-								       
-								       //Porcentaje pago sr.pascual
+					            		//	$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+									        
+					            		
 
-				//CASOS:
-			    //1. PRIMER CASO: REGISTRAR HORA EXTRA DESPUES DE SU SALIDA(DIA LABORADBLE)
-				//2. SEGUNDO CASO: REGISTRAR HORAS PERMISOS ANTES DE LA SALIDA
 
 
-				//1. PRIMER CASO  //VALIDA QUE SOLO INGRESE A HORAS EXTRAS DESPUES DE SU HORA DE SALIDA  SEGUN HORARIO  (DIA LABORABLE)
-								        if ($hora_salida<$hora ) {
+														//EJECUTA PARA TODOS (INGRESA HORA DE SALIDA)
+										         	   $rspta=$reloj->editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
 
+										         	   $id_trab=$id_trab;
 
-													        //DIA DONDE TIENE SU HORARIO DE INGRESO NO LABORABLE - CAOS DE ELASTICOS SABADOS
-													        if ($hora_ingreso=='00:00:00' and $cant_tiempo_hs_he>='3600' AND $id_trab!=$id_trab_excep  ) {
+										         	    $codigo_ingresado=$reloj->consultarHoraExtra($id_trab, $fecha, $hora);
+												        $regc=$codigo_ingresado->fetch_object();
+												        $tiempo=$regc->tiempo_largo;
+												       
+												       //Porcentaje pago sr.pascual
 
-													        	// INICIO - Agregado el  051222018(Leydi Godos) 
-													        		  	$var_tiempo=$tiempo;
-												 				 		
-												 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-																		$regc=$dato->fetch_object();
-																		$tiempo_redondeado=$regc->tiempo_redondeado;  
+								//CASOS:
+							    //1. PRIMER CASO: REGISTRAR HORA EXTRA DESPUES DE SU SALIDA(DIA LABORADBLE)
+								//2. SEGUNDO CASO: REGISTRAR HORAS PERMISOS ANTES DE LA SALIDA
 
-												 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
+								//1. PRIMER CASO  //VALIDA QUE SOLO INGRESE A HORAS EXTRAS DESPUES DE SU HORA DE SALIDA  SEGUN HORARIO  (DIA LABORABLE)
+												        if ($hora_salida<$hora ) {
 
 
-																		$tiempo_fin=$tiempo_redondeado;
+																	        //DIA DONDE TIENE SU HORARIO DE INGRESO NO LABORABLE - CAOS DE ELASTICOS SABADOS
+																	        if ($hora_ingreso=='00:00:00' and $cant_tiempo_hs_he>='3600' AND $id_trab!=$id_trab_excep  ) {
 
-																		$tiempo=$var_tiempo;
+																	        	// INICIO - Agregado el  051222018(Leydi Godos) 
+																	        		  	$var_tiempo=$tiempo;
+																 				 		
+																 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																						$regc=$dato->fetch_object();
+																						$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-												 				  	  
+																 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
 
-													        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago ); 
-													        	
 
+																						$tiempo_fin=$tiempo_redondeado;
 
-													        }else if ($hora_salida!='00:00:00' and $cant_tiempo_hs_he>='3600' AND $id_trab!=$id_trab_excep  )  
-													        {
+																						$tiempo=$var_tiempo;
 
-													        //	$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-													        
-													        	if($id_trab!=$id_casovigilancia  OR $id_trab!=$id_casomovilidad )
-													        	{
+																 				  	  
 
-													        		// INICIO - Agregado el  051222018(Leydi Godos) 
-													        		    $tiempo=$tiempo_largo_hs_he;
-												 				 		
-												 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-																		$regc=$dato->fetch_object();
-																		$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-												 				 	// FIN - Agregado el  051222018(Leydi Godos)
+																	        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago ); 
+																	        	
 
 
+																	        }else if ($hora_salida!='00:00:00' and $cant_tiempo_hs_he>='3600' AND $id_trab!=$id_trab_excep  )  
+																	        {
 
-																	//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-												 				  	    $id_cp=$id_cp_he;
+																	        //	$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+																	        
+																	        	if($id_trab!=$id_casovigilancia  OR $id_trab!=$id_casomovilidad )
+																	        	{
 
+																	        		// INICIO - Agregado el  051222018(Leydi Godos) 
+																	        		    $tiempo=$tiempo_largo_hs_he;
+																 				 		
+																 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																						$regc=$dato->fetch_object();
+																						$tiempo_redondeado=$regc->tiempo_redondeado;  
 
+																 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
-													        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-													        	
-													        	}
-													        	else if ($id_trab==$id_casovigilancia and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado=='LABORABLE' AND $id_trab!=$id_trab_excep ) 
-													        	{
-													        		
-													        		
-													        		$tiempo_largo_hs_he=$cantidad_horas;
-													        	//	$tiempo=$cantidad_horas;
-													        	//	$hora_ingreso=$hora;
-													        	//	$hora=$hora_salida;
 
 
+																					//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+																 				  	    $id_cp=$id_cp_he;
 
-													        		// INICIO - Agregado el  051222018(Leydi Godos) 
-													        		    $tiempo=$tiempo_largo_hs_he;
-												 				 		
-												 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-																		$regc=$dato->fetch_object();
-																		$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-												 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
-													        	  //Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-												 				  	$id_cp=$id_cp_he;
+																	        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+																	        	
+																	        	}
+																	        	else if ($id_trab==$id_casovigilancia and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado=='LABORABLE' AND $id_trab!=$id_trab_excep ) 
+																	        	{
+																	        		
+																	        		
+																	        		$tiempo_largo_hs_he=$cantidad_horas;
+																	        	//	$tiempo=$cantidad_horas;
+																	        	//	$hora_ingreso=$hora;
+																	        	//	$hora=$hora_salida;
 
-													        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado, $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-													        	//	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);  
-													        
 
+																	        		// INICIO - Agregado el  051222018(Leydi Godos) 
+																	        		    $tiempo=$tiempo_largo_hs_he;
+																 				 		
+																 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																						$regc=$dato->fetch_object();
+																						$tiempo_redondeado=$regc->tiempo_redondeado;  
 
+																 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
-													        	} else if ($id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado=='LABORABLE' AND $id_trab!=$id_trab_excep ) {
-													        		$tiempo_largo_hs_he=$canthoras_mov;
+																	        	  //Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+																 				  	$id_cp=$id_cp_he;
 
+																	        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado, $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-													        		// INICIO - Agregado el  051222018(Leydi Godos) 
-													        		    $tiempo=$tiempo_largo_hs_he;
-												 				 		
-												 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-																		$regc=$dato->fetch_object();
-																		$tiempo_redondeado=$regc->tiempo_redondeado;  
+																	        	//	$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);  
+																	        
 
-												 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
 
-																		//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-												 				  	$id_cp=$id_cp_he;
+																	        	} else if ($id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado=='LABORABLE' AND $id_trab!=$id_trab_excep ) {
+																	        		$tiempo_largo_hs_he=$canthoras_mov;
 
 
+																	        		// INICIO - Agregado el  051222018(Leydi Godos) 
+																	        		    $tiempo=$tiempo_largo_hs_he;
+																 				 		
+																 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																						$regc=$dato->fetch_object();
+																						$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-													        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+																 				 	// FIN - Agregado el  051222018(Leydi Godos)
 
 
-													        	//DIA LABORABLE QUE REGISTRA HORAS EXTRAS 
-													        	} 
+																						//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+																 				  	$id_cp=$id_cp_he;
 
-													        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO(DIA NO LABORABLE) 
-													        } else if ($hora_ingreso=='00:00:00' AND $id_trab!=$id_trab_excep) 
-													        {	
 
-													        	if ($estado=='NO LABORABLE' OR $estado=='FERIADO') {
-													        	     $por_pago='100';
-													        	}else {
-													        	     $por_pago='25';
-													        	}
 
+																	        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he,  $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-													        	
-													        	if ($id_trab==$id_casovigilancia or $id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
-													        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
-													        		$tiempo_fin=$tiempo;
 
+																	        	//DIA LABORABLE QUE REGISTRA HORAS EXTRAS 
+																	        	} 
 
+																	        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO(DIA NO LABORABLE) 
+																	        } else if ($hora_ingreso=='00:00:00' AND $id_trab!=$id_trab_excep) 
+																	        {	
 
-													        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin,  $por_pago );
+																	        	if ($estado=='NO LABORABLE' OR $estado=='FERIADO') {
+																	        	     $por_pago='100';
+																	        	}else {
+																	        	     $por_pago='25';
+																	        	}
 
-													        	}else if ($cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200') {
-													        		$tiempo_fin=$tiempo;
-													        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
 
-													        	}else if ($id_trab==$id_casovigilancia and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
-													        		$tiempo_fin=$fedo_canhoras_max;
-													        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
+																	        	
+																	        	if ($id_trab==$id_casovigilancia or $id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
+																	        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
+																	        		$tiempo_fin=$tiempo;
 
 
-													        	}else if ( $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
 
-													        		$tiempo_fin='12:00:00';
-													        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
+																	        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin,  $por_pago );
 
-													        	}
+																	        	}else if ($cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200') {
+																	        		$tiempo_fin=$tiempo;
+																	        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
 
-											         	   		
+																	        	}else if ($id_trab==$id_casovigilancia and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
+																	        		$tiempo_fin=$fedo_canhoras_max;
+																	        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
 
-											         		}
 
-								        	
-		//2. SEGUNDO CASO  //VALIDA QUE INGRESE HORAS DE PERMISO ANTES DE LA SALIDA  SEGUN HORARIO  (DIA LABORABLE)						       
-								        }  else if ($hora_salida>$hora ) {
+																	        	}else if ( $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
 
-								        		$id_incidencia='0';
-							            		if ($id_permiso=='' ) {
-							            			$id_incidencia='2';
-							            			# code...
-							            		}else  {
-							            			$id_incidencia='1';
-							            		}
+																	        		$tiempo_fin='12:00:00';
+																	        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
 
-							            		//Tiempo de Tolerancia
-							            		if ($cantidad_tiempo<='300') {
-							            			$descontar='2';
-							            		}else if ($cantidad_tiempo>='300') {
-							            			$descontar='1';
-							            		}
+																	        	}
 
-							            		
+															         	   		
 
+															         		}
 
+												        	
+						//2. SEGUNDO CASO  //VALIDA QUE INGRESE HORAS DE PERMISO ANTES DE LA SALIDA  SEGUN HORARIO  (DIA LABORABLE)						       
+												        }  else if ($hora_salida>$hora ) {
 
-							            		//CASO 1
-							            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MAYOR A LA HORA FIN DEL REFRIGERIO
-								            	if ( $hora_fin_ref<$hora ) { 
-								            		//14:00 pm < 15:20:00
-								            		//14:00 pm < 15:40:00
-								            		
+												        		$id_incidencia='0';
+											            		if ($id_permiso=='' ) {
+											            			$id_incidencia='2';
+											            			# code...
+											            		}else  {
+											            			$id_incidencia='1';
+											            		}
 
-													$tiempo_des=$tiempo_largo_ha_hs;
+											            		//Tiempo de Tolerancia
+											            		if ($cantidad_tiempo<='300') {
+											            			$descontar='2';
+											            		}else if ($cantidad_tiempo>='300') {
+											            			$descontar='1';
+											            		}
 
+											            		
 
 
-								            		// INICIO - Agregado el  061222018(Leydi Godos)
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_largo_ha_hs);
-													$regc=$dato->fetch_object();
-													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
-							 				 		// FIN - Agregado el  061222018(Leydi Godos)
 
+											            		//CASO 1
+											            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MAYOR A LA HORA FIN DEL REFRIGERIO
+												            	if ( $hora_fin_ref<$hora ) { 
+												            		//14:00 pm < 15:20:00
+												            		//14:00 pm < 15:40:00
+												            		
 
-													//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
-							 				 		$id_cp=$id_cp_des;
+																	$tiempo_des=$tiempo_largo_ha_hs;
 
 
-							 				 		$tiempo_ref='00:00:00';
 
+												            		// INICIO - Agregado el  061222018(Leydi Godos)
+											 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_largo_ha_hs);
+																	$regc=$dato->fetch_object();
+																	$tiempo_dscto=$regc->tiempo_redondeado_falta;  
+											 				 		// FIN - Agregado el  061222018(Leydi Godos)
 
 
+																	//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
+											 				 		$id_cp=$id_cp_des;
 
-								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
-								            	
 
-								            	//CASO 2
-							            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MENOR A LA HORA FIN DEL REFRIGERIO Y MAYOR QUE LA HORA DE INICIO DEL REFRIGERIO 
-								            	} else if ( $hora>=$hora_ini_ref  AND  $hora<=$hora_fin_ref ) {
-								            	   //13:15 pm < 14:56:00
-								            	   //13:00 pm < 13:53:00
-								            		
-								            		
-								            		$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($hora_fin_ref, $hora_salida_sh);
-													$regc=$dato->fetch_object();
-													$tiempo_largo_ha_hs=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
+											 				 		$tiempo_ref='00:00:00';
 
 
-													//HORA FIN DEL REFRIGERIO PASA A SER LA HORA DE INICIO DEL PERMISO
-													$hora=$hora_fin_ref;
 
 
-								            		// INICIO - Agregado el  061222018(Leydi Godos)
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_largo_ha_hs);
-													$regc=$dato->fetch_object();
-													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
-							 				 		// FIN - Agregado el  061222018(Leydi Godos)
+												            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+												            	
 
+												            	//CASO 2
+											            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MENOR A LA HORA FIN DEL REFRIGERIO Y MAYOR QUE LA HORA DE INICIO DEL REFRIGERIO 
+												            	} else if ( $hora>=$hora_ini_ref  AND  $hora<=$hora_fin_ref ) {
+												            	   //13:15 pm < 14:56:00
+												            	   //13:00 pm < 13:53:00
+												            		
+												            		
+												            		$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($hora_fin_ref, $hora_salida_sh);
+																	$regc=$dato->fetch_object();
+																	$tiempo_largo_ha_hs=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
 
-													//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
-							 				 		$id_cp=$id_cp_des;
 
+																	//HORA FIN DEL REFRIGERIO PASA A SER LA HORA DE INICIO DEL PERMISO
+																	$hora=$hora_fin_ref;
 
-							 				 		$tiempo_ref='00:00:00';
 
+												            		// INICIO - Agregado el  061222018(Leydi Godos)
+											 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_largo_ha_hs);
+																	$regc=$dato->fetch_object();
+																	$tiempo_dscto=$regc->tiempo_redondeado_falta;  
+											 				 		// FIN - Agregado el  061222018(Leydi Godos)
 
 
+																	//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
+											 				 		$id_cp=$id_cp_des;
 
 
-								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
-								            	
+											 				 		$tiempo_ref='00:00:00';
 
-								            	//CASO 3
-							            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MENOR A LA HORA HORA  DE INICIO DEL REFRIGERIO 
-								            	// DESCONTAR AL TIEMPO DE DIFERENCIA 45 MINUTOS QUE ES EL TIEMPO ESTABLECIDO PARA EL REFRIGERIO
-								            	} else if (  $hora<$hora_ini_ref){
 
 
 
-								            		 
 
+												            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_sin_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+												            	
 
-													$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($tiempo_largo_ha_hs, $tiempo_ref);
-													$regc=$dato->fetch_object();
-													$tiempo_des=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
+												            	//CASO 3
+											            		//LA HORA DE SALIDA REGISTRADO CON LA TARJETA ES MENOR A LA HORA HORA  DE INICIO DEL REFRIGERIO 
+												            	// DESCONTAR AL TIEMPO DE DIFERENCIA 45 MINUTOS QUE ES EL TIEMPO ESTABLECIDO PARA EL REFRIGERIO
+												            	} else if (  $hora<$hora_ini_ref){
 
 
+
+												            		 
+
+
+																	$dato=$reloj->calcular_diferencia_tiempodscto_tiemporef($tiempo_largo_ha_hs, $tiempo_ref);
+																	$regc=$dato->fetch_object();
+																	$tiempo_des=$regc->tiempo_dscto_con_ref;  //SE ESTA USANDO LA MISMA FUNCION 
+
+
+																	
+
+
+												            		// INICIO - Agregado el  061222018(Leydi Godos)
+											 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_des);
+																	$regc=$dato->fetch_object();
+																	$tiempo_dscto=$regc->tiempo_redondeado_falta;  
+											 				 		// FIN - Agregado el  061222018(Leydi Godos)
+
+
+																	//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
+											 				 		$id_cp=$id_cp_des;
+
+
+
+
+												            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
+												            	
+
+
+
+
+												            	}
+											            
+
+
+												        } 
 													
+												     
+												        
+												       
 
 
-								            		// INICIO - Agregado el  061222018(Leydi Godos)
-							 				 		$dato=$reloj->calcular_redondeo_tiempo_horas_faltas_permisoconingreso($tiempo_des);
-													$regc=$dato->fetch_object();
-													$tiempo_dscto=$regc->tiempo_redondeado_falta;  
-							 				 		// FIN - Agregado el  061222018(Leydi Godos)
+										         		 
 
 
-													//Resemplaza el id_cp_des correspondinete al cronograma de descuentos
-							 				 		$id_cp=$id_cp_des;
 
+										    }
 
 
+										 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+									}
+									// REGISTRO DE HORA DE SEGUNDO INGRESO ACTUALIZANDO LA LINEA DEL RELOJ
+					 				else if ($segunda_entrada=='' OR $segunda_entrada=='00:00:00'  ) {
 
-								            		$rspta=$reloj->registrar_hora_permiso_despuesdelingreso_dscto_refrigerio($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,   $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp,  $descontar,  $fec_reg, $pc_reg, $usu_reg);
-								            	
 
+								 					 $codigo_ingresado=$reloj->consultarPrimeraSalidaEnReloj($id_trab, $fecha, $hora);
+													 $regc=$codigo_ingresado->fetch_object();
+													 $intervalo_1sal_2ing=$regc->intervalo_1sal_2ing;
 
+								            		if ($intervalo_1sal_2ing<='300') {
+								            			
+								            		}
+								            		else if ($intervalo_1sal_2ing>'300') {
 
 
-								            	}
-							            
+											 					 $rspta=$reloj->editar_segunda_entrada($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+														    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
 
+							 						}
 
-								        } 
-									
-								     
-								        
-								       
 
 
-						         		 
 
+					 				}
+					 				// REGISTRO DE HORA DE SEGUNDA SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
+					 				else if ($segunda_salida=='') {
 
+					 								 $codigo_ingresado=$reloj->consultarSegundoIngresoEnReloj($id_trab, $fecha, $hora);
+													 $regc=$codigo_ingresado->fetch_object();
+													 $intervalo_2ing_2sal=$regc->intervalo_2ing_2sal;
 
-						    }
+								            		if ($intervalo_2ing_2sal<='300') {
+								            			
+								            		}
+								            		else if ($intervalo_2ing_2sal>'300') {
+					 					 
+											 					 $rspta=$reloj->editar_segunda_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
+														    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+					 								}
 
 
-						 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
-					}
-					// REGISTRO DE HORA DE SEGUNDO INGRESO ACTUALIZANDO LA LINEA DEL RELOJ
-	 				else if ($segunda_entrada=='' OR $segunda_entrada=='00:00:00'  ) {
+					 				}
 
+					            }
 
-				 					 $codigo_ingresado=$reloj->consultarPrimeraSalidaEnReloj($id_trab, $fecha, $hora);
-									 $regc=$codigo_ingresado->fetch_object();
-									 $intervalo_1sal_2ing=$regc->intervalo_1sal_2ing;
 
-				            		if ($intervalo_1sal_2ing<='300') {
-				            			
-				            		}
-				            		else if ($intervalo_1sal_2ing>'300') {
 
+				        }else if ($id_turno=='2') { //TURNO NOCHE 
 
-							 					 $rspta=$reloj->editar_segunda_entrada($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-										    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
+				        	$dato=$reloj->consultarInformacionDiaAnterior($id_trab, $fecha);
+							$regc=$dato->fetch_object();
+							$fecha_dia_anterior=$regc->fecha_dia_anterior;
+							$hora_ing_anterior=$regc->hora_ing_anterior;
+							$hor_sal_anterior=$regc->hor_sal_anterior;
 
-			 						}
 
 
+							// CASO 1 EXISTIERA MARCACION DEL DIA ANTERIOR 
+				        	// 	ACTUALIZAR LA FECHA DE SALIDA DEL DIA ANTERIOR, valida  que el dia anterior tenga fecha en el reloj, exista hora de ingreso y la hora de salida este vacia 
+				        	 if (  $fecha_dia_anterior!='' and $hora_ing_anterior!='' AND $hor_sal_anterior=='' ) {
+				        	 	    $rspta=$reloj->editar_primera_salida_noche($id_trab,  $fecha_noche, $fec_reg, $pc_reg, $usu_reg, $hora); 
 
+				        	 	    		$fecha=$fecha_noche;
+				        	 	         
 
-	 				}
-	 				// REGISTRO DE HORA DE SEGUNDA SALIDA ACTUALIZANDO LA LINEA DEL RELOJ
-	 				else if ($segunda_salida=='') {
+				        	 	           //DIA DONDE TIENE SU HORARIO DE INGRESO(LABORABLE)
+									        if ($hora_salida!='' AND $cant_tiempo_hs_he>='3600' )  
+									        {
 
-	 								 $codigo_ingresado=$reloj->consultarSegundoIngresoEnReloj($id_trab, $fecha, $hora);
-									 $regc=$codigo_ingresado->fetch_object();
-									 $intervalo_2ing_2sal=$regc->intervalo_2ing_2sal;
+									        	if ($id_trab==$id_casovigilancia AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado=='LABORABLE') {
+									        		$tiempo_largo_hs_he=$cantidad_horas;
 
-				            		if ($intervalo_2ing_2sal<='300') {
-				            			
-				            		}
-				            		else if ($intervalo_2ing_2sal>'300') {
-	 					 
-							 					 $rspta=$reloj->editar_segunda_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
-										    	 echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
-	 								}
+									        	
+									        			$por_pago=$por_pago_vig;
 
 
-	 				}
+									        			// INICIO - Agregado el  051222018(Leydi Godos) 
+												        		    $tiempo=$tiempo_largo_hs_he;
+											 				 		
+											 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																	$regc=$dato->fetch_object();
+																	$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-	            }
+											 			// FIN - Agregado el  051222018(Leydi Godos)
 
 
+														//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+											 			$id_cp=$id_cp_he;
 
-        }else if ($id_turno=='2') { //TURNO NOCHE 
+									        		
+									        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-        	$dato=$reloj->consultarInformacionDiaAnterior($id_trab, $fecha);
-			$regc=$dato->fetch_object();
-			$fecha_dia_anterior=$regc->fecha_dia_anterior;
-			$hora_ing_anterior=$regc->hora_ing_anterior;
-			$hor_sal_anterior=$regc->hor_sal_anterior;
+									        	} else if ($id_trab==$id_casomovilidad AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado=='LABORABLE') {
+									        		$tiempo_largo_hs_he=$canthoras_mov;
+									        		
+									        		  // INICIO - Agregado el  051222018(Leydi Godos) 
+												        		    $tiempo=$tiempo_largo_hs_he;
+											 				 		
+											 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																	$regc=$dato->fetch_object();
+																	$tiempo_redondeado=$regc->tiempo_redondeado;  
 
+											 			// FIN - Agregado el  051222018(Leydi Godos)
 
 
-			// CASO 1 EXISTIERA MARCACION DEL DIA ANTERIOR 
-        	// 	ACTUALIZAR LA FECHA DE SALIDA DEL DIA ANTERIOR, valida  que el dia anterior tenga fecha en el reloj, exista hora de ingreso y la hora de salida este vacia 
-        	 if (  $fecha_dia_anterior!='' and $hora_ing_anterior!='' AND $hor_sal_anterior=='' ) {
-        	 	    $rspta=$reloj->editar_primera_salida_noche($id_trab,  $fecha_noche, $fec_reg, $pc_reg, $usu_reg, $hora); 
+														//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+											 			$id_cp=$id_cp_he;
 
-        	 	    		$fecha=$fecha_noche;
-        	 	         
 
-        	 	           //DIA DONDE TIENE SU HORARIO DE INGRESO(LABORABLE)
-					        if ($hora_salida!='' AND $cant_tiempo_hs_he>='3600' )  
-					        {
 
-					        	if ($id_trab==$id_casovigilancia AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado=='LABORABLE') {
-					        		$tiempo_largo_hs_he=$cantidad_horas;
+									        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-					        	
-					        			$por_pago=$por_pago_vig;
 
+									        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad  ) {
 
-					        			// INICIO - Agregado el  051222018(Leydi Godos) 
-								        		    $tiempo=$tiempo_largo_hs_he;
-							 				 		
-							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-													$regc=$dato->fetch_object();
-													$tiempo_redondeado=$regc->tiempo_redondeado;  
+									        		      $tiempo_largo_hs_he=$tiempo; //DEBE SER VALIDADO DESDEEL INCIIO CON CASO DE PRUEBA  06/12/2018  LEYDI GODOS 
+									        		
+									        			// INICIO - Agregado el  051222018(Leydi Godos) 
+												        		    $tiempo=$tiempo_largo_hs_he;
+											 				 		
+											 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
+																	$regc=$dato->fetch_object();
+																	$tiempo_redondeado=$regc->tiempo_redondeado;  
 
-							 			// FIN - Agregado el  051222018(Leydi Godos)
+											 			// FIN - Agregado el  051222018(Leydi Godos)
 
 
-										//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-							 			$id_cp=$id_cp_he;
+														//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
+											 			$id_cp=$id_cp_he;
 
-					        		
-					        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-					        	} else if ($id_trab==$id_casomovilidad AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado=='LABORABLE') {
-					        		$tiempo_largo_hs_he=$canthoras_mov;
-					        		
-					        		  // INICIO - Agregado el  051222018(Leydi Godos) 
-								        		    $tiempo=$tiempo_largo_hs_he;
-							 				 		
-							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-													$regc=$dato->fetch_object();
-													$tiempo_redondeado=$regc->tiempo_redondeado;  
+									        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+									        	
 
-							 			// FIN - Agregado el  051222018(Leydi Godos)
+									        	}
 
+									        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO, DIA NO LABORABLE)
 
-										//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-							 			$id_cp=$id_cp_he;
+									        } else if ($hora_ingreso=='' ) 
+									        {	
 
+									        	if ($estado=='NO LABORABLE' OR $estado=='FERIADO') {
+									        	     $por_pago='100';
+									        	}else {
+									        	     $por_pago='25';
+									        	}
 
+									        	if ($id_trab==$id_casovigilancia or $id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
+									        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
+									        		$tiempo_fin=$tiempo;
+									        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
 
-					        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
+									        	}else if ($cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200') {
+									        		$tiempo_fin=$tiempo;
+									        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo,  $tiempo_fin, $por_pago );
 
+									        	}else if ($id_trab==$id_casovigilancia and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
+									        		$tiempo_fin=$fedo_canhoras_max;
+									        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
 
-					        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad  ) {
+									        	}else if ( $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
 
-					        		      $tiempo_largo_hs_he=$tiempo; //DEBE SER VALIDADO DESDEEL INCIIO CON CASO DE PRUEBA  06/12/2018  LEYDI GODOS 
-					        		
-					        			// INICIO - Agregado el  051222018(Leydi Godos) 
-								        		    $tiempo=$tiempo_largo_hs_he;
-							 				 		
-							 				 		$dato=$reloj->calcular_redondeo_tiempo($tiempo);
-													$regc=$dato->fetch_object();
-													$tiempo_redondeado=$regc->tiempo_redondeado;  
+									        		$tiempo_fin='12:00:00';
+									        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo, $tiempo_fin, $por_pago );
 
-							 			// FIN - Agregado el  051222018(Leydi Godos)
+									        	}
 
 
-										//Reemplaza el id_cp_des correspondinete al cronograma de horas extras
-							 			$id_cp=$id_cp_he;
+							         		}
 
 
-					        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-					        	
 
-					        	}
 
-					        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO, DIA NO LABORABLE)
+							// 	CREAR UN REGISTRO NUEVO EN EL RELOJ CON LA FECHA ACTUAL  LA FECHA DE SALIDA DEL DIA ANTERIOR
+							         		//Valida que no haiga un registro en este dia 
+				        	 } else if ( $codigo=='' ) {
 
-					        } else if ($hora_ingreso=='' ) 
-					        {	
+				        	 		$rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
+				        	 
+				        	 }
 
-					        	if ($estado=='NO LABORABLE' OR $estado=='FERIADO') {
-					        	     $por_pago='100';
-					        	}else {
-					        	     $por_pago='25';
-					        	}
 
-					        	if ($id_trab==$id_casovigilancia or $id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
-					        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
-					        		$tiempo_fin=$tiempo;
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo, $tiempo_fin, $por_pago );
+				        		
 
-					        	}else if ($cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200') {
-					        		$tiempo_fin=$tiempo;
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora, $tiempo,  $tiempo_fin, $por_pago );
 
-					        	}else if ($id_trab==$id_casovigilancia and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
-					        		$tiempo_fin=$fedo_canhoras_max;
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo,  $tiempo_fin, $por_pago );
-
-					        	}else if ( $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he>='43200') {
-
-					        		$tiempo_fin='12:00:00';
-					        		$rspta=$reloj->editar_hora_extra( $id_trab, $fecha,   $hora,  $tiempo, $tiempo_fin, $por_pago );
-
-					        	}
-
-
-			         		}
-
-
-
-
-			// 	CREAR UN REGISTRO NUEVO EN EL RELOJ CON LA FECHA ACTUAL  LA FECHA DE SALIDA DEL DIA ANTERIOR
-			         		//Valida que no haiga un registro en este dia 
-        	 } else if ( $codigo=='' ) {
-
-        	 		$rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
-        	 
-        	 }
-
-
-        		
-
-
-        }
-       
+				        }
+				       
 
 		//Declaramos el array para almacenar todos los permisos marcados
 
         
            
              
-			    	
+	 }    	
 
 
 

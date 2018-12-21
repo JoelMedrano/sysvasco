@@ -29,6 +29,11 @@ $hora_sal=isset($_POST["hora_sal"])? limpiarCadena($_POST["hora_sal"]):"";
 $motivo=isset($_POST["motivo"])? limpiarCadena($_POST["motivo"]):"";
 
 $tip_permiso=isset($_POST["tip_permiso"])? limpiarCadena($_POST["tip_permiso"]):"";
+$id_vac_com=isset($_POST["id_vac_com"])? limpiarCadena($_POST["id_vac_com"]):"";
+
+
+
+
 
 $id_fecha_pago1=isset($_POST["id_fecha_pago1"])? limpiarCadena($_POST["id_fecha_pago1"]):"";
 $id_fecha_pago2=isset($_POST["id_fecha_pago2"])? limpiarCadena($_POST["id_fecha_pago2"]):"";
@@ -163,6 +168,7 @@ switch ($_GET["op"]){
 											   $fecha_hasta,  
 											   $dias, 
 											   $tip_permiso,
+											   $id_vac_com,
 											   $id_cp,
 											   $hora_ing, 
 											   $hora_sal, 
@@ -189,6 +195,7 @@ switch ($_GET["op"]){
 											 $fecha_hasta, 
 											 $dias, 
 											 $tip_permiso,
+											 $id_vac_com,
 											 $id_cp,
 											 $hora_ing, 
 											 $hora_sal, 
@@ -329,13 +336,17 @@ switch ($_GET["op"]){
  				'<span class="label bg-red">Desactivado</span>',
  				"8"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
- 				"9"=>$reg->ninguno,
+
+ 				"9"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+
  				"10"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
+
  				"11"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
- 				"12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
-
+                "12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+ 					
 
  				);
 

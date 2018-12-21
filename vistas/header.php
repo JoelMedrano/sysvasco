@@ -284,8 +284,7 @@ if (strlen(session_id()) < 1)
                           <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
                           <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>Regimen Pensionario</a></li>
                           <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i>Cronograma de Pagos</a></li>
-                          <li><a href="cronograma_horasextras.php"><i class="fa fa-circle-o"></i>Cronograma de Horas Extras</a></li>
-                          <li><a href="cronograma_dsctos_horasdias.php"><i class="fa fa-circle-o"></i>Cronograma Dsctox Horas y Dias</a></li>
+                          <li><a href="cronograma_dsctos_abonos_horasdias.php"><i class="fa fa-circle-o"></i>Cronograma Dsctos y Abonos(Horas/Dias)</a></li>
                           <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
                           <li><a href="horas_lactancia.php"><i class="fa fa-circle-o"></i>Horas de Lactancia Quincenal</a></li>
                           <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
@@ -307,7 +306,7 @@ if (strlen(session_id()) < 1)
                           <li class="treeview">
                           <li><a href="vacaciones.php"><i class="fa fa-circle-o"></i>Registros de Vacaciones</a></li>
                           <li><a href="pago_vacaciones_destajeros.php"><i class="fa fa-circle-o"></i>Calculo de Pago de Vacaciones de Destajeros</a></li>
-
+                          <li><a href="vacaciones_compradas.php"><i class="fa fa-circle-o"></i>Vacaciones Compradas</a></li>
                           </li>
                       </ul>
                   </li>

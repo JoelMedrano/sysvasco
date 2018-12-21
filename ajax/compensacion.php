@@ -34,12 +34,13 @@ switch ($_GET["op"]){
 			}
 
 			
-			echo $rspta ? "Categoría registrada" : "Categoría no se pudo registrar";
+			echo $rspta ? "Compensación registrada" : "Compensación no se pudo registrar";
 		}
 		else {
-			$rspta=$categoria->editar($idcategoria,$nombre,$descripcion);
-			echo $rspta ? "Categoría actualizada" : "Categoría no se pudo actualizar";
+			
+			echo $rspta ? "Se actualizo" : "No se puede actualizar";
 		}
+
 	break;
 
 	case 'desactivar':
@@ -65,15 +66,13 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>$reg->id_trab,
- 				"1"=>$reg->nombres,
-                "2"=>$reg->tipo_planilla,
-                "3"=>$reg->sucursal_anexo,
-                "4"=>$reg->funcion,
+                "0"=>$reg->comp,
+ 				"1"=>$reg->fecha_registro,
+ 				"2"=>$reg->sucursal_anexo,
+                "3"=>$reg->tipo_planilla,
+                "4"=>$reg->nombres,
                 "5"=>$reg->area_trab,
-                "6"=>$reg->est_reg,
-                "7"=>$reg->num_doc_trab,
-                "8"=>($reg->id_trab)?'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>':
+                "6"=>($reg->id_trab)?'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>'
  				);
  		}

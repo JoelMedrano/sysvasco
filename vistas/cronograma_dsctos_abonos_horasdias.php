@@ -23,73 +23,56 @@ if ($_SESSION['rrhh']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Habilitar Tiempo Extra - Horas y Dia en el Reloj</h1>  
-
+                          <h1 class="box-title">Cronograma Horas Extras</h1>
                         <div class="box-tools pull-right">
-                       </div>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
-
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
+                            
+                            <th>-</th>
                             <th>Año</th>
-                            <th>Fec.Pago</th>
-                            <th>Fecha</th>
-                            <th>Trabajador</th>
-                            <th>Tie.Reloj</th>
-                            <th>Tie.Fin</th>
-                            <th>Estado del Dia</th>
-                            <th>Observacion</th>
-                            <th>Situacion</th>
-                            <th>Abonar</th>
+                            <th>Observacones</th>
+                            <th>Estado</th>
+                            <th>Editar</th>
+
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
+
+                            <th>-</th>
                             <th>Año</th>
-                            <th>Fec.Pago</th>
-                            <th>Fecha</th>
-                            <th>Trabajador</th>
-                            <th>Tie.Reloj</th>
-                            <th>Tie.Fin</th>
-                            <th>Estado del Dia</th>
-                            <th>Observacion</th>
-                            <th>Situacion</th>
-                            <th>Abonar</th>
+                            <th>Observacones</th>
+                            <th>Estado</th>
+                            <th>Editar</th>
+
                           </tfoot>
                         </table>
                     </div>
-                    <div class="panel-body" style="height: 620px;" id="formularioregistros">
+                    <div class="panel-body"  id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          
-                          <div class="form-group col-lg-1 col-md-1 col-sm-6 col-xs-12">
-                            <label>Codigo.CP:</label>
-                            <input type="text" readonly class="form-control" name="id_cp" id="id_cp">
-                           </div>
+                         
+                   
+                          <input type="hidden" name="id_ano" id="id_ano">
                         
-                          <br>
+                   
+
+                          
 
 
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
-                            <a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Permiso-Falta de otro Periodo de Pago</button>
-                            </a>
-                          </div>
-
-
-                          <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                          <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
                             <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                               <thead style="background-color:#A9D0F5">
                                     <th>Item</th>
-                                    <th>Fecha</th>
-                                    <th>Trabajador</th>
-                                    <th>Tiempo</th>
-                                    <th>Incidencia</th>
-                                    <th>Tipo</th>
-                                    <th>Motivo</th>
-
+                                    <th>Detalle Cronograma</th>
+                                    <th>Fec.Pago</th>
+                                    <th>Desde</th>
+                                    <th>Hasta</th>
+                                    <th>Opciones</th>
                                 </thead>
                                 <tfoot>
                                     <th></th>
@@ -97,8 +80,7 @@ if ($_SESSION['rrhh']==1)
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Opciones</th>
                                 </tfoot>
                                 <tbody>
                                 </tbody>
@@ -122,6 +104,38 @@ if ($_SESSION['rrhh']==1)
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width: 65% !important;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Seleccione un Periodo</h4>
+        </div>
+        <div class="modal-body">
+          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+                <th>Opciones</th>
+                <th>Id.Periodo</th>
+                <th>Periodo</th>
+            </thead>
+            <tbody>
+              
+            </tbody>
+            <tfoot>
+              <th>Opciones</th>
+                <th>Id.Periodo</th>
+                <th>Periodo</th>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>        
+      </div>
+    </div>
+  </div>  
+  <!-- Fin modal -->
 
    <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -136,13 +150,15 @@ if ($_SESSION['rrhh']==1)
             <thead>
                 <th>Opciones</th>
                 <th>Id.Periodo</th>
+                <th>Periodo</th>
             </thead>
             <tbody>
               
             </tbody>
             <tfoot>
-                <th>Opciones</th>
+              <th>Opciones</th>
                 <th>Id.Periodo</th>
+                <th>Periodo</th>
             </tfoot>
           </table>
         </div>
@@ -165,7 +181,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/habilitarabono_tiempoextra_enreloj.js"></script>
+<script type="text/javascript" src="scripts/cronograma_dsctos_abonos_horasdias.js"></script>
 <?php 
 }
 ob_end_flush();

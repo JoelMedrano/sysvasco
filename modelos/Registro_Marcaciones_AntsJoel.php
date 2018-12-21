@@ -129,6 +129,7 @@ Class Registro_Marcaciones
 	//Implementar un método para listar los registros
 	public function listar($fecha_inicio,$fecha_fin,$id_trab)
 	{
+<<<<<<< HEAD
 		$sql="SELECT  * FROM (/*INICIO MARCACIONES EN RELOJ A LA FECHA */ 
 				SELECT  	'-' AS mar, 
 						DATE_FORMAT(re.Fecha, '%d/%m/%Y')  AS Fecha,
@@ -338,15 +339,50 @@ Class Registro_Marcaciones
 
 					/*FIN - DIAS NO LABORABLES SEGUN HORARIO*/
 
-					) rm  WHERE  rm.id_trab LIKE '%$id_trab%'
-						ORDER BY rm.mes DESC, rm.dia DESC
-			    /*	AND DATE(re.fecha)>='$fecha_inicio' AND DATE(re.fecha)<='$fecha_fin' */
-				/*	AND rm.Fecha BETWEEN '$fecha_inicio' AND  '$fecha_fin'*/
+					) rm order by rm.mes DESC, rm.dia DESC
+					";
+=======
+		$sql="SELECT 
+		DATE_FORMAT(re.Fecha, '%d/%m/%Y') AS Fecha,
+		re.id_trab,
+		CONCAT_WS(
+		  ' ',
+		  tr.apepat_trab,
+		  tr.apemat_trab,
+		  tr.nom_trab
+		) AS nombres,
+		tsua.des_larga AS sucursal_anexo,
+		tfun.des_larga AS funcion,
+		tare.des_larga AS area_trab,
+		tr.est_reg,
+		tr.num_doc_trab,
+		re.hor_ent,
+		re.hor_sal,
+		fe.estado,
+		'' AS detalle 
+	  FROM
+		reloj re 
+		INNER JOIN trabajador tr 
+		  ON re.id_trab = tr.id_trab 
+		LEFT JOIN contratos co 
+		  ON tr.id_trab = co.id_trab 
+		LEFT JOIN tabla_maestra_detalle AS tsua 
+		  ON tsua.cod_argumento = tr.id_sucursal 
+		  AND tsua.cod_tabla = 'TSUA' 
+		LEFT JOIN tabla_maestra_detalle AS tfun 
+		  ON tfun.cod_argumento = tr.id_funcion 
+		  AND tfun.cod_tabla = 'TFUN' 
+		LEFT JOIN tabla_maestra_detalle AS tare 
+		  ON tare.cod_argumento = tr.id_area 
+		  AND tare.cod_tabla = 'TARE' 
+		LEFT JOIN fechas fe 
+		  ON fe.fecha = re.fecha 
+	  WHERE tr.`est_reg` = '1' 
+	  	AND re.id_trab LIKE '%$id_trab%'
+		AND DATE(re.fecha)>'$fecha_inicio' AND DATE(re.fecha)<'$fecha_fin'
+	  ORDER BY re.fecha DESC";
 
-
-
-				 ";
-
+>>>>>>> 9e879df5b487f0c115560ed90796169415e91752
 		return ejecutarConsulta($sql);		
 	}
 

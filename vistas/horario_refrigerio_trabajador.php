@@ -35,6 +35,7 @@ if ($_SESSION['rrhh']==1)
                             <th>Codigo.Trab</th>
                             <th>Trabajador</th>
                             <th>Area</th>
+                            <th>Horario</th>
                             <th>Ver</th>
                           </thead>
                           <tbody>                            
@@ -44,6 +45,7 @@ if ($_SESSION['rrhh']==1)
                             <th>Codigo.Trab</th>
                             <th>Trabajador</th>
                             <th>Area</th>
+                            <th>Horario</th>
                             <th>Ver</th>
                           </tfoot>
                         </table>
