@@ -43,7 +43,7 @@ switch ($_GET["op"]){
 
 		if (empty($tie_ren_con)){
 
-				$rspta=$contratos->editar($id_trab,
+				$rspta=$contratos->editar( $id_trab,
 										   $id_con_trab,
 										   $tie_ren_ant,
 										   $fec_ini_ant,
@@ -163,7 +163,11 @@ switch ($_GET["op"]){
  				"4"=>$reg->nombres,
  				"5"=>$reg->area_trab,
  				"6"=>$reg->hor_ent_sal,
- 				"7"=>$reg->detalle
+ 				"7"=>$reg->detalle,
+ 				"8"=>$reg->horas_extras,
+ 				"9"=>$reg->horas_faltas,
+ 				"10"=>$reg->min_tardanza
+
  				);
  		}
  		$results = array(

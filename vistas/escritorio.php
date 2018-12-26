@@ -19,6 +19,10 @@ if ($_SESSION['escritorio']==1)
   $consulta = new Consultas();
   $consultaj = new ConsultasJ();
 
+  
+
+  
+
   $rsptac = $consultaj->prodMes();
   $regc=$rsptac->fetch_object();
   $totalprod=$regc->prod;
@@ -91,14 +95,14 @@ if ($_SESSION['escritorio']==1)
                 <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                      <h1 class="box-title">Escritorio </h1>
+                     <!-- <h1 class="box-title">Escritorio </h1>-->
                       <div class="box-tools pull-right">
                       </div>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
 
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <!--  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                       <div class="panel-body">
 
@@ -136,32 +140,12 @@ if ($_SESSION['escritorio']==1)
 
                       </div>
 
-                    </div>
+                    </div>-->
 
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 
-                      <div class="box-header with-border">
-                        <b>TRABAJADORES A LA FECHA ACTUAL</b>
-                      </div>
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                      <div class="panel-body table-responsive" id="listadoregistros_resumen">
-                        <table id="tbllistado_resumen" class="table table-striped table-bordered table-condensed table-hover">
-                          <thead>
-                            <th>(*)Total Activos</th>
-                            <th>(*)Activos Planilla</th>
-                            <th>(*)Activos Internos</th>
-                            <th>(*)Cesados Planilla</th>
-                            <th>(*)Cesados Internos</th>
-                          </thead>
-                          <tbody>
-                          </tbody>
 
-                        </table>
-                      </div>
-
-                    </div>
-
-                    <div class="col-lg-12 col-md-6 col-sm-6 col-xs-6">
 
                       <div class="box-header with-border">
                         <b>INCIDENCIAS DEL DIA</b>
@@ -195,6 +179,65 @@ if ($_SESSION['escritorio']==1)
                       </div>
 
                     </div>
+
+
+
+
+                    
+                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                      <div class="box-header with-border">
+                        <b>TRABAJADORES A LA FECHA ACTUAL</b>
+                      </div>
+
+                      <div class="panel-body table-responsive" id="listadoregistros_resumen">
+                        <table id="tbllistado_resumen" class="table table-striped table-bordered table-condensed table-hover">
+                          <thead>
+                            <th>(*)Total Activos</th>
+                            <th>(*)Activos Planilla</th>
+                            <th>(*)Activos Internos</th>
+                            <th>(*)Cesados Planilla</th>
+                            <th>(*)Cesados Internos</th>
+                          </thead>
+                          <tbody>
+                          </tbody>
+
+                        </table>
+                      </div>
+
+                    </div>
+
+
+            
+
+
+                   
+
+
+
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+
+                      <div class="box-header with-border">
+                        <b>INCIDENCIAS DIA ANTERIOR</b>
+                      </div>
+
+                      <div class="panel-body table-responsive" id="listadoregistros_incidencias">
+                        <table id="tbllistado_incidencia" class="table table-striped table-bordered table-condensed table-hover">
+                          <thead>
+                            <th>Fecha</th>
+                            <th>Trabajador</th>
+                            <th>Salida</th>
+                            <th>Segunda Salida</th>
+                            <th>Incidencia</th>
+                          </thead>
+                          <tbody>
+                          </tbody>
+
+                        </table>
+                      </div>
+
+                    </div>
+
+
 
 
 
@@ -267,6 +310,7 @@ require 'footer.php';
 ?>
 
 <script type="text/javascript" src="scripts/etardanzas.js"></script>
+
 <script src="../public/js/chart.min.js"></script>
 <script src="../public/js/Chart.bundle.min.js"></script>
 <script type="text/javascript">

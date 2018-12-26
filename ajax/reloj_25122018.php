@@ -795,10 +795,10 @@ switch ($_GET["op"]){
 				        	 	         
 
 				        	 	           //DIA DONDE TIENE SU HORARIO DE INGRESO(LABORABLE)
-									        if ($hora_salida!='' AND $cant_tiempo_hs_he>='3600'  AND $est_dia_anterior=='LABORABLE'  )  
+									        if ($hora_salida!='' AND $cant_tiempo_hs_he>='3600' )  
 									        {
 
-									        	if ($id_trab==$id_casovigilancia AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $est_dia_anterior=='LABORABLE') {
+									        	if ($id_trab==$id_casovigilancia AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<='43200' and $estado=='LABORABLE') {
 									        		$tiempo_largo_hs_he=$cantidad_horas;
 
 									        	
@@ -821,7 +821,7 @@ switch ($_GET["op"]){
 									        		
 									        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
-									        	} else if ($id_trab==$id_casomovilidad AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $est_dia_anterior=='LABORABLE') {
+									        	} else if ($id_trab==$id_casomovilidad AND $cant_tiempo_hs_he>='14400' and  $cant_tiempo_hs_he<'43200' and $estado=='LABORABLE') {
 									        		$tiempo_largo_hs_he=$canthoras_mov;
 									        		
 									        		  // INICIO - Agregado el  051222018(Leydi Godos) 
@@ -842,7 +842,7 @@ switch ($_GET["op"]){
 									        		$rspta=$reloj->registrar_hora_extra_despueshorasalida($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
 
 
-									        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad and $est_dia_anterior=='LABORABLE' ) {
+									        	} elseif ($id_trab!=$id_casovigilancia AND  $id_trab!=$id_casomovilidad  ) {
 
 									        		      $tiempo_largo_hs_he=$tiempo; //DEBE SER VALIDADO DESDEEL INCIIO CON CASO DE PRUEBA  06/12/2018  LEYDI GODOS 
 									        		
@@ -865,23 +865,17 @@ switch ($_GET["op"]){
 
 									        	}
 
+									        	 //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO, DIA NO LABORABLE)
 
-
-
-									         //DIA DONDE NO REGISTRA HORARIO ASOCIADO DE INGRESO(FERIADO, DOMINGO, DIA NO LABORABLE)
-									        } else if ($hora_ingreso=='' AND $est_dia_anterior=='NO LABORABLE' OR $est_dia_anterior=='FERIADO' ) 
+									        } else if ($hora_ingreso==''  ) 
 									        {	
 
-									        	if ($est_dia_anterior=='NO LABORABLE' OR $est_dia_anterior=='FERIADO') {
+									        	if ($estado=='NO LABORABLE' OR $estado=='FERIADO') {
 									        	     $por_pago='100';
 									        	}else {
 									        	     $por_pago='25';
 									        	}
 
-									        	//AND $est_dia_anterior=='NO LABORABLE' OR $est_dia_anterior=='FERIADO'
-
-
-									    
 									        	if ($id_trab==$id_casovigilancia or $id_trab==$id_casomovilidad and $cant_tiempo_hs_he>='14400'and  $cant_tiempo_hs_he<'43200' ) {
 									        		// CASOS ESPECIALES(VIGILANCIA Y MOVILIDAD ) FERIADO, DOMINGO, DIA NO LABORABLE)
 									        		$tiempo_fin=$tiempo;
@@ -913,14 +907,6 @@ switch ($_GET["op"]){
 				        	 } else if ( $codigo=='' ) {
 
 				        	 		$rspta=$reloj->insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
-				        	 		if ($estado='LABORABLE') {
-				        	 			# code...
-				        	 		}else if ($estado=='NO LABORABLE' AND $estado=='FERIADO') {
-				        	 			 
-				        	 			$rspta=$reloj->registrar_hora_extra($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg); 
-												           
-
-				        	 		}
 				        	 
 				        	 }
 

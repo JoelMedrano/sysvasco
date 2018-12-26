@@ -70,7 +70,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'mostrar':
-		$rspta=$vac_compradas->mostrar($id_cp);
+		$rspta=$vac_compradas->mostrar($id_permiso);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -121,10 +121,11 @@ switch ($_GET["op"]){
  			
 
  			$data[]=array(
- 				"0"=>$reg->pd,
- 				"1"=>$reg->Ano,
- 				"2"=>$reg->Descrip_fec_pag,
- 				"3"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_cp.')"><i class="fa fa-pencil"></i></button>'
+ 				"0"=>$reg->vc,
+ 				"1"=>$reg->fecha_procede,
+ 				"2"=>$reg->fecha_hasta,
+ 				"3"=>$reg->nombresyapellidos,
+ 				"4"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>'
  				);
  		}
  		$results = array(

@@ -132,7 +132,7 @@ Class Registro_Marcaciones
 		$sql="SELECT  * FROM (/*INICIO MARCACIONES EN RELOJ A LA FECHA */ 
 				SELECT  	'-' AS mar, 
 						DATE_FORMAT(re.Fecha, '%d/%m/%Y')  AS Fecha,
-						fe.nom_dia AS nom_dia,
+						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
 						fe.mes,
 						re.id_trab,
@@ -143,7 +143,10 @@ Class Registro_Marcaciones
 						tr.num_doc_trab,
 						 CONCAT(re.hor_ent, ' - ', re.hor_sal) hor_ent_sal,
 						fe.estado,
-						'' AS detalle
+						'' AS detalle,
+						IFNULL(hep.tiempo_he,'') AS  horas_extras,
+						IF( IFNULL(hpp.tiempo_he,'')='00:00:00', '' , IFNULL(hpp.tiempo_he,'') ) AS horas_faltas,
+						hpp_min.tiempo_tardanza AS min_tardanza
 				FROM  reloj re 
 					INNER JOIN trabajador  tr  ON  
 					re.id_trab= tr.id_trab  
@@ -158,12 +161,36 @@ Class Registro_Marcaciones
 					AND tare.cod_tabla='TARE'
 					LEFT JOIN fechas fe ON
 					fe.fecha= re.fecha
+					LEFT JOIN
+					(     SELECT  hep.id_trab, hep.fecha, 
+						DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin ))), '%H:%i:%s')   AS tiempo_he
+					      FROM   horas_extras_personal hep	
+					      GROUP BY hep.id_trab, hep.fecha
+					)AS hep ON hep.id_trab=re.id_trab
+					AND hep.fecha=re.fecha	
+					LEFT JOIN
+					(     SELECT  hpp.id_trab, hpp.fecha, 
+						DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin ))), '%H:%i:%s')   AS tiempo_he
+					      FROM   horas_permiso_personal hpp	
+					      GROUP BY hpp.id_trab, hpp.fecha
+					)AS hpp ON hpp.id_trab=re.id_trab
+					AND hpp.fecha=re.fecha	
+					LEFT JOIN
+					(   SELECT  hpp.id_trab, hpp.fecha, 
+								hpp.tiempo_des AS tiempo_tardanza
+					      FROM   horas_permiso_personal hpp	
+					      WHERE hpp.tiempo_des <'00:30:00'
+					      AND  hpp.tiempo_des >'00:00:00'
+					      AND hpp.tiempo_fin<'00:30:00'
+					      GROUP BY hpp.id_trab, hpp.fecha
+					)AS hpp_min ON hpp_min.id_trab=re.id_trab
+					AND hpp_min.fecha=re.fecha	
 				/*FIN MARCACIONES EN RELOJ A LA FECHA */ 
 				UNION ALL
 				/*INICIO  -  FALTAS REGISTRADAS EN LA TABLA CON DIAS INTEGROS*/
 				SELECT  '-' AS mar, 
 						DATE_FORMAT(hpp.Fecha, '%d/%m/%Y')  AS Fecha,
-						fe.nom_dia AS nom_dia,
+						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
 						fe.mes,
 						hpp.id_trab,
@@ -174,7 +201,10 @@ Class Registro_Marcaciones
 						tr.num_doc_trab,
 						'FALTA' hor_ent_sal,
 						fe.estado,
-						pp.permiso AS detalle
+						pp.permiso AS detalle,
+						null AS  horas_extras,
+						null AS horas_faltas,
+						null AS min_tardanza
 				FROM  horas_permiso_personal hpp
 				INNER JOIN trabajador  tr  ON  
 					hpp.id_trab= tr.id_trab  
@@ -204,7 +234,7 @@ Class Registro_Marcaciones
 					 /*INICIO -  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
 					 SELECT  '-' AS mar, 
 						DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
-						fe.nom_dia AS nom_dia,
+						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
 						fe.mes,
 						pp.id_trab,
@@ -215,7 +245,10 @@ Class Registro_Marcaciones
 						tr.num_doc_trab,
 						tbm.des_larga AS  hor_ent_sal, /**/
 						fe.estado,
-						'' AS detalle
+						CONCAT(re.hor_ent, ' - ', re.hor_sal)  AS detalle,
+						null AS  horas_extras,
+						null AS horas_faltas,
+						null AS min_tardanza
 					 FROM fechas fe
 					 INNER JOIN permiso_personal pp ON
 					 fe.fecha BETWEEN  pp.fecha_procede  AND pp.fecha_hasta 
@@ -236,15 +269,18 @@ Class Registro_Marcaciones
 					LEFT JOIN tabla_maestra_detalle AS tare ON
 						tare.cod_argumento= tr.id_area
 						AND tare.cod_tabla='TARE'
-					WHERE  NOT EXISTS (  SELECT  NULL FROM reloj re WHERE pp.id_trab= re.id_trab AND fe.fecha= re.fecha)
-					AND pp.tip_permiso IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
+					LEFT JOIN  reloj re  ON 
+					    pp.id_trab= re.id_trab 
+					    AND fe.fecha= re.fecha
+					/*NOT EXISTS (  SELECT  NULL FROM reloj re WHERE pp.id_trab= re.id_trab AND fe.fecha= re.fecha)*/
+					WHERE pp.tip_permiso IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
 					AND fe.fecha <= CURDATE()
 					/*FIN  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
 					UNION ALL
 					/* FERIADOS Y DOMINGOS*/
 					SELECT   '-' AS mar, 
 							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
-							fe.nom_dia AS nom_dia,
+							SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						    fe.dia,
 		                    fe.mes,
 		                    tr.id_trab,
@@ -255,7 +291,10 @@ Class Registro_Marcaciones
 		                    tr.num_doc_trab,
 		                    fe.estado AS  hor_ent_sal, /**/
 	                    	fe.estado,
-		                    '' AS detalle
+		                    '' AS detalle,
+		                    null AS  horas_extras,
+							null AS horas_faltas,
+							null AS min_tardanza
 				    FROM Trabajador AS tr CROSS JOIN  Fechas AS fe
 					LEFT JOIN tabla_maestra_detalle AS tpla ON
 						tpla.cod_argumento= tr.id_tip_plan
@@ -285,7 +324,7 @@ Class Registro_Marcaciones
 					/*INICIO - DIAS NO LABORABLES SEGUN HORARIO */
 					SELECT  '-' AS mar, 
 							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
-							fe.nom_dia AS nom_dia,
+							SUBSTRING(fe.nom_dia,1,3) AS nom_dia,
 							fe.dia,
 							fe.mes,
 							tr.id_trab,
@@ -296,7 +335,10 @@ Class Registro_Marcaciones
 							tr.num_doc_trab,
 							'NO LABORABLE SEGUN HORARIO' AS  hor_ent_sal, /**/
 							fe.estado,
-							'' AS detalle
+							'' AS detalle,
+							null AS  horas_extras,
+							null AS horas_faltas,
+							null AS min_tardanza
 						FROM  trabajador tr CROSS JOIN fechas fe
 						LEFT JOIN tabla_maestra_detalle AS tpla ON
 							  tpla.cod_argumento= tr.id_tip_plan

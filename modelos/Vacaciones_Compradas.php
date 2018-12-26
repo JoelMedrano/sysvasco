@@ -111,7 +111,7 @@ Class Vacaciones_Compradas
 
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($id_cp)
+	public function mostrar($id_permiso)
 	{
 		$sql="SELECT '-' as pd ,
 					 cp.id_cp,
@@ -160,26 +160,17 @@ Class Vacaciones_Compradas
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT '-' as pd ,
-					 id_cp,
-					 id_ano,
-		 			 TbPea.Des_Corta AS Ano,
-		 			 TbFpa.Des_Larga AS Descrip_fec_pag,
-		 			 des_fec_pag, 
-		 			 DATE(fec_pag) AS fec_pag,
-		 			 DATE(desde) AS desde,
-					 DATE(hasta) AS hasta,
-					 IFNULL(DATEDIFF(hasta,desde),0) AS cant_dias,
-					 est_reg 
-			FROM cronograma_pagos cp
-				LEFT  JOIN 	tabla_maestra_detalle TbPea ON
-				TbPea.cod_argumento=  cp.id_ano
-				AND TbPea.Cod_tabla='TPEA'
-				LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
-				TbFpa.cod_argumento=  cp.des_fec_pag
-				AND TbFpa.Cod_tabla='TFPA'
-			WHERE  cp.des_fec_pag  NOT IN  ('0')
-			ORDER BY  cp.id_cp DESC;";
+		$sql="SELECT '-' as vc ,
+					  pp.id_trab,
+					  pp.id_permiso,
+					  CONCAT(tr.apepat_trab, ' ' ,tr.apemat_trab , ' ' ,tr.nom_trab) AS nombresyapellidos,
+					  DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y')  AS fecha_procede, 
+					  DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y')  AS  fecha_hasta
+				FROM permiso_personal_prueba pp
+				LEFT JOIN  trabajador tr ON 
+				tr.id_trab= pp.id_trab
+				WHERE pp.tip_permiso='VC'
+				AND pp.id_vac_com='1' ";
 		return ejecutarConsulta($sql);		
 	}
 

@@ -104,12 +104,31 @@ if ($_SESSION['rrhh']==1)
                                     </div>
 
 
-                                    <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+
+
+                                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                      <label></label>
                                       <select id="id_accion" name="id_accion" class="form-control selectpicker" data-live-search="true"  autocomplete="off"></select>
                                     </div>
 
                           </div>
+
+
+
+                          <div class="form-group  col-xs-12">  
+
+
+                                <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label></label>
+                                      <input type="varchar" class="form-control" readonly name="falta" id="falta" autocomplete="off">
+                                    </div>
+
+                                  
+                                   
+
+                          </div>
+
+
 
                           
                         

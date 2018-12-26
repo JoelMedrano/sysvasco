@@ -199,7 +199,7 @@ function filtrar()
 		$('#id_trab').selectpicker('refresh'); 
 
 		
-		
+		$("#falta").val(data.falta); 
 
 	
  	})

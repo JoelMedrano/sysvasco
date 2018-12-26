@@ -111,6 +111,10 @@ $hora_salida_sh=$regc->hora_salida_sh;
 $hora_ingreso_sh=$regc->hora_ingreso_sh;
 $cant_dif_hish_hire=$regc->cant_dif_hish_hire;
 $cant_dif_hssh_hsre=$regc->cant_dif_hssh_hsre;
+$estado=$regc->estado_dia;
+$cant_dif_hire_hsre=$regc->cant_dif_hire_hsre;
+
+
 //$cant_dif_hish_hire=$regc->cant_dif_hish_hire;
 $dif_hish_hire=$regc->dif_hish_hire;
 $dif_hssh_hsre=$regc->dif_hssh_hsre;
@@ -130,7 +134,7 @@ $dif_hish_hiref=$regc->dif_hish_hiref; //CASO 4
 
 
 
-$estado=$regc->estado_dia;
+
 
 //PARA HORAS EXTRAS
 $tiempo_ing=$dif_hish_hire;
@@ -653,7 +657,7 @@ switch ($_GET["op"]){
 
 
 					    //DIA NO LABORABLE(DOMINGO) O FERIADO SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO ASIGNADO
-					    }else if ($hora_ingreso_sh=='00:00:00' AND  $estado=='NO LABORABLE' OR $estado=='FERIADO' AND  $id_excep=='') {
+					    }else if ($hora_ingreso_sh=='00:00:00' AND  $estado!='LABORABLE' AND  $id_excep=='') {
 
 					    	
 					    	$hora_inicio=$hora_ing;
@@ -661,16 +665,18 @@ switch ($_GET["op"]){
 						    $por_pago='100';
 
 
-						    if($id_casovigilancia==$id_trab AND $cant_dif_hssh_hsre>='14400'and  $cant_dif_hssh_hsre>='43200' ) {
+						 //   if($id_casovigilancia==$id_trab AND $cant_dif_hire_hsre>='14400'and  $cant_dif_hire_hsre>='43200' ) {
+
+						  if($id_casovigilancia==$id_trab ) {
 
 							$tiempo_fin='12:00:00';
 					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
-					    	}else if ($id_casovigilancia!=$id_trab) {
+					      }else if ($id_casovigilancia!=$id_trab) {
 
-					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
+					      $rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
-					    	}
+					      }
 
 
 					    }else if ($hora_ingreso_sh!='00:00:00'  AND  $estado=='LABORABLE' AND  $id_excep=='' ) {
@@ -877,11 +883,7 @@ switch ($_GET["op"]){
 
 
 
-					    }
-
-
-
-
+					    }  	 
 
 					    	echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
 
@@ -891,6 +893,42 @@ switch ($_GET["op"]){
 
 
 
+				} else if ($id!='' AND $id_accion=='4') { //ELIMINAR FALTA  - 
+					//Solo eliminara la falta que esta dentro de la tabla de horas_permiso_personal
+
+					$cant_dia_fin='1';
+
+						/*INICIO - HORA FALTA*/
+					$rspta=$rmhd->insertar_diafalta_data_eliminada(	 $id_trab,
+																     $fecha,
+																     $cant_dia_fin
+																      );
+
+					$rspta=$rmhd->actualizar_quienelimino_diafalta(    $id_trab,
+																	   $fecha,
+																	   $fec_reg,
+																	   $pc_reg,
+																	   $usu_reg
+											   						 );
+
+					$rspta=$rmhd->eliminar_diafalta(			 $id_trab,
+															     $fecha,
+															     $cant_dia_fin
+															    );
+
+					/*INICIO - HORA FALTA*/
+
+
+
+
+					echo $rspta ? "La falta se elimino" : "La falta no se pudo eliminar";
+
+
+
+
+
+
+					    
 				} else{ 
 
 					echo  "No se registro, verifique su información"; // CUando no ingresa a ninguno de los casos

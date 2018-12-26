@@ -147,7 +147,15 @@ Class Reloj
 
 	public function consultarInformacionDiaAnterior($id_trab, $fecha)
 	{
-		$sql=" SELECT  DATE(DATE(NOW())-1) AS fecha_dia_anterior, hor_ent AS hora_ing_anterior , hor_sal AS hor_sal_anterior FROM reloj WHERE id_trab='$id_trab'  AND  fecha= DATE(DATE(NOW())-1)   ";
+		$sql=" SELECT  DATE(DATE(NOW())-1) AS fecha_dia_anterior,
+					re.hor_ent AS hora_ing_anterior,
+					re.hor_sal AS hor_sal_anterior,
+					fe.estado AS est_dia_anterior	
+				  FROM reloj re
+				  LEFT JOIN fechas fe ON 
+				  DATE(DATE(NOW())-1)=fe.fecha
+				  WHERE re.id_trab='$id_trab'  
+				  AND  re.fecha= DATE(DATE(NOW())-1)  ";
 		return ejecutarConsulta($sql);
 
 	}
@@ -256,7 +264,7 @@ Class Reloj
 	public function consultarVacacionesCompradas($id_trab, $fecha)
 	{
 		$sql="SELECT pp.id_trab AS id_vacaciones_compradas
-				FROM permiso_personal pp
+				FROM permiso_personal_prueba pp
 				WHERE pp.tip_permiso='VC'
 				AND pp.id_trab='$id_trab'
 				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta
@@ -269,7 +277,7 @@ Class Reloj
 	public function consultarVacaciones($id_trab, $fecha)
 	{
 		$sql="SELECT pp.id_trab AS id_vacaciones
-				FROM permiso_personal pp
+				FROM permiso_personal_prueba pp
 				WHERE pp.tip_permiso='VC'
 				AND pp.id_trab='$id_trab'
 				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta	";
@@ -629,6 +637,17 @@ Class Reloj
 	}
 
 
+	public function consultar_Diferencia_HActual_HoraIngreso($hora, $hora_ingreso_sh)
+	{
+		$sql="SELECT  REPLACE(TIMEDIFF( '$hora', '$hora_ingreso_sh' ) ,'-', '')  AS tiempo_hisr_hsre , 
+					  REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', '$hora_ingreso_sh' ) ) ,'-', '')  AS cant_tiempo_hisr_hsre
+						 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
 
 
 
@@ -731,6 +750,171 @@ Class Reloj
 
 
 	}
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_dscto($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_ref, $tiempo_des,  $tiempo_fin,  $cant_dia_fin,  $id_incidencia, $id_cp,  $descontar,  $descontado, $habilitar_dscto,  $fec_reg, $pc_reg, $usu_reg)
+	{
+
+
+		$sql="INSERT INTO horas_permiso_personal(id_trab,   fecha ,     hora_inicio,      hora_fin,     cantidad,    tiempo_ref,    tiempo_des,       tiempo_fin,    cant_dia_fin,    id_incidencia,     id_fec_dscto,    descontar,     descontado,     est_reg,  habilitar_dscto  ,   pc_reg,   usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_inicio' , '$hora_fin' ,  '$cantidad',  '$tiempo_ref',  '$tiempo_des',  '$tiempo_fin', '$cant_dia_fin',  '$id_incidencia',     '$id_cp',      '$descontar',  '$descontado',      '1',   '$habilitar_dscto',    '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+	/********************************************************************VACACIONES COMPRADAS*******************************************************************/
+
+
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultar_reloj_vacaciones_compradas($id_trab, $fecha)
+	{
+		$sql="SELECT id_trab, hor_ent, hor_sal FROM reloj_vacacionescompradas WHERE id_trab='$id_trab'  and fecha='$fecha' ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_vc($id_trab, $fecha, $hora, $tiempo_ref, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia, $id_permiso,  $id_cp, $descontar,  $fec_reg, $pc_reg, $usu_reg )
+	{
+
+
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,     hora_inicio,  hora_fin,    cantidad,    tiempo_ref,       tiempo_des,       tiempo_fin,     id_incidencia,   id_permiso,   id_fec_dscto,    descontar,  descontado,    est_reg,      pc_reg,   usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',  '$tiempo_ref',  '$tiempo',  '$tiempo_dscto', '$id_incidencia', '$id_permiso',    '$id_cp',  '$descontar',  '2',            '1',      '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_sinrefrigerio_vc($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_extra_vc($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado, $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	{									
+
+
+		$sql="INSERT INTO horas_extras_personal_vacaciones_compradas(id_trab,   fecha ,  hora_inicio,  hora_fin,    cantidad,  tiempo_fin,   id_fec_abono, abonar, abonado,   est_dia,   por_pago,   est_reg,   pc_reg,    usu_reg,    fec_reg)
+					  					VALUES ('$id_trab', '$fecha', '$hora' , '$hora_ingreso', '$tiempo',  '$tiempo_redondeado',  '$id_cp',    '1' ,    '2',      '$estado', '$por_pago',   '1',    '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+	//Implementamos un método para editar registros
+	public function editar_primera_salida_vc($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
+	{
+		$sql="UPDATE reloj_vacacionescompradas SET hor_sal='$hora'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function editar_hora_extra_vc($id_trab, $fecha, $hora, $tiempo, $tiempo_fin, $por_pago )
+	{		
+			$sql="UPDATE horas_extras_personal_vacaciones_compradas SET hora_fin='$hora',  cantidad='$tiempo', tiempo_fin='$tiempo_fin',  por_pago='$por_pago'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	//Implementamos un método para insertar registros de horas extras fuera del horario de salida en un dia laborable
+	public function registrar_hora_extra_despueshorasalida_vc($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	{									
+
+
+		$sql="INSERT INTO horas_extras_personal_vacaciones_compradas (id_trab,    fecha ,     hora_inicio,   hora_fin,       cantidad,               tiempo_fin,        id_fec_abono,   abonar,   abonado,   est_dia,     por_pago,   est_reg,  fec_reg ,    usu_reg,    pc_reg  )
+					  					VALUES ('$id_trab', '$fecha',   '$hora_salida', '$hora',   '$tiempo_largo_hs_he',  '$tiempo_redondeado',    '$id_cp',      '1' ,     '2',     '$estado',   '$por_pago',  '1',    '$fec_reg',  '$usu_reg', '$pc_reg'  )";
+		return ejecutarConsulta($sql); 
+
+
+	}
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_despuesdelingreso_sin_refrigerio_vc($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora' ,   '$hora_salida_sh' , '$tiempo_largo_ha_hs',    '$tiempo_ref',  '$tiempo_largo_ha_hs',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_dscto_vc($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_ref, $tiempo_des,  $tiempo_fin,  $cant_dia_fin,  $id_incidencia, $id_cp,  $descontar,  $descontado, $habilitar_dscto,  $fec_reg, $pc_reg, $usu_reg)
+	{
+
+
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,     hora_inicio,      hora_fin,     cantidad,    tiempo_ref,    tiempo_des,       tiempo_fin,    cant_dia_fin,    id_incidencia,     id_fec_dscto,    descontar,     descontado,     est_reg,  habilitar_dscto  ,   pc_reg,   usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_inicio' , '$hora_fin' ,  '$cantidad',  '$tiempo_ref',  '$tiempo_des',  '$tiempo_fin', '$cant_dia_fin',  '$id_incidencia',     '$id_cp',      '$descontar',  '$descontado',      '1',   '$habilitar_dscto',    '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_despuesdelingreso_dscto_refrigerio_vc($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,       id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora' ,   '$hora_salida_sh' , '$tiempo_largo_ha_hs',    '$tiempo_ref',     '$tiempo_des',      '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+	//Implementamos un método para editar registros
+	public function editar_segunda_entrada_vc($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
+	{
+		$sql="UPDATE reloj_vacacionescompradas SET segunda_hor_ent='$hora'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+    //Implementamos un método para editar registros
+	public function editar_segunda_salida_vc($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
+	{
+		$sql="UPDATE reloj_vacacionescompradas SET segunda_hor_sal='$hora'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+
+	
+
+
 
 
 	

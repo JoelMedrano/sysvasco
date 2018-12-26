@@ -32,18 +32,20 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>PD</th>
+                            <th>VC</th>
+                            <th>Fecha Procede</th>
+                            <th>Fecha Hasta</th>
                             <th>Colaborador</th>
-                            <th>Fecha Inicio y Fin</th>
-                            <th>Opciones</th>
+                            <th>Visualizar Asistencia</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>PD</th>
+                            <th>VC</th>
+                            <th>Fecha Procede</th>
+                            <th>Fecha Hasta</th>
                             <th>Colaborador</th>
-                            <th>Fecha Inicio y Fin</th>
-                            <th>Opciones</th>
+                            <th>Visualizar Asistencia</th>
                           </tfoot>
                         </table>
                     </div>

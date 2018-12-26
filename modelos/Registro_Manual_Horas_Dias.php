@@ -72,6 +72,7 @@ Class Registro_Manual_Horas_Dias
 						REPLACE(TIMEDIFF( ft.hora_salida , ft.hora_fin_ref ) ,'-', '') AS dif_hfref_hsre_ref,
 						/*LINEA DE DIFERENCIA ENTRE HORA DE INGRESO SEGUN HORARIO  Y HORA INICIO  DEL REFRIGERIO*/
 						REPLACE(TIMEDIFF( ft.hora_ingreso , ft.hora_ini_ref ) ,'-', '') AS dif_hish_hiref,
+						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora_ing', '$hora_sal') ) ,'-', '')  AS cant_dif_hire_hsre,
 						ft.hora_ini_ref,
 						ft.hora_fin_ref,
 						ft.tiempo_ref,
@@ -446,6 +447,9 @@ Class Registro_Manual_Horas_Dias
 
 
 
+
+
+
 	//Implementamos un método para editar registros
 	public function actualizar_quienelimino_hora_falta( $id_trab,
 														$fecha,
@@ -472,6 +476,52 @@ Class Registro_Manual_Horas_Dias
 		$sql="DELETE FROM horas_permiso_personal WHERE fecha='$fecha' and id_trab='$id_trab'  ";
 		return ejecutarConsulta($sql);
 	}
+
+
+
+
+
+	//Implementamos un método para insertar registros  - ELIMINAR DIA FALTA (ACCION)
+	public function insertar_diafalta_data_eliminada(  $id_trab,
+													   $fecha,
+													   $cant_dia_fin)
+	{
+		$sql="INSERT INTO horas_permiso_personal_data_eliminada
+					SELECT * FROM horas_permiso_personal WHERE fecha='$fecha' and id_trab='$id_trab' AND cant_dia_fin='$cant_dia_fin'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	//Implementamos un método para editar registros  - ELIMINAR DIA FALTA (ACCION)
+	public function actualizar_quienelimino_diafalta(  $id_trab,
+														$fecha,
+														$fec_reg,
+														$pc_reg,
+														$usu_reg
+												   )
+	{
+		$sql="UPDATE horas_permiso_personal_data_eliminada SET      fec_mod='$fec_reg', 
+																  	pc_mod='$pc_reg', 
+															 		usu_mod='$usu_reg' 
+													    	  WHERE id_trab='$id_trab'
+													          AND   fecha='$fecha'
+													          AND   cant_dia_fin='1' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+	//Implementamos un método para eliminar registros  - ELIMINAR DIA FALTA (ACCION)
+	public function eliminar_diafalta(  			$id_trab,
+													$fecha,
+													$cant_dia_fin)
+	{
+		$sql="DELETE FROM horas_permiso_personal WHERE fecha='$fecha' and id_trab='$id_trab' AND cant_dia_fin='$cant_dia_fin'   ";
+		return ejecutarConsulta($sql);
+	}
+
 
 
 
@@ -651,12 +701,21 @@ Class Registro_Manual_Horas_Dias
 					WHEN  re.hor_sal='00:00:00' THEN '00:00:00'
 					WHEN  re.hor_sal!='00:00:00' OR re.hor_sal!='' THEN re.hor_sal
 					ELSE ''  END
-				AS hora_sal
+				AS hora_sal,
+				CASE 
+					WHEN  hpp.cant_dia_fin='1' THEN 'FALTA'
+					ELSE ''  END
+				AS falta
 			 FROM  trabajador  tr 
 			 LEFT JOIN reloj re ON 
 			 		  re.id_trab= tr.id_trab
 			      AND re.id_trab='$id_trab'
 			      AND re.fecha='$fecha'
+			 LEFT JOIN horas_permiso_personal hpp ON 
+			 		   hpp.id_trab= tr.id_trab
+			      AND hpp.id_trab='$id_trab'
+			      AND hpp.fecha='$fecha'
+			      AND hpp.cant_dia_fin='1'
 		     WHERE tr.id_trab='$id_trab'
 		     ";
 		return ejecutarConsultaSimpleFila($sql);
