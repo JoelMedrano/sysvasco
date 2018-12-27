@@ -73,7 +73,6 @@ Class Registro_Manual_Horas_Dias
 						/*LINEA DE DIFERENCIA ENTRE HORA DE INGRESO SEGUN HORARIO  Y HORA INICIO  DEL REFRIGERIO*/
 						REPLACE(TIMEDIFF( ft.hora_ingreso , ft.hora_ini_ref ) ,'-', '') AS dif_hish_hiref,
 						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora_ing', '$hora_sal') ) ,'-', '')  AS cant_dif_hire_hsre,
-						REPLACE(TIMEDIFF( '$hora_ing', '$hora_sal')  ,'-', '')  AS dif_hire_hsre,
 						ft.hora_ini_ref,
 						ft.hora_fin_ref,
 						ft.tiempo_ref,
@@ -173,7 +172,7 @@ Class Registro_Manual_Horas_Dias
 
 
 
-	public function calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal, $tiempo_hire_hsre)
+	public function calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal)
 	{
 		$sql="SELECT	CASE 
 						WHEN  SUBSTRING('$tiempo_ing', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_ing', 1, 2), ':00:00')	
@@ -184,13 +183,7 @@ Class Registro_Manual_Horas_Dias
 						WHEN  SUBSTRING('$tiempo_sal', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_sal', 1, 2), ':00:00')	
 						WHEN  SUBSTRING('$tiempo_sal', 4, 2)>=30  AND SUBSTRING('$tiempo_sal', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_sal', 1, 2), ':30:00')	
 						ELSE '-'  END
-						AS tiempo_redondeado_sal,
-						CASE 
-						WHEN  SUBSTRING('$tiempo_hire_hsre', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_hire_hsre', 1, 2), ':00:00')	
-						WHEN  SUBSTRING('$tiempo_hire_hsre', 4, 2)>=30  AND SUBSTRING('$tiempo_hire_hsre', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_hire_hsre', 1, 2), ':30:00')	
-						ELSE '-'  END
-						AS tiempo_redondeado_hire_hsre
-
+						AS tiempo_redondeado_sal
 						;";
 		return ejecutarConsulta($sql);
 

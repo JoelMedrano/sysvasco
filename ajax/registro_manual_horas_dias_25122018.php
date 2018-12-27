@@ -125,7 +125,6 @@ $tiempo_refrigerio=$regc->tiempo_ref;
 $dif_hssh_hsre_ref=$regc->dif_hssh_hsre_ref;
 $dif_hfref_hsre_ref=$regc->dif_hfref_hsre_ref;
 $dif_hish_hiref=$regc->dif_hish_hiref; //CASO 4  
-$dif_hire_hsre=$regc->dif_hire_hsre;// DIFERENCIAS ENTRE HORA INGRESO Y SALIDA FERIADOS Y NO LABORABLE
 
 
 
@@ -140,14 +139,12 @@ $dif_hire_hsre=$regc->dif_hire_hsre;// DIFERENCIAS ENTRE HORA INGRESO Y SALIDA F
 //PARA HORAS EXTRAS
 $tiempo_ing=$dif_hish_hire;
 $tiempo_sal=$dif_hssh_hsre;
-$tiempo_hire_hsre=$dif_hire_hsre;
 
 
-$dato=$rmhd->calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal, $tiempo_hire_hsre);
+$dato=$rmhd->calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal);
 $regc=$dato->fetch_object();
 $tiempo_redondeado_ing=$regc->tiempo_redondeado_ing;  
 $tiempo_redondeado_sal=$regc->tiempo_redondeado_sal;  
-$tiempo_redondeado_hire_hsre=$regc->tiempo_redondeado_hire_hsre;  
 //FIN PARA HORAS EXTRAS
 
 
@@ -163,7 +160,6 @@ $tiempo_salconfinref_dscto=$dif_hfref_hsre_ref;
 
 
 $tiempo_ingconref_dscto=$dif_hish_hiref;
-
 
 
 
@@ -661,7 +657,7 @@ switch ($_GET["op"]){
 
 
 					    //DIA NO LABORABLE(DOMINGO) O FERIADO SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO ASIGNADO
-					    }else if ($estado!='LABORABLE' AND  $id_excep=='') {
+					    }else if ($hora_ingreso_sh=='00:00:00' AND  $estado!='LABORABLE' AND  $id_excep=='') {
 
 					    	
 					    	$hora_inicio=$hora_ing;
@@ -678,10 +674,6 @@ switch ($_GET["op"]){
 
 					      }else if ($id_casovigilancia!=$id_trab) {
 
-					      	$cantidad=$dif_hire_hsre;
-					      	$tiempo_fin=$tiempo_redondeado_hire_hsre;
-
-					      	
 					      $rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
 					      }
@@ -901,7 +893,7 @@ switch ($_GET["op"]){
 
 
 
-				} else if ($id=='' AND $id_accion=='4') { //ELIMINAR FALTA  - 
+				} else if ($id!='' AND $id_accion=='4') { //ELIMINAR FALTA  - 
 					//Solo eliminara la falta que esta dentro de la tabla de horas_permiso_personal
 
 					$cant_dia_fin='1';

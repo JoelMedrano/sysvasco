@@ -145,14 +145,12 @@ Class Reloj
 
 	// INICIO - AGREGADO EL 12/12/2018 - Leydi Godos
 
-	public function consultarInformacionDiaAnterior($id_trab, $fecha, $hora)
+	public function consultarInformacionDiaAnterior($id_trab, $fecha)
 	{
 		$sql=" SELECT  DATE(DATE(NOW())-1) AS fecha_dia_anterior,
 					re.hor_ent AS hora_ing_anterior,
 					re.hor_sal AS hor_sal_anterior,
-					fe.estado AS est_dia_anterior,
-					REPLACE(TIMEDIFF(  '$hora', re.hor_ent ) ,'-', '')  AS dif_hida_hsho , /*DIFERENCIAS ENTRE INGRESO DIA ANTERIOR Y SALIDA DE DIA ACTUAL FORMTO: '00:00:00'*/
-					REPLACE(TIME_TO_SEC( TIMEDIFF(  '$hora', re.hor_ent ) ) ,'-', '')  AS cant_dif_hida_hsho/*DIFERENCIAS ENTRE INGRESO DIA ANTERIOR Y SALIDA DE DIA ACTUAL NUMERICO*/
+					fe.estado AS est_dia_anterior	
 				  FROM reloj re
 				  LEFT JOIN fechas fe ON 
 				  DATE(DATE(NOW())-1)=fe.fecha
@@ -162,7 +160,7 @@ Class Reloj
 
 	}
 
-	// FIN  - AGREGADO EL 12/12/2018 - Leydi Godos/ MODIFICADO - 26/12/2018 Leydi Godos
+	// FIN  - AGREGADO EL 12/12/2018 - Leydi Godos
 
 
 
