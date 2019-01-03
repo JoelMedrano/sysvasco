@@ -36,11 +36,12 @@ if ($_SESSION['rrhh']==1)
                             <th>-</th>
                             <th>Año</th>
                             <th>Mes</th>
-                            <th style="width:15px" >Exportar a Excel</th>
+                            <th style="width:15px" >Visualizar antes de Cerrar</th>
                             <th style="width:15px" >Estado Primera Quincena</th>
                             <th style="width:15px" >Estado Segunda Quincena</th>
                             <th style="width:15px" >Cerrar Primera Quincena</th>
                             <th style="width:15px" >Cerrar Segunda Quincena</th>
+                            <th style="width:15px" >Exportar a Excel</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -48,11 +49,12 @@ if ($_SESSION['rrhh']==1)
                             <th>-</th>
                             <th>Año</th>
                             <th>Mes</th>
-                            <th style="width:15px" >Exportar a Excel</th>
+                            <th style="width:15px" >Visualizar antes de Cerrar</th>
                             <th style="width:15px" >Estado Primera Quincena</th>
                             <th style="width:15px" >Estado Segunda Quincena</th>
                             <th style="width:15px" >Cerrar Primera Quincena</th>
                             <th style="width:15px" >Cerrar Segunda Quincena</th>
+                            <th style="width:15px" >Exportar a Excel</th>
                           </tfoot>
                         </table>
                     </div>

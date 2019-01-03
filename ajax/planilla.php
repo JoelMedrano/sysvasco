@@ -1205,6 +1205,8 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
 
  			 $url='../reportes/rpt_xls_planillaquincenal.php?id=';
+
+ 			 $url1='../reportes/rpt_xls_planillacerrada.php?id=';
  			 
            
  			$data[]=array(
@@ -1221,7 +1223,9 @@ switch ($_GET["op"]){
  					' <button class="btn btn-danger"   onclick="cerrar_primeraquincena('.$reg->primera_quincena.')"><i class="fa fa-close"></i></button>',
  				"7"=>($reg->est_reg_2daquin=='1')?
  					' <button class="btn btn-primary"   onclick="cerrar_segundaquincena('.$reg->segunda_quincena.')"><i class="fa fa-check"></i></button>':
- 					' <button class="btn btn-danger"    onclick="cerrar_segundaquincena('.$reg->segunda_quincena.')"><i class="fa fa-close"></i></button>'
+ 					' <button class="btn btn-danger"    onclick="cerrar_segundaquincena('.$reg->segunda_quincena.')"><i class="fa fa-close"></i></button>',
+ 				"8"=>'<a target="_blank" href="'.$url1.$reg->cod_argumento.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+ 				
  				);
  		}
  		$results = array(

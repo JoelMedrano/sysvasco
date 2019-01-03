@@ -131,12 +131,6 @@ $dif_hire_hsre=$regc->dif_hire_hsre;// DIFERENCIAS ENTRE HORA INGRESO Y SALIDA F
 
 
 
-
-
-
-
-
-
 //PARA HORAS EXTRAS
 $tiempo_ing=$dif_hish_hire;
 $tiempo_sal=$dif_hssh_hsre;
@@ -149,6 +143,7 @@ $tiempo_redondeado_ing=$regc->tiempo_redondeado_ing;
 $tiempo_redondeado_sal=$regc->tiempo_redondeado_sal;  
 $tiempo_redondeado_hire_hsre=$regc->tiempo_redondeado_hire_hsre;  
 //FIN PARA HORAS EXTRAS
+
 
 
 
@@ -192,6 +187,11 @@ $id_cp=$regc->id_cp;
 $id_fec_abono=$id_cp; //pasar dato para horas extras
 $id_fec_dscto=$id_cp; //pasar dato para descuentos
 //FIN - CONSULTAR QUE ID CORRESPONDE 
+
+
+
+
+$id_incidencia='2';//tardanza 
 
 
 
@@ -253,12 +253,17 @@ switch ($_GET["op"]){
 
 
 					    //DIA NO LABORABLE(DOMINGO) O FERIADO SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO ASIGNADO
-					    }else if ($hora_ingreso_sh=='00:00:00' AND  $estado=='NO LABORABLE' OR $estado=='FERIADO'  AND  $id_excep=='' ) {
+					    }else if ( $estado!='LABORABLE'   AND  $id_excep=='' ) {
 
 					    	
 					    	$hora_inicio=$hora_ing;
 						    $hora_fin= $hora_sal;
 						    $por_pago='100';
+
+						    
+						    $cantidad=$dif_hire_hsre;
+					      	$tiempo_fin=$tiempo_redondeado_hire_hsre;
+
 
 
 						    if($id_casovigilancia==$id_trab AND $cant_dif_hssh_hsre>='14400'and  $cant_dif_hssh_hsre>='43200') {
@@ -363,6 +368,7 @@ switch ($_GET["op"]){
 								    }
 
 								    //CASO3: REGISTRAR HORAS FALTAS  DESPUES DE LA HORA DE INGRESO PERO ANTES DEL INICIO DE SU REFRIGERIO ASIGNADO - OK
+								    //08:00:00 < 08:20:00
 								    
 								    if ($hora_ingreso_sh<$hora_ing  AND $hora_ini_ref>=$hora_ing ) {
 
@@ -370,7 +376,27 @@ switch ($_GET["op"]){
 								    	$hora_fin= $hora_ing;
 								    	$cantidad= $dif_hish_hire;
 								    	$tiempo_des= $dif_hish_hire;
-								    	$tiempo_fin=$tiempo_redondeado_ing_dscto;
+
+								    	//Tiempo de Tolerancia 5 MINUTOS
+										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+											$tiempo_fin='00:00:00';
+										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+											$tiempo_fin=$tiempo_redondeado_ing_dscto;
+										}
+
+
+								    	
+								    	//
+								    	
+
+								    	//Tiempo de Tolerancia 5 MINUTOS
+										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+											$descontar='2';
+										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+											$descontar='1';
+										}
+
+
 
 
 								    	$rspta=$rmhd->registrar_dscto_despuesdelingresorefrigerio($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $fec_reg, $pc_reg, $usu_reg);
@@ -784,7 +810,25 @@ switch ($_GET["op"]){
 								    	$hora_fin= $hora_ing;
 								    	$cantidad= $dif_hish_hire;
 								    	$tiempo_des= $dif_hish_hire;
-								    	$tiempo_fin=$tiempo_redondeado_ing_dscto;
+								    	//$tiempo_fin=$tiempo_redondeado_ing_dscto;
+
+								    	//Tiempo de Tolerancia 5 MINUTOS
+										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+											$tiempo_fin='00:00:00';
+										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+											$tiempo_fin=$tiempo_redondeado_ing_dscto;
+										}
+
+								    	
+
+								    	//Tiempo de Tolerancia 5 MINUTOS
+										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+											$descontar='2';
+										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+											$descontar='1';
+										}
+
+
 
 
 								    	$rspta=$rmhd->registrar_dscto_despuesdelingresorefrigerio($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $fec_reg, $pc_reg, $usu_reg);

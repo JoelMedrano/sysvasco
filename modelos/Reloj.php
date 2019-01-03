@@ -595,11 +595,15 @@ Class Reloj
 
 	public function calcular_redondeo_tiempo_horas_faltas($tiempo)
 	{
-		$sql="SELECT	CASE 
-						WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)<=30   AND SUBSTRING('$tiempo', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo', 1, 2), ':30:00')	
-						WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)>30    AND SUBSTRING('$tiempo', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo', 1, 2)+1), 2, '0' ) , ':00:00')	
-						ELSE '-'  END
-						AS tiempo_redondeado_falta;";
+
+		/*5MINUTOS DE TOLERANCIA LUEGO SE DESCONTARA MEDIA HORA*/
+		$sql="SELECT CASE 
+				WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)<=30   AND SUBSTRING('$tiempo', 4, 2)>0    THEN CONCAT(SUBSTRING('$tiempo', 1, 2), ':30:00')	
+				WHEN SUBSTRING('$tiempo', 2, 2)>=1 AND SUBSTRING('$tiempo', 4, 2)>30    AND SUBSTRING('$tiempo', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo', 1, 2)+1), 2, '0' ) , ':00:00')	
+				WHEN SUBSTRING('$tiempo', 2, 2)=0  AND SUBSTRING('$tiempo', 4, 2)<30    AND SUBSTRING('$tiempo', 4, 2)<=5   THEN  '00:00:00'
+				WHEN SUBSTRING('$tiempo', 2, 2)=0  AND SUBSTRING('$tiempo', 4, 2)<30    AND SUBSTRING('$tiempo', 4, 2)>5    THEN  '00:30:00'
+				ELSE '-'  END
+			AS tiempo_redondeado_falta;";
 		return ejecutarConsulta($sql);
 
 	}

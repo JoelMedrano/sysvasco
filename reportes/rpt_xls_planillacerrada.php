@@ -2250,87 +2250,41 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
           FROM anticipo_adelanto AS aa 
         ) AS aa  ON aa.id_trab=tr.id_trab
         LEFT JOIN 
-        ( SELECT   pp.id_trab, 
-               IF( pp.id_cp='".$id_seg_quin."',  'SI', '0.00')  AS monto,
-               ROUND( (tr.sueldo_trab/30)*pd.dias_vc + 0.0000000001 ,2) AS monto_a_pagar,
-               pd.fechas,
-               pd.dias_vc AS  dias
-               FROM permiso_personal pp
-               LEFT JOIN trabajador tr ON
-               tr.id_trab= pp.id_trab
-               LEFT JOIN  cronograma_pagos cp ON 
-               cp.id_cp='".$id_seg_quin."'
-               LEFT JOIN (
-                   SELECT  pp.id_trab,
-                   CASE 
-                    WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
-                    WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta   THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d'),' AL ' , DATE_FORMAT( DATE_SUB(cp.hasta, INTERVAL (   REPLACE( 15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 )) ,'-', '')  ) DAY), '%d/%m/%Y'))     
-                    ELSE ''  END
-                    AS fechas,
-                   CASE
-                    WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  IFNULL(DATEDIFF( pp.fecha_hasta, pp.fecha_procede),0) +1 
-                    WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta   THEN   IFNULL(DATEDIFF( DATE_SUB(cp.hasta, INTERVAL ( REPLACE( 15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 )) ,'-', '')) DAY), pp.fecha_procede),0) +1      
-                    ELSE ''  END
-                    AS dias_vc,
-                        REPLACE( 15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 )) ,'-', '')    AS dato
-                       FROM permiso_personal pp
-                       LEFT JOIN  cronograma_pagos cp ON 
-                       cp.id_cp='".$id_seg_quin."'
-                       WHERE pp.tip_permiso='VC'
-                       AND pp.fecha_procede BETWEEN   cp.desde AND cp.hasta 
-                ) AS pd ON  pd.id_trab= pp.id_trab
-                          WHERE pp.tip_permiso='VC'
-                          AND pp.fecha_procede BETWEEN   cp.desde AND cp.hasta          
-            UNION ALL
-              SELECT      pp.id_trab, 
-                           IF( pp.id_cp='".$id_seg_quin."',  'SI', '0.00')  AS monto,
-                           ROUND( (tr.sueldo_trab/30)*( (pd.dias_vc)+ cps.dias_faltantes ) + 0.0000000001 ,2) AS monto_a_pagar,
-                           CASE 
-                WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta     THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
-                WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(cp.desde, '%d'),' AL ' , DATE_FORMAT( (DATE_ADD(pp.fecha_hasta, INTERVAL + cps.dias_faltantes DAY)), '%d/%m/%Y'))   
-                ELSE ''  END
-                     AS fechas,
-                     (pd.dias_vc)+ cps.dias_faltantes AS dias
-                           FROM permiso_personal pp
-                           LEFT JOIN trabajador tr ON
-                           tr.id_trab= pp.id_trab
-                           LEFT JOIN  cronograma_pagos cp ON 
-                           cp.id_cp='".$id_seg_quin."'
-                           LEFT JOIN 
-                           ( SELECT  pp.id_permiso, pp.id_trab,  sq.id_cp_desde, sq.id_cp_hasta,
-                                     REPLACE(15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 ))  ,'-', '')     AS dias_faltantes
-                                  FROM permiso_personal pp 
-                  LEFT JOIN (
-                    SELECT pp.id_permiso, cp_desde.id_cp  AS id_cp_desde, cp_hasta.id_cp AS id_cp_hasta, id_trab
-                    FROM permiso_personal pp 
-                    LEFT JOIN cronograma_pagos cp_desde  ON 
-                    pp.`fecha_procede` BETWEEN  cp_desde.desde AND cp_desde.hasta
-                    LEFT JOIN cronograma_pagos cp_hasta  ON 
-                    pp.`fecha_hasta` BETWEEN  cp_hasta.desde AND cp_hasta.hasta
-                    WHERE pp.tip_permiso='VC'
-                  ) AS sq  ON  sq.id_permiso= pp.id_permiso
-                  LEFT JOIN  cronograma_pagos cp ON 
-                        cp.id_cp=sq.id_cp_desde
-                      WHERE  pp.tip_permiso='VC'
-                      AND sq.id_cp_desde!=sq.id_cp_hasta
-                           ) AS cps ON cps.id_permiso= pp.id_permiso
-                     LEFT JOIN (
-                       SELECT  pp.id_trab,
-                       pp.id_permiso,
-                   CASE
-                    WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta      THEN  IFNULL(DATEDIFF( pp.fecha_hasta, pp.fecha_procede),0) +1 
-                    WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN  IFNULL(DATEDIFF( pp.fecha_hasta, cp.desde),0) +1     
-                    ELSE ''  END
-                    AS dias_vc
-                       FROM permiso_personal pp
-                       LEFT JOIN  cronograma_pagos cp ON 
-                       cp.id_cp='".$id_seg_quin."'
-                       WHERE pp.tip_permiso='VC'
-                        AND pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
-                ) AS pd ON  pd.id_permiso= pp.id_permiso
-                          WHERE pp.tip_permiso='VC'
-                          AND pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
-                          AND pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  
+        (  SELECT pp.id_trab,  pp.monto_a_pagar,
+                  IF( pp.id_cp='".$id_seg_quin."',  'SI', '0.00')  AS monto,
+                  CASE 
+                  WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
+                  WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),' AL ' , DATE_FORMAT(cp.hasta, '%d/%m/%Y'))     
+                  ELSE ''  END
+                  AS fechas,
+                  CASE 
+                  WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  REPLACE(DATEDIFF(pp.fecha_procede,pp.fecha_hasta)-1      ,'-', '')
+                  WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta  THEN   REPLACE(DATEDIFF(pp.fecha_procede,cp.hasta)-1   ,'-', '')    
+                  ELSE ''  END
+                  AS dias
+              FROM permiso_personal pp
+              LEFT JOIN  cronograma_pagos cp ON 
+              cp.id_cp='".$id_seg_quin."'
+              WHERE pp.tip_permiso='VC'
+              AND pp.fecha_procede BETWEEN   cp.desde AND cp.hasta 
+           UNION ALL
+           SELECT pp.id_trab,  pp.monto_a_pagar,  
+                  IF( pp.id_cp='".$id_seg_quin."',  'SI', '0.00')  AS monto,
+                  CASE 
+                  WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
+                  WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(cp.desde, '%d/%m/%Y'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
+                  ELSE ''  END
+                  AS fechas,
+                  CASE 
+                  WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta  THEN  REPLACE(DATEDIFF(pp.fecha_procede,pp.fecha_hasta)-1      ,'-', '')
+                  WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN   REPLACE(DATEDIFF(cp.desde,pp.fecha_hasta)-1   ,'-', '')    
+                  ELSE ''  END
+                 AS dias
+           FROM permiso_personal pp
+           LEFT JOIN  cronograma_pagos cp ON 
+           cp.id_cp='".$id_seg_quin."'
+           WHERE pp.tip_permiso='VC'
+           AND  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
         ) AS vac  ON vac.id_trab=tr.id_trab
         LEFT JOIN 
         ( SELECT pp.id_trab, pp.dias, pp.monto_a_pagar,  pp.id_fecha_pago1, pp.id_cp,
@@ -4747,87 +4701,41 @@ FROM Trabajador tr
           FROM anticipo_adelanto AS aa 
         ) AS aa  ON aa.id_trab=tr.id_trab
         LEFT JOIN 
-        (      SELECT   pp.id_trab, 
-               IF( pp.id_cp='".$id_pri_quin."',  'SI', '0.00')  AS monto,
-               ROUND( (tr.sueldo_trab/30)*pd.dias_vc + 0.0000000001 ,2) AS monto_a_pagar,
-               pd.fechas,
-               pd.dias_vc AS  dias
-               FROM permiso_personal pp
-               LEFT JOIN trabajador tr ON
-               tr.id_trab= pp.id_trab
-               LEFT JOIN  cronograma_pagos cp ON 
-               cp.id_cp='".$id_pri_quin."'
-               LEFT JOIN (
-                   SELECT  pp.id_trab,
-                   CASE 
-                    WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
-                    WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta   THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d'),' AL ' , DATE_FORMAT( DATE_SUB(cp.hasta, INTERVAL (   REPLACE( 15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 )) ,'-', '')  ) DAY), '%d/%m/%Y'))     
-                    ELSE ''  END
-                    AS fechas,
-                   CASE
-                    WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  IFNULL(DATEDIFF( pp.fecha_hasta, pp.fecha_procede),0) +1 
-                    WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta   THEN   IFNULL(DATEDIFF( DATE_SUB(cp.hasta, INTERVAL ( REPLACE( 15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 )) ,'-', '')) DAY), pp.fecha_procede),0) +1      
-                    ELSE ''  END
-                    AS dias_vc,
-                        REPLACE( 15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 )) ,'-', '')    AS dato
-                       FROM permiso_personal pp
-                       LEFT JOIN  cronograma_pagos cp ON 
-                       cp.id_cp='".$id_pri_quin."'
-                       WHERE pp.tip_permiso='VC'
-                       AND pp.fecha_procede BETWEEN   cp.desde AND cp.hasta 
-                ) AS pd ON  pd.id_trab= pp.id_trab
-                          WHERE pp.tip_permiso='VC'
-                          AND pp.fecha_procede BETWEEN   cp.desde AND cp.hasta          
-            UNION ALL
-              SELECT      pp.id_trab, 
-                           IF( pp.id_cp='".$id_pri_quin."',  'SI', '0.00')  AS monto,
-                           ROUND( (tr.sueldo_trab/30)*( (pd.dias_vc)+ cps.dias_faltantes ) + 0.0000000001 ,2) AS monto_a_pagar,
-                           CASE 
-                WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta     THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
-                WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(cp.desde, '%d'),' AL ' , DATE_FORMAT( (DATE_ADD(pp.fecha_hasta, INTERVAL + cps.dias_faltantes DAY)), '%d/%m/%Y'))   
-                ELSE ''  END
-                     AS fechas,
-                     (pd.dias_vc)+ cps.dias_faltantes AS dias
-                           FROM permiso_personal pp
-                           LEFT JOIN trabajador tr ON
-                           tr.id_trab= pp.id_trab
-                           LEFT JOIN  cronograma_pagos cp ON 
-                           cp.id_cp='".$id_pri_quin."'
-                           LEFT JOIN 
-                           ( SELECT  pp.id_permiso, pp.id_trab,  sq.id_cp_desde, sq.id_cp_hasta,
-                                     REPLACE(15-( ( IFNULL(DATEDIFF(pp.fecha_procede, cp.desde),0))+  (IFNULL(DATEDIFF(cp.hasta, pp.fecha_procede),0) +1 ))  ,'-', '')     AS dias_faltantes
-                                  FROM permiso_personal pp 
-                  LEFT JOIN (
-                    SELECT pp.id_permiso, cp_desde.id_cp  AS id_cp_desde, cp_hasta.id_cp AS id_cp_hasta, id_trab
-                    FROM permiso_personal pp 
-                    LEFT JOIN cronograma_pagos cp_desde  ON 
-                    pp.`fecha_procede` BETWEEN  cp_desde.desde AND cp_desde.hasta
-                    LEFT JOIN cronograma_pagos cp_hasta  ON 
-                    pp.`fecha_hasta` BETWEEN  cp_hasta.desde AND cp_hasta.hasta
-                    WHERE pp.tip_permiso='VC'
-                  ) AS sq  ON  sq.id_permiso= pp.id_permiso
-                  LEFT JOIN  cronograma_pagos cp ON 
-                        cp.id_cp=sq.id_cp_desde
-                      WHERE  pp.tip_permiso='VC'
-                      AND sq.id_cp_desde!=sq.id_cp_hasta
-                           ) AS cps ON cps.id_permiso= pp.id_permiso
-                     LEFT JOIN (
-                       SELECT  pp.id_trab,
-                       pp.id_permiso,
-                   CASE
-                    WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta      THEN  IFNULL(DATEDIFF( pp.fecha_hasta, pp.fecha_procede),0) +1 
-                    WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN  IFNULL(DATEDIFF( pp.fecha_hasta, cp.desde),0) +1     
-                    ELSE ''  END
-                    AS dias_vc
-                       FROM permiso_personal pp
-                       LEFT JOIN  cronograma_pagos cp ON 
-                       cp.id_cp='".$id_pri_quin."'
-                       WHERE pp.tip_permiso='VC'
-                        AND pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
-                ) AS pd ON  pd.id_permiso= pp.id_permiso
-                          WHERE pp.tip_permiso='VC'
-                          AND pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
-                          AND pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta 
+        (  SELECT pp.id_trab,  pp.monto_a_pagar,
+                  IF( pp.id_cp='".$id_pri_quin."',  'SI', '0.00')  AS monto,
+                  CASE 
+                  WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
+                  WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),' AL ' , DATE_FORMAT(cp.hasta, '%d/%m/%Y'))     
+                  ELSE ''  END
+                  AS fechas,
+                  CASE 
+                  WHEN  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta  THEN  REPLACE(DATEDIFF(pp.fecha_procede,pp.fecha_hasta)-1      ,'-', '')
+                  WHEN  pp.fecha_hasta NOT BETWEEN   cp.desde AND cp.hasta  THEN   REPLACE(DATEDIFF(pp.fecha_procede,cp.hasta)-1   ,'-', '')    
+                  ELSE ''  END
+                  AS dias
+              FROM permiso_personal pp
+              LEFT JOIN  cronograma_pagos cp ON 
+              cp.id_cp='".$id_pri_quin."'
+              WHERE pp.tip_permiso='VC'
+              AND pp.fecha_procede BETWEEN   cp.desde AND cp.hasta 
+           UNION ALL
+           SELECT pp.id_trab,  pp.monto_a_pagar,  
+                  IF( pp.id_cp='".$id_pri_quin."',  'SI', '0.00')  AS monto,
+                  CASE 
+                  WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
+                  WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN  CONCAT (DATE_FORMAT(cp.desde, '%d/%m/%Y'),' AL ' , DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y'))     
+                  ELSE ''  END
+                  AS fechas,
+                  CASE 
+                  WHEN  pp.fecha_procede BETWEEN   cp.desde AND cp.hasta  THEN  REPLACE(DATEDIFF(pp.fecha_procede,pp.fecha_hasta)-1      ,'-', '')
+                  WHEN  pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  THEN   REPLACE(DATEDIFF(cp.desde,pp.fecha_hasta)-1   ,'-', '')    
+                  ELSE ''  END
+                 AS dias
+           FROM permiso_personal pp
+           LEFT JOIN  cronograma_pagos cp ON 
+           cp.id_cp='".$id_pri_quin."'
+           WHERE pp.tip_permiso='VC'
+           AND  pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
         ) AS vac  ON vac.id_trab=tr.id_trab
         LEFT JOIN 
         ( SELECT pp.id_trab, pp.dias, pp.monto_a_pagar,  pp.id_fecha_pago1, pp.id_cp,

@@ -747,7 +747,7 @@ Class Registro_Manual_Horas_Dias
 			 LEFT JOIN tabla_maestra_detalle AS tare ON
 			 tare.cod_argumento= tr.id_area
 			 AND tare.cod_tabla='TARE'
-			 ORDER  BY fecha DESC
+		     ORDER  BY YEAR(fecha) DESC, MONTH(fecha) DESC,  DAY(fecha) DESC
 				
 		 ";
 		return ejecutarConsulta($sql);	

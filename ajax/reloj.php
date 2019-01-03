@@ -262,10 +262,10 @@ switch ($_GET["op"]){
 														            			$id_incidencia='1';
 														            		}
 
-														            		//Tiempo de Tolerancia
+														            		//Tiempo de Tolerancia 5 MINUTOS
 														            		if ($cantidad_tiempo<='300') {
 														            			$descontar='2';
-														            		}else if ($cantidad_tiempo>='300') {
+														            		}else if ($cantidad_tiempo>'300') {
 														            			$descontar='1';
 														            		}
 

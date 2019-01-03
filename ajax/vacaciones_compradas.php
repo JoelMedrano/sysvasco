@@ -83,13 +83,13 @@ switch ($_GET["op"]){
 		$total=0;
 		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
-									<th width="100px">Item</th>
-                                    <th width="300px">Trabajador</th>
-                                    <th width="100px">Sueldo</th>
-                                    <th width="100px">Bono Destajo</th>
-                                    <th width="100px">Produccion(S/.)</th>
-                                    <th width="100px">Diferencia</th>
-                                    <th width="80px">Opciones</th>
+									<th width="100px">Dia</th>
+                                    <th width="300px">Fecha</th>
+                                    <th width="100px">Ingreso-Salida</th>
+                                    <th width="100px">Detalle</th>
+                                    <th width="100px">H.Extras</th>
+                                    <th width="100px">H.Faltas</th>
+                                    <th width="80px">Tardanzas</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S

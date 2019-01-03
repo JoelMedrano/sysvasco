@@ -135,6 +135,7 @@ Class Registro_Marcaciones
 						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
 						fe.mes,
+						fe.ano,
 						re.id_trab,
 						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
 						tsua.des_larga AS sucursal_anexo,
@@ -193,6 +194,7 @@ Class Registro_Marcaciones
 						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
 						fe.mes,
+						fe.ano,
 						hpp.id_trab,
 						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
 						tsua.des_larga AS sucursal_anexo,
@@ -237,6 +239,7 @@ Class Registro_Marcaciones
 						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
 						fe.mes,
+						fe.ano,
 						pp.id_trab,
 						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
 						tsua.des_larga AS sucursal_anexo,
@@ -277,12 +280,13 @@ Class Registro_Marcaciones
 					AND fe.fecha <= CURDATE()
 					/*FIN  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
 					UNION ALL
-					/* FERIADOS Y DOMINGOS*/
+					/* FERIADOS Y DOMINGOS - TRABAJADORES ACTIVOS*/
 					SELECT   '-' AS mar, 
 							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
 							SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						    fe.dia,
 		                    fe.mes,
+		                    fe.ano,
 		                    tr.id_trab,
 		                    CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
 		                    tsua.des_larga AS sucursal_anexo,
@@ -309,6 +313,7 @@ Class Registro_Marcaciones
 						tare.cod_argumento= tr.id_area
 						AND tare.cod_tabla='TARE'
 					WHERE fe.fecha<= CURDATE()
+					AND tr.id_trab='1'
 				    AND fe.estado IN ('FERIADO','NO LABORABLE')
                     AND  NOT EXISTS(  SELECT  NULL 
 		  				              FROM reloj re 
@@ -319,14 +324,61 @@ Class Registro_Marcaciones
 		  							 WHERE  fe.fecha BETWEEN  pp.fecha_procede  AND pp.fecha_hasta 
 		 							 AND pp.id_trab=tr.id_trab
 	    			)
-					/*FIN - FERIADOS Y DOMINGOS */
+					/*FIN - FERIADOS Y DOMINGOS  - trabajadores activos */
 					UNION ALL
-					/*INICIO - DIAS NO LABORABLES SEGUN HORARIO */
+					/* FERIADOS Y DOMINGOS - TRABAJADORES CESADOS*/
+					SELECT   '-' AS mar, 
+							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
+							SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
+						    fe.dia,
+		                    fe.mes,
+		                    fe.ano,
+		                    tr.id_trab,
+		                    CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+		                    tsua.des_larga AS sucursal_anexo,
+		                    tfun.des_larga AS funcion,
+		                    tare.des_larga AS area_trab,
+		                    tr.num_doc_trab,
+		                    fe.estado AS  hor_ent_sal, /**/
+	                    	fe.estado,
+		                    '' AS detalle,
+		                    null AS  horas_extras,
+							null AS horas_faltas,
+							null AS min_tardanza
+				    FROM Trabajador AS tr CROSS JOIN  Fechas AS fe
+					LEFT JOIN tabla_maestra_detalle AS tpla ON
+						tpla.cod_argumento= tr.id_tip_plan
+						AND tpla.cod_tabla='TPLA'
+					LEFT JOIN tabla_maestra_detalle AS tsua ON
+						tsua.cod_argumento= tr.id_sucursal
+						AND tsua.cod_tabla='TSUA'
+					LEFT JOIN tabla_maestra_detalle AS tfun ON
+						tfun.cod_argumento= tr.id_funcion
+						AND tfun.cod_tabla='TFUN'
+					LEFT JOIN tabla_maestra_detalle AS tare ON
+						tare.cod_argumento= tr.id_area
+						AND tare.cod_tabla='TARE'
+					WHERE fe.fecha<= tr.fec_sal_trab
+					AND tr.est_reg='0'
+				    AND fe.estado IN ('FERIADO','NO LABORABLE')
+                    AND  NOT EXISTS(  SELECT  NULL 
+		  				              FROM reloj re 
+		  							  WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha
+	    		    ) /*CASOS COMO VIGILANCIA*/
+					AND NOT EXISTS(  SELECT NULL 
+		 							 FROM permiso_personal pp 
+		  							 WHERE  fe.fecha BETWEEN  pp.fecha_procede  AND pp.fecha_hasta 
+		 							 AND pp.id_trab=tr.id_trab
+	    			)
+					/*FIN - FERIADOS Y DOMINGOS - Trabajadores Cesados*/
+					UNION ALL 
+					/*INICIO - DIAS NO LABORABLES SEGUN HORARIO - Trabajadores activos */
 					SELECT  '-' AS mar, 
 							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
 							SUBSTRING(fe.nom_dia,1,3) AS nom_dia,
 							fe.dia,
 							fe.mes,
+							fe.ano,
 							tr.id_trab,
 							CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
 							tsua.des_larga AS sucursal_anexo,
@@ -375,13 +427,120 @@ Class Registro_Marcaciones
 						) AS dato  ON dato.id_trab= tr.id_trab
 						AND dato.fecha=fe.fecha
 						WHERE  fe.fecha <= CURDATE()
+						AND tr.est_reg='1'
 						AND dato.hora_ingreso='00:00:00'
 						AND  NOT EXISTS (  SELECT  NULL FROM reloj re WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha)
-
-					/*FIN - DIAS NO LABORABLES SEGUN HORARIO*/
+				    UNION ALL
+					/*FIN - DIAS NO LABORABLES SEGUN HORARIO - Trabajadores Activos*/
+					/*INICIO - DIAS NO LABORABLES SEGUN HORARIO - Trabajadores Cesados */
+					SELECT  '-' AS mar, 
+							DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
+							SUBSTRING(fe.nom_dia,1,3) AS nom_dia,
+							fe.dia,
+							fe.mes,
+							fe.ano,
+							tr.id_trab,
+							CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+							tsua.des_larga AS sucursal_anexo,
+							tfun.des_larga AS funcion,
+							tare.des_larga AS area_trab,
+							tr.num_doc_trab,
+							'NO LABORABLE SEGUN HORARIO' AS  hor_ent_sal, /**/
+							fe.estado,
+							'' AS detalle,
+							null AS  horas_extras,
+							null AS horas_faltas,
+							null AS min_tardanza
+						FROM  trabajador tr CROSS JOIN fechas fe
+						LEFT JOIN tabla_maestra_detalle AS tpla ON
+							  tpla.cod_argumento= tr.id_tip_plan
+							  AND tpla.cod_tabla='TPLA'
+						LEFT JOIN tabla_maestra_detalle AS tsua ON
+							  tsua.cod_argumento= tr.id_sucursal
+							  AND tsua.cod_tabla='TSUA'
+						LEFT JOIN tabla_maestra_detalle AS tfun ON
+							 tfun.cod_argumento= tr.id_funcion
+							 AND tfun.cod_tabla='TFUN'
+						LEFT JOIN tabla_maestra_detalle AS tare ON
+							 tare.cod_argumento= tr.id_area
+							AND tare.cod_tabla='TARE'
+						LEFT JOIN 
+						( 				SELECT  hrt.id_trab, fe.fecha, 
+										CASE 
+														WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
+														WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
+														WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso 
+														WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso 
+														WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso 
+														WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso 
+														WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso 
+														ELSE '-'  END
+														AS hora_ingreso
+										FROM horario_refrigerio_trabajador AS hrt 
+										LEFT JOIN horario  AS  hor ON
+										hrt.id_horario= hor.id_horario
+										LEFT JOIN refrigerio AS ref ON
+										ref.cod_ref= hrt.cod_ref 
+										LEFT JOIN  fechas AS fe  ON
+										fe.estado='LABORABLE'
+										
+						) AS dato  ON dato.id_trab= tr.id_trab
+						AND dato.fecha=fe.fecha
+						WHERE  fe.fecha <= tr.fec_sal_trab
+						AND tr.est_reg='0'
+						AND dato.hora_ingreso='00:00:00'
+						AND  NOT EXISTS (  SELECT  NULL FROM reloj re WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha)
+				    UNION ALL
+					/*FIN - DIAS NO LABORABLES SEGUN HORARIO - Trabajadores Cesados*/
+					/*INICIO - FALTAS EN SABADOS LABORABLES SON 04:30:00 EN DURO*/
+					SELECT  '-' AS mar, 
+						DATE_FORMAT(hpp.Fecha, '%d/%m/%Y')  AS Fecha,
+						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
+						fe.dia,
+						fe.mes,
+						fe.ano,
+						hpp.id_trab,
+						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+						tsua.des_larga AS sucursal_anexo,
+						tfun.des_larga AS funcion,
+						tare.des_larga AS area_trab,
+						tr.num_doc_trab,
+						'FALTA' hor_ent_sal,
+						fe.estado,
+						pp.permiso AS detalle,
+						NULL AS  horas_extras,
+						hpp.tiempo_fin AS horas_faltas,
+						NULL AS min_tardanza
+				 FROM  horas_permiso_personal hpp
+				 INNER JOIN trabajador  tr  ON  
+				 	hpp.id_trab= tr.id_trab  
+					LEFT JOIN tabla_maestra_detalle AS tsua ON
+					tsua.cod_argumento= tr.id_sucursal
+					AND tsua.cod_tabla='TSUA'
+					LEFT JOIN tabla_maestra_detalle AS tfun ON
+					tfun.cod_argumento= tr.id_funcion
+					AND tfun.cod_tabla='TFUN'
+					LEFT JOIN tabla_maestra_detalle AS tare ON
+					tare.cod_argumento= tr.id_area
+					AND tare.cod_tabla='TARE'
+					LEFT JOIN fechas fe ON
+					fe.fecha= hpp.fecha
+					LEFT JOIN(
+						SELECT  pp.fecha_procede, pp.fecha_hasta , pp.id_trab, tbm.des_larga AS permiso
+						FROM permiso_personal pp 
+						LEFT JOIN tabla_maestra_detalle  tbm ON
+						tbm.des_corta= pp.tip_permiso
+						AND tbm.cod_tabla='TPER'
+						WHERE pp.tip_permiso NOT IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
+					) AS pp ON pp.id_trab= hpp.id_trab
+					AND hpp.fecha BETWEEN pp.fecha_procede AND  pp.fecha_hasta 
+					WHERE hpp.cant_dia_fin='0'
+					AND SUBSTRING(fe.nom_dia,1,3)='SAB' 
+					AND hpp.tiempo_fin>='04:30:00'
+					/*FIN - FALTAS EN SABADOS LABORABLES*/
 
 					) rm  WHERE  rm.id_trab LIKE '%$id_trab%'
-						ORDER BY rm.mes DESC, rm.dia DESC
+						ORDER BY rm.ano DESC, rm.mes DESC, rm.dia DESC
 			    /*	AND DATE(re.fecha)>='$fecha_inicio' AND DATE(re.fecha)<='$fecha_fin' */
 				/*	AND rm.Fecha BETWEEN '$fecha_inicio' AND  '$fecha_fin'*/
 
