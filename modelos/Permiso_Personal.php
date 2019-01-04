@@ -273,7 +273,7 @@ Class Permiso_Personal
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT   CONCAT_WS(' ',  tr1.apepat_trab,  SUBSTRING_INDEX(tr1.nom_trab, ' ',1) ) AS solicitante,
+		$sql="SELECT  '' as pp,  CONCAT_WS(' ',  tr1.apepat_trab,  SUBSTRING_INDEX(tr1.nom_trab, ' ',1) ) AS solicitante,
 		 CONCAT(  tr.nom_trab, ' ' , tr.apepat_trab , ' ' , tr.apemat_trab ) AS nombres,
 		    DATE_FORMAT(pp.fecha_emision, '%d/%m/%Y') AS fecha_emision,  DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y') AS fecha_hasta, DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y') AS fecha_procede, tr.apepat_trab, tbm.des_larga AS tipo_permiso  , pp.tip_permiso, pp.id_trab, pp.id_permiso, pp.hora_ing, pp.hora_sal, pp.motivo, pp.est_reg, pp.est_apro , pp.est_apro_rrhh, NULL AS ninguno
 		 FROM permiso_personal pp
@@ -286,7 +286,7 @@ Class Permiso_Personal
 		 usu.login= pp.usu_reg
 		 LEFT JOIN Trabajador tr1 ON
 		 tr1.id_trab= usu.id_trab
-		 ORDER BY pp.id_permiso DESC
+		 ORDER BY YEAR(pp.fecha_procede) DESC, pp.id_permiso DESC
 		 ";
 		return ejecutarConsulta($sql);	
 	}

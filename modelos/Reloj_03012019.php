@@ -41,7 +41,6 @@ Class Reloj
 
 
 
-
 	//Implementamos un método para editar registros
 	public function editar_primera_salida($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
 	{
@@ -263,15 +262,24 @@ Class Reloj
 
 
 
-	
+	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
+	public function consultarVacacionesCompradas($id_trab, $fecha)
+	{
+		$sql="SELECT pp.id_trab AS id_vacaciones_compradas
+				FROM permiso_personal_prueba pp
+				WHERE pp.tip_permiso='VC'
+				AND pp.id_trab='$id_trab'
+				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta
+				AND pp.id_vac_com='1'	";
+		return ejecutarConsulta($sql);
 
-
+	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
 	public function consultarVacaciones($id_trab, $fecha)
 	{
 		$sql="SELECT pp.id_trab AS id_vacaciones
-				FROM permiso_personal pp
+				FROM permiso_personal_prueba pp
 				WHERE pp.tip_permiso='VC'
 				AND pp.id_trab='$id_trab'
 				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta	";
@@ -775,183 +783,46 @@ Class Reloj
 	}
 
 
-	//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultarVacacionesCompradas($id_trab, $fecha)
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_vc($id_trab, $fecha, $hora, $tiempo_ref, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia, $id_permiso,  $id_cp, $descontar,  $fec_reg, $pc_reg, $usu_reg )
 	{
-		$sql="SELECT pp.id_trab AS id_vacaciones_compradas
-				FROM permiso_personal pp
-				WHERE pp.tip_permiso='VC'
-				AND pp.id_trab='$id_trab'
-				AND '$fecha' BETWEEN pp.fecha_procede AND pp.fecha_hasta
-				AND pp.id_vac_com='1'	";
+
+
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,     hora_inicio,  hora_fin,    cantidad,    tiempo_ref,       tiempo_des,       tiempo_fin,     id_incidencia,   id_permiso,   id_fec_dscto,    descontar,  descontado,    est_reg,      pc_reg,   usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',  '$tiempo_ref',  '$tiempo',  '$tiempo_dscto', '$id_incidencia', '$id_permiso',    '$id_cp',  '$descontar',  '2',            '1',      '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
+
 
 	}
 
 
 
-
-
-
-	public function consultar_IngresoSalida_SegunReloj($id_trab, $fecha,  $hora  )
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_sinrefrigerio_vc($id_trab, $fecha, $hora, $hora_ingreso, $tiempo,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
 	{
-		$sql="SELECT    tr.id_trab, 
-						ft.hora_salida AS hora_salida_sh_vc,
-						ft.hora_ingreso AS hora_ingreso_sh_vc,
-						REPLACE(TIMEDIFF( '$hora', ft.hora_ingreso ) ,'-', '')  AS dif_hish_hire_vc, 
-						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', ft.hora_ingreso ) ) ,'-', '')  AS cant_dif_hish_hire_vc, 
-						REPLACE(TIMEDIFF( '$hora', ft.hora_salida ) ,'-', '')  AS dif_hssh_hsre_vc, 
-						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', ft.hora_salida ) ) ,'-', '')  AS cant_dif_hssh_hsre_vc,
-						/*LINEA DE DIFERENICA ENTRE LAS SALIDAS CON EL REFRIGERIO*/
-						TIMEDIFF(REPLACE(TIMEDIFF( '$hora', ft.hora_salida ) ,'-', '') , REPLACE( ft.tiempo_ref  ,'-', '')  ) AS dif_hssh_hsre_ref_vc,
-						/*LINEA DE DIFERENICA ENTRE EL INGRESO CON EL REFRIGERIO*/
-						TIMEDIFF(REPLACE(TIMEDIFF( '$hora', ft.hora_ingreso ) ,'-', '') , REPLACE( ft.tiempo_ref  ,'-', '')  ) AS dif_hish_hire_ref_vc,
-						/*LINEA DE DIFERENCIA ENTRE HORA SALIDA Y HORA FIN DE REFRIGERIO*/
-						REPLACE(TIMEDIFF( ft.hora_salida , ft.hora_fin_ref ) ,'-', '') AS dif_hfref_hsre_ref_vc,
-						/*LINEA DE DIFERENCIA ENTRE HORA DE INGRESO SEGUN HORARIO  Y HORA INICIO  DEL REFRIGERIO*/
-						REPLACE(TIMEDIFF( ft.hora_ingreso , ft.hora_ini_ref ) ,'-', '') AS dif_hish_hiref_vc,
-						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora_ing', '$hora_sal') ) ,'-', '')  AS cant_dif_hire_hsre_vc,
-						REPLACE(TIMEDIFF( '$hora_ing', '$hora_sal')  ,'-', '')  AS dif_hire_hsre_vc,
-						REPLACE(TIMEDIFF( '$hora' , he_vc.hor_ini_he_vc ) ,'-', '') AS dif_hihevc_hsre_vc,
-						ft.hora_ini_ref AS hora_ini_ref_vc,
-						ft.hora_fin_ref AS hora_fin_ref_vc,
-						ft.tiempo_ref AS tiempo_ref_vc,
-						ft.estado as estado_dia_vc
-				FROM trabajador tr 
-				LEFT JOIN 	
-				(SELECT  hrt.id_trab, CASE 
-								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_salida
-								WHEN  fe.nom_dia='MARTES' THEN hor.martes_salida
-								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_salida
-								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_salida
-								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_salida
-								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_salida
-								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_salida
-								ELSE '-'  END
-								AS hora_salida,
-								CASE 
-								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
-								WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
-								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso
-								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso
-								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso
-								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso
-								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso
-								ELSE '-'  END
-								AS hora_ingreso,
-								ref.hora_ini AS hora_ini_ref,
-								ref.hora_fin AS hora_fin_ref,
-								ref.tiempo AS tiempo_ref,
-								fe.estado
-				FROM horario_refrigerio_trabajador AS hrt 
-				LEFT JOIN horario  AS  hor ON
-				hrt.id_horario= hor.id_horario
-				LEFT JOIN refrigerio AS ref ON
-				ref.cod_ref= hrt.cod_ref 
-				LEFT JOIN(
-					SELECT  fe.nom_dia, fe.estado ,  fe.fecha
-					FROM fechas AS fe  
-					WHERE fe.fecha='$fecha'
-				) AS fe ON fe.fecha='$fecha'
-				WHERE  hrt.id_trab='$id_trab'
-				) AS ft  ON ft.id_trab= tr.id_trab
-				LEFT JOIN(
-					SELECT he_vc.id_trab, he_vc.fecha,  he_vc.hora_inicio AS hor_ini_he_vc
-					FROM horas_extras_personal_vacaciones_compradas he_vc
-					WHERE  he_vc.fecha='$fecha'
-					AND he_vc.id_trab='$id_trab'
-				) AS  he_vc  ON he_vc.id_trab=tr.id_trab
-				WHERE ft.id_trab='$id_trab'  ";
+                   
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,      hora_inicio,  hora_fin,    cantidad,   tiempo_des,  tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_ingreso' , '$hora' ,  '$tiempo',    '$tiempo',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
+
 
 	}
 
 
 	//Implementamos un método para insertar registros
-	public function registrar_hora_extra_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	public function registrar_hora_extra_vc($id_trab, $fecha, $hora, $hora_ingreso, $tiempo, $tiempo_redondeado, $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
 	{									
 
 
-		$sql="INSERT INTO horas_extras_personal_vacaciones_compradas(id_trab,   fecha ,    hora_inicio,      hora_fin,   cantidad,      tiempo_fin,   id_fec_abono,      abonar, abonado,    est_dia,   por_pago,   est_reg,   pc_reg,    usu_reg,    fec_reg)
-					  					VALUES ('$id_trab', '$fecha', '$hora_inicio' , '$hora_fin', '$cantidad',  '$tiempo_fin',  '$id_fec_abono',    '1' ,    '2',      '$estado', '$por_pago',   '1',    '$pc_reg', '$usu_reg', '$fec_reg' )";
+		$sql="INSERT INTO horas_extras_personal_vacaciones_compradas(id_trab,   fecha ,  hora_inicio,  hora_fin,    cantidad,  tiempo_fin,   id_fec_abono, abonar, abonado,   est_dia,   por_pago,   est_reg,   pc_reg,    usu_reg,    fec_reg)
+					  					VALUES ('$id_trab', '$fecha', '$hora' , '$hora_ingreso', '$tiempo',  '$tiempo_redondeado',  '$id_cp',    '1' ,    '2',      '$estado', '$por_pago',   '1',    '$pc_reg', '$usu_reg', '$fec_reg' )";
 		return ejecutarConsulta($sql);
 
 
 	}
-
-
-
-	//Implementamos un método para insertar registros
-	public function registrar_hora_dscto_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $habilitar_dscto, $fec_reg, $pc_reg, $usu_reg)
-	{
-                   
-		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,   hora_inicio,          hora_fin,      cantidad,     tiempo_ref,     tiempo_des,    tiempo_fin,        id_incidencia,     id_permiso,      id_fec_dscto,      descontar,      descontado,       habilitar_dscto,      est_reg,   pc_reg,    usu_reg,    fec_reg)
-					  		                                 VALUES ('$id_trab', '$fecha',  '$hora_inicio' ,   '$hora_fin' ,   '$cantidad',   '$tiempo_ref',  '$tiempo_des',  '$tiempo_fin',     '$id_incidencia',  '$id_permiso',   '$id_fec_dscto',    '$descontar',     '2',        '$habilitar_dscto',         '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
-		return ejecutarConsulta($sql);
-
-
-	}
-
-	//Redondeo de tiempo para horas extras
-
-	public function calcular_redondeo_tiempo_vc($tiempo_ing_vc, $tiempo_sal_vc,  $tiempo_hihevc_hsre_vc)
-	{
-		$sql="SELECT	CASE 
-						WHEN  SUBSTRING('$tiempo_ing_vc', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_ing_vc', 1, 2), ':00:00')	
-						WHEN  SUBSTRING('$tiempo_ing_vc', 4, 2)>=30  AND SUBSTRING('$tiempo_ing_vc', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_ing_vc', 1, 2), ':30:00')	
-						ELSE '-'  END
-						AS tiempo_redondeado_ing_vc,
-						CASE 
-						WHEN  SUBSTRING('$tiempo_sal_vc', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_sal_vc', 1, 2), ':00:00')	
-						WHEN  SUBSTRING('$tiempo_sal_vc', 4, 2)>=30  AND SUBSTRING('$tiempo_sal_vc', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_sal_vc', 1, 2), ':30:00')	
-						ELSE '-'  END
-						AS tiempo_redondeado_sal_vc,
-						CASE 
-						WHEN  SUBSTRING('$tiempo_hihevc_hsre_vc', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_hihevc_hsre_vc', 1, 2), ':00:00')	
-						WHEN  SUBSTRING('$tiempo_hihevc_hsre_vc', 4, 2)>=30  AND SUBSTRING('$tiempo_hihevc_hsre_vc', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_hihevc_hsre_vc', 1, 2), ':30:00')	
-						ELSE '-'  END
-						AS tiempo_redondeado_hihevc_hsre_vc
-						;";
-		return ejecutarConsulta($sql);
-
-	}
-
-	public function calcular_redondeo_tiempo_dscto_vc($tiempo_ing_dscto_vc, $tiempo_sal_dscto_vc, $tiempo_ing_ref_dscto_vc, $tiempo_ing_iniref_dscto_vc)
-	{
-		$sql="SELECT	CASE 
-						WHEN SUBSTRING('$tiempo_ing_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)<=30   AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_ing_dscto_vc', 1, 2), ':30:00')	
-						WHEN SUBSTRING('$tiempo_ing_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)>30    AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')	
-						WHEN SUBSTRING('$tiempo_ing_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)>=30    AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')
-						WHEN SUBSTRING('$tiempo_ing_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)<30    AND SUBSTRING('$tiempo_ing_dscto_vc', 4, 2)>01  THEN  '00:30:00'
-						ELSE '-'  END
-						AS tiempo_redondeado_ing_dscto_vc,
-						CASE 
-						WHEN SUBSTRING('$tiempo_sal_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)<=30   AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_sal_dscto_vc', 1, 2), ':30:00')	
-						WHEN SUBSTRING('$tiempo_sal_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)>30    AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_sal_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')	
-						WHEN SUBSTRING('$tiempo_sal_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)>=30    AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_sal_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')
-						WHEN SUBSTRING('$tiempo_sal_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)<30    AND SUBSTRING('$tiempo_sal_dscto_vc', 4, 2)>01  THEN  '00:30:00'
-						ELSE '-'  END
-						AS tiempo_redondeado_sal_dscto_vc,
-						CASE 
-						WHEN SUBSTRING('$tiempo_ing_ref_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)<=30   AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_ing_ref_dscto_vc', 1, 2), ':30:00')	
-						WHEN SUBSTRING('$tiempo_ing_ref_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)>30    AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_ref_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')	
-						WHEN SUBSTRING('$tiempo_ing_ref_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)>=30    AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_ref_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')
-						WHEN SUBSTRING('$tiempo_ing_ref_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)<30    AND SUBSTRING('$tiempo_ing_ref_dscto_vc', 4, 2)>01  THEN  '00:30:00'
-						ELSE '-'  END
-						AS tiempo_redondeado_ing_ref_dscto_vc,
-						CASE 
-						WHEN SUBSTRING('$tiempo_ing_iniref_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)<=30   AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)>0 THEN CONCAT(SUBSTRING('$tiempo_ing_iniref_dscto_vc', 1, 2), ':30:00')	
-						WHEN SUBSTRING('$tiempo_ing_iniref_dscto_vc', 2, 2)>=1 AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)>30    AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_iniref_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')	
-						WHEN SUBSTRING('$tiempo_ing_iniref_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)>=30    AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ing_iniref_dscto_vc', 1, 2)+1), 2, '0' ) , ':00:00')
-						WHEN SUBSTRING('$tiempo_ing_iniref_dscto_vc', 2, 2)='0:' AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)<30    AND SUBSTRING('$tiempo_ing_iniref_dscto_vc', 4, 2)>01  THEN  '00:30:00'
-						ELSE '-'  END
-						AS tiempo_redondeado_ing_iniref_dscto_vc
-						;";
-		return ejecutarConsulta($sql);
-
-	}
-
-
 
 
 	//Implementamos un método para editar registros
@@ -962,11 +833,82 @@ Class Reloj
 	}
 
 
+	//Implementamos un método para insertar registros
+	public function editar_hora_extra_vc($id_trab, $fecha, $hora, $tiempo, $tiempo_fin, $por_pago )
+	{		
+			$sql="UPDATE horas_extras_personal_vacaciones_compradas SET hora_fin='$hora',  cantidad='$tiempo', tiempo_fin='$tiempo_fin',  por_pago='$por_pago'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	//Implementamos un método para insertar registros de horas extras fuera del horario de salida en un dia laborable
+	public function registrar_hora_extra_despueshorasalida_vc($id_trab, $fecha, $hora, $hora_salida, $tiempo_largo_hs_he, $tiempo_redondeado,  $id_cp,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg)
+	{									
+
+
+		$sql="INSERT INTO horas_extras_personal_vacaciones_compradas (id_trab,    fecha ,     hora_inicio,   hora_fin,       cantidad,               tiempo_fin,        id_fec_abono,   abonar,   abonado,   est_dia,     por_pago,   est_reg,  fec_reg ,    usu_reg,    pc_reg  )
+					  					VALUES ('$id_trab', '$fecha',   '$hora_salida', '$hora',   '$tiempo_largo_hs_he',  '$tiempo_redondeado',    '$id_cp',      '1' ,     '2',     '$estado',   '$por_pago',  '1',    '$fec_reg',  '$usu_reg', '$pc_reg'  )";
+		return ejecutarConsulta($sql); 
+
+
+	}
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_despuesdelingreso_sin_refrigerio_vc($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,   id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora' ,   '$hora_salida_sh' , '$tiempo_largo_ha_hs',    '$tiempo_ref',  '$tiempo_largo_ha_hs',  '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_dscto_vc($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_ref, $tiempo_des,  $tiempo_fin,  $cant_dia_fin,  $id_incidencia, $id_cp,  $descontar,  $descontado, $habilitar_dscto,  $fec_reg, $pc_reg, $usu_reg)
+	{
+
+
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,     hora_inicio,      hora_fin,     cantidad,    tiempo_ref,    tiempo_des,       tiempo_fin,    cant_dia_fin,    id_incidencia,     id_fec_dscto,    descontar,     descontado,     est_reg,  habilitar_dscto  ,   pc_reg,   usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora_inicio' , '$hora_fin' ,  '$cantidad',  '$tiempo_ref',  '$tiempo_des',  '$tiempo_fin', '$cant_dia_fin',  '$id_incidencia',     '$id_cp',      '$descontar',  '$descontado',      '1',   '$habilitar_dscto',    '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function registrar_hora_permiso_despuesdelingreso_dscto_refrigerio_vc($id_trab, $fecha, $hora, $hora_salida_sh, $tiempo_largo_ha_hs,  $tiempo_ref, $tiempo_des,  $tiempo_dscto,  $id_incidencia,  $id_permiso,  $id_cp, $descontar, $fec_reg, $pc_reg, $usu_reg)
+	{
+                   
+		$sql="INSERT INTO horas_permiso_personal_vacaciones_compradas(id_trab,   fecha ,   hora_inicio,  hora_fin,              cantidad,             tiempo_ref,        tiempo_des,         tiempo_fin,       id_incidencia,     id_permiso,   id_fec_dscto, descontar,  descontado, habilitar_dscto, est_reg,  pc_reg,    usu_reg,    fec_reg)
+					  		            VALUES ('$id_trab', '$fecha',  '$hora' ,   '$hora_salida_sh' , '$tiempo_largo_ha_hs',    '$tiempo_ref',     '$tiempo_des',      '$tiempo_dscto',   '$id_incidencia',  '$id_permiso',   '$id_cp',  '$descontar',     '2',         '2',          '1',  '$pc_reg', '$usu_reg', '$fec_reg' )";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+
 
 	//Implementamos un método para editar registros
-	public function actualizar_hora_extra_vacaciones($id_trab, $fecha,  $hora_fin, $cantidad, $tiempo_fin,  $fec_reg, $pc_reg, $usu_reg)
+	public function editar_segunda_entrada_vc($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
 	{
-		$sql="UPDATE horas_extras_personal_vacaciones_compradas SET hora_fin='$hora_fin',  cantidad='$cantidad', tiempo_fin='$tiempo_fin'  WHERE id_trab='$id_trab'  and fecha='$fecha' ";
+		$sql="UPDATE reloj_vacacionescompradas SET segunda_hor_ent='$hora'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+    //Implementamos un método para editar registros
+	public function editar_segunda_salida_vc($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora)
+	{
+		$sql="UPDATE reloj_vacacionescompradas SET segunda_hor_sal='$hora'  WHERE id_trab='$id_trab'  and fecha='$fecha'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -976,11 +918,12 @@ Class Reloj
 
 
 
+	
 
 
 
 
-
+	
 
 
 

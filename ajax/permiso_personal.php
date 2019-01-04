@@ -287,34 +287,34 @@ switch ($_GET["op"]){
 
 
  			   $data[]=array(
- 				
- 				"0"=>$reg->fecha_emision,
- 				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->nombres,
- 				"3"=>$reg->tipo_permiso,
- 				"4"=>$reg->motivo,
+ 				"0"=>$reg->pp,
+ 				"1"=>$reg->fecha_emision,
+ 				"2"=>$reg->fecha_procede,
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->tipo_permiso,
+ 				"5"=>$reg->motivo,
 
- 				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
+ 				"6"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"6"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				"7"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"7"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				"8"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
 
- 				"8"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 				"9"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
 
- 				"9"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"10"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
 
- 				"10"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"11"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
 
- 				"11"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
-                "12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  						
  				);
 
@@ -322,30 +322,30 @@ switch ($_GET["op"]){
 
 
  			   $data[]=array(
- 				
- 				"0"=>$reg->fecha_emision,
- 				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->nombres,
- 				"3"=>$reg->tipo_permiso,
- 				"4"=>$reg->motivo,
- 				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
+ 				"0"=>$reg->pp,
+ 				"1"=>$reg->fecha_emision,
+ 				"2"=>$reg->fecha_procede,
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->tipo_permiso,
+ 				"5"=>$reg->motivo,
+ 				"6"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
- 				"6"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				"7"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
- 				"7"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				"8"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
- 				"8"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 				"9"=>($reg->est_reg)?' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
 
- 				"9"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"10"=>($reg->est_apro)?' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
 
- 				"10"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"11"=>($reg->est_apro_rrhh)?' <button class="btn btn-danger" onclick="desaprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="aprobarRRHH('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
 
- 				"11"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
+ 				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
-                "12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  					
 
  				);
@@ -356,28 +356,28 @@ switch ($_GET["op"]){
 
 
              $data[]=array(
- 				
- 				"0"=>$reg->fecha_emision,
- 				"1"=>$reg->fecha_procede,
- 				"2"=>$reg->nombres,
- 				"3"=>$reg->tipo_permiso,
- 				"4"=>$reg->motivo,
 
- 				"5"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
+ 				"0"=>$reg->pp,
+ 				"1"=>$reg->fecha_emision,
+ 				"2"=>$reg->fecha_procede,
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->tipo_permiso,
+ 				"5"=>$reg->motivo,
+ 				"6"=>($reg->est_apro)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"6"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
+ 				"7"=>($reg->est_apro_rrhh)?'<span class="label bg-blue">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
 
- 				"7"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
+ 				"8"=>($reg->est_reg)?'<span class="label bg-blue">Activado</span>':
  				'<span class="label bg-red">Desactivado</span>',
 
- 				"8"=>($reg->est_reg)?'<button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
+ 				"9"=>($reg->est_reg)?'<button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>':
  					' <button class="btn btn-success" onclick="mostrar('.$reg->id_permiso.')"><i class="fa fa-pencil"></i></button>',
- 				"9"=>$reg->ninguno,
  				"10"=>$reg->ninguno,
  				"11"=>$reg->ninguno,
- 				"12"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+ 				"12"=>$reg->ninguno,
+ 				"13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
  				);
 
 			 }

@@ -15,20 +15,16 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 
 
 
-$id_cp=isset($_POST["id_cp"])? limpiarCadena($_POST["id_cp"]):"";
-$id_pd=isset($_POST["id_pd"])? limpiarCadena($_POST["id_pd"]):"";
-$correlativo=isset($_POST["correlativo"])? limpiarCadena($_POST["correlativo"]):"";
-$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
-$sueldo=isset($_POST["sueldo"])? limpiarCadena($_POST["sueldo"]):"";
-$bono_des_trab=isset($_POST["bono_des_trab"])? limpiarCadena($_POST["bono_des_trab"]):"";
-$prod_soles=isset($_POST["prod_soles"])? limpiarCadena($_POST["prod_soles"]):"";
-$dif_soles=isset($_POST["dif_soles"])? limpiarCadena($_POST["dif_soles"]):"";
+$id_permiso=isset($_POST["id_permiso"])? limpiarCadena($_POST["id_permiso"]):"";
 
 
-$data_adjunta=isset($_POST["data_adjunta"])? limpiarCadena($_POST["data_adjunta"]):"";
+
+$pago_vac_comp=isset($_POST["pago_vac_comp"])? limpiarCadena($_POST["pago_vac_comp"]):"";
 
 
-$CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
+$nombres=isset($_POST["nombres"])? limpiarCadena($_POST["nombres"]):"";
+
+$id_cp_vac_com=isset($_POST["id_cp_vac_com"])? limpiarCadena($_POST["id_cp_vac_com"]):"";
 
 
 switch ($_GET["op"]){
@@ -36,28 +32,11 @@ switch ($_GET["op"]){
 		
 			
 
-			$rspta=$vac_compradas->editar(  $id_cp,
-											  $_POST["correlativo"],
-											  $_POST["id_trab"],
-											  $_POST["sueldo"],
-											  $_POST["bono_des_trab"],
-											  $_POST["prod_soles"],
-											  $_POST["dif_soles"],
-										      $fec_reg,
-											  $usu_reg,
-											  $pc_reg );
+			$rspta=$vac_compradas->editar(  $id_permiso,
+											$pago_vac_comp,
+											$id_cp_vac_com);
 
-			$rspta=$vac_compradas->insertar2(   $id_cp,
-												  $CantItems,
-												  $_POST["correlativo"],
-												  $_POST["id_trab"],
-												  $_POST["sueldo"],
-												  $_POST["bono_des_trab"],
-												  $_POST["prod_soles"],
-												  $_POST["dif_soles"],
-												  $fec_reg,
-												  $usu_reg,
-												  $pc_reg  );
+			
 			
 
 			echo $rspta ? "Vacaciones compradas  actualizadas" : "No se actualizaron los datos de las compras actualizadas";
@@ -77,26 +56,32 @@ switch ($_GET["op"]){
 
 	case 'listarDetalle':
 		//Referente a V-Art
-		$id_cp=$_GET['id_cp'];
+		$id_permiso=$_GET['id_permiso'];
 
-		$rspta = $vac_compradas->listarDetalle($id_cp);
+		$rspta = $vac_compradas->listarDetalle($id_permiso);
 		$total=0;
 		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
-									<th width="100px">Dia</th>
-                                    <th width="300px">Fecha</th>
-                                    <th width="100px">Ingreso-Salida</th>
-                                    <th width="100px">Detalle</th>
-                                    <th width="100px">H.Extras</th>
-                                    <th width="100px">H.Faltas</th>
-                                    <th width="80px">Tardanzas</th>
+									<th width="5px">Dia</th>
+                                    <th width="5px">Fecha</th>
+                                    <th width="5px">Estado</th>
+                                    <th width="5px">Ingreso-Salida</th>
+                                    <th width="5px">H.Extras</th>
+                                    <th width="5px">H.Faltas</th>
+                                    <th width="5px">Tardanzas</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="5" id="fila'.$cont.'">  ><td><input type="text" size="3" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text" size="80" readonly name="id_trab[]" value="'.$reg->apellidosynombres.'" readonly></td><td><input type="text" size="15" readonly name="sueldo[]" value="'.$reg->sueldo.'"></td><td><input type="text" size="15"  name="bono_des_trab[]" value="'.$reg->bono_des_trab.'"></td><td><input type="text" size="15" name="prod_soles[]" value="'.$reg->prod_soles.'"></td><td><input type="text" size="15" readonly name="dif_soles[]" value="'.$reg->dif_soles.'"></td><a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
-                            </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
+					echo '<tr class="filas" size="5" id="fila'.$cont.'">  >
+					<td><input type="text" size="3" name="nom_dia[]" value="'.$reg->nom_dia.'"></td>
+					<td><input type="text" size="10" readonly name="Fecha[]" value="'.$reg->Fecha.'" readonly></td>
+					<td><input type="text" size="15"  name="estado[]" value="'.$reg->estado.'"></td>
+					<td><input type="text" size="15" readonly name="hor_ent_sal[]" value="'.$reg->hor_ent_sal.'"></td>
+					<td><input type="text" size="15" name="horas_extras[]" value="'.$reg->horas_extras.'"></td>
+					<td><input type="text" size="15" readonly name="horas_faltas[]" value="'.$reg->horas_faltas.'"></td>
+					<td><input type="text" size="15" readonly name="min_tardanza[]" value="'.$reg->min_tardanza.'"></td>
+					</td></tr>';
 					$total=$periodo;
 					$cont++;
 				}
@@ -137,17 +122,7 @@ switch ($_GET["op"]){
 
 	break;
 
-	case 'selectCliente':
-		require_once "../modelos/Persona.php";
-		$persona = new Persona();
 
-		$rspta = $persona->listarC();
-
-		while ($reg = $rspta->fetch_object())
-				{
-				echo '<option value=' . $reg->idpersona . '>' . $reg->nombre . '</option>';
-				}
-	break;
 
 	case 'selectTrabajadoresDestajeros':
 		
@@ -172,5 +147,25 @@ switch ($_GET["op"]){
  			"aaData"=>$data);
  		echo json_encode($results);
 	break;
+
+
+	case 'selectFechaspago':
+		
+
+		$rspta=$vac_compradas->selectFechaspago();
+
+		while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->id_cp_vac_com . '>' . $reg->fechas_pago . '</option>';
+				}
+	break;
+
+
+
+	
+
+
+
+
 }
 ?>

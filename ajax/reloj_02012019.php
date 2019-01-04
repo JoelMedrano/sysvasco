@@ -188,66 +188,6 @@ switch ($_GET["op"]){
         $codigo_vc=$regc->id_trab;
         $hor_ent_vc=$regc->hor_ent;
         $hor_sal_vc=$regc->hor_sal;
-
-
-
-		//CONSULTA CUAL FUE SU HORA DE INGRESO Y SALIDA  SEGUN DEL DIA SELECCIONADO
-		$dato=$reloj->consultar_IngresoSalida_SegunReloj($id_trab, $fecha, $hora ) ;
-		$regc=$dato->fetch_object();
-		$hora_salida_sh_vc=$regc->hora_salida_sh_vc;
-		$hora_ingreso_sh_vc=$regc->hora_ingreso_sh_vc;
-		$cant_dif_hish_hire_vc=$regc->cant_dif_hish_hire_vc;
-		$dif_hish_hire_vc=$regc->dif_hish_hire_vc;
-		$cant_dif_hssh_hsre_vc=$regc->cant_dif_hssh_hsre_vc;
-		$dif_hssh_hsre_vc=$regc->dif_hssh_hsre_vc;
-		$hora_ini_ref_vc=$regc->hora_ini_ref_vc;
-		$hora_fin_ref_vc=$regc->hora_fin_ref_vc;
-		$dif_hish_hire_ref_vc=$regc->dif_hish_hire_ref_vc;
-		$dif_hish_hiref_vc=$regc->dif_hish_hiref_vc;
-		$dif_hihevc_hsre_vc=$regc->dif_hihevc_hsre_vc;
-
-
-
-		//PARA HORAS EXTRAS
-		$tiempo_ing_vc=$dif_hish_hire_vc;
-		$tiempo_sal_vc=$dif_hssh_hsre_vc;
-		$tiempo_hihevc_hsre_vc=$dif_hihevc_hsre_vc;
-
-		
-
-		$dato=$reloj->calcular_redondeo_tiempo_vc($tiempo_ing_vc, $tiempo_sal_vc, $tiempo_hihevc_hsre_vc);
-		$regc=$dato->fetch_object();
-		$tiempo_redondeado_ing_vc=$regc->tiempo_redondeado_ing_vc;  
-		$tiempo_redondeado_sal_vc=$regc->tiempo_redondeado_sal_vc;  
-		$tiempo_redondeado_hihevc_hsre_vc=$regc->tiempo_redondeado_hihevc_hsre_vc;  
-
-		//FIN PARA HORAS EXTRAS
-
-
-		//PARA HORAS DSCTO
-		$tiempo_ing_dscto_vc=$dif_hish_hire_vc;
-		$tiempo_sal_dscto_vc=$dif_hssh_hsre_vc;
-		$tiempo_ing_ref_dscto_vc=$dif_hish_hire_ref_vc;
-		$tiempo_ing_iniref_dscto_vc=$dif_hish_hiref_vc;
-		
-
-		$dato=$reloj->calcular_redondeo_tiempo_dscto_vc($tiempo_ing_dscto_vc, $tiempo_sal_dscto_vc,  $tiempo_ing_ref_dscto_vc, $tiempo_ing_iniref_dscto_vc);
-		$regc=$dato->fetch_object();
-		$tiempo_redondeado_ing_dscto_vc=$regc->tiempo_redondeado_ing_dscto_vc;  
-		$tiempo_redondeado_sal_dscto_vc=$regc->tiempo_redondeado_sal_dscto_vc; 
-		$tiempo_redondeado_ing_ref_dscto_vc=$regc->tiempo_redondeado_ing_ref_dscto_vc; 
-		$tiempo_redondeado_ing_iniref_dscto_vc=$regc->tiempo_redondeado_ing_iniref_dscto_vc; 
-		 
-
-
-
-		//FIN PARA HORAS DSCTO
-
-
-
-
-
-
         
 
 
@@ -262,156 +202,18 @@ switch ($_GET["op"]){
        	 
 			if ($codigo_vc==''){
 
-			    //Ingresa a la tabla de reloj_vacacionescompradas
+			//Ingresa a la tabla de reloj_vacacionescompradas
 				$rspta=$reloj->insertar_reloj_vacacionescompradas($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno); 
 				echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
 
-					
-				    if ($estado=='LABORABLE') {
-
-									if ($hora_ingreso_sh_vc>$hora  AND  $cant_dif_hish_hire_vc>='3600'  AND $cant_dif_hish_hire_vc<='43200') {
-									//INGRESO ANTES DE LA HORA SEGUN SU HORARIO
-										
-										$hora_inicio=$hora;
-									    $hora_fin= $hora_ingreso_sh_vc;
-										$cantidad= $dif_hish_hire_vc;
-										$tiempo_fin=$tiempo_redondeado_ing_vc; 
-										$id_fec_abono=$id_cp_des; 
-										$por_pago='0';
-
-										$rspta=$reloj->registrar_hora_extra_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
-
-
-									}else if ($hora_ingreso_sh_vc<$hora  AND $hora_ini_ref_vc>=$hora ) {
-									//INGRESO DESPUES DE LA HORA DE ENTRADA SEGUN SU HORARIO 
-
-											$hora_inicio=$hora_ingreso_sh_vc;
-											$hora_fin= $hora;
-											$cantidad= $dif_hish_hire_vc;
-											$tiempo_des= $dif_hish_hire_vc;
-											//$tiempo_fin= $tiempo_redondeado_ing_dscto_vc;
-											$id_fec_dscto=$id_cp_des; 
-
-											//Tiempo de Tolerancia 5 MINUTOS
-											if ($cant_dif_hish_hire_vc<='300') { //NO DESCONTARA
-													$tiempo_fin='00:00:00';
-													$descontar='2';
-													$habilitar_dscto='2';
-											}else if ($cant_dif_hish_hire_vc>'300') { //SI DESCONTAR 
-													$tiempo_fin=$tiempo_redondeado_ing_dscto_vc;
-													$descontar='1';
-													$habilitar_dscto='1';
-											}
-
-											$tiempo_ref='00:00:00';
-											$rspta=$reloj->registrar_hora_dscto_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $habilitar_dscto, $fec_reg, $pc_reg, $usu_reg);					          
-
-									}else if ($hora_ingreso_sh_vc<$hora  AND $hora_ini_ref_vc<=$hora  and $hora_fin_ref_vc>=$hora) { 
-										//CASO: REGISTRAR HORAS FALTAS  DESPUES DE LA HORA DE INGRESO PERO DESDE EL INICIO O HASTA LA FINALIZACION DE SU REFRIGERIO ASIGNADO
-										
-										$hora_inicio=$hora_ingreso_sh_vc;
-										$hora_fin= $hora_ini_ref_vc;
-										$cantidad= $dif_hish_hiref_vc;
-										$tiempo_des= $dif_hish_hiref_vc; 
-										$tiempo_fin=$tiempo_redondeado_ing_iniref_dscto_vc;
-
-										$tiempo_ref='00:00:00';
-
-										$descontar='1';
-										$habilitar_dscto='1';
-										$id_fec_dscto=$id_cp_des; 
-									
-
-										$rspta=$reloj->registrar_hora_dscto_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $habilitar_dscto, $fec_reg, $pc_reg, $usu_reg);					          
-
-
-									}else if ($hora_ingreso_sh_vc<$hora  AND $hora_fin_ref_vc<$hora  ) {
-										//CASO5: REGISTRAR HORAS FALTAS  DESPUES DE LA HORA DE INGRESO DESPUES DE LA HORA FIN  DE SU REFRIGERIO -  OK
-
-										$hora_inicio=$hora_ingreso_sh_vc;
-										$hora_fin= $hora;
-										$cantidad= $dif_hish_hire_vc;
-										$tiempo_des= $dif_hish_hire_ref_vc;
-					                    $tiempo_fin= $tiempo_redondeado_ing_ref_dscto_vc;
-
-					                    $descontar='1';
-										$habilitar_dscto='1';
-										$id_fec_dscto=$id_cp_des; 
-									
-
-										$rspta=$reloj->registrar_hora_dscto_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $habilitar_dscto, $fec_reg, $pc_reg, $usu_reg);					          
-
-									}
-
-
-					}else if($estado!='LABORABLE') {
-						//CASO: REGISTRA AQUELLOS QUE SON FERIADOS O NO LABORABLE - CREA UNA LINEA VACIA EN LA HORAS EXTRAS
-
-						$hora_inicio=$hora;
-						$hora_fin= '00:00:00';
-						$cantidad= '00:00:00';
-						$tiempo_fin= '00:00:00'; 
-						$id_fec_abono=$id_cp_des; 
-						$por_pago='100';
-
-						$rspta=$reloj->registrar_hora_extra_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
-
-					}
-
-
-
-
 
 			} else if ($codigo_vc==$id_trab) {
-
 
 				//Actualiza la hora de salida en la tabla de reloj_vacacionescompradas
 				$rspta=$reloj->editar_primera_salida_vc($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora); 
 				echo $rspta ? "Marcación registrada" : "Marcación no se pudo registrar";
 
-				if($estado=='LABORABLE') {
-
-						if ($hora_salida_sh_vc<$hora  AND  $cant_dif_hssh_hsre_vc>='3600'  AND $cant_dif_hssh_hsre_vc<='43200') {
-
-							$hora_inicio=$hora_salida_sh_vc;
-						    $hora_fin= $hora;
-							$cantidad= $dif_hssh_hsre_vc;
-							$tiempo_fin=$tiempo_redondeado_sal_vc; 
-							$id_fec_abono=$id_cp_des; 
-							$por_pago='0';
-
-							$rspta=$reloj->registrar_hora_extra_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
-
-						}else if ($hora_salida_sh_vc>$hora) {
-
-							$descontar='1';
-							$habilitar_dscto='1';
-
-							$hora_inicio= $hora;
-							$hora_fin= $hora_salida_sh_vc;
-							$cantidad= $dif_hssh_hsre_vc;
-							$tiempo_des= $dif_hssh_hsre_vc;
-							$tiempo_fin=$tiempo_redondeado_sal_dscto_vc; 
-							$id_fec_dscto=$id_cp_des; 
-
-							$tiempo_ref='00:00:00';
-							$rspta=$reloj->registrar_hora_dscto_vacaciones($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $habilitar_dscto, $fec_reg, $pc_reg, $usu_reg);
-											        
-						}
-
-				}else if ($estado!='LABORABLE') {
-
-
-							$hora_fin= $hora;
-
-							$cantidad= $dif_hihevc_hsre_vc;
-
-							$tiempo_fin=$tiempo_redondeado_hihevc_hsre_vc;
-						
-
-						$rspta=$reloj->actualizar_hora_extra_vacaciones($id_trab, $fecha,  $hora_fin, $cantidad, $tiempo_fin,  $fec_reg, $pc_reg, $usu_reg);
-
-				}
+				
 
 
 

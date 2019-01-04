@@ -37,7 +37,7 @@ if ($_SESSION['rrhh']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                          
+                            <th></th>
                             <th  style="width:10px">Fec.Emision</th>
                             <th  style="width:10px">Fec.Procede</th>
                             <th>Colaborador</th>
@@ -55,6 +55,7 @@ if ($_SESSION['rrhh']==1)
                           <tbody>                            
                           </tbody>
                           <tfoot>
+                            <th></th>
                             <th>Fec.Emision</th>
                             <th>Fec.Procede</th>
                             <th>Colaborador</th>

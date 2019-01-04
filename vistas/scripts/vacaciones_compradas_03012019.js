@@ -13,9 +13,9 @@ function init(){
 
 
 	//Cargamos los items al select cliente
-	$.post("../ajax/vacaciones_compradas.php?op=selectFechaspago", function(r){
-	            $("#id_cp_vac_com").html(r);
-	            $('#id_cp_vac_com').selectpicker('refresh');
+	$.post("../ajax/consultasD.php?op=selectTrabajadorVacaciones", function(r){
+	            $("#id_nomtrab").html(r);
+	            $('#id_nomtrab').selectpicker('refresh');
 	});	
 
 
@@ -150,9 +150,9 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_permiso)
+function mostrar(id_cp)
 {
-		$.post("../ajax/vacaciones_compradas.php?op=mostrar",{id_permiso : id_permiso}, function(data, status)
+		$.post("../ajax/vacaciones_compradas.php?op=mostrar",{id_cp : id_cp}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
@@ -160,18 +160,11 @@ function mostrar(id_permiso)
 
 		
 
-		$("#nombres").val(data.nombres);
-		$("#id_permiso").val(data.id_permiso);
-
-
-		$("#fecha_procede").val(data.fecha_procede);
-		$("#fecha_hasta").val(data.fecha_hasta);
-
-		$("#pago_vac_comp").val(data.pago_vac_comp);
-
-		
-		$("#id_cp_vac_com").val(data.id_cp_vac_com);
-		$('#id_cp_vac_com').selectpicker('refresh'); 
+		$("#CantItems").val(data.CantItems);
+		$("#Ano").val(data.Ano);
+		$("#Descrip_fec_pag").val(data.Descrip_fec_pag);
+		$("#id_cp").val(data.id_cp);
+	
 
 
 		//Ocultar y mostrar los botones
@@ -181,7 +174,7 @@ function mostrar(id_permiso)
 		$("#btnAgregarArt").show();
  	});
 
- 	$.post("../ajax/vacaciones_compradas.php?op=listarDetalle&id_permiso="+id_permiso,function(r){
+ 	$.post("../ajax/vacaciones_compradas.php?op=listarDetalle&id_cp="+id_cp,function(r){
 	        $("#detalles").html(r);
 	});	
 }
@@ -206,7 +199,7 @@ var impuesto=18;
 var cont=0;
 var detalles=0;
 //$("#guardar").hide();
-$("#btnGuardar").show();
+$("#btnGuardar").hide();
 $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()

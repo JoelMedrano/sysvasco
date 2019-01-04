@@ -20,7 +20,7 @@ $conexion=mysql_connect("192.168.1.26","admin","vasco123");
 mysql_select_db("db_corpvasco",$conexion);   
 
 
-   $fecha=date("d/m/Y");
+$fecha=date("d/m/Y");
 
 
 
@@ -1692,7 +1692,7 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
     (tr.bono_trab/2) AS bono_quincenal,
     IFNULL(pd.bono_des_trab,0.00) AS bono_destajo_quincenal,
       /*------------------------------------NUEVA FILA------------------------------------*/
-    '0' AS vacaciones_compradas_otros, /* FALTA CALCULAR DESDE LA PANTALLLA  */
+    IFNULL(mvc.pago_vac_comp, '0.00') AS vacaciones_compradas_otros, /* FALTA CALCULAR DESDE LA PANTALLLA  */
       /*------------------------------------NUEVA FILA------------------------------------*/
     ROUND(
     ((het.cant_abono_horas_al25 * trcop.pre_hor_ext_25)       +  (het.cant_abono_horas_al35 * trcop.pre_hor_ext_35) +
@@ -1707,7 +1707,8 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
        WHEN  tr.id_trab LIKE 'P%'  THEN 
       (ROUND( (tr.bono_trab/2)   /*BONO SUELDO */+
              IFNULL(pd.bono_des_trab,0.00) +
-            /*LINEA DE VACACIONES COMPRADAS*/  
+            /*LINEA DE VACACIONES COMPRADAS*/
+            IFNULL (mvc.pago_vac_comp, '0.00') +  
              ((het.cant_abono_horas_al25 * trcop.pre_hor_ext_25)       +  (het.cant_abono_horas_al35 * trcop.pre_hor_ext_35) +
             (het.cant_abono_horas_dom * trcop.pre_hor_ext_dominical) +  (het.cant_abono_horas_fer * trcop.pre_hor_ext_feriado)) 
              , 0))
@@ -1782,6 +1783,13 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
     NULL AS cant_monedas_1
         FROM trabajador tr
         CROSS JOIN (SELECT @i := 0) tr
+        LEFT JOIN (
+        SELECT pp.id_trab,  pp.id_cp_vac_com, pp.pago_vac_comp  
+        FROM permiso_personal pp
+        WHERE pp.tip_permiso='VC'
+        AND id_vac_com='1'
+        ) AS mvc  ON mvc.id_trab= tr.id_trab
+        AND mvc.id_cp_vac_com='".$id_seg_quin."'
         LEFT JOIN (
         SELECT  id_trab, mon_total,  ROUND((mon_total/2),2) AS mon_quin
         FROM renta_quinta_categoria
@@ -2037,11 +2045,11 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
             LEFT JOIN 
              /*INICIO DE HORAS EXTRAS AL  25, 35 DOMINGOS Y FERIADOS*/
             ( SELECT tr.id_trab,  
-                   IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-                   IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-                   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-                   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-            FROM Trabajador tr
+       IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
+       IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
+       IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
+       IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
+FROM Trabajador tr
                LEFT JOIN ( SELECT 
                 DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
                 hep.id_trab,
@@ -2250,7 +2258,7 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
           FROM anticipo_adelanto AS aa 
         ) AS aa  ON aa.id_trab=tr.id_trab
         LEFT JOIN 
-        ( SELECT   pp.id_trab, 
+        (      SELECT   pp.id_trab, 
                IF( pp.id_cp='".$id_seg_quin."',  'SI', '0.00')  AS monto,
                ROUND( (tr.sueldo_trab/30)*pd.dias_vc + 0.0000000001 ,2) AS monto_a_pagar,
                pd.fechas,
@@ -2330,7 +2338,7 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
                 ) AS pd ON  pd.id_permiso= pp.id_permiso
                           WHERE pp.tip_permiso='VC'
                           AND pp.fecha_hasta BETWEEN   cp.desde AND cp.hasta 
-                          AND pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta  
+                          AND pp.fecha_procede NOT BETWEEN   cp.desde AND cp.hasta 
         ) AS vac  ON vac.id_trab=tr.id_trab
         LEFT JOIN 
         ( SELECT pp.id_trab, pp.dias, pp.monto_a_pagar,  pp.id_fecha_pago1, pp.id_cp,
@@ -2396,7 +2404,6 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
       WHERE tr.est_reg='1' 
       ORDER BY tr.id_tip_plan ASC, tr.id_trab ASC
         ;
-        
   ");  
 
 
@@ -4189,7 +4196,7 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
     (tr.bono_trab/2) AS bono_quincenal,
     IFNULL(pd.bono_des_trab,0.00) AS bono_destajo_quincenal,
       /*------------------------------------NUEVA FILA------------------------------------*/
-    '0' AS vacaciones_compradas_otros, /* FALTA CALCULAR DESDE LA PANTALLLA  */
+    IFNULL(mvc.pago_vac_comp, '0.00') AS vacaciones_compradas_otros, /* FALTA CALCULAR DESDE LA PANTALLLA  */
       /*------------------------------------NUEVA FILA------------------------------------*/
     ROUND(
     ((het.cant_abono_horas_al25 * trcop.pre_hor_ext_25)       +  (het.cant_abono_horas_al35 * trcop.pre_hor_ext_35) +
@@ -4204,7 +4211,8 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
        WHEN  tr.id_trab LIKE 'P%'  THEN 
       (ROUND( (tr.bono_trab/2)   /*BONO SUELDO */+
              IFNULL(pd.bono_des_trab,0.00) +
-            /*LINEA DE VACACIONES COMPRADAS*/  
+            /*LINEA DE VACACIONES COMPRADAS*/
+            IFNULL (mvc.pago_vac_comp, '0.00') +  
              ((het.cant_abono_horas_al25 * trcop.pre_hor_ext_25)       +  (het.cant_abono_horas_al35 * trcop.pre_hor_ext_35) +
             (het.cant_abono_horas_dom * trcop.pre_hor_ext_dominical) +  (het.cant_abono_horas_fer * trcop.pre_hor_ext_feriado)) 
              , 0))
@@ -4279,6 +4287,13 @@ $sql=mysql_query("SELECT  DISTINCT   tr.id_trab,
     NULL AS cant_monedas_1
         FROM trabajador tr
         CROSS JOIN (SELECT @i := 0) tr
+        LEFT JOIN (
+        SELECT pp.id_trab,  pp.id_cp_vac_com, pp.pago_vac_comp  
+        FROM permiso_personal pp
+        WHERE pp.tip_permiso='VC'
+        AND id_vac_com='1'
+        ) AS mvc  ON mvc.id_trab= tr.id_trab
+        AND mvc.id_cp_vac_com='".$id_pri_quin."'
         LEFT JOIN (
         SELECT  id_trab, mon_total,  ROUND((mon_total/2),2) AS mon_quin
         FROM renta_quinta_categoria
@@ -4891,9 +4906,7 @@ FROM Trabajador tr
          tt.id_trab= tr.id_trab
         ) AS difa ON difa.id_trab= tr.id_trab
       WHERE tr.est_reg='1' 
-      ORDER BY tr.id_tip_plan ASC, tr.id_trab ASC
-        ;
-        
+      ORDER BY tr.id_tip_plan ASC, tr.id_trab ASC   ;
   ");  
 
 

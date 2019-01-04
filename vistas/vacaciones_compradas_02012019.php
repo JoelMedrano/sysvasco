@@ -51,49 +51,29 @@ if ($_SESSION['rrhh']==1)
                     </div>
                     <div class="panel-body" style="height: 620px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-
-                        <div class="form-group  col-xs-12">
                           
-                              <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <label>Trabajador:</label>
-                                <input type="text" readonly class="form-control" name="nombres" id="nombres" autocomplete="off">
-                          
-                                <input type="hidden"  class="form-control" name="id_permiso" id="id_permiso" >
-
-                              </div>
-
-                          
-                               <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                <label>Fecha Desde:</label>
-                                <input type="text" readonly class="form-control" name="fecha_procede" id="fecha_procede"  autocomplete="off">
-                              </div>
-
-                               <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                <label>Fecha Hasta:</label>
-                                <input type="text" readonly class="form-control" name="fecha_hasta" id="fecha_hasta"  autocomplete="off">
-                              </div>
-                        </div>
-
-
-                          <div class="form-group  col-xs-12">
-
-                                <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                  <label>Monto:</label>
-                                  <input type="text"  class="form-control" name="pago_vac_comp" id="pago_vac_comp"  autocomplete="off">
-                                </div>
-
-                                <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">Fecha A Pagar(*):</label>
-                                      <div class="col-lg-4">
-                                        <select id="id_cp_vac_com" name="id_cp_vac_com" class="form-control selectpicker" data-live-search="true"></select>
-                                      </div>
-
-                                <br>
-
+                          <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                            <label>Año:</label>
+                            <input type="text" readonly class="form-control" name="Ano" id="Ano" autocomplete="off">
+                            <input type="hidden"  class="form-control" name="id_cp" id="id_cp" >
+                            <input type="hidden"  class="form-control" name="CantItems" id="CantItems">
                           </div>
 
+                      
+                           <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <label>Fecha de Pago:</label>
+                            <input type="text" readonly class="form-control" name="Descrip_fec_pag" id="Descrip_fec_pag"  autocomplete="off">
+                          </div>
+
+                        
+                          <br>
 
 
-                           
+                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  align="right">
+                            <a data-toggle="modal" href="#myModal">
+                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Trabajador</button>
+                            </a>
+                          </div>
 
 
                           <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
