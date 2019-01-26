@@ -402,6 +402,7 @@ switch ($_GET["op"]){
 
 
 
+
 				if($id_tip_plan==$ant_tip_plan){
 
 
@@ -455,6 +456,59 @@ switch ($_GET["op"]){
 
 
 				}
+
+				$dato=$trabajador->consultar_CodigoActivo_MismoDni($num_doc_trab);
+       			$regc=$dato->fetch_object();
+       			$codigo_activo=$regc->codigo_activo;
+
+
+
+
+
+
+				if ($fec_sal_trab!='00:00:00') {
+
+
+						if ($codigo_activo!='' AND  $codigo_activo!=$id_trab) {
+
+								$rspta=$trabajador->actualizar_reloj_data( $id_trab, $codigo_activo, $fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+								$rspta=$trabajador->actualizar_hora_extra_data( $id_trab,  $codigo_activo, $fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+								$rspta=$trabajador->actualizar_hora_permiso_data( $id_trab, $codigo_activo, $fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+
+						      
+						        $dato=$trabajador->consultar_horario_refrigerio($id_trab);
+				       			$regc=$dato->fetch_object();
+				       			$horario=$regc->horario;
+				       			$refrigerio=$regc->refrigerio;
+
+
+				       			$rspta=$trabajador->insertar_horario_refrigerio( $codigo_activo, $horario, $refrigerio, $fec_reg, $pc_reg, $usu_reg  );
+
+				       			$rspta=$trabajador->actualizar_horario_refrigerio_codigoanterior( $id_trab,  $fec_reg, $pc_reg,	$usu_reg  );
+				       			
+				       			
+								 
+						}
+
+
+					$rspta=$trabajador->insertar_reloj_data_eliminada( $id_trab, $fec_sal_trab );
+					$rspta=$trabajador->actualizar_quienelimino_reloj($id_trab,	$fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$trabajador->eliminar_reloj( $id_trab, $fec_sal_trab );
+
+
+					$rspta=$trabajador->insertar_hora_falta_data_eliminada( $id_trab, $fec_sal_trab );
+					$rspta=$trabajador->actualizar_quienelimino_hora_falta($id_trab,	$fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$trabajador->eliminar_hora_falta( $id_trab, $fec_sal_trab );
+
+
+					$rspta=$trabajador->insertar_hora_extra_data_eliminada( $id_trab, $fec_sal_trab );
+					$rspta=$trabajador->actualizar_quienelimino_hora_extra($id_trab, $fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$trabajador->eliminar_hora_extra( $id_trab, $fec_sal_trab ); 
+			
+				}
+
+
+				
 
 
 			
@@ -1249,6 +1303,30 @@ switch ($_GET["op"]){
 		$rspta=$trabajador->eliminar_trabajador_exp_laboral($id_trab);
 		$rspta=$trabajador->eliminar_trabajador_familia($id_trab);
 		$rspta=$trabajador->eliminar_trabajador_salud($id_trab);
+
+		$rspta=$trabajador->insertar_reloj_data_eliminada_todo($id_trab);
+		$rspta=$trabajador->actualizar_quienelimino_reloj_todo($id_trab , $fec_reg, $pc_reg, $usu_reg );
+		$rspta=$trabajador->eliminar_reloj_todo($id_trab);
+
+		$rspta=$trabajador->insertar_hora_falta_data_eliminada_todo($id_trab);
+		$rspta=$trabajador->actualizar_quienelimino_hora_falta_todo($id_trab , $fec_reg, $pc_reg, $usu_reg );
+		$rspta=$trabajador->eliminar_hora_falta_todo($id_trab);
+
+		$rspta=$trabajador->insertar_hora_extra_data_eliminada_todo($id_trab);
+		$rspta=$trabajador->actualizar_quienelimino_hora_extra_todo($id_trab, $fec_reg, $pc_reg, $usu_reg );
+		$rspta=$trabajador->eliminar_hora_extra_todo($id_trab);
+
+		$rspta=$trabajador->insertar_permisos_asociados($id_trab);
+		$rspta=$trabajador->actualizar_quienelimino_permisos_asociados($id_trab, $fec_reg, $pc_reg, $usu_reg );
+		$rspta=$trabajador->eliminar_permisos_asociados($id_trab);
+
+
+		$rspta=$trabajador->eliminar_horario_refrigerio($id_trab);
+
+
+
+      /*AGREGAR QUE ELIMINE EL PERMISO DE PERSONLA*/
+
  		echo $rspta ? "Trabajador Eliminado" : "Trabajador no se puede eliminar";
 	break;
 
@@ -1307,9 +1385,7 @@ switch ($_GET["op"]){
  				"12"=>'<button class="btn btn-primary" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  				"13"=>'<a target="_blank" href="'.$url.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
  				"14"=>'<a target="_blank" href="'.$url2.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"15"=>($reg->est_reg)?
- 					' <button class="btn btn-warning" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-warning"></i></button>':
- 					' <button class="btn btn-warning" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-warning"></i></button>'
+ 				"15"=>'<button class="btn btn-warning" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-warning"></i></button>'
  				);
  		}
  		$results = array(

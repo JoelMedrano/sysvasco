@@ -2,9 +2,9 @@
 if (strlen(session_id()) < 1) 
   session_start();
 
-require_once "../modelos/Registro_Marcaciones.php";
+require_once "../modelos/Historial_Contratos.php";
 
-$rm=new Registro_Marcaciones();
+$contratos=new Historial_Contratos();
 
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
@@ -43,7 +43,7 @@ switch ($_GET["op"]){
 
 		if (empty($tie_ren_con)){
 
-				$rspta=$contratos->editar( $id_trab,
+				$rspta=$contratos->editar($id_trab,
 										   $id_con_trab,
 										   $tie_ren_ant,
 										   $fec_ini_ant,
@@ -103,23 +103,22 @@ switch ($_GET["op"]){
 		$total=0;
 		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
-									<th width="40px">Item</th>
-                                    <th width="100px">Periodo</th>
-                                    <th width="100px">Del</th>
-                                    <th width="100px">Al</th>
-                                    <th width="50px">Total Dias</th>
-                                    <th width="50px">Dias Pend</th>
-                                    <th width="700px">Obser Detalle</th>
-                                    <th width="200px" >Observaciones</th>
-                                    <th width="50px">Editar</th>
-                                    <th width="50px">Opciones</th>
+									<th width="10px">Item</th>
+                                    <th width="50px">Fecha Desde</th>
+                                    <th width="50px">Fecha Hasta</th>
+                                    <th width="30px">Meses Renovados</th>
+                                    <th width="100px">Situacion Informativa</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td><input type="text" size="1" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text" size="7" name="PeridoAnual[]" value="'.$reg->PeridoAnual.'" readonly></td><td><input type="date" size="8" name="fec_del[]" value="'.$reg->fec_del.'"></td><td><input type="date" size="8" name="fec_al[]" value="'.$reg->fec_al.'"></td><td><input type="text" size="1" name="tot_dias[]" value="'.$reg->tot_dias.'"></td><td><input type="text" size="1" name="pen_dias[]" value="'.$reg->pen_dias.'"></td><td><input type="text" size="100" name="obser_detalle[]" value="'.$reg->obser_detalle.'"></td><td><input type="text" size="25" name="obser[]" value="'.$reg->obser.'"></td><td><a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
-                            </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  >
+					<td><input type="text" size="10" name="correlativo[]" value="'.$reg->correlativo.'"></td>
+					<td><input type="text" size="30" name="PeridoAnual[]" value="'.$reg->fec_ini_con.'" readonly></td>
+					<td><input type="text" size="30" name="fec_del[]" value="'.$reg->fec_fin_con.'"></td>
+					<td><input type="text" size="30" name="fec_al[]" value="'.$reg->tie_ren_ant.'"></td>
+					<td><input type="text" size="50" name="pen_dias[]" value="'.$reg->situacion_informativa_actual.'"></td>
+                    </tr>';
 					$total=$periodo;
 					$cont++;
 				}
@@ -130,25 +129,11 @@ switch ($_GET["op"]){
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
                                 </tfoot>';
 	break;
 
 	case 'listar':
-
-	$fecha_inicio=$_REQUEST["fecha_inicio"];
-	$fecha_fin=$_REQUEST["fecha_fin"];
-	$id_trab=$_REQUEST["id_trab"];
-
-		$rspta=$rm->listar($fecha_inicio,$fecha_fin,$id_trab);
+		$rspta=$contratos->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -156,19 +141,12 @@ switch ($_GET["op"]){
  			
 
  			$data[]=array(
- 				"0"=>$reg->mar,
- 				"1"=>$reg->nom_dia,
- 				"2"=>$reg->Fecha,
- 				"3"=>$reg->sucursal_anexo,
- 				"4"=>$reg->estado_trab,
- 				"5"=>$reg->nombres,
- 				"6"=>$reg->area_trab,
- 				"7"=>$reg->hor_ent_sal,
- 				"8"=>$reg->detalle,
- 				"9"=>$reg->horas_extras,
- 				"10"=>$reg->horas_faltas,
- 				"11"=>$reg->min_tardanza
-
+ 				"0"=>$reg->est_reg,
+ 				"1"=>$reg->sucursal_anexo,
+ 				"2"=>$reg->area_trab,
+ 				"3"=>$reg->funcion,
+ 				"4"=>$reg->nombres,
+ 				"5"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-pencil"></i></button>',
  				);
  		}
  		$results = array(
@@ -213,22 +191,6 @@ switch ($_GET["op"]){
  			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
  			"aaData"=>$data);
  		echo json_encode($results);
-	break;
-
-	case 'selectTrab':
-
-	require_once "../modelos/ConsultasJ.php";
-
-	$con = new ConsultasJ();
-
-	echo '<option value="">SELECCIONE</option>';
-
-	$rspta = $con->selectTrab();
-
-	while ($reg = $rspta->fetch_object())
-			{
-			echo '<option value=' . $reg->id_trab . '>' . $reg->trabajador . '</option>';
-			}
 	break;
 
 

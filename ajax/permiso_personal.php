@@ -185,9 +185,89 @@ switch ($_GET["op"]){
 											   $imagen2, 
 											   $imagen3, 
 											   $imagen4 );
+
+				/*INICIO - AGREGADO EL  08/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+					if ($tip_permiso=='VC' AND $id_vac_com=='0') {
+						
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+
+					}
+
+			
+
+				/*FIN  - AGREGADO EL  08/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+
+		    	/*INICIO  - AGREGADO EL  19/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS, HORAS DE PERMISO Y COLOQUE COMO FALTA*/
+				
+					if ($tip_permiso=='SU') {
+
+
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+
+					$rspta=$permiso_personal->insertar_faltas_desde_hasta( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg  ); 
+
+					}
+
+
+					if ($tip_permiso=='ND') {
+
+
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+
+					
+					}
+
+
+				/*INICIO  - AGREGADO EL  19/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS, HORAS DE PERMISO Y COLOQUE COMO FALTA*/
+				
+
+
+
 			echo $rspta ? "Permiso registrado" : "Permiso no se pudo registrar";
 		}
 		else {
+			
 			$rspta=$permiso_personal->editar($id_permiso,
 											 $id_trab,
 											 $fecha_emision,
@@ -212,6 +292,84 @@ switch ($_GET["op"]){
 											 $imagen2, 
 											 $imagen3, 
 											 $imagen4);
+
+			/*INICIO - AGREGADO EL  08/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+					if ($tip_permiso=='VC' AND $id_vac_com=='0') {
+						
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj($id_trab,	$fecha_procede, $fecha_hasta , $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+					
+					}
+
+			/*FIN  - AGREGADO EL  08/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+			
+		    	/*INICIO  - AGREGADO EL  19/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS, HORAS DE PERMISO Y COLOQUE COMO FALTA*/
+				
+					if ($tip_permiso=='SU') {
+
+
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+
+					$rspta=$permiso_personal->insertar_faltas_desde_hasta( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg  ); 
+
+					}
+
+
+					if ($tip_permiso=='ND') {
+
+
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+
+					
+					}
+
+
+				/*INICIO  - AGREGADO EL  19/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS, HORAS DE PERMISO Y COLOQUE COMO FALTA*/
+				
+
+
+
+
 			echo $rspta ? "Permiso actualizado" : "Permiso no se pudo actualizar";
 		}
 
@@ -227,6 +385,16 @@ switch ($_GET["op"]){
 	case 'activar':
 		$rspta=$permiso_personal->activar($id_permiso, $fec_reg, $pc_reg, $usu_reg);
  		echo $rspta ? "Permiso activado" : "Permiso no se puede activar";
+	break;
+
+
+	case 'eliminar':
+
+		$rspta=$permiso_personal->insertar_data_eliminada($id_permiso, $fec_reg, $pc_reg, $usu_reg);
+		$rspta=$permiso_personal->eliminar($id_permiso, $fec_reg, $pc_reg, $usu_reg);
+ 		echo $rspta ? "Permiso eliminado" : "Permiso no se puede eliminar";
+
+ 		
 	break;
 
 	case 'mostrar':
@@ -288,8 +456,8 @@ switch ($_GET["op"]){
 
  			   $data[]=array(
  				"0"=>$reg->pp,
- 				"1"=>$reg->fecha_emision,
- 				"2"=>$reg->fecha_procede,
+ 				"1"=>$reg->fecha_procede,
+ 				"2"=>$reg->fecha_hasta,
  				"3"=>$reg->nombres,
  				"4"=>$reg->tipo_permiso,
  				"5"=>$reg->motivo,
@@ -314,7 +482,10 @@ switch ($_GET["op"]){
 
  				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
-                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+
+                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+
+                "14"=>' <button class="btn btn-danger" onclick="eliminar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>'
  						
  				);
 
@@ -323,8 +494,8 @@ switch ($_GET["op"]){
 
  			   $data[]=array(
  				"0"=>$reg->pp,
- 				"1"=>$reg->fecha_emision,
- 				"2"=>$reg->fecha_procede,
+ 				"1"=>$reg->fecha_procede,
+ 				"2"=>$reg->fecha_hasta,
  				"3"=>$reg->nombres,
  				"4"=>$reg->tipo_permiso,
  				"5"=>$reg->motivo,
@@ -345,7 +516,9 @@ switch ($_GET["op"]){
 
  				"12"=>($reg->est_reg)?' <button class="btn btn-danger" onclick="desactivar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_permiso.')"><i class="fa fa-check"></i></button>',
-                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+                "13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+
+                "14"=>' <button class="btn btn-danger" onclick="eliminar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>'
  					
 
  				);
@@ -358,8 +531,8 @@ switch ($_GET["op"]){
              $data[]=array(
 
  				"0"=>$reg->pp,
- 				"1"=>$reg->fecha_emision,
- 				"2"=>$reg->fecha_procede,
+ 				"1"=>$reg->fecha_procede,
+ 				"2"=>$reg->fecha_hasta,
  				"3"=>$reg->nombres,
  				"4"=>$reg->tipo_permiso,
  				"5"=>$reg->motivo,
@@ -377,7 +550,10 @@ switch ($_GET["op"]){
  				"10"=>$reg->ninguno,
  				"11"=>$reg->ninguno,
  				"12"=>$reg->ninguno,
- 				"13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>'
+ 				"13"=>'<a target="_blank" href="'.$url.$reg->id_permiso.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+
+ 				"14"=>' <button class="btn btn-danger" onclick="eliminar('.$reg->id_permiso.')"><i class="fa fa-close"></i></button>'
+
  				);
 
 			 }

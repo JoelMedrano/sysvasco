@@ -228,6 +228,7 @@ Class Regimen_Pensionario
 		$hab_apo_mix=$hab_apo_obl +  $hab_com_men_rem+ $hab_pri_seg;
 
 
+		$sj_apo_obl=(($sj_apo_mix * $int_pri_seg)/100)/2;
 
 		$sql="UPDATE regimen_pensionario SET  
 										      obs_reg_pen='$obs_reg_pen',

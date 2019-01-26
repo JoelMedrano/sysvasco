@@ -68,7 +68,7 @@ Class ConsultasD
 		// Permiso - Implementar un método para listar los registros y mostrar en el select
 	public function selectPersonalNombreLargo()
 	{
-		$sql="SELECT id_trab, CONCAT(apepat_trab, ' ' , apemat_trab, ' ',  nom_trab )    AS apellidosynombres FROM  Trabajador";
+		$sql="SELECT id_trab, CONCAT(apepat_trab, ' ' , apemat_trab, ' ',  nom_trab )    AS apellidosynombres FROM  Trabajador WHERE est_reg='1'";
 		return ejecutarConsulta($sql);		
 	}
 

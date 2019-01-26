@@ -1181,13 +1181,17 @@ switch ($_GET["op"]){
 
 	case 'cerrar_primeraquincena':
 
-		$rspta=$planilla->cerrar_primeraquincena($primera_quincena);
+		$rspta=$planilla->cerrar_primeraquincena($primera_quincena, $fec_reg,  $usu_reg, $pc_reg);
+
+		$rspta=$planilla->insertar_informacion_atabla($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
 	//  $rspta=$planilla->ingresar_informacion_tablaplanillaquincenal($primera_quincena);
  		echo $rspta ? "Quincena Cerrada" : "Quincena no se puede cerrar";
 	break;
 
 	case 'cerrar_segundaquincena':
-		$rspta=$planilla->cerrar_segundaquincena($segunda_quincena);
+		$rspta=$planilla->cerrar_segundaquincena($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
 	//	$rspta=$planilla->ingresar_informacion_tablaplanillaquincenal($segunda_quincena);
  		echo $rspta ? "Quincena Cerrada" : "Quincena no se puede cerrar";
 	break;

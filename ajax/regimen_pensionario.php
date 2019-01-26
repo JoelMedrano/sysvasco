@@ -84,7 +84,7 @@ $sj_apo_mix=isset($_POST["sj_apo_mix"])? limpiarCadena($_POST["sj_apo_mix"]):"";
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		
-		if (empty($id_reg_pen)){
+		if ( empty($id_reg_pen) ){
 			$rspta=$regimen_pensionario->insertar(	$fec_des1,
 													$id_ano,
 													$obs_reg_pen,
@@ -136,7 +136,7 @@ switch ($_GET["op"]){
 
 
 
-			if ($copia_fec_des1=='0' OR $copia_fec_des1=='') {
+			if ($copia_fec_des1=='0' OR $copia_fec_des1=='' OR $copia_fec_des1=='1' ) {
 
 				$rspta=$regimen_pensionario->editar($fec_des1,
 													$obs_reg_pen,

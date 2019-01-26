@@ -278,15 +278,14 @@ if (strlen(session_id()) < 1)
           
                       <ul class="treeview-menu">
                           <li class="treeview">
-                          <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>Trabajador</a></li>
-                          <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>Horario - Refrigerio del Trabajador(*)</a></li>
-                          <li><a href="horario.php"><i class="fa fa-circle-o"></i>Horarios</a></li>
-                          <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
-                          <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>Regimen Pensionario</a></li>
+                          <li><a href="trabajador.php"><i class="fa fa-circle-o"></i>(*)Trabajador</a></li>
+                          <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>(*)Horario - Refrigerio del Trabajador</a></li>
+                           <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>(*)Regimen Pensionario</a></li>
+                          <li><a href="cronograma_dsctos_abonos_horasdias.php"><i class="fa fa-circle-o"></i>(*)Cronograma Dsctos y Abonos(Horas/Dias)</a></li>
                           <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i>Cronograma de Pagos</a></li>
-                          <li><a href="cronograma_dsctos_abonos_horasdias.php"><i class="fa fa-circle-o"></i>Cronograma Dsctos y Abonos(Horas/Dias)</a></li>
+                           <li><a href="horario.php"><i class="fa fa-circle-o"></i>Horarios</a></li>
+                          <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
                           <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
-                          <li><a href="horas_lactancia.php"><i class="fa fa-circle-o"></i>Horas de Lactancia Quincenal</a></li>
                           <li><a href="excepciones_horario_pago.php"><i class="fa fa-circle-o"></i>Excepciones de Horario y Pago</a></li>
                           <li><a href="caso_movilidad.php"><i class="fa fa-circle-o"></i>Caso Movilidad</a></li>
                           <li><a href="caso_vigilancia.php"><i class="fa fa-circle-o"></i>Caso Vigilancia</a></li>
@@ -315,7 +314,22 @@ if (strlen(session_id()) < 1)
                   
                   <li><a href="permiso_personal.php"><i class="fa fa-circle-o"></i>Permisos Personal</a></li>
 
-                  <li><a href="contratos.php"><i class="fa fa-circle-o"></i>Contratos</a></li>
+                   <li class="treeview">
+                      <a href="#">
+                          <i class="fa fa-circle-o"></i> <span>Contratos</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+          
+                      <ul class="treeview-menu">
+                          <li class="treeview">
+                          <li><a href="contratos.php"><i class="fa fa-circle-o"></i>Registros de Contratos</a></li>
+                          <li><a href="contratos_filtrovencimiento.php"><i class="fa fa-circle-o"></i>Contratos Por Vencer a la Fecha</a></li>
+                          <li><a href="historial_contratos.php"><i class="fa fa-circle-o"></i>Historial de Contratos por Trabajador</a></li>
+                          </li>
+                      </ul>
+                  </li>
+
+                 
 
                   <li><a href="prestamos.php"><i class="fa fa-circle-o"></i>Prestamos</a></li>
 

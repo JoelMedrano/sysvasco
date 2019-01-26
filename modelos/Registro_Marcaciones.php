@@ -147,7 +147,8 @@ Class Registro_Marcaciones
 						'' AS detalle,
 						IFNULL(hep.tiempo_he,'') AS  horas_extras,
 						IF( IFNULL(hpp.tiempo_he,'')='00:00:00', '' , IFNULL(hpp.tiempo_he,'') ) AS horas_faltas,
-						hpp_min.tiempo_tardanza AS min_tardanza
+						hpp_min.tiempo_tardanza AS min_tardanza,
+						IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 				FROM  reloj re 
 					INNER JOIN trabajador  tr  ON  
 					re.id_trab= tr.id_trab  
@@ -206,7 +207,8 @@ Class Registro_Marcaciones
 						pp.permiso AS detalle,
 						null AS  horas_extras,
 						null AS horas_faltas,
-						null AS min_tardanza
+						null AS min_tardanza,
+						IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 				FROM  horas_permiso_personal hpp
 				INNER JOIN trabajador  tr  ON  
 					hpp.id_trab= tr.id_trab  
@@ -232,9 +234,140 @@ Class Registro_Marcaciones
 					AND hpp.fecha BETWEEN pp.fecha_procede AND  pp.fecha_hasta 
 					WHERE hpp.cant_dia_fin='1'
 					/*FIN  -  FALTAS REGISTRADAS EN LA TABLA CON DIAS INTEGROS*/
-					 UNION ALL 
+					UNION ALL 
+					/*INICIO - FALTAS DEL DIA ACTUAL SE ACTUALIZAN AL DIA SIGUIENTE,HABRA MARCACION O ALGUN TIPO DE PERMISO*/
+					SELECT 	'-' AS mar, 
+						DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
+						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
+						fe.dia,
+						fe.mes,
+						fe.ano,
+						tr.id_trab,
+						CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
+						tsua.des_larga AS sucursal_anexo,
+						tfun.des_larga AS funcion,
+						tare.des_larga AS area_trab,
+						tr.num_doc_trab,
+						'FALTA' hor_ent_sal,
+						fe.estado,
+						null AS detalle,
+						null AS  horas_extras,
+						null AS horas_faltas,
+						null AS min_tardanza,
+						IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
+					  FROM trabajador tr
+					  LEFT JOIN tabla_maestra_detalle AS tsua ON
+					  tsua.cod_argumento= tr.id_sucursal
+					  AND tsua.cod_tabla='TSUA'
+					  LEFT JOIN tabla_maestra_detalle AS tfun ON
+					  tfun.cod_argumento= tr.id_funcion
+					  AND tfun.cod_tabla='TFUN'
+					  LEFT JOIN tabla_maestra_detalle AS tare ON
+					  tare.cod_argumento= tr.id_area
+					  AND tare.cod_tabla='TARE'
+					  LEFT JOIN fechas fe ON
+					  fe.fecha= CURDATE()
+					  LEFT JOIN (
+							 SELECT   fe.nom_dia,
+								 CASE 
+								 WHEN  fe.nom_dia='LUNES'     THEN '1'
+								 WHEN  fe.nom_dia='MARTES'    THEN '1'
+								 WHEN  fe.nom_dia='MIERCOLES' THEN '1'
+								 WHEN  fe.nom_dia='JUEVES'    THEN '1'
+								 WHEN  fe.nom_dia='VIERNES'   THEN '1'
+								 ELSE '0'  END
+								 AS cantidad_dias,
+								 CASE 
+								 WHEN  fe.nom_dia='SABADO'     THEN 
+								 TIMEDIFF(hr.sabado_salida ,  hr.sabado_ingreso )
+								 ELSE ''  END
+								 AS cantidad_horas,
+								 CASE 
+								 WHEN  fe.nom_dia='LUNES'     THEN hr.lunes_ingreso
+								 WHEN  fe.nom_dia='MARTES'    THEN hr.martes_ingreso
+								 WHEN  fe.nom_dia='MIERCOLES' THEN hr.miercoles_ingreso
+								 WHEN  fe.nom_dia='JUEVES'    THEN hr.jueves_ingreso
+								 WHEN  fe.nom_dia='VIERNES'   THEN hr.viernes_ingreso
+								 WHEN  fe.nom_dia='SABADO'   THEN  hr.sabado_ingreso
+								 ELSE ''  END
+								 AS hora_ingreso_deldia, 
+								 TIMEDIFF(hr.sabado_salida ,  
+								 hr.sabado_ingreso ) AS tiempo,
+								 fe.estado,
+								 hrt.id_trab
+							FROM horario_refrigerio_trabajador AS hrt
+							LEFT JOIN horario AS hr ON 
+							hr.id_horario=  hrt.id_horario
+							LEFT JOIN fechas AS fe ON 
+							fe.fecha= CURDATE()
+							/*WHERE  TIMEDIFF(hr.sabado_salida , hr.sabado_ingreso ) >'00:00:00'*/
+					 )AS hrt ON  hrt.id_trab= tr.id_trab
+					LEFT JOIN ( SELECT   cp.id_cp, fe.fecha
+					FROM cronograma_dsctos_horasdias cp
+						LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+						TbPea.cod_argumento=  cp.id_ano
+						AND TbPea.Cod_tabla='TPEA'
+						LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+						TbFpa.cod_argumento=  cp.des_fec_pag
+						AND TbFpa.Cod_tabla='TFPA'
+						LEFT JOIN fechas fe ON
+						fe.fecha BETWEEN cp.desde AND cp.hasta
+					WHERE  cp.des_fec_pag  NOT IN  ('0')
+					AND fe.fecha= CURDATE()
+					) AS cp ON cp.fecha= CURDATE()
+					 WHERE NOT EXISTS (SELECT NULL
+							     FROM reloj re
+							    WHERE tr.id_trab = re.id_trab
+							    AND re.fecha= CURDATE()
+							    )
+					 AND NOT EXISTS (SELECT NULL
+							     FROM excepciones_horario_pago ehp
+							    WHERE ehp.id_trab = tr.id_trab)
+					 AND NOT EXISTS ( SELECT NULL 
+					       FROM trabajador AS tr1
+							LEFT JOIN (
+ 							         SELECT  fe.nom_dia,
+								 CASE 
+								 WHEN  fe.nom_dia='LUNES'     THEN hr.lunes_ingreso
+								 WHEN  fe.nom_dia='MARTES'    THEN hr.martes_ingreso
+								 WHEN  fe.nom_dia='MIERCOLES' THEN hr.miercoles_ingreso
+								 WHEN  fe.nom_dia='JUEVES'    THEN hr.jueves_ingreso
+								 WHEN  fe.nom_dia='VIERNES'   THEN hr.viernes_ingreso
+								 WHEN  fe.nom_dia='SABADO'   THEN  hr.sabado_ingreso
+								 ELSE ''  END
+								 AS hora_ingreso_deldia,
+								 CASE 
+								 WHEN  fe.nom_dia='SABADO'     THEN 
+								 TIMEDIFF(hr.sabado_salida ,  hr.sabado_ingreso )
+								 ELSE ''  END
+								 AS cantidad_horas, 
+								 TIMEDIFF(hr.sabado_salida ,  
+								 hr.sabado_ingreso ) AS tiempo,
+								 fe.estado,
+								 hrt.id_trab
+							FROM horario_refrigerio_trabajador AS hrt
+							LEFT JOIN horario AS hr ON 
+							hr.id_horario=  hrt.id_horario
+							LEFT JOIN fechas AS fe ON 
+							fe.fecha= CURDATE() ) AS  hrd ON hrd.id_trab= tr1.id_trab
+							WHERE hrd.hora_ingreso_deldia='00:00:00'
+							AND tr1.id_trab= tr.id_trab
+					 ) 
+					 AND NOT EXISTS ( 
+					  SELECT      NULL
+					  FROM permiso_personal  pp
+					  WHERE pp.tip_permiso IN ('VC', 'LS', 'LC', 'LM','LP','FD', 'FF','DM','CO', 'ND')
+					  AND  CURDATE() BETWEEN  DATE(pp.fecha_procede) AND   DATE(pp.fecha_hasta)
+					  AND pp.id_trab= tr.id_trab
+					)
+					AND hrt.estado='LABORABLE' 
+					AND tiempo IS NOT NULL
+					AND TIME (NOW()) > hrt.hora_ingreso_deldia
+					AND tr.est_reg='1'
+					/*INICIO - FALTAS DEL DIA ACTUAL SE ACTUALIZAN AL DIA SIGUIENTE,HABRA MARCACION O ALGUN TIPO DE PERMISO*/
 					 /*INICIO -  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
-					 SELECT  '-' AS mar, 
+					UNION ALL
+					SELECT  '-' AS mar, 
 						DATE_FORMAT(fe.fecha, '%d/%m/%Y')  AS Fecha,
 						SUBSTRING(fe.nom_dia,1,3)  AS nom_dia,
 						fe.dia,
@@ -251,7 +384,8 @@ Class Registro_Marcaciones
 						CONCAT(re.hor_ent, ' - ', re.hor_sal)  AS detalle,
 						null AS  horas_extras,
 						null AS horas_faltas,
-						null AS min_tardanza
+						null AS min_tardanza,
+						IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 					 FROM fechas fe
 					 INNER JOIN permiso_personal pp ON
 					 fe.fecha BETWEEN  pp.fecha_procede  AND pp.fecha_hasta 
@@ -276,7 +410,7 @@ Class Registro_Marcaciones
 					    pp.id_trab= re.id_trab 
 					    AND fe.fecha= re.fecha
 					/*NOT EXISTS (  SELECT  NULL FROM reloj re WHERE pp.id_trab= re.id_trab AND fe.fecha= re.fecha)*/
-					WHERE pp.tip_permiso IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
+					WHERE pp.tip_permiso IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM', 'ND')
 					AND fe.fecha <= CURDATE()
 					/*FIN  VACACIONES , PERMISO Y LICENCIAS CON DIAS INTEGROS*/
 					UNION ALL
@@ -298,7 +432,8 @@ Class Registro_Marcaciones
 		                    '' AS detalle,
 		                    null AS  horas_extras,
 							null AS horas_faltas,
-							null AS min_tardanza
+							null AS min_tardanza,
+							IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 				    FROM Trabajador AS tr CROSS JOIN  Fechas AS fe
 					LEFT JOIN tabla_maestra_detalle AS tpla ON
 						tpla.cod_argumento= tr.id_tip_plan
@@ -313,7 +448,7 @@ Class Registro_Marcaciones
 						tare.cod_argumento= tr.id_area
 						AND tare.cod_tabla='TARE'
 					WHERE fe.fecha<= CURDATE()
-					AND tr.id_trab='1'
+					AND tr.est_reg='1'
 				    AND fe.estado IN ('FERIADO','NO LABORABLE')
                     AND  NOT EXISTS(  SELECT  NULL 
 		  				              FROM reloj re 
@@ -344,7 +479,8 @@ Class Registro_Marcaciones
 		                    '' AS detalle,
 		                    null AS  horas_extras,
 							null AS horas_faltas,
-							null AS min_tardanza
+							null AS min_tardanza,
+							IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 				    FROM Trabajador AS tr CROSS JOIN  Fechas AS fe
 					LEFT JOIN tabla_maestra_detalle AS tpla ON
 						tpla.cod_argumento= tr.id_tip_plan
@@ -390,7 +526,8 @@ Class Registro_Marcaciones
 							'' AS detalle,
 							null AS  horas_extras,
 							null AS horas_faltas,
-							null AS min_tardanza
+							null AS min_tardanza,
+							IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 						FROM  trabajador tr CROSS JOIN fechas fe
 						LEFT JOIN tabla_maestra_detalle AS tpla ON
 							  tpla.cod_argumento= tr.id_tip_plan
@@ -427,6 +564,7 @@ Class Registro_Marcaciones
 						) AS dato  ON dato.id_trab= tr.id_trab
 						AND dato.fecha=fe.fecha
 						WHERE  fe.fecha <= CURDATE()
+						AND fe.fecha >= tr.fec_ing_trab
 						AND tr.est_reg='1'
 						AND dato.hora_ingreso='00:00:00'
 						AND  NOT EXISTS (  SELECT  NULL FROM reloj re WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha)
@@ -450,7 +588,8 @@ Class Registro_Marcaciones
 							'' AS detalle,
 							null AS  horas_extras,
 							null AS horas_faltas,
-							null AS min_tardanza
+							null AS min_tardanza,
+							IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 						FROM  trabajador tr CROSS JOIN fechas fe
 						LEFT JOIN tabla_maestra_detalle AS tpla ON
 							  tpla.cod_argumento= tr.id_tip_plan
@@ -510,7 +649,8 @@ Class Registro_Marcaciones
 						pp.permiso AS detalle,
 						NULL AS  horas_extras,
 						hpp.tiempo_fin AS horas_faltas,
-						NULL AS min_tardanza
+						NULL AS min_tardanza,
+						IF(tr.est_reg='1', 'ACTIVO', 'CESADO') AS estado_trab
 				 FROM  horas_permiso_personal hpp
 				 INNER JOIN trabajador  tr  ON  
 				 	hpp.id_trab= tr.id_trab  
@@ -531,7 +671,7 @@ Class Registro_Marcaciones
 						LEFT JOIN tabla_maestra_detalle  tbm ON
 						tbm.des_corta= pp.tip_permiso
 						AND tbm.cod_tabla='TPER'
-						WHERE pp.tip_permiso NOT IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM')
+						WHERE pp.tip_permiso NOT IN ('VC', 'LC','LS', 'LM', 'LP', 'FD' , 'FF', 'DM', 'ND')
 					) AS pp ON pp.id_trab= hpp.id_trab
 					AND hpp.fecha BETWEEN pp.fecha_procede AND  pp.fecha_hasta 
 					WHERE hpp.cant_dia_fin='0'

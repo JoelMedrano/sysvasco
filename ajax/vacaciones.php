@@ -6,6 +6,14 @@ require_once "../modelos/Vacaciones.php";
 
 $vacaciones=new Vacaciones();
 
+
+//Campos de Seguridad//
+$usu_reg=$_SESSION['login'];
+$pc_reg= gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$fec_emi =  date("d/m/Y H:i:s");
+$fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
+//Campos de Seguridad//
+
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
 $idusuario=$_SESSION["idusuario"];
@@ -31,15 +39,15 @@ switch ($_GET["op"]){
 		if (empty($nro_doc)){
 			$rspta=$vacaciones->insertar($id_nomtrab,$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],
 				$_POST["pen_dias"],$_POST["obser_detalle"],$_POST["vencidas"],$_POST["truncas"],$_POST["fec_del_dec"],$_POST["fec_al_dec"],$_POST["tot_dias_dec"],
-				$_POST["pen_dias_dec"],$_POST["obser"]);
+				$_POST["pen_dias_dec"],$_POST["obser"] ,   $usu_reg, $fec_reg, $pc_reg );
 			echo $rspta ? "Vacacion registrada" : "No se pudieron registrar todos los datos de la vacacion";
 		}
+
 		else {
 			
 			
-
-			$rspta=$vacaciones->editar($nro_doc, $_POST["correlativo"], $_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
-		    $rspta=$vacaciones->insertar2($nro_doc, $CantItems, $_POST["correlativo"], $_POST["id_periodo"], $_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"] );
+			$rspta=$vacaciones->editar($nro_doc, $_POST["correlativo"], $_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"],   $usu_reg, $fec_reg, $pc_reg );
+		    $rspta=$vacaciones->insertar2($nro_doc, $CantItems, $_POST["correlativo"], $_POST["id_periodo"], $_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"],   $usu_reg, $fec_reg, $pc_reg );
 			
 
 
@@ -68,21 +76,27 @@ switch ($_GET["op"]){
 		echo '<thead style="background-color:#A9D0F5">
 									<th width="40px">Item</th>
                                     <th width="100px">Periodo</th>
-                                    <th width="100px">Del</th>
-                                    <th width="100px">Al</th>
+                                    <th width="80px">Del</th>
+                                    <th width="80px">Al</th>
                                     <th width="50px">Total Dias</th>
                                     <th width="50px">Dias Pend</th>
-                                    <th width="700px">Obser Detalle</th>
-                                    <th width="200px" >Observaciones</th>
-                                    <th width="50px">Editar</th>
-                                    <th width="50px">Opciones</th>
+                                    <th width="500px">Observaciones</th>
+                                    <th width="100px">Periodo</th>
+                                    <th width="50px">Eliminar</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  ><td><input type="text" readonly size="1" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text"  readonly size="7" name="id_periodo[]" value="'.$reg->PeridoAnual.'" readonly></td><td><input type="date" size="8" name="fec_del[]" value="'.$reg->fec_del.'"></td><td><input type="date" size="8" name="fec_al[]" value="'.$reg->fec_al.'"></td><td><input type="text" size="1"  autocomplete="off" name="tot_dias[]" value="'.$reg->tot_dias.'"></td><td><input type="text" size="1"  autocomplete="off" name="pen_dias[]" value="'.$reg->pen_dias.'"></td><td><input type="text"  autocomplete="off" size="100" name="obser_detalle[]" value="'.$reg->obser_detalle.'"></td><td><input type="text" size="25"  autocomplete="off" name="obser[]" value="'.$reg->obser.'"></td><td><a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
-                            </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  >
+					  <td><input type="text" readonly size="1" name="correlativo[]" value="'.$reg->correlativo.'"></td>
+					  <td><input type="text"  readonly size="7" name="id_periodo[]" value="'.$reg->PeridoAnual.'" readonly></td>
+					  <td><input type="date" size="5" name="fec_del[]" value="'.$reg->fec_del.'"></td>
+					  <td><input type="date" size="5" name="fec_al[]" value="'.$reg->fec_al.'"></td>
+					  <td><input type="text" size="1"  autocomplete="off" name="tot_dias[]" value="'.$reg->tot_dias.'"></td>
+					  <td><input type="text" size="1"  autocomplete="off" name="pen_dias[]" value="'.$reg->pen_dias.'"></td>
+					  <td><input type="text"  autocomplete="off" size="70" name="obser_detalle[]" value="'.$reg->obser_detalle.'"></td>
+					  <td><input type="text" size="25"  autocomplete="off" name="obser[]" value="'.$reg->obser.'"></td>
+					  <td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
 					$total=$periodo;
 					$cont++;
 				}
@@ -123,7 +137,7 @@ switch ($_GET["op"]){
  				"6"=>$reg->nombres,
  				"7"=>($reg->est_reg=='1')?'<span class="label bg-green">ACTIVO</span>':
  				'<span class="label bg-red">INACTIVO</span>',
- 				"8"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->nro_doc.')"><i class="fa fa-pencil"></i></button>',
+ 				"8"=>'<button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>',
  				);
  		}
  		$results = array(

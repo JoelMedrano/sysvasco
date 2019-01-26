@@ -24,6 +24,16 @@ $id_accion=isset($_POST["id_accion"])? limpiarCadena($_POST["id_accion"]):"";
 $obs=isset($_POST["obs"])? limpiarCadena($_POST["obs"]):"";
 
 
+//CASOS ESPECIALES
+$hora_ing_especial=isset($_POST["hora_ing_especial"])? limpiarCadena($_POST["hora_ing_especial"]):"";
+$hora_sal_especial=isset($_POST["hora_sal_especial"])? limpiarCadena($_POST["hora_sal_especial"]):"";
+$id_descontar_ref=isset($_POST["id_descontar_ref"])? limpiarCadena($_POST["id_descontar_ref"]):"";
+
+
+$horas_dscto_esp=isset($_POST["horas_dscto_esp"])? limpiarCadena($_POST["horas_dscto_esp"]):"";
+
+
+
 $codigo_ingresado=$rmhd->consultar_turno($fecha);
 $regc=$codigo_ingresado->fetch_object();
 $dia_texto=$regc->dia_texto;
@@ -60,28 +70,75 @@ $id_tip_plan=$dp->id_tip_plan;
 // $id_turno=$dp->id_turno;
 
 
-$dato=$rmhd->consultar_cantidad_digitos_hora_ing_hora_sal($hora_ing, $hora_sal ); // Consultar si tiene registro dentro de la tabla del  reloj
+$dato=$rmhd->consultar_cantidad_digitos_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial, $horas_dscto_esp ); // Consultar si tiene registro dentro de la tabla del  reloj
 $regc=$dato->fetch_object();
 $cantdig_hora_ing=$regc->cantdig_hora_ing;
 $cantdig_hora_sal=$regc->cantdig_hora_sal;
+$cantdig_hora_ing_especial=$regc->cantdig_hora_ing_especial;
+$cantdig_hora_sal_especial=$regc->cantdig_hora_sal_especial;
+$cantdig_horadscto_especial=$regc->cantdig_horadscto_especial;
+
+
+
+
 
 
 if ($cantdig_hora_ing<'8') {
 	
-$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal ); // Consultar si tiene registro dentro de la tabla del  reloj
+$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial, $horas_dscto_esp  ); // Consultar si tiene registro dentro de la tabla del  reloj
 $regc=$dato->fetch_object();
 $hora_ing=$regc->format_hora_ing;
 
 }
 
 
+
 if ($cantdig_hora_sal<'8') {
 	
-$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal ); // Consultar si tiene registro dentro de la tabla del  reloj
+$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial, $horas_dscto_esp  ); // Consultar si tiene registro dentro de la tabla del  reloj
 $regc=$dato->fetch_object();
 $hora_sal=$regc->format_hora_sal;
 
 }
+
+
+
+if ($cantdig_hora_ing_especial<'8') {
+	
+$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial, $horas_dscto_esp  ); // Consultar si tiene registro dentro de la tabla del  reloj
+$regc=$dato->fetch_object();
+$hora_ing_especial=$regc->format_hora_ing_especial;
+
+}
+
+
+
+
+if ($cantdig_hora_sal_especial<'8') {
+	
+$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial, $horas_dscto_esp  ); // Consultar si tiene registro dentro de la tabla del  reloj
+$regc=$dato->fetch_object();
+$hora_sal_especial=$regc->format_hora_sal_especial;
+
+}
+
+
+
+if ($cantdig_horadscto_especial<'8') {
+	
+$dato=$rmhd->formatear_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial , $horas_dscto_esp  ); // Consultar si tiene registro dentro de la tabla del  reloj
+$regc=$dato->fetch_object();
+$horas_dscto_esp=$regc->format_horas_dscto_especial;
+
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -105,7 +162,7 @@ $canthoras_mov=$regc->canthoras_mov;
 
 
 //CONSULTA CUAL FUE SU HORA DE INGRESO Y SALIDA  SEGUN DEL DIA SELECCIONADO
-$codigo_ingresado=$rmhd->consultar_IngresoSalida_SegunReloj($id_trab, $fecha, $hora_ing,  $hora_sal ) ;
+$codigo_ingresado=$rmhd->consultar_IngresoSalida_SegunReloj($id_trab, $fecha, $hora_ing,  $hora_sal, $hora_ing_especial, $hora_sal_especial ) ;
 $regc=$codigo_ingresado->fetch_object();
 $hora_salida_sh=$regc->hora_salida_sh;
 $hora_ingreso_sh=$regc->hora_ingreso_sh;
@@ -113,8 +170,8 @@ $cant_dif_hish_hire=$regc->cant_dif_hish_hire;
 $cant_dif_hssh_hsre=$regc->cant_dif_hssh_hsre;
 $estado=$regc->estado_dia;
 $cant_dif_hire_hsre=$regc->cant_dif_hire_hsre;
-
-
+$dif_hice_hsce=$regc->dif_hice_hsce;
+$dif_hice_hsce_ref=$regc->dif_hice_hsce_ref;
 //$cant_dif_hish_hire=$regc->cant_dif_hish_hire;
 $dif_hish_hire=$regc->dif_hish_hire;
 $dif_hssh_hsre=$regc->dif_hssh_hsre;
@@ -131,17 +188,27 @@ $dif_hire_hsre=$regc->dif_hire_hsre;// DIFERENCIAS ENTRE HORA INGRESO Y SALIDA F
 
 
 
+
+
+
 //PARA HORAS EXTRAS
 $tiempo_ing=$dif_hish_hire;
 $tiempo_sal=$dif_hssh_hsre;
 $tiempo_hire_hsre=$dif_hire_hsre;
 
 
-$dato=$rmhd->calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal, $tiempo_hire_hsre);
+$tiempo_hice_hsce=$dif_hice_hsce;
+$tiempo_hice_hsce_ref=$dif_hice_hsce_ref;
+
+
+
+$dato=$rmhd->calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal, $tiempo_hire_hsre,  $tiempo_hice_hsce, $tiempo_hice_hsce_ref);
 $regc=$dato->fetch_object();
 $tiempo_redondeado_ing=$regc->tiempo_redondeado_ing;  
 $tiempo_redondeado_sal=$regc->tiempo_redondeado_sal;  
 $tiempo_redondeado_hire_hsre=$regc->tiempo_redondeado_hire_hsre;  
+$tiempo_redondeado_hice_hsce=$regc->tiempo_redondeado_hice_hsce;  
+$tiempo_redondeado_hice_hsce_ref=$regc->tiempo_redondeado_hice_hsce_ref;  
 //FIN PARA HORAS EXTRAS
 
 
@@ -171,6 +238,7 @@ $tiempo_redondeado_sal_dscto=$regc->tiempo_redondeado_sal_dscto;
 $tiempo_redondeado_salconref_dscto=$regc->tiempo_redondeado_salconref_dscto;  
 $tiempo_redondeado_salconfinref_dscto=$regc->tiempo_redondeado_salconfinref_dscto; 
 $tiempo_redondeado_ingconref_dscto=$regc->tiempo_redondeado_ingconref_dscto;   
+
 
 
 //FIN PARA HORAS DSCTO
@@ -216,13 +284,7 @@ switch ($_GET["op"]){
 
 
 
-	//		$dato=$rmhd->consultar_registroenhorasextras($id_trab, $fecha ); // Consultar si tiene registro dentro de la tabla del  horas extras
-	//        $regc=$dato->fetch_object();
-	//        $id_hor_ext=$regc->id_hor_ext;
 
-	//        $dato=$rmhd->consultar_registroenhorasfaltas($id_trab, $fecha );  // Consultar si tiene registro dentro de la tabla del  horas extras
-	//	    $regc=$dato->fetch_object();
-	//	    $id_hor_fal=$regc->id_hor_fal;
 
 
 		if (empty($id_rmhd)){
@@ -232,7 +294,7 @@ switch ($_GET["op"]){
 
 				if ($id==''  AND $id_accion=='1' ) {
 
-						$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,   $obs,  $fec_reg,  $pc_reg,    $usu_reg );
+						$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
 			
 	
 						$rspta=$rmhd->insertar_reloj($id_trab,$fecha, $fec_reg, $pc_reg,  $usu_reg, $hora_ing,  $hora_sal,$id_tip_plan, $dia, $est_hor, $id_turno); 
@@ -241,13 +303,17 @@ switch ($_GET["op"]){
 
 					    
 
-					   //DIA NO LABORABLE SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO  ASIGNADO
+					   //DIA  LABORABLE SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO  ASIGNADO
 					    if ($hora_ingreso_sh=='00:00:00' AND  $estado=='LABORABLE' AND  $id_excep=='' ) {
 
 					    	//CASO ELASTICOS - SABADOS
 					    	$hora_inicio=$hora_ing;
 						    $hora_fin= $hora_sal;
 						    $por_pago='25';
+
+						    $cantidad=$dif_hire_hsre;
+					      	$tiempo_fin=$tiempo_redondeado_hire_hsre;
+
 
 					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
@@ -521,6 +587,13 @@ switch ($_GET["op"]){
 					//$id_accion=='2' elimina
 
 
+
+
+					
+					$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
+
+
+
 					$hora_ing=$hor_ent_reloj;
 					$hora_sal=$hor_sal_reloj;
 
@@ -594,6 +667,10 @@ switch ($_GET["op"]){
 					
 
 				} else if ($id!='' AND $id_accion=='3') { //ACTUALIZAR - 
+
+
+
+					$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
 					
 
 
@@ -666,22 +743,24 @@ switch ($_GET["op"]){
 					//SEGUNDO INGRESA LA INFORMACION ACTUALIZADA 
 
 
-					$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,   $obs,  $fec_reg,  $pc_reg,    $usu_reg );
-			
-	
+					$
 						$rspta=$rmhd->insertar_reloj($id_trab,$fecha, $fec_reg, $pc_reg,  $usu_reg, $hora_ing,  $hora_sal,$id_tip_plan, $dia, $est_hor, $id_turno); 
 
 						
 
 					    
 
-					   //DIA NO LABORABLE SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO  ASIGNADO
+					   //DIA  LABORABLE SEGUN TABLA DE FECHAS Y NO TIENE HORA DE INGRESO  ASIGNADO
 					    if ($hora_ingreso_sh=='00:00:00' AND  $estado=='LABORABLE'  AND  $id_excep=='') {
 
 					    	//CASO ELASTICOS - SABADOS
 					    	$hora_inicio=$hora_ing;
 						    $hora_fin= $hora_sal;
 						    $por_pago='25';
+
+						    $cantidad=$dif_hire_hsre;
+					      	$tiempo_fin=$tiempo_redondeado_hire_hsre;
+
 
 					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
@@ -933,8 +1012,6 @@ switch ($_GET["op"]){
 
 
 
-
-
 					    }  	 
 
 					    	echo $rspta ? "Marcación actualizada" : "Marcación no se pudo actualizar";
@@ -942,11 +1019,16 @@ switch ($_GET["op"]){
 
  
 
-
+					    	
 
 
 				} else if ($id=='' AND $id_accion=='4') { //ELIMINAR FALTA  - 
 					//Solo eliminara la falta que esta dentro de la tabla de horas_permiso_personal
+
+
+					
+					$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
+
 
 					$cant_dia_fin='1';
 
@@ -981,11 +1063,83 @@ switch ($_GET["op"]){
 
 
 					    
+				}else if ($id=='' AND $id_accion=='5') { //AGREGAR HORAS EXTRAS  EN CASO ESPECIALES
+
+
+					
+					$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
+			
+
+				   //CASO ELASTICOS - SABADOS
+					$hora_inicio=$hora_ing_especial;
+					$hora_fin= $hora_sal_especial;
+				    $por_pago='25';
+
+				    if ($id_descontar_ref=='1') { //SI DESCONTARA REFRIGERIO
+
+				  	$cantidad= $dif_hice_hsce_ref;
+					$$tiempo_fin=$tiempo_redondeado_hice_hsce_ref;  
+
+				    }else if ($id_descontar_ref=='2' OR $id_descontar_ref=='0' ) { //NO DESCONTARA REFRIGERIO
+
+				    $cantidad= $dif_hice_hsce;
+				    $tiempo_fin=$tiempo_redondeado_hice_hsce;  
+
+
+				    }
+
+
+
+					$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
+
+
+					echo $rspta ? "Se registro las horas extras" : "Las horas extras no se pudieron guardar";
+
+
+
+
+
+				}else if ( $id_accion=='6') { //AGREGAR HORAS DE DESCUENTO CASO SR.RUFINO
+
+
+						$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
+
+
+						$hora_inicio='00:00:00';
+						$hora_fin= '00:00:00';
+						$cantidad= $horas_dscto_esp;
+						$tiempo_fin=$horas_dscto_esp;
+						$tiempo_des=$horas_dscto_esp;
+						$descontar='1';
+
+
+
+				    	$rspta=$rmhd->registrar_dscto_despuesdelingresorefrigerio($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad,  $tiempo_ref, $tiempo_des,  $tiempo_fin,  $id_incidencia,  $id_permiso,  $id_fec_dscto, $descontar, $fec_reg, $pc_reg, $usu_reg);
+
+
+							echo $rspta ? "Se registro las horas de descuento" : "Las horas de descuento no se pudieron guardar";
+
+
+
+				} else if ( $id_accion=='7') { //AGREGAR INGRESO Y SALIDA EN DIA NO LABORABLE SIN HORAS EXTRAS 
+
+
+					$rspta=$rmhd->insertar($id_trab,   $fecha,  $hora_ing,    $hora_sal,   $id_accion,  $hora_ing_especial , $hora_sal_especial, $id_descontar_ref,  $obs, $horas_dscto_esp,  $fec_reg,  $pc_reg,    $usu_reg );
+
+						 
+
+					$rspta=$rmhd->insertar_reloj($id_trab,$fecha, $fec_reg, $pc_reg,  $usu_reg, $hora_ing,  $hora_sal,$id_tip_plan, $dia, $est_hor, $id_turno); 
+
+								    			
+					echo $rspta ? "Se registro la marcacion en dia NO LABORABLE" : "La marcacion no se pudieron guardar";
+
+
+
 				} else{ 
 
 					echo  "No se registro, verifique su información"; // CUando no ingresa a ninguno de los casos
 
-					} 
+				} 
 
 
 
@@ -1128,6 +1282,27 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->id_accion . '>' . $reg->accion . '</option>';
 				}
 	break;
+
+
+
+
+	case "selectOpciones":
+	
+		
+
+		$rspta = $rmhd->selectOpciones();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_descontar_ref . '>' . $reg->descontar_ref . '</option>';
+				}
+	break;
+
+
+
+
+
+
 
 
 	

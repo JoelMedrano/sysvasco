@@ -296,16 +296,16 @@ if ($_SESSION['rrhh']==1)
                                      <div class="form-group  col-xs-12">
                                           <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">SR.JOSE:</label>
                                           <div class="col-lg-1">
-                                             <input type="text" class="form-control" name="sj_apo_obl" id="sj_apo_obl"  autocomplete="off" >
+                                             <input type="text" class="form-control" name="sj_apo_obl" id="sj_apo_obl" readonly  autocomplete="off" >
                                           </div>
                                           <div class="col-lg-1">
                                              <input type="text" class="form-control" name="sj_com_men_rem" id="sj_com_men_rem"  autocomplete="off" >
                                           </div>
 
-                                          <label  align="right"  class="col-col-lg-4 col-md-4 col-sm-4 control-label">REMUNERACION MAXIMA:</label>
+                                          <label  align="right"  class="col-col-lg-3 col-md-3 col-sm-3 control-label">REMUNERACION MAXIMA(REQUERIDO*):</label>
                                           
                                         
-                                          <div class="col-lg-1">
+                                          <div class="col-lg-2">
                                              <input type="text"  class="form-control" name="sj_apo_mix" id="sj_apo_mix"  autocomplete="off" >
                                           </div>
                                     </div>

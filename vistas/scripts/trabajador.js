@@ -1377,6 +1377,21 @@ function activar(id_trab)
 
 
 
+//Función para activar registros
+function eliminar(id_trab)
+{
+	bootbox.confirm("¿Está Seguro de eliminar el Trabajador?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/trabajador.php?op=eliminar", {id_trab : id_trab}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
+}
+
+
 //función para generar el código de barras
 function generarbarcode()
 {

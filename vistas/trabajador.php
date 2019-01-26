@@ -472,6 +472,8 @@ if ($_SESSION['rrhh']==1)
                                 <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">VIVE</label>
 
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">FEC.NAC</label>
+
+                                <label class="col-col-lg-1 col-md-1 col-sm-1 control-label">EDAD</label>
                                
                                 <label class="col-col-lg-2 col-md-2 col-sm-2 control-label">APELLIDOS y NOMBRES</label>
                                

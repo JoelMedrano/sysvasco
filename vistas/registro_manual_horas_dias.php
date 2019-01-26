@@ -118,15 +118,41 @@ if ($_SESSION['rrhh']==1)
                           <div class="form-group  col-xs-12">  
 
 
-                                <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                       <label></label>
                                       <input type="varchar" class="form-control" readonly name="falta" id="falta" autocomplete="off">
+                                    </div>
+
+                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Horas Dscto Especial:</label>
+                                      <input type="varchar" class="form-control"  name="horas_dscto_esp" id="horas_dscto_esp" autocomplete="off">
                                     </div>
 
                                   
                                    
 
                           </div>
+
+
+                           <div class="form-group  col-xs-12">  
+
+
+                                <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                      <label>Observacion:</label>
+                                      <input type="varchar" class="form-control"  name="obs" id="obs" autocomplete="off">
+                                    </div>
+
+                                  
+                                   
+
+                          </div>
+
+
+
+
+
+
+                        
 
 
 
@@ -137,14 +163,21 @@ if ($_SESSION['rrhh']==1)
 
                                    
 
-                                     <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                      <label>Observacion:</label>
-                                      <input type="text" class="form-control"  name="obs" id="obs"  required autocomplete="off">
-                                  
+                                  <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Caso Especial Inicio Hora.Extra:</label>
+                                      <input type="varchar" class="form-control" name="hora_ing_especial" id="hora_ing_especial" autocomplete="off">
+                                    </div>
+                                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                      <label>Caso Especial Fin Hora.Extra</label>
+                                      <input type="varchar" class="form-control" name="hora_sal_especial" id="hora_sal_especial" autocomplete="off">
                                     </div>
 
-                                     <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                     </div>
+
+
+                                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                     <label>Descontar Refrigerio:</label>
+                                      <select id="id_descontar_ref" name="id_descontar_ref" class="form-control selectpicker" data-live-search="true"  autocomplete="off"></select>
+                                    </div>
 
                                 
 

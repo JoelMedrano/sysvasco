@@ -29,6 +29,17 @@ function init(){
 
 
 
+	//Cargamos los items al select tipo de permiso
+	$.post("../ajax/registro_manual_horas_dias.php?op=selectOpciones", function(r){
+	            $("#id_descontar_ref").html(r);
+	            $('#id_descontar_ref').selectpicker('refresh');
+
+	});
+
+
+
+
+
 
 
 
@@ -59,6 +70,10 @@ function limpiar()
 
 	$("#id_accion").val("AGREGAR");
 	$("#id_accion").selectpicker('refresh');
+
+	$("#horas_dscto_esp").val("");
+
+	
 
 
 
@@ -164,8 +179,18 @@ function mostrar(id_rmhd)
 		$("#obs").val(data.obs);
 
 
+		$("#hora_ing_especial").val(data.hora_ing_especial); 
+		$("#hora_sal_especial").val(data.hora_sal_especial);
+
+		$("#horas_dscto_esp").val(data.horas_dscto_esp);
+		
+
 		$("#id_accion").val(data.id_accion);
 		$('#id_accion').selectpicker('refresh'); 
+
+
+		$("#id_descontar_ref").val(data.id_accion);
+		$('#id_descontar_ref').selectpicker('refresh'); 
 
 	
  	})

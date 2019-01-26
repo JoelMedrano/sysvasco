@@ -14,6 +14,8 @@ Class Reloj
 	}
 
 	//Implementamos un método para insertar registros
+
+
 	public function insertar($id_trab, $fecha, $fec_reg, $pc_reg, $usu_reg, $hora, $id_tip_plan,  $dia, $est_hor, $id_turno )
 	{
 
@@ -486,6 +488,61 @@ Class Reloj
 		return ejecutarConsulta($sql);
 
 	}
+
+
+
+
+
+	public function consultarHoraSalida_HoraExtra_TurnoNoche($id_trab, $fecha_noche, $hora )
+	{
+		$sql="SELECT    tr.id_trab, 
+						REPLACE(TIMEDIFF( '$hora', ft.hora_salida ) ,'-', '')  AS tiempo_largo_hs_he_tn , 
+						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', ft.hora_salida ) ) ,'-', '')  AS cant_tiempo_hs_he_tn, 
+						ft.hora_salida AS hora_salida_sh_tn,
+						ft.hora_ingreso AS hora_ingreso_sh_tn
+				FROM trabajador tr 
+				LEFT JOIN 	
+				(SELECT  hrt.id_trab, CASE 
+								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_salida
+								WHEN  fe.nom_dia='MARTES' THEN hor.martes_salida
+								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_salida
+								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_salida
+								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_salida
+								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_salida
+								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_salida
+								ELSE '-'  END
+								AS hora_salida,
+								CASE 
+								WHEN  fe.nom_dia='LUNES' THEN hor.lunes_ingreso
+								WHEN  fe.nom_dia='MARTES' THEN hor.martes_ingreso
+								WHEN  fe.nom_dia='MIERCOLES' THEN hor.miercoles_ingreso
+								WHEN  fe.nom_dia='JUEVES' THEN hor.jueves_ingreso
+								WHEN  fe.nom_dia='VIERNES' THEN hor.viernes_ingreso
+								WHEN  fe.nom_dia='SABADO' THEN hor.sabado_ingreso
+								WHEN  fe.nom_dia='DOMINGO' THEN hor.domingo_ingreso
+								ELSE '-'  END
+								AS hora_ingreso,
+								ref.hora_ini AS hora_ini_ref,
+								ref.hora_fin AS hora_fin_ref,
+								ref.tiempo AS tiempo_ref,
+								fe.estado
+				FROM horario_refrigerio_trabajador AS hrt 
+				LEFT JOIN horario  AS  hor ON
+				hrt.id_horario= hor.id_horario
+				LEFT JOIN refrigerio AS ref ON
+				ref.cod_ref= hrt.cod_ref 
+				LEFT JOIN(
+					SELECT  fe.nom_dia, fe.estado ,  fe.fecha
+					FROM fechas AS fe  
+					WHERE fe.fecha='$fecha_noche'
+				) AS fe ON fe.fecha='$fecha_noche'
+				WHERE  hrt.id_trab='$id_trab'
+				) AS ft  ON ft.id_trab= tr.id_trab
+				WHERE ft.id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
 
 
 	

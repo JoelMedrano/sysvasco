@@ -13,10 +13,15 @@ function init(){
 
 
 	//Cargamos los items al select cliente
-	$.post("../ajax/consultasD.php?op=selectTrabajadorVacaciones", function(r){
-	            $("#id_nomtrab").html(r);
-	            $('#id_nomtrab').selectpicker('refresh');
+	$.post("../ajax/contratos_filtrovencimiento.php?op=selectMes", function(r){
+	            $("#id_mes").html(r);
+	            $('#id_mes').selectpicker('refresh');
 	});	
+
+
+	
+	
+
 
 
 }
@@ -24,26 +29,36 @@ function init(){
 //Función limpiar
 function limpiar()
 {
+
 	$("#id_nomtrab").val("");
+	$("#id_nomtrab").selectpicker('refresh');
+
 	$("#id_trab").val("");
-	$("#CantItems").val("");
 	$("#nro_doc").val("");
 	$("#sucursal").val("");
 	$("#area_trab").val("");
 	$("#fec_ing_trab").val("");
 
-	$(".filas").remove();
 
 
+	$("#tie_ren_ant").val("");
+	$("#fec_ini_ant").val("");
+	$("#fec_fin_ant").val("");
+	$("#tie_ren_con").val("");
+	$("#fec_ini_con").val("");
+	$("#fec_fin_con").val("");
 
 
+	$("#id_sit_inf_ant").val("");
+	$("#id_sit_inf_ant").selectpicker('refresh');
+
+	$("#id_sit_inf_act").val("");
+	$("#id_sit_inf_act").selectpicker('refresh');
 
 	
-
-
 	
-   
 }
+
 
 
 //Función mostrar formulario
@@ -57,7 +72,7 @@ function mostrarform(flag)
 		$("#btnagregar").hide();
 		listarArticulos();
 
-		$("#btnGuardar").hide();
+		$("#btnGuardar").show();
 		$("#btnCancelar").show();
 		$("#btnAgregarArt").show();
 		detalles=0;
@@ -80,6 +95,10 @@ function cancelarform()
 //Función Listar
 function listar()
 {
+
+
+	var id_mes = $("#id_mes").val();
+
 	tabla=$('#tbllistado').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -93,7 +112,8 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/vacaciones.php?op=listar',
+					url: '../ajax/contratos_filtrovencimiento.php?op=listar',
+					data:{ id_mes: id_mes},
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -101,11 +121,11 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 10,//Paginación
+		"iDisplayLength": 12,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
-
+	
 
 //Función ListarArticulos
 function listarArticulos()
@@ -120,7 +140,7 @@ function listarArticulos()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/vacaciones.php?op=selectPeriodosVacaciones',
+					url: '../ajax/contratos_filtrovencimiento.php?op=selectPeriodosVacaciones',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -141,7 +161,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/vacaciones.php?op=guardaryeditar",
+		url: "../ajax/contratos_filtrovencimiento.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -160,7 +180,7 @@ function guardaryeditar(e)
 
 function mostrar(nro_doc)
 {
-		$.post("../ajax/vacaciones.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
+		$.post("../ajax/contratos_filtrovencimiento.php?op=mostrar",{nro_doc : nro_doc}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
@@ -177,9 +197,18 @@ function mostrar(nro_doc)
 
 		$("#fec_ing_trab").val(data.fec_ing_trab);
 
-
+		$("#id_con_trab").val(data.id_con_trab);
 
 		$("#CantItems").val(data.CantItems);
+
+		$("#fec_ini_ant").val(data.fec_ini_ant);
+		$("#fec_fin_ant").val(data.fec_fin_ant);
+        $("#tie_ren_ant").val(data.tie_ren_ant);
+
+
+        $("#id_sit_inf_ant").val(data.id_sit_inf_ant);
+		$("#id_sit_inf_ant").selectpicker('refresh');
+		
 
 
 		//Ocultar y mostrar los botones
@@ -189,9 +218,7 @@ function mostrar(nro_doc)
 		$("#btnAgregarArt").show();
  	});
 
- 	$.post("../ajax/vacaciones.php?op=listarDetalle&id="+nro_doc,function(r){
-	        $("#detalles").html(r);
-	});	
+ 	
 }
 
 //Función para anular registros
@@ -200,7 +227,7 @@ function anular(nro_doc)
 	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/vacaciones.php?op=anular", {nro_doc : nro_doc}, function(e){
+        	$.post("../ajax/contratos_filtrovencimiento.php?op=anular", {nro_doc : nro_doc}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -214,7 +241,7 @@ var impuesto=18;
 var cont=0;
 var detalles=0;
 //$("#guardar").hide();
-$("#btnGuardar").hide();
+$("#btnGuardar").show();
 $("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
@@ -230,22 +257,24 @@ function marcarImpuesto()
     }
   }
 
+
+
 function agregarDetalle(id_periodo,periodo)
   {
   	
-
+  	
     if (id_periodo!="")
     {
     	
     	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
-    	'<td><input type="text" size="1"  autocomplete="off" name="correlativo[]" ></td>'+
-    	'<td><input type="hidden" size="5"  autocomplete="off" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
-    	'<td><input type="date" size="8"  autocomplete="off" name="fec_del[]" ></td>'+
-    	'<td><input type="date" size="8"  autocomplete="off" name="fec_al[]" ></td>'+
-    	'<td><input type="text" size="2"  autocomplete="off" name="tot_dias[]" ></td>'+
-    	'<td><input type="text" size="2"  autocomplete="off" name="pen_dias[]" ></td>'+
-    	'<td><input type="text" size="70"  autocomplete="off" name="obser_detalle[]" ></td>'+
-    	'<td><input type="text" size="20"  autocomplete="off" name="obser[]" ></td>'+
+    	'<td><input type="text" size="1" name="correlativo[]" ></td>'+
+    	'<td><input type="hidden" size="5" name="id_periodo[]" value="'+id_periodo+'">'+periodo+'</td>'+
+    	'<td><input type="text" size="8" name="fec_del[]" ></td>'+
+    	'<td><input type="text" size="8" name="fec_al[]" ></td>'+
+    	'<td><input type="text" size="2" name="tot_dias[]" ></td>'+
+    	'<td><input type="text" size="2" name="pen_dias[]" ></td>'+
+    	'<td><input type="text" size="70" name="obser_detalle[]" ></td>'+
+    	'<td><input type="text" size="20" name="obser[]" ></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'</tr>';
@@ -289,10 +318,22 @@ function agregarDetalle(id_periodo,periodo)
 	}
 	$("#total").html("S/. " + total);
     $("#total_venta").val(total);
-
+    evaluar();
   }
 
 
+
+ function evaluar(){
+  	if (detalles>0)
+    {
+      $("#btnGuardar").show();
+    }
+    else
+    {
+      $("#btnGuardar").hide(); 
+      cont=0;
+    }
+  }
 
 
 

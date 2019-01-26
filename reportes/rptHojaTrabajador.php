@@ -27,7 +27,7 @@ $id_trab=$_GET["id"];
 include "Classes/PHPExcel.php";
 //include "../library/consulSQL.php";
 
- $conexion=mysql_connect("192.168.1.26","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
+ $conexion=mysql_connect("192.168.1.29","admin","vasco123") or die("No se pudo conectar: " . mysql_error());
     mysql_select_db("db_corpvasco",$conexion);
 
       $fechaactual = getdate();
@@ -1729,9 +1729,19 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $fila=4;
 
 
+  $fila=5;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'CARGO A POSTULAR');
+
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:D$fila");
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($resPro["apellidos"]));
 
 
+ $objPHPExcel->getActiveSheet()->mergeCells("E$fila:L$fila");
 
+
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "E$fila:L$fila");
 
   $fila=7;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "I. DATOS A PERSONALES:");
@@ -1964,6 +1974,8 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "K$fila"); //establecer estilo
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:L$fila");
+
+
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $objPHPExcel->getActiveSheet() ->getStyle("G$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -2009,20 +2021,37 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:L$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet() ->getStyle("G$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
-  $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
-  $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-
-
-
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
   
+ 
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("C$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("F$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
+  $objPHPExcel->getActiveSheet() ->getStyle("G$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
+  $objPHPExcel->getActiveSheet() ->getStyle("H$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+
+
+
+
 
 
   $fila=23;
@@ -2055,19 +2084,34 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
+
+
+
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:L$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet() ->getStyle("G$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
-  $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
-  $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("G$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
+  $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
+  $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
-
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
   
+
+
 
 
   $fila=24;
@@ -2107,6 +2151,21 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
   $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
   $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
+
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
+
 
 
 

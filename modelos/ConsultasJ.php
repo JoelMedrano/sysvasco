@@ -476,7 +476,8 @@ Class ConsultasJ
 						tare.cod_argumento= tr.id_area
 						AND tare.cod_tabla='TARE'
 					 WHERE CURDATE() BETWEEN  pp.fecha_procede  AND pp.fecha_hasta /*OK PERMISO O LICENCIA*/
-					 AND tr.est_reg='1'  ";
+					 AND tr.est_reg='1'
+					 AND pp.est_reg='1'  ";
 
 		return ejecutarConsulta($sql);
 	}

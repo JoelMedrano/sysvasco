@@ -298,6 +298,26 @@ function desactivar(id_permiso)
 	})
 }
 
+
+
+
+//Función para desactivar registros
+function eliminar(id_permiso)
+{
+	bootbox.confirm("¿Está seguro de eliminar el permiso?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/permiso_personal.php?op=eliminar", {id_permiso : id_permiso}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
+}
+
+
+
+
 //Función para activar registros
 function activar(id_permiso)
 {

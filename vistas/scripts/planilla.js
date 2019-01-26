@@ -911,8 +911,6 @@ function mostrar(id_trab)
 		$("#fecfin_con_act").val(data.fecfin_con_act);
 
 
-		
-
 		$("#CantItems").val(data.CantItems);
 
 		$("#nro_cta_sue").val(data.nro_cta_sue);
@@ -1318,6 +1316,7 @@ function cerrar_primeraquincena(primera_quincena)
         }
 	})
 }
+
 
 //Función para activar registros
 function cerrar_segundaquincena(segunda_quincena)

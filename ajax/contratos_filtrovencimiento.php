@@ -2,40 +2,14 @@
 if (strlen(session_id()) < 1) 
   session_start();
 
-require_once "../modelos/Registro_Marcaciones.php";
+require_once "../modelos/Contratos_Filtrovencimiento.php";
 
-$rm=new Registro_Marcaciones();
-
-$idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
-$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
-$idusuario=$_SESSION["idusuario"];
-$tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
-$serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
-$num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
-$fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
-$impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
-$total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
+$contratos=new Contratos_Filtrovencimiento();
 
 
 
 
-$nro_doc=isset($_POST["nro_doc"])? limpiarCadena($_POST["nro_doc"]):"";
-$id_nomtrab=isset($_POST["id_nomtrab"])? limpiarCadena($_POST["id_nomtrab"]):"";
-$CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
-$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
-
-
-
-$id_con_trab=isset($_POST["id_con_trab"])? limpiarCadena($_POST["id_con_trab"]):"";
-$tie_ren_ant=isset($_POST["tie_ren_ant"])? limpiarCadena($_POST["tie_ren_ant"]):"";
-$fec_ini_ant=isset($_POST["fec_ini_ant"])? limpiarCadena($_POST["fec_ini_ant"]):"";
-$fec_fin_ant=isset($_POST["fec_fin_ant"])? limpiarCadena($_POST["fec_fin_ant"]):"";
-$id_sit_inf_ant=isset($_POST["id_sit_inf_ant"])? limpiarCadena($_POST["id_sit_inf_ant"]):"";
-
-$tie_ren_con=isset($_POST["tie_ren_con"])? limpiarCadena($_POST["tie_ren_con"]):"";
-$fec_ini_con=isset($_POST["fec_ini_con"])? limpiarCadena($_POST["fec_ini_con"]):"";
-$fec_fin_con=isset($_POST["fec_fin_con"])? limpiarCadena($_POST["fec_fin_con"]):"";
-$id_sit_inf_act=isset($_POST["id_sit_inf_act"])? limpiarCadena($_POST["id_sit_inf_act"]):"";
+$id_mes=isset($_POST["id_mes"])? limpiarCadena($_POST["id_mes"]):"";
 
 
 switch ($_GET["op"]){
@@ -43,7 +17,7 @@ switch ($_GET["op"]){
 
 		if (empty($tie_ren_con)){
 
-				$rspta=$contratos->editar( $id_trab,
+				$rspta=$contratos->editar($id_trab,
 										   $id_con_trab,
 										   $tie_ren_ant,
 										   $fec_ini_ant,
@@ -144,11 +118,10 @@ switch ($_GET["op"]){
 
 	case 'listar':
 
-	$fecha_inicio=$_REQUEST["fecha_inicio"];
-	$fecha_fin=$_REQUEST["fecha_fin"];
-	$id_trab=$_REQUEST["id_trab"];
+	    $id_mes=$_REQUEST["id_mes"];
 
-		$rspta=$rm->listar($fecha_inicio,$fecha_fin,$id_trab);
+
+		$rspta=$contratos->listar($id_mes);
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -156,19 +129,14 @@ switch ($_GET["op"]){
  			
 
  			$data[]=array(
- 				"0"=>$reg->mar,
- 				"1"=>$reg->nom_dia,
- 				"2"=>$reg->Fecha,
- 				"3"=>$reg->sucursal_anexo,
- 				"4"=>$reg->estado_trab,
- 				"5"=>$reg->nombres,
- 				"6"=>$reg->area_trab,
- 				"7"=>$reg->hor_ent_sal,
- 				"8"=>$reg->detalle,
- 				"9"=>$reg->horas_extras,
- 				"10"=>$reg->horas_faltas,
- 				"11"=>$reg->min_tardanza
-
+ 				"0"=>$reg->sucursal_anexo,
+ 				"1"=>$reg->area_trab,
+ 				"2"=>$reg->funcion,
+ 				"3"=>$reg->nombres,
+ 				"4"=>$reg->fec_ini_con,
+ 				"5"=>$reg->fec_fin_con,
+ 				"6"=>$reg->tie_ren_con,
+ 				"7"=>$reg->situacion,
  				);
  		}
  		$results = array(
@@ -215,21 +183,19 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 	break;
 
-	case 'selectTrab':
 
-	require_once "../modelos/ConsultasJ.php";
+	case 'selectMes':
 
-	$con = new ConsultasJ();
 
-	echo '<option value="">SELECCIONE</option>';
+		$rspta = $contratos->selectMes();
 
-	$rspta = $con->selectTrab();
-
-	while ($reg = $rspta->fetch_object())
-			{
-			echo '<option value=' . $reg->id_trab . '>' . $reg->trabajador . '</option>';
-			}
+		while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->id_mes . '>' . $reg->mes . '</option>';
+				}
 	break;
+
+
 
 
 	

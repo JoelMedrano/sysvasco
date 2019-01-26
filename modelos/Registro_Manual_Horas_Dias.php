@@ -37,19 +37,29 @@ Class Registro_Manual_Horas_Dias
 
 
 
-	public function consultar_cantidad_digitos_hora_ing_hora_sal($hora_ing, $hora_sal  )
+	public function consultar_cantidad_digitos_hora_ing_hora_sal($hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial, $horas_dscto_esp  )
 	{
 		
-		$sql=" SELECT LENGTH('$hora_ing') AS  cantdig_hora_ing,  LENGTH('$hora_sal') AS  cantdig_hora_sal  ";
+		$sql=" SELECT LENGTH('$hora_ing') AS  cantdig_hora_ing,
+					  LENGTH('$hora_sal') AS  cantdig_hora_sal,
+					  LENGTH('$hora_ing_especial') AS  cantdig_hora_ing_especial,
+					  LENGTH('$hora_sal_especial') AS  cantdig_hora_sal_especial,
+					  LENGTH('$horas_dscto_esp') AS  cantdig_horadscto_especial
+					    ";
 		return ejecutarConsulta($sql);
 
 	}
 
 
-	public function formatear_hora_ing_hora_sal( $hora_ing, $hora_sal  )
+	public function formatear_hora_ing_hora_sal( $hora_ing, $hora_sal, $hora_ing_especial, $hora_sal_especial,  $horas_dscto_esp    )
 	{
 		
-		$sql="SELECT  IF ( CONCAT('$hora_ing', ':00') =':00' , '',  CONCAT('$hora_ing', ':00') ) AS format_hora_ing,   IF(CONCAT('$hora_sal', ':00')=':00', '', CONCAT('$hora_sal', ':00')) AS format_hora_sal";
+		$sql="SELECT  IF( CONCAT('$hora_ing', ':00') =':00' , '',  CONCAT('$hora_ing', ':00') ) AS format_hora_ing, 
+		  			  IF( CONCAT('$hora_sal', ':00')=':00', '', CONCAT('$hora_sal', ':00') ) AS format_hora_sal,
+		  			  IF( CONCAT('$hora_ing_especial', ':00')=':00', '', CONCAT('$hora_ing_especial', ':00') ) AS format_hora_ing_especial,
+		  			  IF( CONCAT('$hora_sal_especial', ':00')=':00', '', CONCAT('$hora_sal_especial', ':00') ) AS format_hora_sal_especial,
+		  			  IF( CONCAT('$horas_dscto_esp', ':00')=':00', '', CONCAT('$horas_dscto_esp', ':00') ) AS format_horas_dscto_especial
+		  ";
 		return ejecutarConsulta($sql);
 
 	}
@@ -57,7 +67,7 @@ Class Registro_Manual_Horas_Dias
 
 
 
-	public function consultar_IngresoSalida_SegunReloj($id_trab, $fecha,  $hora_ing,  $hora_sal  )
+	public function consultar_IngresoSalida_SegunReloj($id_trab, $fecha,  $hora_ing,  $hora_sal, $hora_ing_especial, $hora_sal_especial  )
 	{
 		$sql="SELECT    tr.id_trab, 
 						ft.hora_salida AS hora_salida_sh,
@@ -74,6 +84,8 @@ Class Registro_Manual_Horas_Dias
 						REPLACE(TIMEDIFF( ft.hora_ingreso , ft.hora_ini_ref ) ,'-', '') AS dif_hish_hiref,
 						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora_ing', '$hora_sal') ) ,'-', '')  AS cant_dif_hire_hsre,
 						REPLACE(TIMEDIFF( '$hora_ing', '$hora_sal')  ,'-', '')  AS dif_hire_hsre,
+						REPLACE(TIMEDIFF( '$hora_ing_especial', '$hora_sal_especial')  ,'-', '')  AS dif_hice_hsce,
+						TIMEDIFF(REPLACE(TIMEDIFF( '$hora_ing_especial', '$hora_sal_especial' ) ,'-', '') , REPLACE( ft.tiempo_ref  ,'-', '')  ) AS dif_hice_hsce_ref,
 						ft.hora_ini_ref,
 						ft.hora_fin_ref,
 						ft.tiempo_ref,
@@ -173,7 +185,7 @@ Class Registro_Manual_Horas_Dias
 
 
 
-	public function calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal, $tiempo_hire_hsre)
+	public function calcular_redondeo_tiempo($tiempo_ing, $tiempo_sal, $tiempo_hire_hsre,  $tiempo_hice_hsce, $tiempo_hice_hsce_ref )
 	{
 		$sql="SELECT	CASE 
 						WHEN  SUBSTRING('$tiempo_ing', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_ing', 1, 2), ':00:00')	
@@ -189,7 +201,17 @@ Class Registro_Manual_Horas_Dias
 						WHEN  SUBSTRING('$tiempo_hire_hsre', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_hire_hsre', 1, 2), ':00:00')	
 						WHEN  SUBSTRING('$tiempo_hire_hsre', 4, 2)>=30  AND SUBSTRING('$tiempo_hire_hsre', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_hire_hsre', 1, 2), ':30:00')	
 						ELSE '-'  END
-						AS tiempo_redondeado_hire_hsre
+						AS tiempo_redondeado_hire_hsre,
+						CASE 
+						WHEN  SUBSTRING('$tiempo_hice_hsce', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_hice_hsce', 1, 2), ':00:00')	
+						WHEN  SUBSTRING('$tiempo_hice_hsce', 4, 2)>=30  AND SUBSTRING('$tiempo_hice_hsce', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_hice_hsce', 1, 2), ':30:00')	
+						ELSE '-'  END
+						AS tiempo_redondeado_hice_hsce,
+						CASE 
+						WHEN  SUBSTRING('$tiempo_hice_hsce_ref', 4, 2)<30 THEN CONCAT(SUBSTRING('$tiempo_hice_hsce_ref', 1, 2), ':00:00')	
+						WHEN  SUBSTRING('$tiempo_hice_hsce_ref', 4, 2)>=30  AND SUBSTRING('$tiempo_hice_hsce_ref', 4, 2)<60  THEN  CONCAT(SUBSTRING('$tiempo_hice_hsce_ref', 1, 2), ':30:00')	
+						ELSE '-'  END
+						AS tiempo_redondeado_hice_hsce_ref
 
 						;";
 		return ejecutarConsulta($sql);
@@ -233,7 +255,14 @@ Class Registro_Manual_Horas_Dias
 						WHEN SUBSTRING('$tiempo_ingconref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)>=30    AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$tiempo_ingconref_dscto', 1, 2)+1), 2, '0' ) , ':00:00')
 						WHEN SUBSTRING('$tiempo_ingconref_dscto', 2, 2)='0:' AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)<30    AND SUBSTRING('$tiempo_ingconref_dscto', 4, 2)>01  THEN  '00:30:00'
 						ELSE '-'  END
-						AS tiempo_redondeado_ingconref_dscto
+						AS tiempo_redondeado_ingconref_dscto,
+						CASE 
+						WHEN SUBSTRING('$horas_dscto_esp', 2, 2)>=1 AND SUBSTRING('$horas_dscto_esp', 4, 2)<=30   AND SUBSTRING('$horas_dscto_esp', 4, 2)>0 THEN CONCAT(SUBSTRING('$horas_dscto_esp', 1, 2), ':30:00')	
+						WHEN SUBSTRING('$horas_dscto_esp', 2, 2)>=1 AND SUBSTRING('$horas_dscto_esp', 4, 2)>30    AND SUBSTRING('$horas_dscto_esp', 4, 2)<=60  THEN  CONCAT(   LPAD( (SUBSTRING('$horas_dscto_esp', 1, 2)+1), 2, '0' ) , ':00:00')	
+						WHEN SUBSTRING('$horas_dscto_esp', 2, 2)='0:' AND SUBSTRING('$horas_dscto_esp', 4, 2)>=30    AND SUBSTRING('$horas_dscto_esp', 4, 2)<60  THEN  CONCAT(   LPAD( (SUBSTRING('$horas_dscto_esp', 1, 2)+1), 2, '0' ) , ':00:00')
+						WHEN SUBSTRING('$horas_dscto_esp', 2, 2)='0:' AND SUBSTRING('$horas_dscto_esp', 4, 2)<30    AND SUBSTRING('$horas_dscto_esp', 4, 2)>01  THEN  '00:30:00'
+						ELSE '-'  END
+						AS tiempo_redondeado_esp_decoracion
 						;";
 		return ejecutarConsulta($sql);
 
@@ -282,7 +311,11 @@ Class Registro_Manual_Horas_Dias
 											   $hora_ing, 
 											   $hora_sal, 
 											   $id_accion, 
+											   $hora_ing_especial ,
+											   $hora_sal_especial,
+											   $id_descontar_ref,
 											   $obs, 
+											   $horas_dscto_esp,
 											   $fec_reg, 
 											   $pc_reg, 
 											   $usu_reg)
@@ -292,7 +325,11 @@ Class Registro_Manual_Horas_Dias
 											hora_ing,
 											hora_sal, 
 											id_accion, 
-											obs,   
+											hora_ing_especial,
+											hora_sal_especial, 
+											id_descontar_ref, 
+											obs,  
+											horas_dscto_esp, 
 											est_reg, 
 											fec_reg, 
 											pc_reg, 
@@ -301,8 +338,12 @@ Class Registro_Manual_Horas_Dias
 										    '$fecha',
 										    '$hora_ing',
 										    '$hora_sal',
-										    '$id_accion', 
+										    '$id_accion',
+										    '$hora_ing_especial',
+										    '$hora_sal_especial',
+										    '$id_descontar_ref',  
 										    '$obs', 
+										    '$horas_dscto_esp',
 										    '1',
 										    '$fec_reg', 
 										    '$pc_reg', 
@@ -679,6 +720,9 @@ Class Registro_Manual_Horas_Dias
 						  rm.id_accion,
 						  rm.hora_ing,
 						  rm.hora_sal,
+						  rm.hora_ing_especial,
+						  rm.hora_sal_especial,
+						  rm.id_descontar_ref,
 						  rm.obs
 			 FROM registro_manual_horas_dias rm
 			 LEFT JOIN Trabajador tr ON
@@ -724,6 +768,7 @@ Class Registro_Manual_Horas_Dias
 			      AND hpp.fecha='$fecha'
 			      AND hpp.cant_dia_fin='1'
 		     WHERE tr.id_trab='$id_trab'
+		     AND tr.est_reg='1'
 		     ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
@@ -854,6 +899,21 @@ Class Registro_Manual_Horas_Dias
 		WHERE cod_tabla='TACC'";
 		return ejecutarConsulta($sql);
 	}
+
+
+
+	//Implementar un método para listar los registros activos, su último precio y el stock (vamos a unir con el último registro de la tabla detalle_ingreso)
+	public function selectOpciones()
+	{
+		$sql=" SELECT  Cod_Argumento AS id_descontar_ref, des_larga AS descontar_ref 
+		FROM tabla_maestra_detalle 
+		WHERE cod_tabla='TOPC'
+		ORDER BY  cod_argumento ASC";
+		return ejecutarConsulta($sql);
+	}
+
+
+
 
 
 

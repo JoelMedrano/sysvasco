@@ -24,7 +24,7 @@ if ($_SESSION['rrhh']==1)
                 <div class="box">
                   <div class="box-header with-border">
                     <h1 class="box-title">Registro de Marcaciones</h1>
-                    <a href="../reportes/rpt_xls_contratos.php" target="_blank"><button class="btn btn-info">Reporte</button></a>
+                    
                     </h1>
                     <div class="box-tools pull-right">
                     </div>
@@ -55,6 +55,7 @@ if ($_SESSION['rrhh']==1)
                         <th>Dia</th>
                         <th>Fecha</th>
                         <th>Sucursal</th>
+                        <th>Estado</th>
                         <th>Trabajador</th>
                         <th>Area</th>
                         <th>Ingreso - Salida</th>
@@ -70,6 +71,7 @@ if ($_SESSION['rrhh']==1)
                         <th>Dia</th>
                         <th>Fecha</th>
                         <th>Sucursal</th>
+                        <th>Estado</th>
                         <th>Trabajador</th>
                         <th>Area</th>
                         <th>Ingreso - Salida</th>

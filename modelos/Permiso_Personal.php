@@ -210,6 +210,28 @@ Class Permiso_Personal
 	}
 
 
+	public function insertar_data_eliminada( $id_permiso, $fec_reg, $pc_reg, $usu_reg)
+	{
+
+
+		$sql="INSERT INTO permiso_personal_data_eliminada
+					SELECT * FROM permiso_personal WHERE  id_permiso='$id_permiso'  ";
+		return ejecutarConsulta($sql);
+
+
+	}
+
+	
+
+	//Implementamos un método para desactivar registros
+	public function eliminar($id_permiso, $fec_reg, $pc_reg, $usu_reg)
+	{
+		$sql="DELETE FROM  permiso_personal    WHERE id_permiso='$id_permiso'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
 	//Implementamos un método para aprobar registros
 	public function aprobar($id_permiso, $fec_reg, $pc_reg, $usu_reg)
 	{
@@ -380,6 +402,190 @@ Class Permiso_Personal
 		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_venta,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
 		return ejecutarConsulta($sql);		
 	}
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_reloj_data_eliminada( $id_trab, $fecha_procede , $fecha_hasta )
+	{
+
+		$sql="INSERT INTO reloj_data_eliminada
+			  SELECT * FROM reloj 
+			  WHERE  id_trab='$id_trab'  
+			  AND fecha>='$fecha_procede' 
+			  AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_reloj(  $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE reloj_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND fecha>='$fecha_procede' 
+								          AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_reloj(  $id_trab, $fecha_procede, $fecha_hasta)
+	{
+		$sql="DELETE FROM reloj WHERE   id_trab='$id_trab' 
+								AND fecha>='$fecha_procede' 
+								AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta )
+	{
+
+		$sql="INSERT INTO horas_permiso_personal_data_eliminada
+			  SELECT * FROM horas_permiso_personal WHERE  id_trab='$id_trab'  
+			  										AND fecha>='$fecha_procede' 
+								         			AND fecha<='$fecha_hasta'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_falta(  $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_permiso_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND fecha>='$fecha_procede' 
+								          AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_falta(  $id_trab, $fecha_procede, $fecha_hasta)
+	{
+		$sql="DELETE FROM horas_permiso_personal WHERE   id_trab='$id_trab'  
+													AND fecha>='$fecha_procede' 
+								         			AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_extra_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta )
+	{
+
+		$sql="INSERT INTO horas_extras_personal_data_eliminada
+			  SELECT * FROM horas_extras_personal WHERE  id_trab='$id_trab'  
+			  										AND fecha>='$fecha_procede' 
+								         			AND fecha<='$fecha_hasta'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_extra(  $id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_extras_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND fecha>='$fecha_procede' 
+								          AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_extra(  $id_trab, $fecha_procede, $fecha_hasta)
+	{
+		$sql="DELETE FROM horas_extras_personal WHERE   id_trab='$id_trab'  AND fecha>='$fecha_procede' AND fecha<='$fecha_hasta' ";
+		return ejecutarConsulta($sql);
+	}
+	
+
+
+
+	//Implementamos un método para insertar registros como falta por suspension 
+	public function insertar_faltas_desde_hasta( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg )
+	{
+
+		$sql="INSERT INTO horas_permiso_personal (id_trab,
+												  fecha,
+												  tiempo_des,
+												  tiempo_fin, 
+												  cant_dia_fin, 
+												  id_incidencia, 
+												  id_fec_dscto, 
+												  descontar, 
+												  descontado, 
+												  habilitar_dscto,  
+												  est_reg, 
+												  fec_reg,
+												  usu_reg, 
+												  pc_reg
+		                                          )
+								                SELECT  
+												'$id_trab' AS id_trab,
+												 fe.fecha,
+												 '00:00:00'  AS tiempo_des,
+												 '00:00:00'  AS tiempo_fin,
+												 '1' AS cantidad_dias,
+												 '3' AS id_incidencia, 
+												 cp.id_cp AS id_fec_dscto,
+												 '1' AS descontar, 
+												 '2' AS descontado, 
+												 '2' AS habilitar_dscto,
+												 '1' AS est_reg,
+												 '$fec_reg',
+												 '$usu_reg',
+												 '$pc_reg'
+												FROM fechas  fe
+												LEFT JOIN ( SELECT   cp.id_cp, fe.fecha
+													    FROM cronograma_dsctos_horasdias cp
+													    LEFT  JOIN 	tabla_maestra_detalle TbPea ON
+															TbPea.cod_argumento=  cp.id_ano
+															AND TbPea.Cod_tabla='TPEA'
+													    LEFT  JOIN 	tabla_maestra_detalle TbFpa ON
+															TbFpa.cod_argumento=  cp.des_fec_pag
+															AND TbFpa.Cod_tabla='TFPA'
+													    LEFT JOIN fechas fe ON
+															fe.fecha BETWEEN cp.desde AND cp.hasta
+													    WHERE  cp.des_fec_pag  NOT IN  ('0')
+													) AS cp 
+												ON cp.fecha= fe.fecha
+												WHERE  fe.fecha>='$fecha_procede' AND fe.fecha<='$fecha_hasta' 
+												AND NOT EXISTS ( 
+																  SELECT     NULL
+																  FROM horas_permiso_personal  pp
+																  WHERE '$id_trab'= pp.id_trab
+																  AND  pp.fecha>='$fecha_procede' AND pp.fecha<='$fecha_hasta'
+												)
+												/*COLOCAR QUE NO DEBE TENER REGISTRO COMO DIA FALTADOS*/
+												 ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
 
 }
 

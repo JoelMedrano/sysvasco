@@ -293,11 +293,212 @@ Class Trabajador
 
 
 	//Implementamos un método para activar registros
-	public function eliminar($id_trab)
+	public function eliminar_trabajador($id_trab)
 	{
-		$sql="DELETE trabajador WHERE id_trab='$id_trab'";
+		$sql="DELETE FROM  trabajador WHERE id_trab='$id_trab'";
 		return ejecutarConsulta($sql);
 	}
+
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_afiliacion($id_trab)
+	{
+		$sql="DELETE FROM trabajador_afiliacion WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_conocimiento($id_trab)
+	{
+		$sql="DELETE FROM trabajador_conocimiento WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_data_adjunta($id_trab)
+	{
+		$sql="DELETE FROM trabajador_data_adjunta WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_estudios($id_trab)
+	{
+		$sql="DELETE FROM trabajador_estudios WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_familia($id_trab)
+	{
+		$sql="DELETE FROM trabajador_familia WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_exp_laboral($id_trab) 
+	{
+		$sql="DELETE FROM trabajador_exp_laboral WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para activar registros
+	public function eliminar_trabajador_salud($id_trab)
+	{
+		$sql="DELETE FROM trabajador_salud WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_reloj_data_eliminada_todo( $id_trab  )
+	{
+
+		$sql="INSERT INTO reloj_data_eliminada
+			  SELECT * FROM reloj WHERE  id_trab='$id_trab'   ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_reloj_todo(  $id_trab , $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE reloj_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								           ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_reloj_todo(  $id_trab )
+	{
+		$sql="DELETE FROM reloj WHERE   id_trab='$id_trab'   ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_falta_data_eliminada_todo( $id_trab  )
+	{
+
+		$sql="INSERT INTO horas_permiso_personal_data_eliminada
+			  SELECT * FROM horas_permiso_personal WHERE  id_trab='$id_trab'    ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_falta_todo(  $id_trab , $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_permiso_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								        ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_falta_todo(  $id_trab)
+	{
+		$sql="DELETE FROM horas_permiso_personal WHERE   id_trab='$id_trab'   ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_extra_data_eliminada_todo( $id_trab )
+	{
+
+		$sql="INSERT INTO horas_extras_personal_data_eliminada
+			  SELECT * FROM horas_extras_personal WHERE  id_trab='$id_trab'    ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_extra_todo(  $id_trab,  $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_extras_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								        ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_extra_todo(  $id_trab)
+	{
+		$sql="DELETE FROM horas_extras_personal WHERE   id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_permisos_asociados( $id_trab )
+	{
+
+		$sql="INSERT INTO permiso_personal_data_eliminada
+			  SELECT * FROM permiso_personal WHERE  id_trab='$id_trab'    ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_permisos_asociados(  $id_trab,  $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE permiso_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								        ";
+		return ejecutarConsulta($sql);
+	}
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_permisos_asociados($id_trab)
+	{
+		$sql="DELETE FROM permiso_personal WHERE   id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_horario_refrigerio($id_trab)
+	{
+		$sql="DELETE FROM horario_refrigerio_trabajador WHERE   id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
 
 
 
@@ -679,6 +880,217 @@ Class Trabajador
 
 
 
+	//Implementamos un método para insertar registros
+	public function insertar_reloj_data_eliminada( $id_trab, $fec_sal_trab )
+	{
+
+		$sql="INSERT INTO reloj_data_eliminada
+			  SELECT * FROM reloj WHERE  id_trab='$id_trab'  and fecha>'$fec_sal_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_reloj(  $id_trab, $fec_sal_trab, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE reloj_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND   fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_reloj(  $id_trab, $fec_sal_trab)
+	{
+		$sql="DELETE FROM reloj WHERE   id_trab='$id_trab'  and fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_falta_data_eliminada( $id_trab, $fec_sal_trab )
+	{
+
+		$sql="INSERT INTO horas_permiso_personal_data_eliminada
+			  SELECT * FROM horas_permiso_personal WHERE  id_trab='$id_trab'  and fecha>'$fec_sal_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_falta(  $id_trab, $fec_sal_trab, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_permiso_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND   fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_falta(  $id_trab, $fec_sal_trab)
+	{
+		$sql="DELETE FROM horas_permiso_personal WHERE   id_trab='$id_trab'  and fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+
+
+
+
+	//Implementamos un método para insertar registros
+	public function insertar_hora_extra_data_eliminada( $id_trab, $fec_sal_trab )
+	{
+
+		$sql="INSERT INTO horas_extras_personal_data_eliminada
+			  SELECT * FROM horas_extras_personal WHERE  id_trab='$id_trab'  and fecha>'$fec_sal_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//Implementamos un método para editar registros
+	public function actualizar_quienelimino_hora_extra(  $id_trab, $fec_sal_trab, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_extras_personal_data_eliminada SET   fec_mod='$fec_reg', 
+											  	pc_mod='$pc_reg', 
+										 		usu_mod='$usu_reg' 
+								    	  WHERE id_trab='$id_trab'
+								          AND   fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para eliminar registros
+	public function eliminar_hora_extra(  $id_trab, $fec_sal_trab)
+	{
+		$sql="DELETE FROM horas_extras_personal WHERE   id_trab='$id_trab'  and fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+	// Implementar un método para consultar si tiene otro codigo activo baje ese mismo DNI - Agregado:07012019 - Leydi Godos 
+	public function consultar_CodigoActivo_MismoDni($num_doc_trab)
+	{
+		$sql="SELECT tr.id_trab AS codigo_activo
+			  FROM trabajador tr
+			  WHERE tr.num_doc_trab='$num_doc_trab' 
+			  AND est_reg='1' ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+	//Implementamos un método para editar registros
+	public function actualizar_reloj_data( $id_trab,  $codigo_activo, $fec_sal_trab, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE reloj SET   id_trab='$codigo_activo',
+								 fec_mod='$fec_reg', 
+							     pc_mod='$pc_reg', 
+								 usu_mod='$usu_reg' 
+						   WHERE id_trab='$id_trab'
+						   AND   fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+	//Implementamos un método para editar registros
+	public function actualizar_hora_extra_data( $id_trab, $codigo_activo, $fec_sal_trab, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_extras_personal SET   id_trab='$codigo_activo',
+												 fec_mod='$fec_reg', 
+											     pc_mod='$pc_reg', 
+												 usu_mod='$usu_reg' 
+										   WHERE id_trab='$id_trab'
+										   AND   fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para editar registros
+	public function actualizar_hora_permiso_data( $id_trab,  $codigo_activo, $fec_sal_trab, $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horas_permiso_personal SET  id_trab='$codigo_activo',
+												 fec_mod='$fec_reg', 
+											     pc_mod='$pc_reg', 
+												 usu_mod='$usu_reg' 
+										   WHERE id_trab='$id_trab'
+										   AND   fecha>'$fec_sal_trab' ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+	// Implementar un método para consultar que thorario y refrigerio posee el colaborador - Agregado:08012019 - Leydi Godos
+	// El trabajador cesado
+
+	public function consultar_horario_refrigerio($id_trab)
+	{
+		$sql="SELECT hrt.id_horario AS horario, hrt.cod_ref AS refrigerio
+			  FROM horario_refrigerio_trabajador hrt
+			  WHERE hrt.id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
+	//Implementamos un método para insertar registros en la tabla de trabajador data adjunta
+	public function insertar_horario_refrigerio( $codigo_activo, $horario, $refrigerio, $fec_reg, $pc_reg, $usu_reg  )
+	{
+
+		$sql="INSERT INTO horario_refrigerio_trabajador (id_trab, id_horario, cod_ref,  est_reg, usu_reg, pc_reg, fec_reg) 
+		VALUES ( '$codigo_activo', '$horario', '$refrigerio', '1', '$usu_reg', '$pc_reg', '$fec_reg')";
+		return ejecutarConsulta($sql);
+
+	}
+
+
+
+
+	//Implementamos un método para editar registros
+	public function actualizar_horario_refrigerio_codigoanterior( $id_trab,  $fec_reg, $pc_reg,	$usu_reg   )
+	{
+		$sql="UPDATE horario_refrigerio_trabajador SET   est_reg='2',
+														 fec_mod='$fec_reg', 
+													     pc_mod='$pc_reg', 
+														 usu_mod='$usu_reg' 
+												   WHERE id_trab='$id_trab'  ";
+		return ejecutarConsulta($sql);
+	}
+
+
+
+
+	
+
+
+
+
+
+
+
+
 }
 
 ?>
+
+
+
