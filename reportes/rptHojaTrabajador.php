@@ -87,6 +87,7 @@ $titulo3->applyFromArray(
 
 //inicio estilos
 $titulo4 = new PHPExcel_Style(); //nuevo estilo
+
 $titulo4->applyFromArray(
   array('alignment' => array( //alineacion
       'wrap' => false,
@@ -96,6 +97,21 @@ $titulo4->applyFromArray(
       'size' => 10
     )
 ));
+
+
+//inicio estilos
+$titulo_cab = new PHPExcel_Style(); //nuevo estilo
+$titulo_cab->applyFromArray(
+  array('alignment' => array( //alineacion
+      'wrap' => false,
+      'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+    ),
+    'font' => array( //fuente
+      'bold' => true,
+      'size' => 12
+    )
+));
+
 
 
 $observaciones = new PHPExcel_Style(); //nuevo estilo
@@ -179,6 +195,37 @@ $bordes->applyFromArray(
 
 
 
+$bordes_dobles = new PHPExcel_Style(); //nuevo estilo
+
+$bordes_dobles->applyFromArray(
+  array('borders' => array(
+      'top' => array('style' => PHPExcel_Style_Border::BORDER_DOUBLE),
+      'right' => array('style' => PHPExcel_Style_Border::BORDER_DOUBLE),
+      'bottom' => array('style' => PHPExcel_Style_Border::BORDER_DOUBLE),
+      'left' => array('style' => PHPExcel_Style_Border::BORDER_DOUBLE)
+    )
+));
+//fin estilos
+
+
+
+
+
+$bordes_cab_emp = new PHPExcel_Style(); //nuevo estilo
+
+$bordes_cab_emp->applyFromArray(
+  array('borders' => array(
+      'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+    )
+));
+//fin estilos
+
+
+
+
 
 $bordes_inferior = new PHPExcel_Style(); //nuevo estilo
 
@@ -187,6 +234,19 @@ $bordes_inferior->applyFromArray(
      'top' => array('style' => PHPExcel_Style_Border::BORDER_NONE),
       'right' => array('style' => PHPExcel_Style_Border::BORDER_NONE),
       'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'left' => array('style' => PHPExcel_Style_Border::BORDER_NONE)
+      )
+));
+//fin estilos
+
+
+$bordes_superior = new PHPExcel_Style(); //nuevo estilo
+
+$bordes_superior->applyFromArray(
+  array('borders' => array(
+     'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+      'right' => array('style' => PHPExcel_Style_Border::BORDER_NONE),
+      'bottom' => array('style' => PHPExcel_Style_Border::BORDER_NONE),
       'left' => array('style' => PHPExcel_Style_Border::BORDER_NONE)
       )
 ));
@@ -247,10 +307,6 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
 
 
 
-
-
-//establecer titulos de impresion en cada hoja
-$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 10);
 
  $sqlPro=mysql_query("SELECT tr.id_trab,
     CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
@@ -544,7 +600,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
   $resPro=mysql_fetch_array($sqlPro);
 
-  $fila=2;
+  $fila=1;
  
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", " III. DATOS FAMILIARES:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
@@ -553,7 +609,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=3;
+  $fila=2;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "FAMILIAR");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -591,18 +647,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->getStyle("L$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=4;
+  $fila=3;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('4')->setRowHeight(30);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "PADRE");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
 
 
+
   $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["viv_pad"])); 
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
+
 
   $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($resPro["nom_pad"])); 
   $objPHPExcel->getActiveSheet()->mergeCells("G$fila:I$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "G$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+
+
 
   $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($resPro["ocu_pad"])); 
   $objPHPExcel->getActiveSheet()->mergeCells("J$fila:K$fila");
@@ -618,11 +682,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
  
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
+  $fila=4;
 
-  $fila=5;
+  $objPHPExcel->getActiveSheet()->getRowDimension('5')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "MADRE");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -646,10 +725,25 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
   
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=6;
+  $fila=5;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('6')->setRowHeight(30);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "CONYUGE");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -675,10 +769,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=7;
+  $fila=6;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('7')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "HIJO1");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -713,10 +823,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=8;
+  $fila=7;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('8')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "HIJO2");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -750,10 +876,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=9;
+  $fila=8;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('9')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "HIJO3");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -786,10 +928,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=10;
+  $fila=9;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "HIJO4");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -821,10 +979,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=11;
+  $fila=10;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('11')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "OTRO");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -846,29 +1020,41 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
   
 
 
 
-  $fila=12;  
-    $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:C$fila");
-  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");  
+  $fila=11;  
+    $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:F$fila");
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");  
 
 
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", "APELLIDOS Y NOMBRES");
-  $objPHPExcel->getActiveSheet()->mergeCells("D$fila:H$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "D$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "APELLIDOS Y NOMBRES");
+  $objPHPExcel->getActiveSheet()->mergeCells("G$fila:I$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "G$fila"); //establecer estilo
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", "PARENTESCO");
-  $objPHPExcel->getActiveSheet()->mergeCells("I$fila:J$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "I$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", "PARENTESCO");
+  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:K$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "J$fila"); //establecer estilo
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", "AREA DE TRABAJO");
-  $objPHPExcel->getActiveSheet()->mergeCells("K$fila:M$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "M$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", "AREA DE TRABAJO");
+  $objPHPExcel->getActiveSheet()->mergeCells("L$fila:M$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "L$fila"); //establecer estilo
   
 
   
@@ -877,44 +1063,43 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:M$fila");
 
 
-  $objPHPExcel->getActiveSheet() ->getStyle("D$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("D$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
  
 
 
-  $filaX=13;
-  $filaY=15;
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$filaX", "PARIENTE O CONOCIDO EN LA EMPRESA");
-  $objPHPExcel->getActiveSheet()->mergeCells("B$filaX:C$filaY");
+  $fila=12;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "PARIENTE O CONOCIDO EN LA EMPRESA:");
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
 
  
-  $objPHPExcel->getActiveSheet()->SetCellValue("D$filaX", utf8_encode($resPro["nom_fam_con"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("D$filaX:H$filaY");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$filaX");
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($resPro["nom_fam_con"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("G$fila:I$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "G$fila");
 
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("I$filaX", utf8_encode($resPro["par_fam_con"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("I$filaX:J$filaY");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "I$filaX"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($resPro["par_fam_con"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:K$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "J$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("K$filaX", utf8_encode($resPro["are_fam_con"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("K$filaX:M$filaY");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "K$filaX"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($resPro["are_fam_con"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("L$fila:M$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "L$fila"); //establecer estilo
 
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$filaX:C$filaY");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$filaX:H$filaY");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "F$filaX:M$filaY");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$filaX:M$filaX")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet()->getStyle("B$filaX")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:C$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:H$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "F$fila:M$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=16;
+  $fila=13;
 
 
-  $fila=17;
+  $fila=14;
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", " IV. ESTUDIOS REALIZADOS:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
@@ -923,7 +1108,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   
 
 
-  $fila=18;
+  $fila=15;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "NIVEL");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -956,7 +1141,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=19;
+  $fila=16;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('16')->setRowHeight(30);
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "PRIMARIA");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
@@ -983,12 +1170,27 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+      $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
 
 
-  $fila=20;
+  $fila=17;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('17')->setRowHeight(30);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "SECUNDARIA");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1013,11 +1215,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+        $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
 
-  $fila=21;
+  $fila=18;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('18')->setRowHeight(30);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "SUPERIOR");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1041,13 +1258,31 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+          $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-  $fila=22;
+  $fila=19;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('19')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "TECNICO");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+
+
 
 
 
@@ -1070,11 +1305,28 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+            $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
 
-  $fila=23;
+
+  $fila=20;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('20')->setRowHeight(30);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "ESPECIALIDAD");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1100,12 +1352,28 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+            $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
 
 
-  $fila=24;
+  $fila=21;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('21')->setRowHeight(25);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "OTROS");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1131,20 +1399,30 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
-
-  $fila=26;
+  $fila=23;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", " V. OTROS CONOCIMIENTOS:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
 
 
 
-  $fila=27;
+  $fila=24;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "IDIOMAS");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1158,12 +1436,12 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "I$fila"); //establecer estilo
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
-  $fila=28;
+  $fila=25;
 
-
+  //$objPHPExcel->getActiveSheet()->getRowDimension('26')->setRowHeight(20);
  
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["des_idioma"])); 
@@ -1179,14 +1457,26 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "I$fila"); //establecer estilo
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
 
 
 
 
   
 
-  $fila=29;
+  $fila=26;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "COMPUTACION");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1200,10 +1490,12 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "I$fila"); //establecer estilo
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
-  $fila=30;
+  $fila=27;
+
+//$objPHPExcel->getActiveSheet()->getRowDimension('28')->setRowHeight(20);
 
    $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["des_comp"])); 
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
@@ -1218,9 +1510,21 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "I$fila"); //establecer estilo
 
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
-  $fila=32;
+  $objPHPExcel->getActiveSheet()->getStyle("A$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("C$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("D$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("E$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("F$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("G$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("H$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("I$fila")->getAlignment()->setWrapText(true); 
+  $objPHPExcel->getActiveSheet()->getStyle("J$fila")->getAlignment()->setWrapText(true);
+  $objPHPExcel->getActiveSheet()->getStyle("K$fila")->getAlignment()->setWrapText(true);
+
+  $fila=29;
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", " VI. SALUD");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
@@ -1228,7 +1532,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=33;
+  $fila=30;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "TIENE ANTECEDENTES DE ENFERMEDADES CARDIACAS Y/O ONCOLOGICAS?");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:M$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1236,7 +1540,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
-  $fila=34;
+  $fila=31;
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["tie_enf_car_onc"])); 
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:M$fila");
@@ -1245,7 +1549,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=35;
+  $fila=32;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "ACTUALMENTE SUFRE DE ALGUN TIPO DE ALERGIA/MEDICAMENTO");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:M$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1255,110 +1559,110 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=36;
+  $fila=33;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["tie_enf_ale_rec"])); 
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:M$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
-  $fila=37;
+  $fila=34;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "ACTUALMENTE SUFRE DE ALGUNA ENFERMEDAD? CUAL?");
-  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:M$fila");
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:H$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila:H$fila"); 
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:H$fila");
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila:H$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+
+  //establecer estilo
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($resPro["nom_enf_car_onc"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("I$fila:M$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "I$fila:M$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("I$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+
+
+
+
+
+  $fila=35;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "GRUP.SANGUINEO:");
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+ $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($resPro["grupo_sanguineo"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("E$fila:F$fila");
 
-  $fila=38;
+  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "PESO(KG.):");
+  $objPHPExcel->getActiveSheet()->mergeCells("G$fila:H$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "G$fila:H$fila"); 
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "G$fila:H$fila");
+  //establecer estilo
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["nom_enf_car_onc"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:M$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", utf8_encode($resPro["peso"]));
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "I$fila");
+   
 
 
-
-
-  $fila=39;
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "GRUP.SANGUINEO");
-  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", "PESO(KG.)");
-  $objPHPExcel->getActiveSheet()->mergeCells("G$fila:I$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "G$fila"); //establecer estilo
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", "TALLA(CM.)");
-  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:M$fila");
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", "TALLA(CM.):");
+  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:K$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "J$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "J$fila:K$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("J$fila:K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($resPro["talla"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("L$fila:M$fila");
+
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "L$fila:M$fila");
+  $objPHPExcel->getActiveSheet() ->getStyle("L$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
-  $fila=40;
+  $fila=36;
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["grupo_sanguineo"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($resPro["peso"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("G$fila:I$fila");
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($resPro["talla"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:M$fila");
-
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-
-
-
-
-
-
-  
-
-
-  $fila=41;
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "ESTA AFILIADO A ONP?(SI/NO):");
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "AFILIADO A ONP?I/NO):");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:E$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:E$fila");//
+
+
 
   $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($resPro["afi_onp"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("F$fila:M$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "F$fila"); //establecer estilo
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "F$fila"); 
+  $objPHPExcel->getActiveSheet()->mergeCells("F$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "F$fila:G$fila");
+ 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", "AFILIADO A AFP?");
+  $objPHPExcel->getActiveSheet()->mergeCells("H$fila:I$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "H$fila"); //
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "H$fila:I$fila");
+
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", utf8_encode($resPro["afi_afp"])); 
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "J$fila"); 
+  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:K$fila");
+
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "J$fila:K$fila");
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", utf8_encode($resPro["nom_afi_afp"])); 
+  $objPHPExcel->getActiveSheet()->mergeCells("L$fila:M$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "L$fila"); //establecer estilo
+   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "L$fila:M$fila");
+
+
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
  
 
-  $fila=42;
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "ESTA AFILIADO A AFP?(SI/NO):");
-  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:E$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
+
+ 
 
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", utf8_encode($resPro["afi_afp"])); 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "F$fila"); //establecer estilo
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", utf8_encode($resPro["nom_afi_afp"])); 
-  $objPHPExcel->getActiveSheet()->mergeCells("G$fila:M$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "G$fila"); //establecer estilo
-
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-
-
-  $fila=52;
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_inferior, "B$fila:F$fila");
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_inferior, "J$fila:M$fila");
-  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:M$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-
-
-
-  $fila=53;
+  $fila=40;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "Fecha");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
 
@@ -1717,6 +2021,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $fila=2;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'CORPORACION VASCO S.A.C.');
 
+
+
+
   $fila=3;
   $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", 'SOLICITUD DE EMPLEO');
   $objPHPExcel->getActiveSheet()->mergeCells("D$fila:I$fila");
@@ -1726,7 +2033,11 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
   
 
-  $fila=4;
+  $filaX=3;
+  $filaY=7;
+
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_dobles, "J$filaX:K$filaY");
+  $objPHPExcel->getActiveSheet()->mergeCells("J$filaX:K$filaY");
 
 
   $fila=5;
@@ -1735,15 +2046,15 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:D$fila");
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($resPro["apellidos"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($resPro["funcion"]));
 
 
- $objPHPExcel->getActiveSheet()->mergeCells("E$fila:L$fila");
+ $objPHPExcel->getActiveSheet()->mergeCells("E$fila:H$fila");
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "E$fila:L$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "E$fila:H$fila");
 
-  $fila=7;
+  $fila=8;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "I. DATOS A PERSONALES:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
@@ -1755,7 +2066,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=8;
+  $fila=9;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["apellidos"]));
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:H$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1768,7 +2079,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-  $fila=9;
+  $fila=10;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "APELLIDOS");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:H$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1781,7 +2092,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-  $fila=10;
+  $fila=11;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["dir_trab"]));
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1806,7 +2117,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-  $fila=11;
+  $fila=12;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "DIRECCION");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1827,11 +2138,11 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-  $fila=12;
-
   $fila=13;
 
   $fila=14;
+
+  $fila=15;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["fec_nac_trab"]));
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1862,7 +2173,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-  $fila=15;
+  $fila=16;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "FEC.NACIMIENTO");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1890,7 +2201,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=16;
+  $fila=17;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["num_doc_trab"]));
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1919,7 +2230,7 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-  $fila=17;
+  $fila=18;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "D.N.I");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1944,18 +2255,18 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("I$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-  $fila=18;
-
   $fila=19;
 
   $fila=20;
+
+  $fila=21;
 
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "II. EXPERIENCIA LABORAL(Comenzar por el mas reciente)");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:K$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo2, "B$fila"); //establecer estilo
   $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
-  $fila=21;
+  $fila=22;
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "EMPRESA");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -1984,11 +2295,11 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet() ->getStyle("K$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-  $fila=22;
+  $fila=23;
 
  
    
-
+  $objPHPExcel->getActiveSheet()->getRowDimension('23')->setRowHeight(50);
 
 
 
@@ -1997,6 +2308,12 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($resPro["nom_emp_exp1"]));
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
+
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setWrapText(true); 
+  $objPHPExcel->getActiveSheet()->getStyle("B$fila")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+
+
 
   $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($resPro["car_exp1"]));
   $objPHPExcel->getActiveSheet()->mergeCells("E$fila:F$fila");
@@ -2054,7 +2371,9 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=23;
+  $fila=24;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('24')->setRowHeight(30);
 
    $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:L$fila");
 
@@ -2114,7 +2433,10 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
-  $fila=24;
+  $fila=25;
+
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('25')->setRowHeight(30);
 
    $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$fila:L$fila");
 
@@ -2168,11 +2490,34 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 
 
+  $fila+=1;
+
+  $fila+=1;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "**PARA SER LLENADO POR EL EMPLEADOR**");
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:L$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_cab, "B$fila"); 
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila:L$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_superior, "B$fila:L$fila");
 
   $fila+=1;
 
+  $fila+=1;
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "DE LA APROBACION DEL INGRESO:");
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:F$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); 
+
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:F$fila");
+  
 
   $fila+=1;
+
+  $fila=31;
+
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('31')->setRowHeight(20);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "SUCURSAL:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2182,12 +2527,15 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
   
 
-  $fila+=1;
 
-  $fila+=1;
+  $fila=32;
+
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('32')->setRowHeight(20);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "AREA:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2197,12 +2545,15 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
 
 
-  $fila+=1;
 
-  $fila+=1;
+
+  $fila=33;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('33')->setRowHeight(20);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "FUNCION:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2212,12 +2563,15 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
 
  
-  $fila+=1;
 
-  $fila+=1;
+
+  $fila=34;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('34')->setRowHeight(20);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "TURNO");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2227,12 +2581,14 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
 
 
-  $fila+=1;
   
-  $fila+=1;
+  $fila=35;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('35')->setRowHeight(20);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "FECHA INGRESO:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2242,12 +2598,14 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
 
 
-  $fila+=1;
-  
-  $fila+=1;
+  $fila=36;
+
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('36')->setRowHeight(20);
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "COND.LABORAL:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2257,12 +2615,15 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
+  
 
   
-  $fila+=1;
-  
-  $fila+=1;
+  $fila=37;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('37')->setRowHeight(20);
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "REMUNERACION:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
@@ -2272,43 +2633,87 @@ $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
 
 
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
 
   $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
-  $fila+=1;
+
   
-  $fila+=1;
+  $fila=38;
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('38')->setRowHeight(20);
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "BONO:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
-
   $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["bono_trab"]));
   $objPHPExcel->getActiveSheet()->mergeCells("D$fila:G$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
-
-
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
   $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 
 
-  $fila+=1;
 
 
-  $fila+=1;
+
+  $fila=39;
+
+
+  $objPHPExcel->getActiveSheet()->getRowDimension('39')->setRowHeight(20);
   $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "BONO DESTAJO:");
   $objPHPExcel->getActiveSheet()->mergeCells("B$fila:C$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "B$fila"); //establecer estilo
-
   $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($resPro["bono_des_trab"]));
   $objPHPExcel->getActiveSheet()->mergeCells("D$fila:G$fila");
   $objPHPExcel->getActiveSheet()->setSharedStyle($titulo4, "D$fila"); //establecer estilo
-
-
-  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "D$fila:G$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:G$fila");
   $objPHPExcel->getActiveSheet() ->getStyle("D$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
+
+
+
+
+
+  $filaX=41;
+
+  $filaY=43;
+
+  $objPHPExcel->getActiveSheet()->mergeCells("B$filaX:D$filaY");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$filaX:D$filaY");
+
+  
+  $objPHPExcel->getActiveSheet()->mergeCells("E$filaX:I$filaY");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "E$filaX:I$filaY");
+
+  
+  $objPHPExcel->getActiveSheet()->mergeCells("J$filaX:L$filaY");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "J$filaX:L$filaY");
+
+
+
+
+
+  $fila=44;
+  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", "V°B° SUPERVISOR DE AREA");
+
+  $objPHPExcel->getActiveSheet()->mergeCells("B$fila:D$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "B$fila:D$fila");
+
+  $objPHPExcel->getActiveSheet() ->getStyle("B$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", "V°B° JEFE DE AREA");
+  $objPHPExcel->getActiveSheet()->mergeCells("E$fila:I$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "E$fila:I$fila");
+
+  $objPHPExcel->getActiveSheet() ->getStyle("E$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
+  $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", "V°B° DE RR.HH.");
+  $objPHPExcel->getActiveSheet()->mergeCells("J$fila:L$fila");
+  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes_cab_emp, "J$fila:L$fila");
+
+  $objPHPExcel->getActiveSheet() ->getStyle("J$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
 

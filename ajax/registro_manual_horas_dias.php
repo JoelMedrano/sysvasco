@@ -152,6 +152,9 @@ $id_casovigilancia=$regc->id_casovigilancia;
 $cantidad_horas=$regc->cantidad_horas;
 $fedo_canhoras_max=$regc->fedo_canhoras_max;
 $por_pago_vig=$regc->por_pago_vig;
+$cant_horas_max_vig=$regc->cant_horas_max_vig;
+
+
 
 		
 
@@ -332,12 +335,20 @@ switch ($_GET["op"]){
 
 
 
-						    if($id_casovigilancia==$id_trab AND $cant_dif_hssh_hsre>='14400'and  $cant_dif_hssh_hsre>='43200') {
+						  if($id_casovigilancia==$id_trab  AND  $cant_dif_hssh_hsre>=$cant_horas_max_vig) {
 
-							$tiempo_fin='12:00:00';
+							$tiempo_fin=$fedo_canhoras_max;
+
 					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
-					    	}else if ($id_casovigilancia!=$id_trab) {
+					      }else if ( $id_casovigilancia==$id_trab  AND  $cant_dif_hssh_hsre<$cant_horas_max_vig	) {
+
+					      	$tiempo_fin=$tiempo_redondeado_hire_hsre;
+
+					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
+
+					      	
+					      }else if ($id_casovigilancia!=$id_trab) {
 
 					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
@@ -444,9 +455,9 @@ switch ($_GET["op"]){
 								    	$tiempo_des= $dif_hish_hire;
 
 								    	//Tiempo de Tolerancia 5 MINUTOS
-										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+										if ($cant_dif_hish_hire<='900') { //NO DESCONTARA
 											$tiempo_fin='00:00:00';
-										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+										}else if ($cant_dif_hish_hire>'900') { //SI DESCONTAR 
 											$tiempo_fin=$tiempo_redondeado_ing_dscto;
 										}
 
@@ -456,9 +467,9 @@ switch ($_GET["op"]){
 								    	
 
 								    	//Tiempo de Tolerancia 5 MINUTOS
-										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+										if ($cant_dif_hish_hire<='900') { //NO DESCONTARA
 											$descontar='2';
-										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+										}else if ($cant_dif_hish_hire>'900') { //SI DESCONTAR 
 											$descontar='1';
 										}
 
@@ -581,7 +592,7 @@ switch ($_GET["op"]){
 
 
 
-				} else if ($id!='' AND $id_accion=='2') { //ELIMINAR  
+				} else if ( $id_accion=='2') { //ELIMINAR  
 					//$id!='' hay registro de ese dia con ese dia en la tabla del reloj
 
 					//$id_accion=='2' elimina
@@ -666,7 +677,7 @@ switch ($_GET["op"]){
 
 					
 
-				} else if ($id!='' AND $id_accion=='3') { //ACTUALIZAR - 
+				} else if ( $id_accion=='3') { //ACTUALIZAR - 
 
 
 
@@ -774,13 +785,20 @@ switch ($_GET["op"]){
 						    $por_pago='100';
 
 
-						 //   if($id_casovigilancia==$id_trab AND $cant_dif_hire_hsre>='14400'and  $cant_dif_hire_hsre>='43200' ) {
+						
+						  if($id_casovigilancia==$id_trab  AND  $cant_dif_hssh_hsre>=$cant_horas_max_vig) {
 
-						  if($id_casovigilancia==$id_trab ) {
+							$tiempo_fin=$fedo_canhoras_max;
 
-							$tiempo_fin='12:00:00';
 					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
 
+					      }else if ( $id_casovigilancia==$id_trab  AND  $cant_dif_hssh_hsre<$cant_horas_max_vig	) {
+
+					      	$tiempo_fin=$tiempo_redondeado_hire_hsre;
+
+					    	$rspta=$rmhd->registrar_hora_extra($id_trab, $fecha, $hora_inicio, $hora_fin, $cantidad, $tiempo_fin, $id_fec_abono,  $estado, $por_pago, $fec_reg, $pc_reg, $usu_reg);
+
+					      	
 					      }else if ($id_casovigilancia!=$id_trab) {
 
 					      	$cantidad=$dif_hire_hsre;
@@ -892,18 +910,18 @@ switch ($_GET["op"]){
 								    	//$tiempo_fin=$tiempo_redondeado_ing_dscto;
 
 								    	//Tiempo de Tolerancia 5 MINUTOS
-										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+										if ($cant_dif_hish_hire<='900') { //NO DESCONTARA
 											$tiempo_fin='00:00:00';
-										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+										}else if ($cant_dif_hish_hire>'900') { //SI DESCONTAR 
 											$tiempo_fin=$tiempo_redondeado_ing_dscto;
 										}
 
 								    	
 
 								    	//Tiempo de Tolerancia 5 MINUTOS
-										if ($cant_dif_hish_hire<='300') { //NO DESCONTARA
+										if ($cant_dif_hish_hire<='900') { //NO DESCONTARA
 											$descontar='2';
-										}else if ($cant_dif_hish_hire>'300') { //SI DESCONTAR 
+										}else if ($cant_dif_hish_hire>'900') { //SI DESCONTAR 
 											$descontar='1';
 										}
 
@@ -1022,7 +1040,7 @@ switch ($_GET["op"]){
 					    	
 
 
-				} else if ($id=='' AND $id_accion=='4') { //ELIMINAR FALTA  - 
+				} else if ( $id_accion=='4') { //ELIMINAR FALTA  - 
 					//Solo eliminara la falta que esta dentro de la tabla de horas_permiso_personal
 
 
@@ -1063,7 +1081,7 @@ switch ($_GET["op"]){
 
 
 					    
-				}else if ($id=='' AND $id_accion=='5') { //AGREGAR HORAS EXTRAS  EN CASO ESPECIALES
+				}else if ( $id_accion=='5') { //AGREGAR HORAS EXTRAS  EN CASO ESPECIALES
 
 
 					

@@ -146,6 +146,8 @@ Class Registro_Manual_Horas_Dias
 	}
 
 
+
+
 	public function consultarCasoMovilidad($id_trab, $fecha )
 	{
 		$sql="  SELECT id_trab, 
@@ -162,7 +164,9 @@ Class Registro_Manual_Horas_Dias
 
 	public function consultarCasoVigilancia($id_trab, $fecha )
 	{
-		$sql="SELECT  cv.id_trab, cv.id_trab AS id_casovigilancia, porc_pago   AS por_pago_vig , fedo_canhoras_max,  CASE 
+		$sql="SELECT  cv.id_trab, cv.id_trab AS id_casovigilancia, porc_pago   AS por_pago_vig , 
+		fedo_canhoras_max,  REPLACE(TIME_TO_SEC(  fedo_canhoras_max  ) ,'-', '')  AS cant_horas_max_vig , 
+		CASE 
 								WHEN  fe.nom_dia='LUNES' THEN cv.canhoras_max
 								WHEN  fe.nom_dia='MARTES' THEN cv.canhoras_max
 								WHEN  fe.nom_dia='MIERCOLES' THEN cv.canhoras_max
@@ -792,6 +796,7 @@ Class Registro_Manual_Horas_Dias
 			 LEFT JOIN tabla_maestra_detalle AS tare ON
 			 tare.cod_argumento= tr.id_area
 			 AND tare.cod_tabla='TARE'
+			 where rm.est_reg='1'
 		     ORDER  BY YEAR(fecha) DESC, MONTH(fecha) DESC,  DAY(fecha) DESC
 				
 		 ";

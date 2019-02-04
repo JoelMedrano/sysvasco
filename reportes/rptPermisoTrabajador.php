@@ -757,6 +757,9 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$filaX:M$filaY");
   $objPHPExcel->getActiveSheet() ->getStyle("B$filaX")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
+  $objPHPExcel->getActiveSheet() ->getStyle("B$filaX")  ->getAlignment()  ->setVertical(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('B17:M19')->getAlignment()->setWrapText(true);
+
 
 
 
@@ -1035,6 +1038,9 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); //incluir la imagen
   $objPHPExcel->getActiveSheet()->mergeCells("B$filaX:M$filaY");
   $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "B$filaX:M$filaY");
   $objPHPExcel->getActiveSheet() ->getStyle("B$filaX")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+  $objPHPExcel->getActiveSheet() ->getStyle("B$filaX")  ->getAlignment()  ->setVertical(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('B44:M46')->getAlignment()->setWrapText(true);
 
 
 

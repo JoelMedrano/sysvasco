@@ -177,6 +177,8 @@ function mostrar(id_cp)
  	$.post("../ajax/pago_destajeros.php?op=listarDetalle&id_cp="+id_cp,function(r){
 	        $("#detalles").html(r);
 	});	
+
+	
 }
 
 //Función para anular registros

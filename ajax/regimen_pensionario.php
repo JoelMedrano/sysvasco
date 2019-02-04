@@ -182,7 +182,7 @@ switch ($_GET["op"]){
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-				echo $rspta ? "Regimen pensionario actualizado" : "Regimen pensionario no se pudo actualizar";
+				echo $rspta ? "Regimen pensionario actualizado sin copiar " : "Regimen pensionario no se pudo actualizar";
 				
 			}else {
 
@@ -278,7 +278,7 @@ switch ($_GET["op"]){
 													);
 
 
-				echo $rspta ? "Regimen pensionario actualizado " : "Regimen pensionario no se pudo actualizar";
+				echo $rspta ? "Regimen pensionario actualizado copiando " : "Regimen pensionario no se pudo actualizar";
 			}
 
 		}

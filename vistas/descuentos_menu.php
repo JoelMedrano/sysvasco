@@ -35,7 +35,6 @@ if ($_SESSION['rrhh']==1)
                             <th>Trabajador</th>
                             <th>Area</th>
                             <th>Detalle</th>
-                            <th>Cantidad</th>
                             <th>Modalidad</th>
                             <th>Tip.Dscto</th>
                             <th>Situacion</th>
@@ -50,7 +49,6 @@ if ($_SESSION['rrhh']==1)
                             <th>Trabajador</th>
                             <th>Area</th>
                             <th>Detalle</th>
-                            <th>Cantidad</th>
                             <th>Modalidad</th>
                             <th>Tip.Dscto</th>
                             <th>Situacion</th>
@@ -95,7 +93,7 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Cantidad:</label>
-                            <input type="number" class="form-control" name="cantidad" id="cantidad" required  autocomplete="off">
+                            <input type="number" class="form-control" name="cantidad" id="cantidad"   autocomplete="off">
                           </div>
                           <div class="form-group  col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <label>Num.Cuotas:</label>
@@ -111,7 +109,7 @@ if ($_SESSION['rrhh']==1)
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Detalle:</label>
-                            <input type="text" class="form-control" name="detalle" id="detalle" required  autocomplete="off">
+                            <input type="text" class="form-control" name="detalle" id="detalle"   autocomplete="off">
                           </div>
 
 
@@ -128,13 +126,13 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
                            <label>Fecha Descuento 1</label>
-                           <select id="fec_des1" name="fec_des1" class="form-control selectpicker" data-live-search="true"></select>
+                           <select id="fec_des1" name="fec_des1" class="form-control selectpicker" required data-live-search="true"></select>
                           </div>
 
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                            <label>Monto Dscto 1</label>
-                           <input type="decimal" class="form-control" name="mon_des1" id="mon_des1"  autocomplete="off">
+                           <input type="decimal" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
                           </div>
  
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">

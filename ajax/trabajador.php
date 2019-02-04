@@ -466,7 +466,7 @@ switch ($_GET["op"]){
 
 
 
-				if ($fec_sal_trab!='00:00:00') {
+				if ($fec_sal_trab!='00:00:00'   ) {
 
 
 						if ($codigo_activo!='' AND  $codigo_activo!=$id_trab) {
@@ -491,19 +491,19 @@ switch ($_GET["op"]){
 						}
 
 
-					$rspta=$trabajador->insertar_reloj_data_eliminada( $id_trab, $fec_sal_trab );
-					$rspta=$trabajador->actualizar_quienelimino_reloj($id_trab,	$fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
-					$rspta=$trabajador->eliminar_reloj( $id_trab, $fec_sal_trab );
+					//$rspta=$trabajador->insertar_reloj_data_eliminada( $id_trab, $fec_sal_trab );
+					//$rspta=$trabajador->actualizar_quienelimino_reloj($id_trab,	$fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+					//$rspta=$trabajador->eliminar_reloj( $id_trab, $fec_sal_trab );
 
 
-					$rspta=$trabajador->insertar_hora_falta_data_eliminada( $id_trab, $fec_sal_trab );
-					$rspta=$trabajador->actualizar_quienelimino_hora_falta($id_trab,	$fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
-					$rspta=$trabajador->eliminar_hora_falta( $id_trab, $fec_sal_trab );
+					//$rspta=$trabajador->insertar_hora_falta_data_eliminada( $id_trab, $fec_sal_trab );
+					//$rspta=$trabajador->actualizar_quienelimino_hora_falta($id_trab,	$fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+					//$rspta=$trabajador->eliminar_hora_falta( $id_trab, $fec_sal_trab );
 
 
-					$rspta=$trabajador->insertar_hora_extra_data_eliminada( $id_trab, $fec_sal_trab );
-					$rspta=$trabajador->actualizar_quienelimino_hora_extra($id_trab, $fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
-					$rspta=$trabajador->eliminar_hora_extra( $id_trab, $fec_sal_trab ); 
+					//$rspta=$trabajador->insertar_hora_extra_data_eliminada( $id_trab, $fec_sal_trab );
+					//$rspta=$trabajador->actualizar_quienelimino_hora_extra($id_trab, $fec_sal_trab, $fec_reg, $pc_reg, $usu_reg);
+					//$rspta=$trabajador->eliminar_hora_extra( $id_trab, $fec_sal_trab ); 
 			
 				}
 

@@ -150,7 +150,7 @@ Class Reloj
 
 	public function consultarInformacionDiaAnterior($id_trab, $fecha, $hora)
 	{
-		$sql=" SELECT  DATE(DATE(NOW())-1) AS fecha_dia_anterior,
+		$sql=" SELECT DATE(DATE_ADD(NOW(), INTERVAL -1 DAY)) AS fecha_dia_anterior,
 					re.hor_ent AS hora_ing_anterior,
 					re.hor_sal AS hor_sal_anterior,
 					fe.estado AS est_dia_anterior,
@@ -158,9 +158,9 @@ Class Reloj
 					REPLACE(TIME_TO_SEC( TIMEDIFF(  '$hora', re.hor_ent ) ) ,'-', '')  AS cant_dif_hida_hsho/*DIFERENCIAS ENTRE INGRESO DIA ANTERIOR Y SALIDA DE DIA ACTUAL NUMERICO*/
 				  FROM reloj re
 				  LEFT JOIN fechas fe ON 
-				  DATE(DATE(NOW())-1)=fe.fecha
+				   DATE(DATE_ADD(NOW(), INTERVAL -1 DAY))=fe.fecha
 				  WHERE re.id_trab='$id_trab'  
-				  AND  re.fecha= DATE(DATE(NOW())-1)  ";
+				  AND  re.fecha=  DATE(DATE_ADD(NOW(), INTERVAL -1 DAY))  ";
 		return ejecutarConsulta($sql);
 
 	}
@@ -439,6 +439,8 @@ Class Reloj
 		$sql="SELECT    tr.id_trab, 
 						REPLACE(TIMEDIFF( '$hora', ft.hora_salida ) ,'-', '')  AS tiempo_largo_hs_he , 
 						REPLACE(TIME_TO_SEC( TIMEDIFF( '$hora', ft.hora_salida ) ) ,'-', '')  AS cant_tiempo_hs_he, 
+						SEC_TO_TIME(  TIME_TO_SEC(ft.hora_salida)  + TIME_TO_SEC('03:00:00') ) AS tiempo_fin_25, 
+						REPLACE(TIMEDIFF( '$hora', SEC_TO_TIME(  TIME_TO_SEC(ft.hora_salida)  + TIME_TO_SEC('03:00:00') ) ) ,'-', '') AS tiempo_largo_35,  
 						ft.hora_salida AS hora_sal,
 						ft.hora_salida AS hora_salida_sh,
 						ft.hora_ingreso AS hora_ingreso_sh,
