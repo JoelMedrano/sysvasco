@@ -539,147 +539,464 @@ $sql=mysql_query("SELECT DISTINCT tr.id_trab,
         tr.id_tip_doc, 
         tcal.des_larga AS categoria_laboral,
         tr.num_doc_trab,
-        DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y') AS fec_ing_trab,
-        IF( DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')='00/00/0000', '', DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')) AS fec_sal_trab,
-  IF(hpp_reg.cant_horas='00:00' OR hpp_reg.cant_horas IS NULL, '', hpp_reg.cant_horas) AS horasdscto_regularizacion,
-  IF(hpp_reg.cant_dias='0' OR hpp_reg.cant_dias IS NULL , '', hpp_reg.cant_dias ) AS diasdscto_regularizacion,
-  MAX(CASE WHEN hpp.id_dscto='1' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini1',
-  MAX(CASE WHEN hpp.id_dscto='2' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini2',
-  MAX(CASE WHEN hpp.id_dscto='3' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini3',
-  MAX(CASE WHEN hpp.id_dscto='4' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini4',
-  MAX(CASE WHEN hpp.id_dscto='5' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini5',
-  MAX(CASE WHEN hpp.id_dscto='6' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini6',
-  MAX(CASE WHEN hpp.id_dscto='7' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini7',
-  MAX(CASE WHEN hpp.id_dscto='8' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini8',
-  MAX(CASE WHEN hpp.id_dscto='9' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini9',
-  MAX(CASE WHEN hpp.id_dscto='10' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini10',
-  MAX(CASE WHEN hpp.id_dscto='11' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini11',
-  MAX(CASE WHEN hpp.id_dscto='12' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini12',
-  MAX(CASE WHEN hpp.id_dscto='13' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini13',
-  MAX(CASE WHEN hpp.id_dscto='14' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini14',
-  MAX(CASE WHEN hpp.id_dscto='15' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini15',
-  MAX(CASE WHEN hpp.id_dscto='16' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini16',
-  IF( ADDTIME(
-  CASE WHEN hpp_reg.cant_horas='' THEN  '00:00'
-  WHEN hpp_reg.cant_horas IS NULL THEN '00:00' 
-  ELSE hpp_reg.cant_horas   END
-   , CASE WHEN fcc.cant_horas='' THEN '00:00'
-  WHEN fcc.cant_horas IS NULL THEN '00:00' 
-  ELSE fcc.cant_horas   END 
-   ) ='00:00' , '', ADDTIME(
-  CASE WHEN hpp_reg.cant_horas='' THEN  '00:00'
-  WHEN hpp_reg.cant_horas IS NULL THEN '00:00' 
-  ELSE hpp_reg.cant_horas   END
-   , CASE WHEN fcc.cant_horas='' THEN '00:00'
-  WHEN fcc.cant_horas IS NULL THEN '00:00' 
-  ELSE fcc.cant_horas   END 
-   )   )AS tot_cant_horas,
-   IF(
-  (
-  CASE WHEN hpp_reg.cant_dias='' THEN  '0'
-  WHEN hpp_reg.cant_dias IS NULL THEN '0' 
-  ELSE hpp_reg.cant_dias  END
-   + CASE WHEN fcc.cant_dias='' THEN '0' 
-  WHEN fcc.cant_dias IS NULL THEN '0' 
-  ELSE fcc.cant_dias   END 
-   )='0' , '',(
-  CASE WHEN hpp_reg.cant_dias='' THEN  '0'
-  WHEN hpp_reg.cant_dias IS NULL THEN '0' 
-  ELSE hpp_reg.cant_dias  END
-   + CASE WHEN fcc.cant_dias='' THEN '0' 
-  WHEN fcc.cant_dias IS NULL THEN '0' 
-  ELSE fcc.cant_dias   END 
-   ))  AS tot_cant_dias,
-  '-' AS separador, 
+  DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y') AS fec_ing_trab,
+  IF(
+    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y') = '00/00/0000',
+    '',
+    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')
+  ) AS fec_sal_trab,
+  IF(
+    hpp_reg.cant_horas = '00:00' 
+    OR hpp_reg.cant_horas IS NULL,
+    '',
+    hpp_reg.cant_horas
+  ) AS horasdscto_regularizacion,
+  IF(
+    hpp_reg.cant_dias = '0' 
+    OR hpp_reg.cant_dias IS NULL,
+    '',
+    hpp_reg.cant_dias
+  ) AS diasdscto_regularizacion,
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '1' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini1',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '2' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini2',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '3' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini3',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '4' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini4',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '5' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini5',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '6' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini6',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '7' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini7',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '8' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini8',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '9' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini9',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '10' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini10',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '11' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini11',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '12' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini12',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '13' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini13',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '14' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini14',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '15' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini15',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '16' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini16',
+  IF(
+    ADDTIME(
+      CASE
+        WHEN hpp_reg.cant_horas = '' 
+        THEN '00:00' 
+        WHEN hpp_reg.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE hpp_reg.cant_horas 
+      END,
+      CASE
+        WHEN fcc.cant_horas = '' 
+        THEN '00:00' 
+        WHEN fcc.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE fcc.cant_horas 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN hpp_reg.cant_horas = '' 
+        THEN '00:00' 
+        WHEN hpp_reg.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE hpp_reg.cant_horas 
+      END,
+      CASE
+        WHEN fcc.cant_horas = '' 
+        THEN '00:00' 
+        WHEN fcc.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE fcc.cant_horas 
+      END
+    )
+  ) AS tot_cant_horas,
+  IF(
+    (
+      CASE
+        WHEN hpp_reg.cant_dias = '' 
+        THEN '0' 
+        WHEN hpp_reg.cant_dias IS NULL 
+        THEN '0' 
+        ELSE hpp_reg.cant_dias 
+      END + 
+      CASE
+        WHEN fcc.cant_dias = '' 
+        THEN '0' 
+        WHEN fcc.cant_dias IS NULL 
+        THEN '0' 
+        ELSE fcc.cant_dias 
+      END
+    ) = '0',
+    '',
+    (
+      CASE
+        WHEN hpp_reg.cant_dias = '' 
+        THEN '0' 
+        WHEN hpp_reg.cant_dias IS NULL 
+        THEN '0' 
+        ELSE hpp_reg.cant_dias 
+      END + 
+      CASE
+        WHEN fcc.cant_dias = '' 
+        THEN '0' 
+        WHEN fcc.cant_dias IS NULL 
+        THEN '0' 
+        ELSE fcc.cant_dias 
+      END
+    )
+  ) AS tot_cant_dias,
+  '-' AS separador,
   fhe_reg.cant_horas_al25 AS horasal25_abono_regularizacion,
   fhe_reg.cant_horas_al35 AS horasal35_abono_regularizacion,
-  fhe_reg.cant_horas_dom  AS horasdom_abono_regularizacion,  
-  fhe_reg.cant_horas_fer  AS horasfer_abono_regularizacion,
-  MAX(CASE WHEN r_ext.id='1' THEN hep.dato ELSE '' END) AS 'd_ini1_ext',
-  MAX(CASE WHEN r_ext.id='2' THEN hep.dato ELSE '' END) AS 'd_ini2_ext',
-  MAX(CASE WHEN r_ext.id='3' THEN hep.dato ELSE '' END) AS 'd_ini3_ext',
-  MAX(CASE WHEN r_ext.id='4' THEN hep.dato ELSE '' END) AS 'd_ini4_ext',
-  MAX(CASE WHEN r_ext.id='5' THEN hep.dato ELSE '' END) AS 'd_ini5_ext',
-  MAX(CASE WHEN r_ext.id='6' THEN hep.dato ELSE '' END) AS 'd_ini6_ext',
-  MAX(CASE WHEN r_ext.id='7' THEN hep.dato ELSE '' END) AS 'd_ini7_ext',
-  MAX(CASE WHEN r_ext.id='8' THEN hep.dato ELSE '' END) AS 'd_ini8_ext',
-  MAX(CASE WHEN r_ext.id='9' THEN hep.dato ELSE '' END) AS 'd_ini9_ext',
-  MAX(CASE WHEN r_ext.id='10' THEN hep.dato ELSE '' END) AS 'd_ini10_ext',
-  MAX(CASE WHEN r_ext.id='11' THEN hep.dato ELSE '' END) AS 'd_ini11_ext',
-  MAX(CASE WHEN r_ext.id='12' THEN hep.dato ELSE '' END) AS 'd_ini12_ext',
-  MAX(CASE WHEN r_ext.id='13' THEN hep.dato ELSE '' END) AS 'd_ini13_ext',
-  MAX(CASE WHEN r_ext.id='14' THEN hep.dato ELSE '' END) AS 'd_ini14_ext',
-  MAX(CASE WHEN r_ext.id='15' THEN hep.dato ELSE '' END) AS 'd_ini15_ext',
-  MAX(CASE WHEN r_ext.id='16' THEN hep.dato ELSE '' END) AS 'd_ini16_ext',
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al25='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al25   END
-   , CASE WHEN fhe.cant_horas_al25='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al25   END 
-   )='00:00', '', 
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al25='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al25   END
-   , CASE WHEN fhe.cant_horas_al25='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al25   END 
-   )
-   ) AS tot_cant_horas_al25,
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al35='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al35   END
-  , CASE WHEN fhe.cant_horas_al35='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al35   END 
-   ) ='00:00', '' , 
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al35='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al35   END
-  , CASE WHEN fhe.cant_horas_al35='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al35   END 
-   )
-   ) AS tot_cant_horas_al35, 
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_dom='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_dom   END
-  , CASE WHEN fhe.cant_horas_dom='' THEN '00:00:00'
-  WHEN fhe.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_dom   END 
-   ) ='00:00', '', 
-   ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_dom='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_dom   END
-  , CASE WHEN fhe.cant_horas_dom='' THEN '00:00:00'
-  WHEN fhe.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_dom   END 
-   )
-   ) AS tot_cant_horas_dom, 
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_fer='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_fer   END
-  , CASE WHEN fhe.cant_horas_fer='' THEN '00:00:00'
-  WHEN fhe.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_fer   END 
-   ) ='00:00', '' ,
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_fer='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_fer   END
-  , CASE WHEN fhe.cant_horas_fer='' THEN '00:00:00'
-  WHEN fhe.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_fer   END 
-   )
-    )AS tot_cant_horas_fer
-FROM Trabajador tr
+  fhe_reg.cant_horas_dom AS horasdom_abono_regularizacion,
+  fhe_reg.cant_horas_fer AS horasfer_abono_regularizacion,
+  MAX(
+    CASE
+      WHEN r_ext.id = '1' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini1_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '2' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini2_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '3' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini3_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '4' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini4_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '5' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini5_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '6' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini6_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '7' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini7_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '8' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini8_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '9' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini9_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '10' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini10_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '11' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini11_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '12' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini12_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '13' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini13_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '14' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini14_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '15' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini15_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '16' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini16_ext',
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al25 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al25 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al25 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al25 
+      END
+    )
+  ) AS tot_cant_horas_al25,
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al35 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al35 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al35 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al35 
+      END
+    )
+  ) AS tot_cant_horas_al35,
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_dom 
+      END,
+      CASE
+        WHEN fhe.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_dom 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_dom 
+      END,
+      CASE
+        WHEN fhe.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_dom 
+      END
+    )
+  ) AS tot_cant_horas_dom,
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_fer 
+      END,
+      CASE
+        WHEN fhe.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_fer 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_fer 
+      END,
+      CASE
+        WHEN fhe.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_fer 
+      END
+    )
+  ) AS tot_cant_horas_fer 
+FROM  trabajador tr
 LEFT JOIN tabla_maestra_detalle AS tpla ON
     tpla.cod_argumento= tr.id_tip_plan
     AND tpla.cod_tabla='TPLA'
@@ -698,237 +1015,368 @@ LEFT JOIN tabla_maestra_detalle AS tcal ON
 LEFT JOIN tabla_maestra_detalle AS tfop ON
     tfop.cod_argumento= tr.id_form_pag
     AND tfop.cod_tabla='TFOP' 
-LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-    cp.id_cp='".$id_seg_quin."' 
-LEFT JOIN  cronograma_dsctos_abonos_horasdias ch ON 
-    ch.id_cp='".$id_seg_quin."' 
-LEFT JOIN  cronograma_dsctos_abonos_horasdias cd ON 
-    cd.id_cp='".$id_seg_quin."' 
-LEFT JOIN /*Regularizacion de horas y dias de descuento */
-( SELECT tr.id_trab, DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))), '%H:%i') AS cant_horas, SUM(IF(hpp.dato='F', 1, 0)) AS cant_dias  
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, hpp.tiempo_fin
-       FROM horas_permiso_personal hpp
-       LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='".$id_seg_quin."' 
-       WHERE  hpp.fecha NOT BETWEEN cp.desde AND cp.hasta
-       AND  hpp.id_fec_dscto='".$id_seg_quin."' 
-  )AS hpp ON tr.id_trab =  hpp.id_trab
-  GROUP BY tr.id_trab
-) AS hpp_reg ON tr.id_trab =  hpp_reg.id_trab
-LEFT JOIN  /* HORAS Y DIAS DE DESCUENTOS */
-( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, r.id_dscto 
-  FROM horas_permiso_personal hpp
-  LEFT JOIN/* INICIO  - El que causa conflicto*/
-  (SELECT  (@o := @o + 1)  AS id_dscto ,
-     DAY(fe.fecha) AS dia_dscto,
-     MONTH(fe.fecha) AS mes_dscto
-   FROM (SELECT @o:=0) r
-     INNER JOIN fechas fe
-     LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='".$id_seg_quin."' 
-   WHERE fe.fecha BETWEEN cp.desde AND cp.hasta
-   ORDER BY MONTH(fe.fecha) ASC,  DAY(fe.fecha) ASC
-  )  AS r 
-  ON DAY(hpp.fecha)=r.dia_dscto /* FIN  - El que causa conflicto*/
-) AS hpp ON tr.id_trab =  hpp.id_trab
-  AND hpp.fecha BETWEEN cd.desde AND cd.hasta
-LEFT JOIN 
-( SELECT tr.id_trab, SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))) AS cant_horas, SUM(IF(hpp.dato='F', 1, 0)) AS cant_dias  
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, hpp.tiempo_fin
-        FROM horas_permiso_personal hpp
-        LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='".$id_seg_quin."' 
-  WHERE  hpp.fecha BETWEEN cp.desde AND cp.hasta
-  )AS hpp ON tr.id_trab =  hpp.id_trab
-  GROUP BY tr.id_trab
-) AS fcc ON fcc.id_trab= tr.id_trab 
-LEFT JOIN 
-( SELECT  DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato, hep.id_trab, hep.fecha
-FROM horas_extras_personal hep
-) AS hep ON tr.id_trab =  hep.id_trab
-AND hep.fecha BETWEEN ch.desde AND ch.hasta
-LEFT JOIN /*Regularizacion de horas y dias de abono */
-( SELECT tr.id_trab, 
-   IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-   IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al25
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha NOT BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='25' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_seg_quin."' 
-                   GROUP BY id_trab
-   )AS he_25 ON tr.id_trab =  he_25.id_trab
-   LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al35
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha NOT  BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='35' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_seg_quin."' 
-                   GROUP BY id_trab
-   )AS he_35 ON tr.id_trab =  he_35.id_trab
-              LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_dom
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha NOT BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='NO LABORABLE'
-                    AND hep.id_fec_abono='".$id_seg_quin."' 
-                  GROUP BY id_trab
-   )AS he_nl ON tr.id_trab =  he_nl.id_trab
-               LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_fer
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha NOT  BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='FERIADO'
-                    AND hep.id_fec_abono='".$id_seg_quin."' 
-               GROUP BY id_trab
-   )AS he_fe ON tr.id_trab =  he_fe.id_trab
-  GROUP BY tr.id_trab   
-) AS fhe_reg ON fhe_reg.id_trab= tr.id_trab 
-LEFT JOIN 
-( SELECT tr.id_trab, 
-         IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-         IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al25
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='25' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_seg_quin."' 
-                   GROUP BY id_trab
-   )AS he_25 ON tr.id_trab =  he_25.id_trab
-   LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al35
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='35' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_seg_quin."' 
-                   GROUP BY id_trab
-   )AS he_35 ON tr.id_trab =  he_35.id_trab
-              LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_dom
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='NO LABORABLE'
-                    AND hep.id_fec_abono='".$id_seg_quin."' 
-                  GROUP BY id_trab
-   )AS he_nl ON tr.id_trab =  he_nl.id_trab
-               LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_fer
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_seg_quin."' 
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='FERIADO'
-                    AND hep.id_fec_abono='".$id_seg_quin."' 
-               GROUP BY id_trab
-   )AS he_fe ON tr.id_trab =  he_fe.id_trab
-  GROUP BY tr.id_trab  
-) AS fhe ON fhe.id_trab= tr.id_trab 
-LEFT JOIN
-(SELECT (@i := @i + 1) AS id ,
-   DAY(fe_ext.fecha) AS dia,
-   MONTH(fe_ext.fecha) AS mes,
-   fr_ext.dia AS dia_reg,
-   fr_ext.mes AS mes_reg
- FROM (SELECT @i:=0) r
-   INNER JOIN fechas fe_ext
-   LEFT JOIN (
-  SELECT 
-      DAY(fecha) AS dia,
-      MONTH(fecha) AS mes,
-      cp.desde,
-      cp.hasta
-  FROM fechas fe
-   LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-           cp.id_cp='".$id_seg_quin."' 
-  WHERE fe.fecha BETWEEN  cp.desde AND cp.hasta
-  GROUP BY DAY(fecha)
-   ) AS fr_ext ON  fr_ext.dia= DAY(fe_ext.fecha) AND fr_ext.mes= MONTH(fe_ext.fecha)
- WHERE fe_ext.fecha BETWEEN fr_ext.desde AND fr_ext.hasta
- ORDER BY MONTH(fe_ext.fecha) ASC,  DAY(fe_ext.fecha) ASC
-)  AS r_ext
-ON DAY(hep.fecha)=r_ext.dia
-WHERE tr.est_reg='1'
-GROUP BY tr.id_trab;
+  LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+    ON cp.id_cp = '".$id_seg_quin."' 
+  LEFT JOIN cronograma_dsctos_abonos_horasdias ch 
+    ON ch.id_cp = '".$id_seg_quin."' 
+  LEFT JOIN cronograma_dsctos_abonos_horasdias cd 
+    ON cd.id_cp = '".$id_seg_quin."' 
+  LEFT JOIN 
+    /*Regularizacion de horas y dias de descuento */
+    (SELECT 
+      tr.id_trab,
+      DATE_FORMAT(
+        SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))),
+        '%H:%i'
+      ) AS cant_horas,
+      SUM(IF(hpp.dato = 'F', 1, 0)) AS cant_dias 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          IF (
+            hpp.cant_dia_fin = '0',
+            DATE_FORMAT(hpp.tiempo_fin, '%H:%i'),
+            'F'
+          ) AS dato,
+          hpp.id_trab,
+          hpp.fecha,
+          hpp.tiempo_fin 
+        FROM
+          horas_permiso_personal hpp 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hpp.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hpp.id_fec_dscto = '".$id_seg_quin."' 
+          AND hpp.descontar = '1') AS hpp 
+        ON tr.id_trab = hpp.id_trab 
+    GROUP BY tr.id_trab) AS hpp_reg 
+    ON tr.id_trab = hpp_reg.id_trab 
+  LEFT JOIN 
+    /* HORAS Y DIAS DE DESCUENTOS */
+    (SELECT 
+      IF (
+        hpp.cant_dia_fin = '0',
+        DATE_FORMAT(hpp.tiempo_fin, '%H:%i'),
+        'F'
+      ) AS dato,
+      hpp.id_trab,
+      hpp.fecha,
+      r.id_dscto,
+      hpp.descontar 
+    FROM
+      horas_permiso_personal hpp 
+      LEFT JOIN 
+        /* INICIO  - El que causa conflicto*/
+        (SELECT 
+          (@o := @o + 1) AS id_dscto,
+          DAY(fe.fecha) AS dia_dscto,
+          MONTH(fe.fecha) AS mes_dscto 
+        FROM
+          (SELECT 
+            @o := 0) r 
+          INNER JOIN fechas fe 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE fe.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+        ORDER BY MONTH(fe.fecha) ASC,
+          DAY(fe.fecha) ASC) AS r 
+        ON DAY(hpp.fecha) = r.dia_dscto 
+        /* FIN  - El que causa conflicto*/
+    ) AS hpp 
+    ON tr.id_trab = hpp.id_trab 
+    AND hpp.fecha BETWEEN cd.desde 
+    AND cd.hasta 
+    AND hpp.descontar = '1' 
+  LEFT JOIN 
+    (SELECT 
+      tr.id_trab,
+      SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))) AS cant_horas,
+      SUM(IF(hpp.dato = 'F', 1, 0)) AS cant_dias 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          IF (
+            hpp.cant_dia_fin = '0',
+            DATE_FORMAT(hpp.tiempo_fin, '%H:%i'),
+            'F'
+          ) AS dato,
+          hpp.id_trab,
+          hpp.fecha,
+          hpp.tiempo_fin 
+        FROM
+          horas_permiso_personal hpp 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hpp.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hpp.descontar = '1') AS hpp 
+        ON tr.id_trab = hpp.id_trab 
+    GROUP BY tr.id_trab) AS fcc 
+    ON fcc.id_trab = tr.id_trab 
+  LEFT JOIN 
+    (SELECT 
+      DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+      hep.id_trab,
+      hep.fecha,
+      hep.abonar 
+    FROM
+      horas_extras_personal hep) AS hep 
+    ON tr.id_trab = hep.id_trab 
+    AND hep.fecha BETWEEN ch.desde 
+    AND ch.hasta 
+    AND hep.abonar='1'
+  LEFT JOIN 
+    /*Regularizacion de horas y dias de abono */
+    (SELECT 
+      tr.id_trab,
+      IFNULL(he_25.cant_horas_al25, '') AS cant_horas_al25,
+      IFNULL(he_35.cant_horas_al35, '') AS cant_horas_al35,
+      IFNULL(he_nl.cant_horas_dom, '') AS cant_horas_dom,
+      IFNULL(he_fe.cant_horas_fer, '') AS cant_horas_fer 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al25 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '25' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_25 
+        ON tr.id_trab = he_25.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al35 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '35' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_35 
+        ON tr.id_trab = he_35.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_dom 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'NO LABORABLE' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_nl 
+        ON tr.id_trab = he_nl.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_fer 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'FERIADO' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND  hep.abonar='1' 
+        GROUP BY id_trab) AS he_fe 
+        ON tr.id_trab = he_fe.id_trab 
+    GROUP BY tr.id_trab) AS fhe_reg 
+    ON fhe_reg.id_trab = tr.id_trab 
+  LEFT JOIN 
+    (SELECT 
+      tr.id_trab,
+      IFNULL(he_25.cant_horas_al25, '') AS cant_horas_al25,
+      IFNULL(he_35.cant_horas_al35, '') AS cant_horas_al35,
+      IFNULL(he_nl.cant_horas_dom, '') AS cant_horas_dom,
+      IFNULL(he_fe.cant_horas_fer, '') AS cant_horas_fer 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al25 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '25' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_25 
+        ON tr.id_trab = he_25.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al35 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '35' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_35 
+        ON tr.id_trab = he_35.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_dom 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'NO LABORABLE' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_nl 
+        ON tr.id_trab = he_nl.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_fer 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'FERIADO' 
+          AND hep.id_fec_abono = '".$id_seg_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_fe 
+        ON tr.id_trab = he_fe.id_trab 
+    GROUP BY tr.id_trab) AS fhe 
+    ON fhe.id_trab = tr.id_trab 
+  LEFT JOIN 
+    (SELECT 
+      (@i := @i + 1) AS id,
+      DAY(fe_ext.fecha) AS dia,
+      MONTH(fe_ext.fecha) AS mes,
+      fr_ext.dia AS dia_reg,
+      fr_ext.mes AS mes_reg 
+    FROM
+      (SELECT 
+        @i := 0) r 
+      INNER JOIN fechas fe_ext 
+      LEFT JOIN 
+        (SELECT 
+          DAY(fecha) AS dia,
+          MONTH(fecha) AS mes,
+          cp.desde,
+          cp.hasta 
+        FROM
+          fechas fe 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_seg_quin."' 
+        WHERE fe.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+        GROUP BY DAY(fecha)) AS fr_ext 
+        ON fr_ext.dia = DAY(fe_ext.fecha) 
+        AND fr_ext.mes = MONTH(fe_ext.fecha) 
+    WHERE fe_ext.fecha BETWEEN fr_ext.desde 
+      AND fr_ext.hasta 
+    ORDER BY MONTH(fe_ext.fecha) ASC,
+      DAY(fe_ext.fecha) ASC) AS r_ext 
+    ON DAY(hep.fecha) = r_ext.dia 
+WHERE  tr.est_reg = '1'
+GROUP BY tr.id_trab ;
   ");  
 
 
@@ -2451,6 +2899,8 @@ FROM Trabajador tr
         ) AS difa ON difa.id_trab= tr.id_trab
       WHERE tr.est_reg='1' 
       ORDER BY tr.id_tip_plan ASC, tr.id_trab ASC 
+
+
   ");  
 
 
@@ -3090,147 +3540,464 @@ $sql=mysql_query("SELECT DISTINCT tr.id_trab,
         tr.id_tip_doc, 
         tcal.des_larga AS categoria_laboral,
         tr.num_doc_trab,
-        DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y') AS fec_ing_trab,
-        IF( DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')='00/00/0000', '', DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')) AS fec_sal_trab,
-  IF(hpp_reg.cant_horas='00:00' OR hpp_reg.cant_horas IS NULL, '', hpp_reg.cant_horas) AS horasdscto_regularizacion,
-  IF(hpp_reg.cant_dias='0' OR hpp_reg.cant_dias IS NULL , '', hpp_reg.cant_dias ) AS diasdscto_regularizacion,
-  MAX(CASE WHEN hpp.id_dscto='1' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini1',
-  MAX(CASE WHEN hpp.id_dscto='2' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini2',
-  MAX(CASE WHEN hpp.id_dscto='3' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini3',
-  MAX(CASE WHEN hpp.id_dscto='4' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini4',
-  MAX(CASE WHEN hpp.id_dscto='5' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini5',
-  MAX(CASE WHEN hpp.id_dscto='6' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini6',
-  MAX(CASE WHEN hpp.id_dscto='7' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini7',
-  MAX(CASE WHEN hpp.id_dscto='8' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini8',
-  MAX(CASE WHEN hpp.id_dscto='9' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini9',
-  MAX(CASE WHEN hpp.id_dscto='10' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini10',
-  MAX(CASE WHEN hpp.id_dscto='11' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini11',
-  MAX(CASE WHEN hpp.id_dscto='12' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini12',
-  MAX(CASE WHEN hpp.id_dscto='13' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini13',
-  MAX(CASE WHEN hpp.id_dscto='14' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini14',
-  MAX(CASE WHEN hpp.id_dscto='15' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini15',
-  MAX(CASE WHEN hpp.id_dscto='16' THEN IF(hpp.dato='00:00', '', hpp.dato) ELSE '' END) AS 'd_ini16',
-  IF( ADDTIME(
-  CASE WHEN hpp_reg.cant_horas='' THEN  '00:00'
-  WHEN hpp_reg.cant_horas IS NULL THEN '00:00' 
-  ELSE hpp_reg.cant_horas   END
-   , CASE WHEN fcc.cant_horas='' THEN '00:00'
-  WHEN fcc.cant_horas IS NULL THEN '00:00' 
-  ELSE fcc.cant_horas   END 
-   ) ='00:00' , '', ADDTIME(
-  CASE WHEN hpp_reg.cant_horas='' THEN  '00:00'
-  WHEN hpp_reg.cant_horas IS NULL THEN '00:00' 
-  ELSE hpp_reg.cant_horas   END
-   , CASE WHEN fcc.cant_horas='' THEN '00:00'
-  WHEN fcc.cant_horas IS NULL THEN '00:00' 
-  ELSE fcc.cant_horas   END 
-   )   )AS tot_cant_horas,
-   IF(
-  (
-  CASE WHEN hpp_reg.cant_dias='' THEN  '0'
-  WHEN hpp_reg.cant_dias IS NULL THEN '0' 
-  ELSE hpp_reg.cant_dias  END
-   + CASE WHEN fcc.cant_dias='' THEN '0' 
-  WHEN fcc.cant_dias IS NULL THEN '0' 
-  ELSE fcc.cant_dias   END 
-   )='0' , '',(
-  CASE WHEN hpp_reg.cant_dias='' THEN  '0'
-  WHEN hpp_reg.cant_dias IS NULL THEN '0' 
-  ELSE hpp_reg.cant_dias  END
-   + CASE WHEN fcc.cant_dias='' THEN '0' 
-  WHEN fcc.cant_dias IS NULL THEN '0' 
-  ELSE fcc.cant_dias   END 
-   ))  AS tot_cant_dias,
-  '-' AS separador, 
+  DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y') AS fec_ing_trab,
+  IF(
+    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y') = '00/00/0000',
+    '',
+    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')
+  ) AS fec_sal_trab,
+  IF(
+    hpp_reg.cant_horas = '00:00' 
+    OR hpp_reg.cant_horas IS NULL,
+    '',
+    hpp_reg.cant_horas
+  ) AS horasdscto_regularizacion,
+  IF(
+    hpp_reg.cant_dias = '0' 
+    OR hpp_reg.cant_dias IS NULL,
+    '',
+    hpp_reg.cant_dias
+  ) AS diasdscto_regularizacion,
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '1' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini1',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '2' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini2',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '3' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini3',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '4' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini4',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '5' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini5',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '6' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini6',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '7' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini7',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '8' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini8',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '9' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini9',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '10' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini10',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '11' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini11',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '12' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini12',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '13' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini13',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '14' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini14',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '15' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini15',
+  MAX(
+    CASE
+      WHEN hpp.id_dscto = '16' 
+      THEN IF(hpp.dato = '00:00', '', hpp.dato) 
+      ELSE '' 
+    END
+  ) AS 'd_ini16',
+  IF(
+    ADDTIME(
+      CASE
+        WHEN hpp_reg.cant_horas = '' 
+        THEN '00:00' 
+        WHEN hpp_reg.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE hpp_reg.cant_horas 
+      END,
+      CASE
+        WHEN fcc.cant_horas = '' 
+        THEN '00:00' 
+        WHEN fcc.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE fcc.cant_horas 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN hpp_reg.cant_horas = '' 
+        THEN '00:00' 
+        WHEN hpp_reg.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE hpp_reg.cant_horas 
+      END,
+      CASE
+        WHEN fcc.cant_horas = '' 
+        THEN '00:00' 
+        WHEN fcc.cant_horas IS NULL 
+        THEN '00:00' 
+        ELSE fcc.cant_horas 
+      END
+    )
+  ) AS tot_cant_horas,
+  IF(
+    (
+      CASE
+        WHEN hpp_reg.cant_dias = '' 
+        THEN '0' 
+        WHEN hpp_reg.cant_dias IS NULL 
+        THEN '0' 
+        ELSE hpp_reg.cant_dias 
+      END + 
+      CASE
+        WHEN fcc.cant_dias = '' 
+        THEN '0' 
+        WHEN fcc.cant_dias IS NULL 
+        THEN '0' 
+        ELSE fcc.cant_dias 
+      END
+    ) = '0',
+    '',
+    (
+      CASE
+        WHEN hpp_reg.cant_dias = '' 
+        THEN '0' 
+        WHEN hpp_reg.cant_dias IS NULL 
+        THEN '0' 
+        ELSE hpp_reg.cant_dias 
+      END + 
+      CASE
+        WHEN fcc.cant_dias = '' 
+        THEN '0' 
+        WHEN fcc.cant_dias IS NULL 
+        THEN '0' 
+        ELSE fcc.cant_dias 
+      END
+    )
+  ) AS tot_cant_dias,
+  '-' AS separador,
   fhe_reg.cant_horas_al25 AS horasal25_abono_regularizacion,
   fhe_reg.cant_horas_al35 AS horasal35_abono_regularizacion,
-  fhe_reg.cant_horas_dom  AS horasdom_abono_regularizacion,  
-  fhe_reg.cant_horas_fer  AS horasfer_abono_regularizacion,
-  MAX(CASE WHEN r_ext.id='1' THEN hep.dato ELSE '' END) AS 'd_ini1_ext',
-  MAX(CASE WHEN r_ext.id='2' THEN hep.dato ELSE '' END) AS 'd_ini2_ext',
-  MAX(CASE WHEN r_ext.id='3' THEN hep.dato ELSE '' END) AS 'd_ini3_ext',
-  MAX(CASE WHEN r_ext.id='4' THEN hep.dato ELSE '' END) AS 'd_ini4_ext',
-  MAX(CASE WHEN r_ext.id='5' THEN hep.dato ELSE '' END) AS 'd_ini5_ext',
-  MAX(CASE WHEN r_ext.id='6' THEN hep.dato ELSE '' END) AS 'd_ini6_ext',
-  MAX(CASE WHEN r_ext.id='7' THEN hep.dato ELSE '' END) AS 'd_ini7_ext',
-  MAX(CASE WHEN r_ext.id='8' THEN hep.dato ELSE '' END) AS 'd_ini8_ext',
-  MAX(CASE WHEN r_ext.id='9' THEN hep.dato ELSE '' END) AS 'd_ini9_ext',
-  MAX(CASE WHEN r_ext.id='10' THEN hep.dato ELSE '' END) AS 'd_ini10_ext',
-  MAX(CASE WHEN r_ext.id='11' THEN hep.dato ELSE '' END) AS 'd_ini11_ext',
-  MAX(CASE WHEN r_ext.id='12' THEN hep.dato ELSE '' END) AS 'd_ini12_ext',
-  MAX(CASE WHEN r_ext.id='13' THEN hep.dato ELSE '' END) AS 'd_ini13_ext',
-  MAX(CASE WHEN r_ext.id='14' THEN hep.dato ELSE '' END) AS 'd_ini14_ext',
-  MAX(CASE WHEN r_ext.id='15' THEN hep.dato ELSE '' END) AS 'd_ini15_ext',
-  MAX(CASE WHEN r_ext.id='16' THEN hep.dato ELSE '' END) AS 'd_ini16_ext',
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al25='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al25   END
-   , CASE WHEN fhe.cant_horas_al25='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al25   END 
-   )='00:00', '', 
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al25='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al25   END
-   , CASE WHEN fhe.cant_horas_al25='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al25   END 
-   )
-   ) AS tot_cant_horas_al25,
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al35='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al35   END
-  , CASE WHEN fhe.cant_horas_al35='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al35   END 
-   ) ='00:00', '' , 
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al35='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al35   END
-  , CASE WHEN fhe.cant_horas_al35='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al35   END 
-   )
-   ) AS tot_cant_horas_al35, 
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_dom='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_dom   END
-  , CASE WHEN fhe.cant_horas_dom='' THEN '00:00:00'
-  WHEN fhe.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_dom   END 
-   ) ='00:00', '', 
-   ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_dom='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_dom   END
-  , CASE WHEN fhe.cant_horas_dom='' THEN '00:00:00'
-  WHEN fhe.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_dom   END 
-   )
-   ) AS tot_cant_horas_dom, 
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_fer='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_fer   END
-  , CASE WHEN fhe.cant_horas_fer='' THEN '00:00:00'
-  WHEN fhe.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_fer   END 
-   ) ='00:00', '' ,
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_fer='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_fer   END
-  , CASE WHEN fhe.cant_horas_fer='' THEN '00:00:00'
-  WHEN fhe.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_fer   END 
-   )
-    )AS tot_cant_horas_fer
-FROM Trabajador tr
+  fhe_reg.cant_horas_dom AS horasdom_abono_regularizacion,
+  fhe_reg.cant_horas_fer AS horasfer_abono_regularizacion,
+  MAX(
+    CASE
+      WHEN r_ext.id = '1' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini1_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '2' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini2_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '3' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini3_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '4' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini4_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '5' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini5_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '6' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini6_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '7' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini7_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '8' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini8_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '9' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini9_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '10' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini10_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '11' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini11_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '12' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini12_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '13' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini13_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '14' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini14_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '15' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini15_ext',
+  MAX(
+    CASE
+      WHEN r_ext.id = '16' 
+      THEN hep.dato 
+      ELSE '' 
+    END
+  ) AS 'd_ini16_ext',
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al25 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al25 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al25 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al25 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al25 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al25 
+      END
+    )
+  ) AS tot_cant_horas_al25,
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al35 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al35 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_al35 
+      END,
+      CASE
+        WHEN fhe.cant_horas_al35 = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_al35 IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_al35 
+      END
+    )
+  ) AS tot_cant_horas_al35,
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_dom 
+      END,
+      CASE
+        WHEN fhe.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_dom 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_dom 
+      END,
+      CASE
+        WHEN fhe.cant_horas_dom = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_dom IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_dom 
+      END
+    )
+  ) AS tot_cant_horas_dom,
+  IF(
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_fer 
+      END,
+      CASE
+        WHEN fhe.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_fer 
+      END
+    ) = '00:00',
+    '',
+    ADDTIME(
+      CASE
+        WHEN fhe_reg.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe_reg.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe_reg.cant_horas_fer 
+      END,
+      CASE
+        WHEN fhe.cant_horas_fer = '' 
+        THEN '00:00:00' 
+        WHEN fhe.cant_horas_fer IS NULL 
+        THEN '00:00:00' 
+        ELSE fhe.cant_horas_fer 
+      END
+    )
+  ) AS tot_cant_horas_fer 
+FROM  trabajador tr
 LEFT JOIN tabla_maestra_detalle AS tpla ON
     tpla.cod_argumento= tr.id_tip_plan
     AND tpla.cod_tabla='TPLA'
@@ -3249,237 +4016,368 @@ LEFT JOIN tabla_maestra_detalle AS tcal ON
 LEFT JOIN tabla_maestra_detalle AS tfop ON
     tfop.cod_argumento= tr.id_form_pag
     AND tfop.cod_tabla='TFOP' 
-LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-    cp.id_cp='".$id_pri_quin."'
-LEFT JOIN  cronograma_dsctos_abonos_horasdias ch ON 
-    ch.id_cp='".$id_pri_quin."'
-LEFT JOIN  cronograma_dsctos_abonos_horasdias cd ON 
-    cd.id_cp='".$id_pri_quin."'
-LEFT JOIN /*Regularizacion de horas y dias de descuento */
-( SELECT tr.id_trab, DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))), '%H:%i') AS cant_horas, SUM(IF(hpp.dato='F', 1, 0)) AS cant_dias  
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, hpp.tiempo_fin
-       FROM horas_permiso_personal hpp
-       LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='".$id_pri_quin."'
-       WHERE  hpp.fecha NOT BETWEEN cp.desde AND cp.hasta
-       AND  hpp.id_fec_dscto='".$id_pri_quin."'
-  )AS hpp ON tr.id_trab =  hpp.id_trab
-  GROUP BY tr.id_trab
-) AS hpp_reg ON tr.id_trab =  hpp_reg.id_trab
-LEFT JOIN  /* HORAS Y DIAS DE DESCUENTOS */
-( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, r.id_dscto 
-  FROM horas_permiso_personal hpp
-  LEFT JOIN/* INICIO  - El que causa conflicto*/
-  (SELECT  (@o := @o + 1)  AS id_dscto ,
-     DAY(fe.fecha) AS dia_dscto,
-     MONTH(fe.fecha) AS mes_dscto
-   FROM (SELECT @o:=0) r
-     INNER JOIN fechas fe
-     LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='".$id_pri_quin."'
-   WHERE fe.fecha BETWEEN cp.desde AND cp.hasta
-   ORDER BY MONTH(fe.fecha) ASC,  DAY(fe.fecha) ASC
-  )  AS r 
-  ON DAY(hpp.fecha)=r.dia_dscto /* FIN  - El que causa conflicto*/
-) AS hpp ON tr.id_trab =  hpp.id_trab
-  AND hpp.fecha BETWEEN cd.desde AND cd.hasta
-LEFT JOIN 
-( SELECT tr.id_trab, SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))) AS cant_horas, SUM(IF(hpp.dato='F', 1, 0)) AS cant_dias  
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, hpp.tiempo_fin
-        FROM horas_permiso_personal hpp
-        LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='".$id_pri_quin."'
-  WHERE  hpp.fecha BETWEEN cp.desde AND cp.hasta
-  )AS hpp ON tr.id_trab =  hpp.id_trab
-  GROUP BY tr.id_trab
-) AS fcc ON fcc.id_trab= tr.id_trab 
-LEFT JOIN 
-( SELECT  DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato, hep.id_trab, hep.fecha
-FROM horas_extras_personal hep
-) AS hep ON tr.id_trab =  hep.id_trab
-AND hep.fecha BETWEEN ch.desde AND ch.hasta
-LEFT JOIN /*Regularizacion de horas y dias de abono */
-( SELECT tr.id_trab, 
-   IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-   IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al25
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha NOT BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='25' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_pri_quin."'
-                   GROUP BY id_trab
-   )AS he_25 ON tr.id_trab =  he_25.id_trab
-   LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al35
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha NOT  BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='35' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_pri_quin."'
-                   GROUP BY id_trab
-   )AS he_35 ON tr.id_trab =  he_35.id_trab
-              LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_dom
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha NOT BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='NO LABORABLE'
-                    AND hep.id_fec_abono='".$id_pri_quin."'
-                  GROUP BY id_trab
-   )AS he_nl ON tr.id_trab =  he_nl.id_trab
-               LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_fer
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha NOT  BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='FERIADO'
-                    AND hep.id_fec_abono='".$id_pri_quin."'
-               GROUP BY id_trab
-   )AS he_fe ON tr.id_trab =  he_fe.id_trab
-  GROUP BY tr.id_trab   
-) AS fhe_reg ON fhe_reg.id_trab= tr.id_trab 
-LEFT JOIN 
-( SELECT tr.id_trab, 
-         IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-         IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al25
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='25' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_pri_quin."'
-                   GROUP BY id_trab
-   )AS he_25 ON tr.id_trab =  he_25.id_trab
-   LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al35
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='35' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='".$id_pri_quin."'
-                   GROUP BY id_trab
-   )AS he_35 ON tr.id_trab =  he_35.id_trab
-              LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_dom
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='NO LABORABLE'
-                    AND hep.id_fec_abono='".$id_pri_quin."'
-                  GROUP BY id_trab
-   )AS he_nl ON tr.id_trab =  he_nl.id_trab
-               LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_fer
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '".$id_pri_quin."'
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='FERIADO'
-                    AND hep.id_fec_abono='".$id_pri_quin."'
-               GROUP BY id_trab
-   )AS he_fe ON tr.id_trab =  he_fe.id_trab
-  GROUP BY tr.id_trab  
-) AS fhe ON fhe.id_trab= tr.id_trab 
-LEFT JOIN
-(SELECT (@i := @i + 1) AS id ,
-   DAY(fe_ext.fecha) AS dia,
-   MONTH(fe_ext.fecha) AS mes,
-   fr_ext.dia AS dia_reg,
-   fr_ext.mes AS mes_reg
- FROM (SELECT @i:=0) r
-   INNER JOIN fechas fe_ext
-   LEFT JOIN (
-  SELECT 
-      DAY(fecha) AS dia,
-      MONTH(fecha) AS mes,
-      cp.desde,
-      cp.hasta
-  FROM fechas fe
-   LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-           cp.id_cp='".$id_pri_quin."'
-  WHERE fe.fecha BETWEEN  cp.desde AND cp.hasta
-  GROUP BY DAY(fecha)
-   ) AS fr_ext ON  fr_ext.dia= DAY(fe_ext.fecha) AND fr_ext.mes= MONTH(fe_ext.fecha)
- WHERE fe_ext.fecha BETWEEN fr_ext.desde AND fr_ext.hasta
- ORDER BY MONTH(fe_ext.fecha) ASC,  DAY(fe_ext.fecha) ASC
-)  AS r_ext
-ON DAY(hep.fecha)=r_ext.dia
-WHERE tr.est_reg='1'
-GROUP BY tr.id_trab;
+  LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+    ON cp.id_cp = '".$id_pri_quin."' 
+  LEFT JOIN cronograma_dsctos_abonos_horasdias ch 
+    ON ch.id_cp = '".$id_pri_quin."' 
+  LEFT JOIN cronograma_dsctos_abonos_horasdias cd 
+    ON cd.id_cp = '".$id_pri_quin."' 
+  LEFT JOIN 
+    /*Regularizacion de horas y dias de descuento */
+    (SELECT 
+      tr.id_trab,
+      DATE_FORMAT(
+        SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))),
+        '%H:%i'
+      ) AS cant_horas,
+      SUM(IF(hpp.dato = 'F', 1, 0)) AS cant_dias 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          IF (
+            hpp.cant_dia_fin = '0',
+            DATE_FORMAT(hpp.tiempo_fin, '%H:%i'),
+            'F'
+          ) AS dato,
+          hpp.id_trab,
+          hpp.fecha,
+          hpp.tiempo_fin 
+        FROM
+          horas_permiso_personal hpp 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hpp.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hpp.id_fec_dscto = '".$id_pri_quin."' 
+          AND hpp.descontar = '1') AS hpp 
+        ON tr.id_trab = hpp.id_trab 
+    GROUP BY tr.id_trab) AS hpp_reg 
+    ON tr.id_trab = hpp_reg.id_trab 
+  LEFT JOIN 
+    /* HORAS Y DIAS DE DESCUENTOS */
+    (SELECT 
+      IF (
+        hpp.cant_dia_fin = '0',
+        DATE_FORMAT(hpp.tiempo_fin, '%H:%i'),
+        'F'
+      ) AS dato,
+      hpp.id_trab,
+      hpp.fecha,
+      r.id_dscto,
+      hpp.descontar 
+    FROM
+      horas_permiso_personal hpp 
+      LEFT JOIN 
+        /* INICIO  - El que causa conflicto*/
+        (SELECT 
+          (@o := @o + 1) AS id_dscto,
+          DAY(fe.fecha) AS dia_dscto,
+          MONTH(fe.fecha) AS mes_dscto 
+        FROM
+          (SELECT 
+            @o := 0) r 
+          INNER JOIN fechas fe 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE fe.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+        ORDER BY MONTH(fe.fecha) ASC,
+          DAY(fe.fecha) ASC) AS r 
+        ON DAY(hpp.fecha) = r.dia_dscto 
+        /* FIN  - El que causa conflicto*/
+    ) AS hpp 
+    ON tr.id_trab = hpp.id_trab 
+    AND hpp.fecha BETWEEN cd.desde 
+    AND cd.hasta 
+    AND hpp.descontar = '1' 
+  LEFT JOIN 
+    (SELECT 
+      tr.id_trab,
+      SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))) AS cant_horas,
+      SUM(IF(hpp.dato = 'F', 1, 0)) AS cant_dias 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          IF (
+            hpp.cant_dia_fin = '0',
+            DATE_FORMAT(hpp.tiempo_fin, '%H:%i'),
+            'F'
+          ) AS dato,
+          hpp.id_trab,
+          hpp.fecha,
+          hpp.tiempo_fin 
+        FROM
+          horas_permiso_personal hpp 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hpp.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hpp.descontar = '1') AS hpp 
+        ON tr.id_trab = hpp.id_trab 
+    GROUP BY tr.id_trab) AS fcc 
+    ON fcc.id_trab = tr.id_trab 
+  LEFT JOIN 
+    (SELECT 
+      DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+      hep.id_trab,
+      hep.fecha,
+      hep.abonar 
+    FROM
+      horas_extras_personal hep) AS hep 
+    ON tr.id_trab = hep.id_trab 
+    AND hep.fecha BETWEEN ch.desde 
+    AND ch.hasta 
+    AND hep.abonar='1'
+  LEFT JOIN 
+    /*Regularizacion de horas y dias de abono */
+    (SELECT 
+      tr.id_trab,
+      IFNULL(he_25.cant_horas_al25, '') AS cant_horas_al25,
+      IFNULL(he_35.cant_horas_al35, '') AS cant_horas_al35,
+      IFNULL(he_nl.cant_horas_dom, '') AS cant_horas_dom,
+      IFNULL(he_fe.cant_horas_fer, '') AS cant_horas_fer 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al25 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '25' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_25 
+        ON tr.id_trab = he_25.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al35 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '35' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_35 
+        ON tr.id_trab = he_35.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_dom 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'NO LABORABLE' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_nl 
+        ON tr.id_trab = he_nl.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_fer 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha NOT BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'FERIADO' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND  hep.abonar='1' 
+        GROUP BY id_trab) AS he_fe 
+        ON tr.id_trab = he_fe.id_trab 
+    GROUP BY tr.id_trab) AS fhe_reg 
+    ON fhe_reg.id_trab = tr.id_trab 
+  LEFT JOIN 
+    (SELECT 
+      tr.id_trab,
+      IFNULL(he_25.cant_horas_al25, '') AS cant_horas_al25,
+      IFNULL(he_35.cant_horas_al35, '') AS cant_horas_al35,
+      IFNULL(he_nl.cant_horas_dom, '') AS cant_horas_dom,
+      IFNULL(he_fe.cant_horas_fer, '') AS cant_horas_fer 
+    FROM
+      Trabajador tr 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al25 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '25' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_25 
+        ON tr.id_trab = he_25.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_al35 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '35' 
+          AND est_dia = 'LABORABLE' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_35 
+        ON tr.id_trab = he_35.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_dom 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'NO LABORABLE' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_nl 
+        ON tr.id_trab = he_nl.id_trab 
+      LEFT JOIN 
+        (SELECT 
+          DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
+          hep.id_trab,
+          hep.fecha,
+          hep.tiempo_fin,
+          hep.por_pago,
+          hep.est_dia,
+          IFNULL(
+            SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),
+            ''
+          ) AS cant_horas_fer 
+        FROM
+          horas_extras_personal hep 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE hep.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+          AND hep.por_pago = '100' 
+          AND est_dia = 'FERIADO' 
+          AND hep.id_fec_abono = '".$id_pri_quin."'
+          AND hep.abonar='1' 
+        GROUP BY id_trab) AS he_fe 
+        ON tr.id_trab = he_fe.id_trab 
+    GROUP BY tr.id_trab) AS fhe 
+    ON fhe.id_trab = tr.id_trab 
+  LEFT JOIN 
+    (SELECT 
+      (@i := @i + 1) AS id,
+      DAY(fe_ext.fecha) AS dia,
+      MONTH(fe_ext.fecha) AS mes,
+      fr_ext.dia AS dia_reg,
+      fr_ext.mes AS mes_reg 
+    FROM
+      (SELECT 
+        @i := 0) r 
+      INNER JOIN fechas fe_ext 
+      LEFT JOIN 
+        (SELECT 
+          DAY(fecha) AS dia,
+          MONTH(fecha) AS mes,
+          cp.desde,
+          cp.hasta 
+        FROM
+          fechas fe 
+          LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
+            ON cp.id_cp = '".$id_pri_quin."' 
+        WHERE fe.fecha BETWEEN cp.desde 
+          AND cp.hasta 
+        GROUP BY DAY(fecha)) AS fr_ext 
+        ON fr_ext.dia = DAY(fe_ext.fecha) 
+        AND fr_ext.mes = MONTH(fe_ext.fecha) 
+    WHERE fe_ext.fecha BETWEEN fr_ext.desde 
+      AND fr_ext.hasta 
+    ORDER BY MONTH(fe_ext.fecha) ASC,
+      DAY(fe_ext.fecha) ASC) AS r_ext 
+    ON DAY(hep.fecha) = r_ext.dia 
+WHERE  tr.est_reg = '1'
+GROUP BY tr.id_trab ;
   ");  
 
 

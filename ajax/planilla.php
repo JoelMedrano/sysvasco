@@ -1181,19 +1181,51 @@ switch ($_GET["op"]){
 
 	case 'cerrar_primeraquincena':
 
-		$rspta=$planilla->cerrar_primeraquincena($primera_quincena, $fec_reg,  $usu_reg, $pc_reg);
+		//INICIO - Consultar si esta cerrada esa quincena
+		$dato=$planilla->consultar_primeraquincenacerrada($primera_quincena);
+		$regc=$dato->fetch_object();
+		$cie_quin=$regc->cie_quin;  
 
-		$rspta=$planilla->insertar_informacion_atabla($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+		if ($cie_quin=='1') {
 
-	//  $rspta=$planilla->ingresar_informacion_tablaplanillaquincenal($primera_quincena);
- 		echo $rspta ? "Quincena Cerrada" : "Quincena no se puede cerrar";
+			$rspta=$planilla->cerrar_primeraquincena($primera_quincena, $fec_reg,  $usu_reg, $pc_reg);
+
+			$rspta=$planilla->insertardetalle_horasdsctoabono($primera_quincena, $fec_reg,  $usu_reg, $pc_reg);
+
+			$rspta=$planilla->insertar_informacion_atabla($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			echo  "Quincena cerrada"; 
+		}else if ($cie_quin=='2'){
+				
+			echo  "No se puede cerrar, ha sido cerrada esta quincena"; 
+		}
+
 	break;
 
-	case 'cerrar_segundaquincena':
-		$rspta=$planilla->cerrar_segundaquincena($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
 
-	//	$rspta=$planilla->ingresar_informacion_tablaplanillaquincenal($segunda_quincena);
- 		echo $rspta ? "Quincena Cerrada" : "Quincena no se puede cerrar";
+
+	case 'cerrar_segundaquincena':
+		//INICIO - Consultar si esta cerrada esa quincena
+		$dato=$planilla->consultar_segundaquincenacerrada($segunda_quincena);
+		$regc=$dato->fetch_object();
+		$cie_quin=$regc->cie_quin;  
+
+		if ($cie_quin=='1') {
+
+			$rspta=$planilla->cerrar_segundaquincena($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg);
+
+			$rspta=$planilla->insertardetalle_horasdsctoabono($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg);
+
+			$rspta=$planilla->insertar_informacion_atabla($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			echo  "Quincena cerrada"; 
+		}else if ($cie_quin=='2'){
+				
+			echo  "No se puede cerrar, ha sido cerrada esta quincena"; 
+		}
+
+
+
 	break;
 
 

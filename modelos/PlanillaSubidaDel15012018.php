@@ -30,26 +30,14 @@ Class Planilla
 
 
 		//Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-	public function consultar_primeraquincenacerrada( $primera_quincena )
+	public function consultar_quincenacerrada( $primera_quincena )
 	{
 		
-		$sql="SELECT  valor_3 AS cie_quin from tabla_maestra_detalle where cod_tabla LIKE  'TMES'  AND valor_1 ='$primera_quincena'
+		$sql="SELECT  valor_3 AS cie_quin from tabla_maestra_detalle where COD_TABLA LIKE  'TMES'  AND valor_1 ='$primera_quincena'
  			 ";
 		return ejecutarConsulta($sql);
 
 	}
-
-
-
-    //Implementar un método para mostrar los datos de un registro a modificar Fecha:12072018 - LDGP
-  public function consultar_segundaquincenacerrada( $segunda_quincena )
-  {
-    
-    $sql="SELECT  valor_4 AS cie_quin from tabla_maestra_detalle where cod_tabla LIKE  'TMES'  AND valor_2 ='$segunda_quincena'
-       ";
-    return ejecutarConsulta($sql);
-
-  }
 
 
 
@@ -76,384 +64,6 @@ Class Planilla
 	";
 		return ejecutarConsulta($sql);		
 	}
-
-
-
-
-
-//Implementamos un método para insertar registros
-  public function insertardetalle_horasdsctoabono( $primera_quincena, $fec_reg,  $usu_reg, $pc_reg )
-  {
-
-
-    $sql="INSERT INTO detalle_horas_dsctos_abonos_quincenal ( id_quin, id_trab, cant_horas_dsctos,  cant_dias_dsctos, cant_horas25_abonos, cant_horas35_abonos, cant_horasdom_abonos, cant_horasfer_abonos)
-SELECT DISTINCT '$primera_quincena', tr.id_trab,
-  IF( ADDTIME(
-  CASE WHEN hpp_reg.cant_horas='' THEN  '00:00'
-  WHEN hpp_reg.cant_horas IS NULL THEN '00:00' 
-  ELSE hpp_reg.cant_horas   END
-   , CASE WHEN fcc.cant_horas='' THEN '00:00'
-  WHEN fcc.cant_horas IS NULL THEN '00:00' 
-  ELSE fcc.cant_horas   END 
-   ) ='00:00' , '', ADDTIME(
-  CASE WHEN hpp_reg.cant_horas='' THEN  '00:00'
-  WHEN hpp_reg.cant_horas IS NULL THEN '00:00' 
-  ELSE hpp_reg.cant_horas   END
-   , CASE WHEN fcc.cant_horas='' THEN '00:00'
-  WHEN fcc.cant_horas IS NULL THEN '00:00' 
-  ELSE fcc.cant_horas   END 
-   )   )AS tot_cant_horas,
-   IF(
-  (
-  CASE WHEN hpp_reg.cant_dias='' THEN  '0'
-  WHEN hpp_reg.cant_dias IS NULL THEN '0' 
-  ELSE hpp_reg.cant_dias  END
-   + CASE WHEN fcc.cant_dias='' THEN '0' 
-  WHEN fcc.cant_dias IS NULL THEN '0' 
-  ELSE fcc.cant_dias   END 
-   )='0' , '',(
-  CASE WHEN hpp_reg.cant_dias='' THEN  '0'
-  WHEN hpp_reg.cant_dias IS NULL THEN '0' 
-  ELSE hpp_reg.cant_dias  END
-   + CASE WHEN fcc.cant_dias='' THEN '0' 
-  WHEN fcc.cant_dias IS NULL THEN '0' 
-  ELSE fcc.cant_dias   END 
-   ))  AS tot_cant_dias,
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al25='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al25   END
-   , CASE WHEN fhe.cant_horas_al25='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al25   END 
-   )='00:00', '', 
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al25='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al25   END
-   , CASE WHEN fhe.cant_horas_al25='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al25 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al25   END 
-   )
-   ) AS tot_cant_horas_al25,
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al35='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al35   END
-  , CASE WHEN fhe.cant_horas_al35='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al35   END 
-   ) ='00:00', '' , 
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_al35='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_al35   END
-  , CASE WHEN fhe.cant_horas_al35='' THEN '00:00:00'
-  WHEN fhe.cant_horas_al35 IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_al35   END 
-   )
-   ) AS tot_cant_horas_al35, 
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_dom='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_dom   END
-  , CASE WHEN fhe.cant_horas_dom='' THEN '00:00:00'
-  WHEN fhe.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_dom   END 
-   ) ='00:00', '', 
-   ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_dom='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_dom   END
-  , CASE WHEN fhe.cant_horas_dom='' THEN '00:00:00'
-  WHEN fhe.cant_horas_dom IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_dom   END 
-   )
-   ) AS tot_cant_horas_dom, 
-  IF(ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_fer='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_fer   END
-  , CASE WHEN fhe.cant_horas_fer='' THEN '00:00:00'
-  WHEN fhe.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_fer   END 
-   ) ='00:00', '' ,
-  ADDTIME(
-  CASE WHEN fhe_reg.cant_horas_fer='' THEN  '00:00:00'
-  WHEN fhe_reg.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe_reg.cant_horas_fer   END
-  , CASE WHEN fhe.cant_horas_fer='' THEN '00:00:00'
-  WHEN fhe.cant_horas_fer IS NULL THEN '00:00:00' 
-  ELSE fhe.cant_horas_fer   END 
-   )
-    )AS tot_cant_horas_fer,
-    
-FROM Trabajador tr
-LEFT JOIN tabla_maestra_detalle AS tpla ON
-    tpla.cod_argumento= tr.id_tip_plan
-    AND tpla.cod_tabla='TPLA'
-LEFT JOIN tabla_maestra_detalle AS tsua ON
-    tsua.cod_argumento= tr.id_sucursal
-    AND tsua.cod_tabla='TSUA' OR tsua.cod_tabla IS NULL
-LEFT JOIN tabla_maestra_detalle AS tfun ON
-    tfun.cod_argumento= tr.id_funcion
-    AND tfun.cod_tabla='TFUN'
-LEFT JOIN tabla_maestra_detalle AS tare ON
-    tare.cod_argumento= tr.id_area
-    AND tare.cod_tabla='TARE'
-LEFT JOIN tabla_maestra_detalle AS tcal ON
-    tcal.cod_argumento= tr.id_categoria
-    AND tcal.cod_tabla='TCAL' 
-LEFT JOIN tabla_maestra_detalle AS tfop ON
-    tfop.cod_argumento= tr.id_form_pag
-    AND tfop.cod_tabla='TFOP' 
-LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-    cp.id_cp='$primera_quincena'  
-LEFT JOIN  cronograma_dsctos_abonos_horasdias ch ON 
-    ch.id_cp='$primera_quincena'  
-LEFT JOIN  cronograma_dsctos_abonos_horasdias cd ON 
-    cd.id_cp='$primera_quincena'  
-LEFT JOIN /*Regularizacion de horas y dias de descuento */
-( SELECT tr.id_trab, DATE_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))), '%H:%i') AS cant_horas, SUM(IF(hpp.dato='F', 1, 0)) AS cant_dias  
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, hpp.tiempo_fin
-       FROM horas_permiso_personal hpp
-       LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='$primera_quincena'  
-       WHERE  hpp.fecha NOT BETWEEN cp.desde AND cp.hasta
-       AND  hpp.id_fec_dscto='$primera_quincena'  
-       AND hpp.descontar='1'
-  )AS hpp ON tr.id_trab =  hpp.id_trab
-  GROUP BY tr.id_trab
-) AS hpp_reg ON tr.id_trab =  hpp_reg.id_trab
-LEFT JOIN  /* HORAS Y DIAS DE DESCUENTOS */
-( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, r.id_dscto 
-  FROM horas_permiso_personal hpp
-  LEFT JOIN/* INICIO  - El que causa conflicto*/
-  (SELECT  (@o := @o + 1)  AS id_dscto ,
-     DAY(fe.fecha) AS dia_dscto,
-     MONTH(fe.fecha) AS mes_dscto
-   FROM (SELECT @o:=0) r
-     INNER JOIN fechas fe
-     LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='$primera_quincena'  
-   WHERE fe.fecha BETWEEN cp.desde AND cp.hasta
-   ORDER BY MONTH(fe.fecha) ASC,  DAY(fe.fecha) ASC
-  )  AS r 
-  ON DAY(hpp.fecha)=r.dia_dscto /* FIN  - El que causa conflicto*/
-  WHERE  hpp.descontar='1' 
-) AS hpp ON tr.id_trab =  hpp.id_trab
-  AND hpp.fecha BETWEEN cd.desde AND cd.hasta
-LEFT JOIN 
-( SELECT tr.id_trab, SEC_TO_TIME(SUM(TIME_TO_SEC(hpp.tiempo_fin))) AS cant_horas, SUM(IF(hpp.dato='F', 1, 0)) AS cant_dias  
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT IF (hpp.cant_dia_fin='0', DATE_FORMAT(hpp.tiempo_fin, '%H:%i'), 'F'  ) AS dato, hpp.id_trab, hpp.fecha, hpp.tiempo_fin
-        FROM horas_permiso_personal hpp
-        LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-          cp.id_cp='$primera_quincena'  
-   WHERE  hpp.fecha BETWEEN cp.desde AND cp.hasta
-   AND hpp.descontar='1' 
-  )AS hpp ON tr.id_trab =  hpp.id_trab
-  GROUP BY tr.id_trab
-) AS fcc ON fcc.id_trab= tr.id_trab 
-LEFT JOIN 
-( SELECT  DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato, hep.id_trab, hep.fecha
-FROM horas_extras_personal hep
-WHERE hep.abonar='1'
-) AS hep ON tr.id_trab =  hep.id_trab
-AND hep.fecha BETWEEN ch.desde AND ch.hasta
-LEFT JOIN /*Regularizacion de horas y dias de abono */
-( SELECT tr.id_trab, 
-   IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-   IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al25
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha NOT BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='25' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='$primera_quincena'  
-       AND hep.abonar='1'
-                   GROUP BY id_trab
-   )AS he_25 ON tr.id_trab =  he_25.id_trab
-   LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al35
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha NOT  BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='35' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='$primera_quincena'
-       AND hep.abonar='1'  
-                   GROUP BY id_trab
-   )AS he_35 ON tr.id_trab =  he_35.id_trab
-              LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_dom
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha NOT BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='NO LABORABLE'
-                    AND hep.id_fec_abono='$primera_quincena'  
-        AND hep.abonar='1'
-                  GROUP BY id_trab
-   )AS he_nl ON tr.id_trab =  he_nl.id_trab
-               LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_fer
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha NOT  BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='FERIADO'
-                    AND hep.id_fec_abono='$primera_quincena'
-        AND hep.abonar='1'  
-               GROUP BY id_trab
-   )AS he_fe ON tr.id_trab =  he_fe.id_trab
-  GROUP BY tr.id_trab   
-) AS fhe_reg ON fhe_reg.id_trab= tr.id_trab 
-LEFT JOIN 
-( SELECT tr.id_trab, 
-         IFNULL(he_25.cant_horas_al25,'') AS cant_horas_al25, 
-         IFNULL(he_35.cant_horas_al35,'') AS cant_horas_al35,  
-   IFNULL(he_nl.cant_horas_dom,'') AS cant_horas_dom,
-   IFNULL(he_fe.cant_horas_fer,'') AS cant_horas_fer
-  FROM Trabajador tr
-  LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al25
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='25' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='$primera_quincena' 
-       AND hep.abonar='1' 
-                   GROUP BY id_trab
-   )AS he_25 ON tr.id_trab =  he_25.id_trab
-   LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_al35
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                   AND hep.por_pago='35' 
-                   AND est_dia='LABORABLE'
-                   AND hep.id_fec_abono='$primera_quincena'  
-       AND hep.abonar='1'
-                   GROUP BY id_trab
-   )AS he_35 ON tr.id_trab =  he_35.id_trab
-              LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_dom
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='NO LABORABLE'
-                    AND hep.id_fec_abono='$primera_quincena'  
-        AND hep.abonar='1'
-                  GROUP BY id_trab
-   )AS he_nl ON tr.id_trab =  he_nl.id_trab
-               LEFT JOIN ( SELECT 
-                DATE_FORMAT(hep.tiempo_fin, '%H:%i') AS dato,
-                hep.id_trab,
-                hep.fecha,
-                hep.tiempo_fin,
-                hep.por_pago,
-                hep.est_dia,
-                IFNULL(SEC_TO_TIME(SUM(TIME_TO_SEC(hep.tiempo_fin))),'') AS cant_horas_fer
-                   FROM horas_extras_personal hep
-                   LEFT JOIN  cronograma_dsctos_abonos_horasdias cp ON 
-                              cp.id_cp= '$primera_quincena'  
-                   WHERE  hep.fecha BETWEEN  cp.desde AND cp.hasta
-                    AND hep.por_pago='100' 
-                    AND est_dia='FERIADO'
-                    AND hep.id_fec_abono='$primera_quincena'
-        AND hep.abonar='1'  
-               GROUP BY id_trab
-   )AS he_fe ON tr.id_trab =  he_fe.id_trab
-  GROUP BY tr.id_trab  
-) AS fhe ON fhe.id_trab= tr.id_trab 
-LEFT JOIN
-(SELECT (@i := @i + 1) AS id ,
-   DAY(fe_ext.fecha) AS dia,
-   MONTH(fe_ext.fecha) AS mes,
-   fr_ext.dia AS dia_reg,
-   fr_ext.mes AS mes_reg
- FROM (SELECT @i:=0) r
-   INNER JOIN fechas fe_ext
-   LEFT JOIN (
-  SELECT 
-      DAY(fecha) AS dia,
-      MONTH(fecha) AS mes,
-      cp.desde,
-      cp.hasta
-  FROM fechas fe
-   LEFT JOIN cronograma_dsctos_abonos_horasdias cp ON 
-           cp.id_cp='$primera_quincena'  
-  WHERE fe.fecha BETWEEN  cp.desde AND cp.hasta
-  GROUP BY DAY(fecha)
-   ) AS fr_ext ON  fr_ext.dia= DAY(fe_ext.fecha) AND fr_ext.mes= MONTH(fe_ext.fecha)
- WHERE fe_ext.fecha BETWEEN fr_ext.desde AND fr_ext.hasta
- ORDER BY MONTH(fe_ext.fecha) ASC,  DAY(fe_ext.fecha) ASC
-)  AS r_ext
-ON DAY(hep.fecha)=r_ext.dia
-GROUP BY tr.id_trab; ";
-    return ejecutarConsulta($sql);
-
-
-  }
-
 
 
 
@@ -562,8 +172,8 @@ GROUP BY tr.id_trab; ";
   usu_reg,
   pc_reg
 )
-	SELECT DISTINCT 
-  '$primera_quincena' AS id_quin,
+	  SELECT DISTINCT
+  '$primera_quincena' AS id_quin,  
   tr.id_trab,
   teci.des_corta AS estado_civil,
   tcon.des_larga AS tipo_contrato,
@@ -579,9 +189,13 @@ GROUP BY tr.id_trab; ";
   tr.apepat_trab,
   tr.apemat_trab,
   tr.nom_trab,
-  tr.fec_nac_trab AS fec_nac_trab,
-  tr.fec_ing_trab AS fec_ing_trab,
-  tr.fec_sal_trab AS fec_sal_trab,
+  DATE_FORMAT(tr.fec_nac_trab, '%d/%m/%Y') AS fec_nac_trab,
+  DATE_FORMAT(tr.fec_ing_trab, '%d/%m/%Y') AS fec_ing_trab,
+  IF(
+    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y') = '00/00/0000',
+    '',
+    DATE_FORMAT(tr.fec_sal_trab, '%d/%m/%Y')
+  ) AS fec_sal_trab,
   tr.nro_cta_sue AS nro_cta_sue_con,
   REPLACE(tr.nro_cta_sue, '-', '') AS nro_cta_sue_sin,
   tr.nro_cta_cts AS nro_cta_cts_con,
@@ -606,7 +220,7 @@ GROUP BY tr.id_trab; ";
       AND cp.hasta 
       THEN (
         (
-          DATEDIFF(tr.fec_sal_trab, cp.desde)
+          DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
         ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
       ) 
       WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -638,7 +252,7 @@ GROUP BY tr.id_trab; ";
     AND cp.hasta 
     THEN (
       (
-        DATEDIFF(tr.fec_sal_trab, cp.desde)
+        DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
       ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
     ) 
     WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -744,7 +358,7 @@ GROUP BY tr.id_trab; ";
           AND cp.hasta 
           THEN (
             (
-              DATEDIFF(tr.fec_sal_trab, cp.desde)
+              DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
             ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
           ) 
           WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -762,25 +376,26 @@ GROUP BY tr.id_trab; ";
           ELSE '' 
         END
       )
-    ) - het.dscto_dom_hsxdias_semanal - IF(
-      ROUND(
-        (
-          (tr.sueldo_trab / 240) * (
-            TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-          )
-        ) + 0.0000000001,
-        2
-      ) = '0.00',
-      '',
-      ROUND(
-        (
-          (tr.sueldo_trab / 240) * (
-            TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-          )
-        ) + 0.0000000001,
-        2
-      )
-    ),
+    ) - het.dscto_dom_hsxdias_semanal 
+    - IF(
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    ) = '0.00',
+    '',
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    )
+    ) ,
     2
   ) AS sueldo_quincenal,
   /* CORREGIR - AL FINAL AUTOCALCULABLE*/
@@ -841,7 +456,7 @@ GROUP BY tr.id_trab; ";
               AND cp.hasta 
               THEN (
                 (
-                  DATEDIFF(tr.fec_sal_trab, cp.desde)
+                  DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                 ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
               ) 
               WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -859,27 +474,29 @@ GROUP BY tr.id_trab; ";
               ELSE '' 
             END
           )
-        ) - het.dscto_dom_hsxdias_semanal - (
-          IF(
-            ROUND(
-              (
-                (tr.sueldo_trab / 240) * (
-                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                )
-              ) + 0.0000000001,
-              2
-            ) = '0.00',
-            '',
-            ROUND(
-              (
-                (tr.sueldo_trab / 240) * (
-                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                )
-              ) + 0.0000000001,
-              2
-            )
-          )
-        ),
+        ) - het.dscto_dom_hsxdias_semanal - 
+        (
+           IF(
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    ) = '0.00',
+    '',
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    )
+    )
+        )
+        ,
         2
       )
     ) + (
@@ -953,7 +570,7 @@ GROUP BY tr.id_trab; ";
     ) + 0.0000000001,
     2
   ) AS mon_hor_ext_dominical,
-  /*  het.cant_abono_horas_fer AS cant_hor_ext_feriado, */
+/*  het.cant_abono_horas_fer AS cant_hor_ext_feriado, */
   ROUND(
     (
       (
@@ -1020,7 +637,7 @@ GROUP BY tr.id_trab; ";
               AND cp.hasta 
               THEN (
                 (
-                  DATEDIFF(tr.fec_sal_trab, cp.desde)
+                  DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                 ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
               ) 
               WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1039,25 +656,25 @@ GROUP BY tr.id_trab; ";
             END
           )
         ) - het.dscto_dom_hsxdias_semanal - (
-          IF(
-            ROUND(
-              (
-                (tr.sueldo_trab / 240) * (
-                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                )
-              ) + 0.0000000001,
-              2
-            ) = '0.00',
-            '',
-            ROUND(
-              (
-                (tr.sueldo_trab / 240) * (
-                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                )
-              ) + 0.0000000001,
-              2
-            )
-          )
+           IF(
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    ) = '0.00',
+    '',
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    )
+    )
         ),
         2
       )
@@ -1114,109 +731,89 @@ GROUP BY tr.id_trab; ";
     /*MRA*/
     (
       ROUND(
-        /*INI TOTAL REMUNERACION AFECTO*/
-        ROUND(
-          (
-            ROUND(
-              (
-                (tr.sueldo_trab / 30) * (
-                  CASE
-                    WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
-                    THEN (
-                      15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                    ) 
-                    WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                    AND tr.fec_sal_trab BETWEEN cp.desde 
-                    AND cp.hasta 
-                    THEN (
-                      (
-                        DATEDIFF(tr.fec_sal_trab, cp.desde)
-                      ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                    ) 
-                    WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                    AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                    AND cp.hasta 
-                    AND tr.fec_sal_trab > cp.hasta 
-                    THEN (
-                      15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                    ) 
-                    WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                    AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                    AND cp.hasta 
-                    AND tr.fec_sal_trab < cp.desde 
-                    THEN ('0') 
-                    ELSE '' 
-                  END
-                )
-              ) - het.dscto_dom_hsxdias_semanal - (
-                IF(
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  ) = '0.00',
-                  '',
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  )
-                )
-              ),
-              2
-            )
-          ) + (
-            IF(
-              (tr.asig_trab / 2) = '0',
-              '',
-              (tr.asig_trab / 2)
-            )
-          ) + (
-            IF(
-              pd.dif_soles IS NULL,
-              '',
-              pd.dif_soles
-            )
-          ) + (
-            IF(
-              vac.monto_a_pagar IS NULL,
-              '',
-              ROUND(vac.monto_a_pagar, 2)
-            )
-          ) + (
-            IF(
-              ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
-              '',
-              ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
-            )
-          ) + (
-            IF(
-              ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
-              '',
-              ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
-            )
-          ) + (
-            IF(
-              ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
-              '',
-              ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
-            )
-          ) + 
-          /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
+        (
           ROUND(
-            (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
+            (
+              (tr.sueldo_trab / 30) * (
+                CASE
+                  WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
+                  THEN (
+                    15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                  ) 
+                  WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                  AND tr.fec_sal_trab BETWEEN cp.desde 
+                  AND cp.hasta 
+                  THEN (
+                    (
+                      DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
+                    ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                  ) 
+                  WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                  AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                  AND cp.hasta 
+                  AND tr.fec_sal_trab > cp.hasta 
+                  THEN (
+                    15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                  ) 
+                  WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                  AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                  AND cp.hasta 
+                  AND tr.fec_sal_trab < cp.desde 
+                  THEN ('0') 
+                  ELSE '' 
+                END
+              )
+            ) - het.dscto_dom_hsxdias_semanal - (
+              (tr.sueldo_trab / 240) * (
+                TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+              )
+            ),
             2
-          ) 
-          /*FIN TOTAL REMUNERACION AFECTO*/
-          ,
+          )
+        ) + (
+          IF(
+            (tr.asig_trab / 2) = '0',
+            '',
+            (tr.asig_trab / 2)
+          )
+        ) + (
+          IF(
+            pd.dif_soles IS NULL,
+            '',
+            pd.dif_soles
+          )
+        ) + (
+          IF(
+            vac.monto_a_pagar IS NULL,
+            '',
+            ROUND(vac.monto_a_pagar, 2)
+          )
+        ) + (
+          IF(
+            ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
+            '',
+            ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
+          )
+        ) + (
+          IF(
+            ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
+            '',
+            ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
+          )
+        ) + (
+          IF(
+            ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
+            '',
+            ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
+          )
+        ) + 
+        /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
+        ROUND(
+          (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
           2
-        ),
+        ) 
+        /*FIN TOTAL REMUNERACION AFECTO*/
+        ,
         2
       )
     ) 
@@ -1261,7 +858,7 @@ GROUP BY tr.id_trab; ";
                     AND cp.hasta 
                     THEN (
                       (
-                        DATEDIFF(tr.fec_sal_trab, cp.desde)
+                        DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                       ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                     ) 
                     WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1280,24 +877,8 @@ GROUP BY tr.id_trab; ";
                   END
                 )
               ) - het.dscto_dom_hsxdias_semanal - (
-                IF(
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  ) = '0.00',
-                  '',
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  )
+                (tr.sueldo_trab / 240) * (
+                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
                 )
               ),
               2
@@ -1383,7 +964,7 @@ GROUP BY tr.id_trab; ";
               AND cp.hasta 
               THEN (
                 (
-                  DATEDIFF(tr.fec_sal_trab, cp.desde)
+                  DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                 ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
               ) 
               WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1402,24 +983,8 @@ GROUP BY tr.id_trab; ";
             END
           )
         ) - het.dscto_dom_hsxdias_semanal - (
-          IF(
-            ROUND(
-              (
-                (tr.sueldo_trab / 240) * (
-                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                )
-              ) + 0.0000000001,
-              2
-            ) = '0.00',
-            '',
-            ROUND(
-              (
-                (tr.sueldo_trab / 240) * (
-                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                )
-              ) + 0.0000000001,
-              2
-            )
+          (tr.sueldo_trab / 240) * (
+            TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
           )
         ),
         2
@@ -1493,7 +1058,7 @@ GROUP BY tr.id_trab; ";
                     AND cp.hasta 
                     THEN (
                       (
-                        DATEDIFF(tr.fec_sal_trab, cp.desde)
+                        DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                       ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                     ) 
                     WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1512,24 +1077,8 @@ GROUP BY tr.id_trab; ";
                   END
                 )
               ) - het.dscto_dom_hsxdias_semanal - (
-                IF(
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  ) = '0.00',
-                  '',
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  )
+                (tr.sueldo_trab / 240) * (
+                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
                 )
               ),
               2
@@ -1627,7 +1176,7 @@ GROUP BY tr.id_trab; ";
                 AND cp.hasta 
                 THEN (
                   (
-                    DATEDIFF(tr.fec_sal_trab, cp.desde)
+                    DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                   ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                 ) 
                 WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1647,24 +1196,24 @@ GROUP BY tr.id_trab; ";
             )
           ) - het.dscto_dom_hsxdias_semanal - (
             IF(
-              ROUND(
-                (
-                  (tr.sueldo_trab / 240) * (
-                    TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                  )
-                ) + 0.0000000001,
-                2
-              ) = '0.00',
-              '',
-              ROUND(
-                (
-                  (tr.sueldo_trab / 240) * (
-                    TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                  )
-                ) + 0.0000000001,
-                2
-              )
-            )
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    ) = '0.00',
+    '',
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    )
+    )
           ),
           2
         )
@@ -1737,7 +1286,7 @@ GROUP BY tr.id_trab; ";
                       AND cp.hasta 
                       THEN (
                         (
-                          DATEDIFF(tr.fec_sal_trab, cp.desde)
+                          DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                         ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                       ) 
                       WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1757,24 +1306,24 @@ GROUP BY tr.id_trab; ";
                   )
                 ) - het.dscto_dom_hsxdias_semanal - (
                   IF(
-                    ROUND(
-                      (
-                        (tr.sueldo_trab / 240) * (
-                          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                        )
-                      ) + 0.0000000001,
-                      2
-                    ) = '0.00',
-                    '',
-                    ROUND(
-                      (
-                        (tr.sueldo_trab / 240) * (
-                          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                        )
-                      ) + 0.0000000001,
-                      2
-                    )
-                  )
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    ) = '0.00',
+    '',
+    ROUND(
+      (
+        (tr.sueldo_trab / 240) * (
+          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+        )
+      ) + 0.0000000001,
+      2
+    )
+    )
                 ),
                 2
               )
@@ -1858,7 +1407,11 @@ GROUP BY tr.id_trab; ";
   /*------------------------------------NUEVA FILA------------------------------------*/
   ROUND((tr.bono_trab / 2), 2) AS bono_quincenal,
   ROUND(
-    IFNULL(pd.bono_des_trab, '0.00'),
+    IF(
+      pd.dif_soles IS NOT NULL,
+      tr.bono_des_trab,
+      '0.00'
+    ),
     2
   ) AS bono_destajo_quincenal,
   /*------------------------------------NUEVA FILA------------------------------------*/
@@ -1880,7 +1433,7 @@ GROUP BY tr.id_trab; ";
                 AND cp.hasta 
                 THEN (
                   (
-                    DATEDIFF(tr.fec_sal_trab, cp.desde)
+                    DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                   ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                 ) 
                 WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -1974,7 +1527,7 @@ GROUP BY tr.id_trab; ";
                       AND cp.hasta 
                       THEN (
                         (
-                          DATEDIFF(tr.fec_sal_trab, cp.desde)
+                          DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                         ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                       ) 
                       WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -2077,35 +1630,25 @@ GROUP BY tr.id_trab; ";
   /* FALTA CALCULAR DESDE LA PANTALLLA  */
   /*------------------------------------NUEVA FILA------------------------------------*/
   ROUND(
-    ROUND(
+    (
       (
         (
           TIME_TO_SEC(het.cant_abono_horas_al25) / 3600
         ) * trcop.pre_hor_ext_25
-      ) + 0.0000000001,
-      2
-    ) + ROUND(
-      (
+      ) + (
         (
           TIME_TO_SEC(het.cant_abono_horas_al35) / 3600
         ) * trcop.pre_hor_ext_35
-      ) + 0.0000000001,
-      2
-    ) + ROUND(
-      (
+      ) + (
         (
           TIME_TO_SEC(het.cant_abono_horas_dom) / 3600
         ) * trcop.pre_hor_ext_dominical
-      ) + 0.0000000001,
-      2
-    ) + ROUND(
-      (
+      ) + (
         (
           TIME_TO_SEC(het.cant_abono_horas_fer) / 3600
         ) * trcop.pre_hor_ext_feriado
-      ) + 0.0000000001,
-      2
-    ),
+      )
+    ) + 0.0000000001,
     2
   ) AS total_hextras,
   /*------------------------------------NUEVA FILA------------------------------------*/
@@ -2114,17 +1657,347 @@ GROUP BY tr.id_trab; ";
   CASE
     /*Cuando estan planilla*/
     WHEN tr.id_trab LIKE 'P%' 
-    THEN REPLACE(
-      (
-        ROUND(
-          (tr.bono_trab / 2) 
-          /*BONO SUELDO */
-          + ROUND(
-            IFNULL(pd.bono_des_trab, '0.00'),
+    THEN (
+      ROUND(
+        (tr.bono_trab / 2) 
+        /*BONO SUELDO */
+        + IF(
+          pd.dif_soles IS NOT NULL,
+          tr.bono_des_trab,
+          '0.00'
+        ) + IF(
+          tr.id_pag_esp = '0',
+          IFNULL(mvc.pago_vac_comp, '0.00'),
+          ROUND(
+            (
+              ROUND(
+                (
+                  (tr.sueldo_trab / 30) * (
+                    CASE
+                      WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
+                      THEN (
+                        15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                      ) 
+                      WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                      AND tr.fec_sal_trab BETWEEN cp.desde 
+                      AND cp.hasta 
+                      THEN (
+                        (
+                          DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
+                        ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                      ) 
+                      WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                      AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                      AND cp.hasta 
+                      AND tr.fec_sal_trab > cp.hasta 
+                      THEN (
+                        15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                      ) 
+                      WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                      AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                      AND cp.hasta 
+                      AND tr.fec_sal_trab < cp.desde 
+                      THEN ('0') 
+                      ELSE '' 
+                    END
+                  )
+                ) - het.dscto_dom_hsxdias_semanal - (
+                  (tr.sueldo_trab / 240) * (
+                    TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+                  )
+                ),
+                2
+              )
+            ) + (
+              IF(
+                (tr.asig_trab / 2) = '0',
+                '',
+                (tr.asig_trab / 2)
+              )
+            ) + (
+              IF(
+                pd.dif_soles IS NULL,
+                '',
+                pd.dif_soles
+              )
+            ) + (
+              IF(
+                vac.monto_a_pagar IS NULL,
+                '',
+                ROUND(vac.monto_a_pagar, 2)
+              )
+            ) + (
+              IF(
+                ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
+                '',
+                ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
+              )
+            ) + (
+              IF(
+                ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
+                '',
+                ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
+              )
+            ) + (
+              IF(
+                ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
+                '',
+                ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
+              )
+            ) + 
+            /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
+            ROUND(
+              (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
+              2
+            ) 
+            /*FIN TOTAL REMUNERACION AFECTO*/
+            ,
             2
-          ) + IF(
-            tr.id_pag_esp = '0',
-            IFNULL(mvc.pago_vac_comp, '0.00'),
+          ) 
+          /*FIN TOTAL REMUNERACION AFECTO*/
+          /*RESTAR*/
+          - 
+          /*INI- fondo de pension*/
+          ROUND(
+            ROUND(
+              /*MRA*/
+              (
+                ROUND(
+                  (
+                    ROUND(
+                      (
+                        (tr.sueldo_trab / 30) * (
+                          CASE
+                            WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
+                            THEN (
+                              15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                            ) 
+                            WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                            AND tr.fec_sal_trab BETWEEN cp.desde 
+                            AND cp.hasta 
+                            THEN (
+                              (
+                                DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
+                              ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                            ) 
+                            WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                            AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                            AND cp.hasta 
+                            AND tr.fec_sal_trab > cp.hasta 
+                            THEN (
+                              15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                            ) 
+                            WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                            AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                            AND cp.hasta 
+                            AND tr.fec_sal_trab < cp.desde 
+                            THEN ('0') 
+                            ELSE '' 
+                          END
+                        )
+                      ) - het.dscto_dom_hsxdias_semanal - (
+                        (tr.sueldo_trab / 240) * (
+                          TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+                        )
+                      ),
+                      2
+                    )
+                  ) + (
+                    IF(
+                      (tr.asig_trab / 2) = '0',
+                      '',
+                      (tr.asig_trab / 2)
+                    )
+                  ) + (
+                    IF(
+                      pd.dif_soles IS NULL,
+                      '',
+                      pd.dif_soles
+                    )
+                  ) + (
+                    IF(
+                      vac.monto_a_pagar IS NULL,
+                      '',
+                      ROUND(vac.monto_a_pagar, 2)
+                    )
+                  ) + (
+                    IF(
+                      ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
+                      '',
+                      ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
+                    )
+                  ) + (
+                    IF(
+                      ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
+                      '',
+                      ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
+                    )
+                  ) + (
+                    IF(
+                      ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
+                      '',
+                      ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
+                    )
+                  ) + 
+                  /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
+                  ROUND(
+                    (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
+                    2
+                  ) 
+                  /*FIN TOTAL REMUNERACION AFECTO*/
+                  ,
+                  2
+                )
+              ) 
+              /*MRA*/
+              * (rp.monto_reg_pen / 100) + IF (
+                tr.id_reg_pen_sj = '6',
+                rp.sj_apo_obl,
+                '0.00'
+              ) + 0.0000000001 
+              /*AGREGADO PARA QUE REDONDEE CORRECTAMENTE*/
+              ,
+              2
+            ) 
+            /*FIN- fondo de pension*/
+            + IFNULL(rqc.mon_quin, '') 
+            /*dscto_rentaquinta*/
+            + IFNULL(dj.mon_men, 0.00) + IFNULL(dp.monto, 0.00) + IFNULL(did.monto, 0.00) + IFNULL(dv.monto, 0.00) + IFNULL(dm.monto, 0.00) + IFNULL(aa.monto, 0.00) + 0.0000000001,
+            2
+          ) 
+          /*FIN TOTAL DESCUENTOS */
+          /*FIN TOTAL DEPOSITO QUINCENAL */
+          /**/
+          + 
+          /*INICIO - ABONO REGULARIZACION*/
+          IFNULL(
+            ROUND(ar.cantidad + 0.0000000001, 2),
+            0.00
+          ) 
+          /*FIN - ABONO REGULARIZACION*/
+          /*FIN  - TOTAL BCP DEPOSITO QUINCENAL*/
+        ) + 
+        /*LINEA DE VACACIONES COMPRADAS*/
+        IFNULL(mvc.pago_vac_comp, '0.00') + (
+          (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_al25) / 3600
+            ) * trcop.pre_hor_ext_25
+          ) + (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_al35) / 3600
+            ) * trcop.pre_hor_ext_35
+          ) + (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_dom) / 3600
+            ) * trcop.pre_hor_ext_dominical
+          ) + (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_fer) / 3600
+            ) * trcop.pre_hor_ext_feriado
+          )
+        ),
+        0
+      )
+    ) 
+    /*Cuando son internos*/
+    ELSE ROUND(
+      /*INICIO - TOTAL BCP DEPOSITO QUINCENAL */
+      /*INICIO TOTAL REMUNERACION AFECTO*/
+      ROUND(
+        (
+          ROUND(
+            (
+              (tr.sueldo_trab / 30) * (
+                CASE
+                  WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
+                  THEN (
+                    15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                  ) 
+                  WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                  AND tr.fec_sal_trab BETWEEN cp.desde 
+                  AND cp.hasta 
+                  THEN (
+                    (
+                      DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
+                    ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                  ) 
+                  WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                  AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                  AND cp.hasta 
+                  AND tr.fec_sal_trab > cp.hasta 
+                  THEN (
+                    15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
+                  ) 
+                  WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
+                  AND tr.fec_sal_trab NOT BETWEEN cp.desde 
+                  AND cp.hasta 
+                  AND tr.fec_sal_trab < cp.desde 
+                  THEN ('0') 
+                  ELSE '' 
+                END
+              )
+            ) - het.dscto_dom_hsxdias_semanal - (
+              (tr.sueldo_trab / 240) * (
+                TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
+              )
+            ),
+            2
+          )
+        ) + (
+          IF(
+            (tr.asig_trab / 2) = '0',
+            '',
+            (tr.asig_trab / 2)
+          )
+        ) + tr.bono_des_trab + (
+          IF(
+            pd.dif_soles IS NULL,
+            '',
+            pd.dif_soles
+          )
+        ) + (
+          IF(
+            vac.monto_a_pagar IS NULL,
+            '',
+            ROUND(vac.monto_a_pagar, 2)
+          )
+        ) + (
+          IF(
+            ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
+            '',
+            ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
+          )
+        ) + (
+          IF(
+            ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
+            '',
+            ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
+          )
+        ) + (
+          IF(
+            ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
+            '',
+            ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
+          )
+        ) + 
+        /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
+        ROUND(
+          (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
+          2
+        ) 
+        /*FIN TOTAL REMUNERACION AFECTO*/
+        ,
+        2
+      ) 
+      /*FIN TOTAL REMUNERACION AFECTO*/
+      /*RESTAR*/
+      - 
+      /*INI- fondo de pension*/
+      ROUND(
+        ROUND(
+          /*MRA*/
+          (
             ROUND(
               (
                 ROUND(
@@ -2140,7 +2013,7 @@ GROUP BY tr.id_trab; ";
                         AND cp.hasta 
                         THEN (
                           (
-                            DATEDIFF(tr.fec_sal_trab, cp.desde)
+                            DATEDIFF(tr.fec_sal_trab, cp.desde) + 1
                           ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
                         ) 
                         WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
@@ -2159,24 +2032,8 @@ GROUP BY tr.id_trab; ";
                       END
                     )
                   ) - het.dscto_dom_hsxdias_semanal - (
-                    IF(
-                      ROUND(
-                        (
-                          (tr.sueldo_trab / 240) * (
-                            TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                          )
-                        ) + 0.0000000001,
-                        2
-                      ) = '0.00',
-                      '',
-                      ROUND(
-                        (
-                          (tr.sueldo_trab / 240) * (
-                            TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                          )
-                        ) + 0.0000000001,
-                        2
-                      )
+                    (tr.sueldo_trab / 240) * (
+                      TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
                     )
                   ),
                   2
@@ -2226,471 +2083,69 @@ GROUP BY tr.id_trab; ";
               /*FIN TOTAL REMUNERACION AFECTO*/
               ,
               2
-            ) 
-            /*FIN TOTAL REMUNERACION AFECTO*/
-            /*RESTAR*/
-            - 
-            /*INI- fondo de pension*/
-            ROUND(
-              ROUND(
-                /*MRA*/
-                (
-                  ROUND(
-                    (
-                      ROUND(
-                        (
-                          (tr.sueldo_trab / 30) * (
-                            CASE
-                              WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
-                              THEN (
-                                15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                              ) 
-                              WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                              AND tr.fec_sal_trab BETWEEN cp.desde 
-                              AND cp.hasta 
-                              THEN (
-                                (
-                                  DATEDIFF(tr.fec_sal_trab, cp.desde)
-                                ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                              ) 
-                              WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                              AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                              AND cp.hasta 
-                              AND tr.fec_sal_trab > cp.hasta 
-                              THEN (
-                                15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                              ) 
-                              WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                              AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                              AND cp.hasta 
-                              AND tr.fec_sal_trab < cp.desde 
-                              THEN ('0') 
-                              ELSE '' 
-                            END
-                          )
-                        ) - het.dscto_dom_hsxdias_semanal - (
-                          IF(
-                            ROUND(
-                              (
-                                (tr.sueldo_trab / 240) * (
-                                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                                )
-                              ) + 0.0000000001,
-                              2
-                            ) = '0.00',
-                            '',
-                            ROUND(
-                              (
-                                (tr.sueldo_trab / 240) * (
-                                  TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                                )
-                              ) + 0.0000000001,
-                              2
-                            )
-                          )
-                        ),
-                        2
-                      )
-                    ) + (
-                      IF(
-                        (tr.asig_trab / 2) = '0',
-                        '',
-                        (tr.asig_trab / 2)
-                      )
-                    ) + (
-                      IF(
-                        pd.dif_soles IS NULL,
-                        '',
-                        pd.dif_soles
-                      )
-                    ) + (
-                      IF(
-                        vac.monto_a_pagar IS NULL,
-                        '',
-                        ROUND(vac.monto_a_pagar, 2)
-                      )
-                    ) + (
-                      IF(
-                        ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
-                        '',
-                        ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
-                      )
-                    ) + (
-                      IF(
-                        ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
-                        '',
-                        ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
-                      )
-                    ) + (
-                      IF(
-                        ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
-                        '',
-                        ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
-                      )
-                    ) + 
-                    /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
-                    ROUND(
-                      (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
-                      2
-                    ) 
-                    /*FIN TOTAL REMUNERACION AFECTO*/
-                    ,
-                    2
-                  )
-                ) 
-                /*MRA*/
-                * (rp.monto_reg_pen / 100) + IF (
-                  tr.id_reg_pen_sj = '6',
-                  rp.sj_apo_obl,
-                  '0.00'
-                ) + 0.0000000001 
-                /*AGREGADO PARA QUE REDONDEE CORRECTAMENTE*/
-                ,
-                2
-              ) 
-              /*FIN- fondo de pension*/
-              + IFNULL(rqc.mon_quin, '') 
-              /*dscto_rentaquinta*/
-              + IFNULL(dj.mon_men, 0.00) + IFNULL(dp.monto, 0.00) + IFNULL(did.monto, 0.00) + IFNULL(dv.monto, 0.00) + IFNULL(dm.monto, 0.00) + IFNULL(aa.monto, 0.00) + 0.0000000001,
-              2
-            ) 
-            /*FIN TOTAL DESCUENTOS */
-            /*FIN TOTAL DEPOSITO QUINCENAL */
-            /**/
-            + 
-            /*INICIO - ABONO REGULARIZACION*/
-            IFNULL(
-              ROUND(ar.cantidad + 0.0000000001, 2),
-              0.00
-            ) 
-            /*FIN - ABONO REGULARIZACION*/
-            /*FIN  - TOTAL BCP DEPOSITO QUINCENAL*/
-          ) + 
-          /*LINEA DE VACACIONES COMPRADAS*/
-          IFNULL(mvc.pago_vac_comp, '0.00') + (
-            ROUND(
-              (
-                (
-                  TIME_TO_SEC(het.cant_abono_horas_al25) / 3600
-                ) * trcop.pre_hor_ext_25
-              ) + 0.0000000001,
-              2
-            ) + ROUND(
-              (
-                (
-                  TIME_TO_SEC(het.cant_abono_horas_al35) / 3600
-                ) * trcop.pre_hor_ext_35
-              ) + 0.0000000001,
-              2
-            ) + ROUND(
-              (
-                (
-                  TIME_TO_SEC(het.cant_abono_horas_dom) / 3600
-                ) * trcop.pre_hor_ext_dominical
-              ) + 0.0000000001,
-              2
-            ) + ROUND(
-              (
-                (
-                  TIME_TO_SEC(het.cant_abono_horas_fer) / 3600
-                ) * trcop.pre_hor_ext_feriado
-              ) + 0.0000000001,
-              2
-            ) - 
-            /*DESCUENTOS EN EFECTIVO*/
-            (ROUND(IFNULL(dee.monto, '0.00'), 2))
-          ) + 0.0000000001,
-          0
-        )
-      ),
-      '-',
-      ''
-    ) 
-    /*Cuando son internos*/
-    ELSE REPLACE(
-      ROUND(
-        /*INICIO - TOTAL BCP DEPOSITO QUINCENAL */
-        /*INICIO TOTAL REMUNERACION AFECTO*/
-        ROUND(
-          (
-            ROUND(
-              (
-                (tr.sueldo_trab / 30) * (
-                  CASE
-                    WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
-                    THEN (
-                      15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                    ) 
-                    WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                    AND tr.fec_sal_trab BETWEEN cp.desde 
-                    AND cp.hasta 
-                    THEN (
-                      (
-                        DATEDIFF(tr.fec_sal_trab, cp.desde)
-                      ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                    ) 
-                    WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                    AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                    AND cp.hasta 
-                    AND tr.fec_sal_trab > cp.hasta 
-                    THEN (
-                      15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                    ) 
-                    WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                    AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                    AND cp.hasta 
-                    AND tr.fec_sal_trab < cp.desde 
-                    THEN ('0') 
-                    ELSE '' 
-                  END
-                )
-              ) - het.dscto_dom_hsxdias_semanal - (
-                IF(
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  ) = '0.00',
-                  '',
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 240) * (
-                        TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                      )
-                    ) + 0.0000000001,
-                    2
-                  )
-                )
-              ),
-              2
             )
-          ) + (
-            IF(
-              (tr.asig_trab / 2) = '0',
-              '',
-              (tr.asig_trab / 2)
-            )
-          ) + (
-            IF(
-              pd.dif_soles IS NULL,
-              '',
-              pd.dif_soles
-            )
-          ) + (
-            IF(
-              vac.monto_a_pagar IS NULL,
-              '',
-              ROUND(vac.monto_a_pagar, 2)
-            )
-          ) + (
-            IF(
-              ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
-              '',
-              ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
-            )
-          ) + (
-            IF(
-              ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
-              '',
-              ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
-            )
-          ) + (
-            IF(
-              ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
-              '',
-              ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
-            )
-          ) + 
-          /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
-          ROUND(
-            (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
-            2
           ) 
-          /*FIN TOTAL REMUNERACION AFECTO*/
+          /*MRA*/
+          * (rp.monto_reg_pen / 100) + IF (
+            tr.id_reg_pen_sj = '6',
+            rp.sj_apo_obl,
+            '0.00'
+          ) + 0.0000000001 
+          /*AGREGADO PARA QUE REDONDEE CORRECTAMENTE*/
           ,
           2
         ) 
-        /*FIN TOTAL REMUNERACION AFECTO*/
-        /*RESTAR*/
-        - 
-        /*INI- fondo de pension*/
-        ROUND(
-          ROUND(
-            /*MRA*/
-            (
-              ROUND(
-                (
-                  ROUND(
-                    (
-                      (tr.sueldo_trab / 30) * (
-                        CASE
-                          WHEN tr.fec_sal_trab = '0000-00-00 00:00:00' 
-                          THEN (
-                            15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                          ) 
-                          WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                          AND tr.fec_sal_trab BETWEEN cp.desde 
-                          AND cp.hasta 
-                          THEN (
-                            (
-                              DATEDIFF(tr.fec_sal_trab, cp.desde)
-                            ) - IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                          ) 
-                          WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                          AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                          AND cp.hasta 
-                          AND tr.fec_sal_trab > cp.hasta 
-                          THEN (
-                            15- IFNULL(vac.dias, '0') - IFNULL(dme.dias, '0') - IFNULL(sub.dias, '0') - IFNULL(lco.dias, '0') - IFNULL(lsi.dias, '0') - IFNULL(het.cant_dscto_endias, '')
-                          ) 
-                          WHEN tr.fec_sal_trab != '0000-00-00 00:00:00' 
-                          AND tr.fec_sal_trab NOT BETWEEN cp.desde 
-                          AND cp.hasta 
-                          AND tr.fec_sal_trab < cp.desde 
-                          THEN ('0') 
-                          ELSE '' 
-                        END
-                      )
-                    ) - het.dscto_dom_hsxdias_semanal - (
-                      IF(
-                        ROUND(
-                          (
-                            (tr.sueldo_trab / 240) * (
-                              TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                            )
-                          ) + 0.0000000001,
-                          2
-                        ) = '0.00',
-                        '',
-                        ROUND(
-                          (
-                            (tr.sueldo_trab / 240) * (
-                              TIME_TO_SEC(het.cant_dscto_enhoras) / 3600
-                            )
-                          ) + 0.0000000001,
-                          2
-                        )
-                      )
-                    ),
-                    2
-                  )
-                ) + (
-                  IF(
-                    (tr.asig_trab / 2) = '0',
-                    '',
-                    (tr.asig_trab / 2)
-                  )
-                ) + (
-                  IF(
-                    pd.dif_soles IS NULL,
-                    '',
-                    pd.dif_soles
-                  )
-                ) + (
-                  IF(
-                    vac.monto_a_pagar IS NULL,
-                    '',
-                    ROUND(vac.monto_a_pagar, 2)
-                  )
-                ) + (
-                  IF(
-                    ROUND(((tr.sueldo_trab / 30) * sub.dias), 2) IS NULL,
-                    '',
-                    ROUND(((tr.sueldo_trab / 30) * sub.dias), 2)
-                  )
-                ) + (
-                  IF(
-                    ROUND(((tr.sueldo_trab / 30) * dme.dias), 2) IS NULL,
-                    '',
-                    ROUND(((tr.sueldo_trab / 30) * dme.dias), 2)
-                  )
-                ) + (
-                  IF(
-                    ROUND(((tr.sueldo_trab / 30) * lco.dias), 2) IS NULL,
-                    '',
-                    ROUND(((tr.sueldo_trab / 30) * lco.dias), 2)
-                  )
-                ) + 
-                /*(IF(ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) IS NULL, '', ROUND(((tr.sueldo_trab/30)* lsi.dias), 2) )) +  NO SE PAGA*/
-                ROUND(
-                  (tr.sueldo_trab / 240) * IFNULL(hl_ma.dias_lab_sh, '0'),
-                  2
-                ) 
-                /*FIN TOTAL REMUNERACION AFECTO*/
-                ,
-                2
-              )
-            ) 
-            /*MRA*/
-            * (rp.monto_reg_pen / 100) + IF (
-              tr.id_reg_pen_sj = '6',
-              rp.sj_apo_obl,
-              '0.00'
-            ) + 0.0000000001 
-            /*AGREGADO PARA QUE REDONDEE CORRECTAMENTE*/
-            ,
-            2
-          ) 
-          /*FIN- fondo de pension*/
-          + IFNULL(dj.mon_men, 0.00) + IFNULL(dp.monto, 0.00) + IFNULL(did.monto, 0.00) + IFNULL(dv.monto, 0.00) + IFNULL(dm.monto, 0.00) + IFNULL(aa.monto, 0.00) + 0.0000000001,
-          2
-        ) 
-        /*FIN TOTAL DESCUENTOS */
-        /*FIN TOTAL DEPOSITO QUINCENAL */
-        /**/
-        + 
-        /*INICIO - ABONO REGULARIZACION*/
-        IFNULL(
-          ROUND(ar.cantidad + 0.0000000001, 2),
-          0.00
-        ) 
-        /*FIN - ABONO REGULARIZACION*/
-        /*FIN  - TOTAL BCP DEPOSITO QUINCENAL*/
-        /*INICIO SUMAR CON LOS PAGOS EN EFECTIVOS*/
-        + ROUND(
-          IFNULL(pd.bono_des_trab, '0.00'),
-          2
-        ) + (
-          (tr.bono_trab / 2) 
-          /*BONO SUELDO */
-          + 
-          /*LINEA DE VACACIONES COMPRADAS*/
+        /*FIN- fondo de pension*/
+        + IFNULL(dj.mon_men, 0.00) + IFNULL(dp.monto, 0.00) + IFNULL(did.monto, 0.00) + IFNULL(dv.monto, 0.00) + IFNULL(dm.monto, 0.00) + IFNULL(aa.monto, 0.00) + 0.0000000001,
+        2
+      ) 
+      /*FIN TOTAL DESCUENTOS */
+      /*FIN TOTAL DEPOSITO QUINCENAL */
+      /**/
+      + 
+      /*INICIO - ABONO REGULARIZACION*/
+      IFNULL(
+        ROUND(ar.cantidad + 0.0000000001, 2),
+        0.00
+      ) 
+      /*FIN - ABONO REGULARIZACION*/
+      /*FIN  - TOTAL BCP DEPOSITO QUINCENAL*/
+      /*INICIO SUMAR CON LOS PAGOS EN EFECTIVOS*/
+      + (
+        (tr.bono_trab / 2) 
+        /*BONO SUELDO */
+        + IFNULL(pd.bono_des_trab, 0.00) + 
+        /*LINEA DE VACACIONES COMPRADAS*/
+        (
           (
             (
-              (
-                TIME_TO_SEC(het.cant_abono_horas_al25) / 3600
-              ) * trcop.pre_hor_ext_25
-            ) + (
-              (
-                TIME_TO_SEC(het.cant_abono_horas_al35) / 3600
-              ) * trcop.pre_hor_ext_35
-            ) + (
-              (
-                TIME_TO_SEC(het.cant_abono_horas_dom) / 3600
-              ) * trcop.pre_hor_ext_dominical
-            ) + (
-              (
-                TIME_TO_SEC(het.cant_abono_horas_fer) / 3600
-              ) * trcop.pre_hor_ext_feriado
-            )
+              TIME_TO_SEC(het.cant_abono_horas_al25) / 3600
+            ) * trcop.pre_hor_ext_25
+          ) + (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_al35) / 3600
+            ) * trcop.pre_hor_ext_35
+          ) + (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_dom) / 3600
+            ) * trcop.pre_hor_ext_dominical
+          ) + (
+            (
+              TIME_TO_SEC(het.cant_abono_horas_fer) / 3600
+            ) * trcop.pre_hor_ext_feriado
           )
-        ) 
-        /*FIN SUMAR CON LOS PAGOS EN EFECTIVOS*/
-        - ROUND(IFNULL(dee.monto, '0.00'), 2) 
-        /*DESCONTAR CON LOS DESCUENTOS EN EFECTIVO*/
-        ,
-        0
-      ),
-      '-',
-      ''
+        )
+      ) 
+      /*FIN SUMAR CON LOS PAGOS EN EFECTIVOS*/
+      - ROUND(IFNULL(dee.monto, '0.00'), 2) 
+      /*DESCONTAR CON LOS DESCUENTOS EN EFECTIVO*/
+      ,
+      0
     ) 
   END pago_efectivo,
-  '$fec_reg',
-  '$usu_reg',
-  '$pc_reg' 
+  '$fec_reg', 
+  '$usu_reg', 
+  '$pc_reg'
 FROM
   trabajador tr 
   CROSS JOIN 
@@ -2770,9 +2225,9 @@ FROM
       ROUND(mon_total, 2) AS mon_quin 
     FROM
       renta_quinta_categoria 
-    WHERE est_reg = '1' 
-      AND id_quin = '$primera_quincena') AS rqc 
+    WHERE est_reg = '1') AS rqc 
     ON rqc.id_trab = tr.id_trab 
+    AND rqc.id_quin = '$primera_quincena' 
   LEFT JOIN 
     (SELECT 
       ma.id_trab,
@@ -3133,23 +2588,16 @@ FROM
         ELSE '0.00' 
       END AS monto 
     FROM
-      descuentos_en_efectivo AS dee 
-    WHERE est_reg = '1') AS dee 
+      descuentos_en_efectivo AS dee) AS dee 
     ON dee.id_trab = tr.id_trab 
   LEFT JOIN 
     (SELECT 
       vc.id_trab,
       IF(vc.id_cp = '$primera_quincena', 'SI', '0.00') AS monto,
-      CASE
-        WHEN tr.id_pag_vac_cts = '1' 
-        THEN ROUND(
-          (tr.sueldo_trab / 30) * pd.dias_vc + 0.0000000001,
-          2
-        ) 
-        WHEN tr.id_pag_vac_cts = '2' 
-        THEN vcdes.monto_a_pagar 
-        ELSE '0' 
-      END AS monto_a_pagar,
+      ROUND(
+        (tr.sueldo_trab / 30) * pd.dias_vc + 0.0000000001,
+        2
+      ) AS monto_a_pagar,
       pd.fechas,
       pd.dias_vc AS dias 
     FROM
@@ -3158,15 +2606,6 @@ FROM
         ON tr.id_trab = vc.id_trab 
       LEFT JOIN cronograma_pagos cp 
         ON cp.id_cp = '$primera_quincena' 
-      LEFT JOIN 
-        (SELECT 
-          id_trab,
-          monto_a_pagar 
-        FROM
-          permiso_personal 
-        WHERE tip_permiso = 'VC' 
-          AND id_cp = '$primera_quincena') AS vcdes 
-        ON vcdes.id_trab = vc.id_trab 
       LEFT JOIN 
         (SELECT 
           vc.id_trab,
@@ -3364,23 +2803,19 @@ FROM
   LEFT JOIN 
     (SELECT 
       pp.id_trab,
-      SUM(pp.dias) AS dias,
+      pp.dias,
       pp.monto_a_pagar,
       pp.id_fecha_pago1,
       pp.id_cp,
-      GROUP_CONCAT(
-        CONCAT(
-          DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),
-          ' AL ',
-          DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y')
-        ) SEPARATOR ' - '
-      ) AS fechas,
+      GROUP_CONCAT(CONCAT(
+        DATE_FORMAT(pp.fecha_procede, '%d/%m/%Y'),
+        ' AL ',
+        DATE_FORMAT(pp.fecha_hasta, '%d/%m/%Y')
+      ) SEPARATOR ' - ') AS fechas,
       IF(pp.id_cp = '$primera_quincena', 'SI', '0.00') AS monto 
     FROM
       permiso_personal pp 
-    WHERE pp.tip_permiso = 'DM' 
-      AND pp.id_cp = '$primera_quincena' 
-    GROUP BY pp.id_trab) AS dme 
+    WHERE pp.tip_permiso = 'DM') AS dme 
     ON dme.id_trab = tr.id_trab 
     AND dme.id_cp = '$primera_quincena' 
   LEFT JOIN 
@@ -3490,14 +2925,179 @@ FROM
           AND cp.hasta) AS tt 
         ON tt.id_trab = tr.id_trab) AS difa 
     ON difa.id_trab = tr.id_trab 
+WHERE tr.id_trab IN (
+    'I0002',
+    'I0005',
+    'P0024',
+    'P0006',
+    'P0015',
+    'P0026',
+    'P0027',
+    'P0009',
+    'I0006',
+    'P0022',
+    'P0001',
+    'P0003',
+    'P0012',
+    'P0010',
+    'I0007',
+    'P0020',
+    'P0002',
+    'I0008',
+    'P0021',
+    'I0009',
+    'I0010',
+    'I0011',
+    'P0017',
+    'P0029',
+    'P0018',
+    'P0023',
+    'P0025',
+    'P0004',
+    'I0013',
+    'I0015',
+    'P0032',
+    'I0016',
+    'I0018',
+    'P0035',
+    'P0036',
+    'I0022',
+    'P0037',
+    'P0039',
+    'I0025',
+    'I0026',
+    'I0027',
+    'P0046',
+    'I0028',
+    'P0047',
+    'P0045',
+    'I0029',
+    'P0044',
+    'P0049',
+    'I0030',
+    'I0031',
+    'P0052',
+    'P0058',
+    'I0032',
+    'P0055',
+    'P0059',
+    'P0057',
+    'P0056',
+    'I0035',
+    'P0061',
+    'P0060',
+    'P0062',
+    'I0036',
+    'P0066',
+    'I0037',
+    'P0064',
+    'I0038',
+    'I0043',
+    'I0044',
+    'I0047',
+    'I0048',
+    'P0074',
+    'I0050',
+    'I0051',
+    'P0080',
+    'P0078',
+    'P0072',
+    'I0052',
+    'I0053',
+    'I0056',
+    'P0082',
+    'P0083',
+    'I0058',
+    'I0060',
+    'I0061',
+    'P0088',
+    'I0062',
+    'P0089',
+    'I0065',
+    'I0066',
+    'P0092',
+    'P0077',
+    'P0071',
+    'P0095',
+    'P0007',
+    'P0097',
+    'P0099',
+    'P0100',
+    'P0102',
+    'P0008',
+    'P0013',
+    'P0103',
+    'P0105',
+    'P0106',
+    'P0108',
+    'P0109',
+    'P0107',
+    'P0111',
+    'P0014',
+    'I0003',
+    'I0001',
+    'P0016',
+    'I0004',
+    'P0019',
+    'P0028',
+    'P0030',
+    'P0031',
+    'P0033',
+    'P0034',
+    'P0038',
+    'P0040',
+    'I0014',
+    'P0041',
+    'P0042',
+    'P0043',
+    'I0020',
+    'I0021',
+    'P0048',
+    'I0023',
+    'I0024',
+    'P0050',
+    'P0051',
+    'P0053',
+    'P0054',
+    'P0063',
+    'P0067',
+    'P0068',
+    'P0069',
+    'I0033',
+    'I0034',
+    'P0070',
+    'P0073',
+    'P0075',
+    'P0076',
+    'I0039',
+    'I0042',
+    'P0079',
+    'I0045',
+    'P0081',
+    'I0046',
+    'P0084',
+    'P0085',
+    'I0049',
+    'P0086',
+    'P0087',
+    'P0090',
+    'P0091',
+    'I0054',
+    'P0093',
+    'P0094',
+    'I0059',
+    'P0098',
+    'I0067',
+    'P0101',
+    'P0104',
+    'P0110'
+  ) 
 ORDER BY tr.id_tip_plan ASC,
   tr.id_trab ASC  ";
 		return ejecutarConsulta($sql);
 
 
 	}
-
-
 
 
 
