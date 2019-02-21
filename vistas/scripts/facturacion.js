@@ -11,30 +11,35 @@ function init() {
 	})
 
 	//Cargamos los items al select categoria
-	$.post("../ajax/produccion.php?op=selectTaller", function (r) {
-		$("#cod_taller").html(r);
-		$('#cod_taller').selectpicker('refresh');
+	$.post("../ajax/facturacion.php?op=selectVendedor", function (r) {
+		$("#cod_ven").html(r);
+		$('#cod_ven').selectpicker('refresh');
 
 	});
 
 	//Cargamos los items al select categoria
-	$.post("../ajax/produccion.php?op=selectAlmacen", function (r) {
+	$.post("../ajax/facturacion.php?op=selectAlmacen", function (r) {
 		$("#cod_alm").html(r);
 		$('#cod_alm').selectpicker('refresh');
 
-	});
+    });
+    
 }
+
+
+
+
+
 
 //Función limpiar
 function limpiar() {
 	$("#articulo").val("");
 	$("#articulo").focus();
-
 }
 
 //Función para desactivar registros
 function limpiarNulos() {
-	$.post("../ajax/produccion.php?op=limpiarNulos", function (e) {
+	$.post("../ajax/facturacion.php?op=limpiarNulos", function (e) {
 
 		tabla.ajax.reload();
 	});
@@ -65,8 +70,8 @@ function cancelarform() {
 	$("#num_mov").val("");
 
 
-	$("#cod_taller").val("0");
-	$('#cod_taller').selectpicker('refresh');
+	$("#cod_ven").val("0");
+	$('#cod_ven').selectpicker('refresh');
 
 
 
@@ -92,7 +97,7 @@ function listar() {
 			'pdf'
 		],
 		"ajax": {
-			url: '../ajax/produccion.php?op=listarProd',
+			url: '../ajax/facturacion.php?op=listarProd',
 			data: {
 				num_mov: num_mov
 			},
@@ -119,7 +124,7 @@ function guardaryeditar(e) {
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/produccion.php?op=guardaryeditar",
+		url: "../ajax/facturacion.php?op=guardaryeditar",
 		type: "POST",
 		data: formData,
 		contentType: false,

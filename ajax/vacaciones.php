@@ -26,7 +26,10 @@ $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):
 
 
 $nro_doc=isset($_POST["nro_doc"])? limpiarCadena($_POST["nro_doc"]):"";
+$correlativo=isset($_POST["correlativo"])? limpiarCadena($_POST["correlativo"]):"";
 $id_nomtrab=isset($_POST["id_nomtrab"])? limpiarCadena($_POST["id_nomtrab"]):"";
+
+$id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 
 
 $CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
@@ -55,9 +58,19 @@ switch ($_GET["op"]){
 		}
 	break;
 
-	case 'anular':
-		$rspta=$vacaciones->anular($nro_doc);
- 		echo $rspta ? "Venta anulada" : "Venta no se puede anular";
+	case 'eliminarDetalle':
+		$rspta=$vacaciones->eliminarDetalle($nro_doc,$correlativo);
+ 		echo $rspta ? "Detalle anulado" : "Detalle no se puede anular";
+	break;
+
+	case 'activar':
+	$rspta=$vacaciones->activar($id_trab);
+	 echo $rspta ? "Detalle activado" : "Detalle no se puede activar";
+	break;
+
+	case 'desactivar':
+	$rspta=$vacaciones->desactivar($id_trab);
+	 echo $rspta ? "Detalle activado" : "Detalle no se puede desactivar";
 	break;
 
 	case 'mostrar':
@@ -135,9 +148,9 @@ switch ($_GET["op"]){
  				"4"=>$reg->area_trab,
  				"5"=>$reg->funcion,
  				"6"=>$reg->nombres,
- 				"7"=>($reg->est_reg=='1')?'<span class="label bg-green">ACTIVO</span>':
+ 				"7"=>($reg->vac_trab=='1')?'<span class="label bg-blue">ACTIVO</span>':
  				'<span class="label bg-red">INACTIVO</span>',
- 				"8"=>'<button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>',
+ 				"8"=>($reg->vac_trab=='1')?'<button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(
@@ -148,6 +161,36 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 
 	break;
+
+	case 'listarDetVac':
+	$rspta=$vacaciones->listarDetVac();
+	 //Vamos a declarar un array
+	 $data= Array();
+
+	 while ($reg=$rspta->fetch_object()){
+		 
+
+		 $data[]=array(
+			 "0"=>$reg->nro_doc,
+			 "1"=>$reg->correlativo,
+			 "2"=>$reg->PeridoAnual,
+			 "3"=>$reg->fec_del,
+			 "4"=>$reg->fec_al,
+			 "5"=>$reg->tot_dias,
+			 "6"=>$reg->pen_dias,
+			 "7"=>$reg->obser_detalle,
+			 "8"=>$reg->obser,
+			 "9"=>'<button class="btn btn-danger" onclick="mostrar(\''.$reg->nro_doc.'\',\''.$reg->correlativo.'\')"><i class="fa fa-trash"></i></button>',
+			 );
+	 }
+	 $results = array(
+		 "sEcho"=>1, //Información para el datatables
+		 "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+		 "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+		 "aaData"=>$data);
+	 echo json_encode($results);
+
+break;
 
 	case 'selectCliente':
 		require_once "../modelos/Persona.php";

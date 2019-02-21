@@ -23,7 +23,7 @@ if ($_SESSION['almacen']==1)
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h1 class="box-title">Produccion</h1>
+                                <h1 class="box-title">Devolución</h1>
                                 <div class="box-tools pull-right">
                                 </div>
                             </div>
@@ -34,18 +34,19 @@ if ($_SESSION['almacen']==1)
                                     <!-- centro -->
                                     <div class="panel-body" id="formularioregistros">
                                         <form name="formulario" id="formulario" method="POST">
+                                            
 
                                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                                                 <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                                    <label>Documento:</label>
+                                                    <label>Pedido:</label>
                                                     <input type="hidden" name="idmov" id="idmov">
                                                     <input type="text" class="form-control" name="num_mov" id="num_mov" maxlength="50" placeholder="Documento">
                                                 </div>
 
                                                 <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                                     <label>Cliente:</label>
-                                                    <input type="text" class="form-control" name="cod_cli" id="cod_cli" maxlength="256" placeholder="Cliente">
+                                                    <input type="text" class="form-control" name="cod_cli" id="cod_cli" placeholder="Cliente" required>
                                                 </div>
 
                                                 <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -53,13 +54,18 @@ if ($_SESSION['almacen']==1)
                                                     <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" value="<?php echo date("Y-m-d"); ?>">
                                                 </div>
 
-                                                <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                    <label>Taller Origen(*):</label>
-                                                    <select id="cod_taller" name="cod_taller" class="form-control selectpicker" data-live-search="true" required></select>
+                                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Nombre del Cliente:</label>
+                                                    <div id="resultado"></div>
                                                 </div>
 
                                                 <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                    <label>Almacen Destino:</label>
+                                                    <label>Vendedor:</label>
+                                                    <select id="cod_ven" name="cod_ven" class="form-control selectpicker" data-live-search="true" required></select>
+                                                </div>
+
+                                                <div class="form-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Almacen Origén:</label>
                                                     <select id="cod_alm" name="cod_alm" class="form-control selectpicker" data-live-search="true" required></select>
                                                 </div>
 
@@ -74,7 +80,7 @@ if ($_SESSION['almacen']==1)
                                             </div>
 
                                             <div>
-                                                
+
                                             </div>
 
                                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -103,7 +109,6 @@ if ($_SESSION['almacen']==1)
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
-                                                    <th></th>
                                                     <th>S</th>
                                                     <th>M</th>
                                                     <th>L</th>
@@ -116,7 +121,6 @@ if ($_SESSION['almacen']==1)
                                                 </tr>
 
                                                 <tr>
-                                                    <th></th>
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
@@ -134,8 +138,7 @@ if ($_SESSION['almacen']==1)
 
                                                 <tr>
                                                     <th>Movimiento</th>
-                                                    <th>Taller</th>
-                                                    <th>Almacen</th>
+                                                    <th>Vendedor</th>
                                                     <th>Modelo</th>
                                                     <th>Color</th>
                                                     <th>3</th>
@@ -154,8 +157,7 @@ if ($_SESSION['almacen']==1)
                                             </tbody>
                                             <tfoot>
                                                 <th>Movimiento</th>
-                                                <th>Taller</th>
-                                                <th>Almacen</th>
+                                                <th>Vendedor</th>
                                                 <th>Modelo</th>
                                                 <th>Color</th>
                                                 <th colspan="8">TALLAS</th>
@@ -165,13 +167,7 @@ if ($_SESSION['almacen']==1)
                                     </div>
                                 </div>
                             </div>
-
                             
-                            
-
-                            
-                            
-
                         </div><!-- /.box -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -188,7 +184,41 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/produccion.js"></script>
+
+<script>
+    $(document).ready(function(){
+        var consulta;
+        //hacemos focus al campo de búsqueda
+
+                                                                                                     
+        //comprobamos si se pulsa una tecla
+        $("#cod_cli").keyup(function(e){
+                                      
+              //obtenemos el texto introducido en el campo de búsqueda
+              consulta = $("#cod_cli").val();
+              //hace la búsqueda                                                                                  
+              $.ajax({
+                    type: "POST",
+                    url: "buscar.php",
+                    data: "b="+consulta,
+                    dataType: "html",
+                    beforeSend: function(){
+                    //imagen de carga
+                    $("#resultado").html("<p align='center'><img src='../files/otros/ajax-loader.gif' /></p>");
+                    },
+                    error: function(){
+                    alert("error petición ajax");
+                    },
+                    success: function(data){                                                    
+                    $("#resultado").empty();
+                    $("#resultado").append(data);                                                             
+                    }
+              });                                                                         
+        });                                                     
+});  
+</script>
+
+<script type="text/javascript" src="scripts/facturacion.js"></script>
 <?php 
 }
 ob_end_flush();

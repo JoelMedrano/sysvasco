@@ -32,7 +32,7 @@ function limpiar() {
 
 //Función mostrar formulario
 function mostrarform(flag) {
-	limpiar();
+	//limpiar();
 	if (flag) {
 		$("#listadoregistros").hide();
 		$("#grafico").hide();
@@ -58,6 +58,7 @@ function mostrarform(flag) {
 function cancelarform() {
 	limpiar();
 	mostrarform(false);
+	listar()
 }
 
 //Función Listar
@@ -76,7 +77,7 @@ function listar() {
 			'pdf'
 		],
 		"ajax": {
-			url: '../ajax/produccion.php?op=listarDoc',
+			url: '../ajax/devolucion.php?op=listarDoc',
 			data: {
 				fecha_inicio: fecha_inicio,
 				fecha_fin: fecha_fin
@@ -100,7 +101,7 @@ function listar() {
 
 
 function mostrar(num_mov) {
-	$.post("../ajax/produccion.php?op=mostrar", {
+	$.post("../ajax/devolucion.php?op=mostrar", {
 		num_mov: num_mov
 	}, function (data, status) {
 		data = JSON.parse(data);
@@ -113,6 +114,15 @@ function mostrar(num_mov) {
 		$("#nom_apro").val(data.nom_apro);
 		$("#fecha").val(data.fecha);
 
+		$("#cod_cli").val(data.cod_cli);
+		$("#nom_cli").val(data.nom_cli);
+		$("#cod_ven").val(data.cod_ven);
+
+		$("#nom_ven").val(data.nom_ven);
+
+		$("#cant_primera").val(data.cant_primera);
+		$("#cant_segunda").val(data.cant_segunda);
+
 
 
 		$("#num_mov").val(data.num_mov);
@@ -123,17 +133,18 @@ function mostrar(num_mov) {
 		$("#btnAgregarArt").hide();
 	});
 
-	$.post("../ajax/produccion.php?op=listarDetalle&id=" + num_mov, function (r) {
+	$.post("../ajax/devolucion.php?op=listarDetalle&id=" + num_mov, function (r) {
 		$("#detalles").html(r);
 	});
 }
 
 //Función para anular registros
-function aprobar(num_mov) {
+function aprobar(num_mov,cod_alm) {
 	bootbox.confirm("¿Está Seguro de aprobar el documento?", function (result) {
 		if (result) {
-			$.post("../ajax/produccion.php?op=aprobar", {
-				num_mov: num_mov
+			$.post("../ajax/devolucion.php?op=aprobar", {
+				num_mov: num_mov,
+				cod_alm: cod_alm
 			}, function (e) {
 				bootbox.alert(e);
 				tabla.ajax.reload();
@@ -143,11 +154,12 @@ function aprobar(num_mov) {
 }
 
 //Función para anular registros
-function rechazar(num_mov) {
+function rechazar(num_mov,cod_alm) {
 	bootbox.confirm("¿Está Seguro de rechazar el documento?", function (result) {
 		if (result) {
-			$.post("../ajax/produccion.php?op=rechazar", {
-				num_mov: num_mov
+			$.post("../ajax/devolucion.php?op=rechazar", {
+				num_mov: num_mov,
+				cod_alm: cod_alm
 			}, function (e) {
 				bootbox.alert(e);
 				tabla.ajax.reload();
@@ -155,6 +167,7 @@ function rechazar(num_mov) {
 		}
 	})
 }
+
 
 
 init();
