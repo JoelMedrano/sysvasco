@@ -150,7 +150,7 @@ switch ($_GET["op"]){
  				"6"=>$reg->nombres,
  				"7"=>($reg->vac_trab=='1')?'<span class="label bg-blue">ACTIVO</span>':
  				'<span class="label bg-red">INACTIVO</span>',
- 				"8"=>($reg->vac_trab=='1')?'<button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'
+ 				"8"=>($reg->vac_trab=='1')?'<button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>'.' <button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>':'<button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'.' <button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>'
  				);
  		}
  		$results = array(
