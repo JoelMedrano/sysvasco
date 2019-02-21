@@ -450,6 +450,7 @@ Class Registro_Marcaciones
 					WHERE fe.fecha<= CURDATE()
 					AND tr.est_reg='1'
 				    AND fe.estado IN ('FERIADO','NO LABORABLE')
+				    AND fe.fecha > tr.fec_ing_trab
                     AND  NOT EXISTS(  SELECT  NULL 
 		  				              FROM reloj re 
 		  							  WHERE tr.id_trab= re.id_trab AND fe.fecha= re.fecha

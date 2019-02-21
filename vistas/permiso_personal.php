@@ -110,7 +110,7 @@ if ($_SESSION['rrhh']==1)
 
                                   <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                       <label>Monto:</label>
-                                      <input type="text" class="form-control" name="monto_a_pagar" id="monto_a_pagar" readonly   autocomplete="off">
+                                      <input type="text" class="form-control" name="monto_a_pagar" id="monto_a_pagar"   autocomplete="off">
                                   </div>
 
                                                        

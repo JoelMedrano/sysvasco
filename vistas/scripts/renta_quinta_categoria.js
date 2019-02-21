@@ -227,11 +227,8 @@ function agregarDetalle(id_trab, nombres, sueldo, bono_des_trab)
         var dif_soles=prod_soles-sueldo;
     	var fila='<tr class="filas" size="3" id="fila'+cont+'">'+
     	'<td><input type="text" size="3" readonly name="correlativo[]" ></td>'+
-    	'<td><input type="hidden" size="40" name="id_trab[]" value="'+id_trab+'">'+nombres+'</td>'+
-    	'<td><input type="hidden" size="15" readonly name="sueldo[]" value="'+sueldo+'">'+sueldo+'</td>'+
-    	'<td><input type="hidden" size="15" readonly name="bono_des_trab[]" value="'+bono_des_trab+'">'+bono_des_trab+'</td>'+
-    	'<td><input type="text" size="15" name="prod_soles[]" ></td>'+
-    	'<td><input type="text" size="15" readonly name="dif_soles[]" ></td>'+
+    	'<td><input type="hidden" size="50" name="id_trab[]" value="'+id_trab+'">'+nombres+'</td>'+
+    	'<td><input type="text" size="15"  name="mon_total[]" autocomplete="off" ></td>'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
     	'</tr>';
     	cont++;

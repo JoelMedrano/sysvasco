@@ -248,7 +248,7 @@ Class ConsultasD
 	public function selectTrabajadoresActivos()
 	{
 		$sql="SELECT id_trab AS solicitante, id_trab, CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS sol_apellidosynombres ,
-		CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS trabajador 
+		CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab)    AS trabajador 
 		FROM Trabajador
 		where est_reg='1'";
 		return ejecutarConsulta($sql);		

@@ -1329,7 +1329,7 @@ FROM  planilla_quincenal   tr
           hpp.fecha,
           hpp.tiempo_fin 
         FROM
-          planilla_quincenal_horas_permiso_personal hpp 
+          horas_permiso_personal hpp 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hpp.fecha NOT BETWEEN cp.desde 
@@ -1353,7 +1353,7 @@ FROM  planilla_quincenal   tr
       hpp.descontar,
       hpp.id_fec_dscto 
     FROM
-      planilla_quincenal_horas_permiso_personal hpp 
+      horas_permiso_personal hpp 
       LEFT JOIN 
         /* INICIO  - El que causa conflicto*/
         (SELECT 
@@ -1396,7 +1396,7 @@ FROM  planilla_quincenal   tr
           hpp.fecha,
           hpp.tiempo_fin 
         FROM
-          planilla_quincenal_horas_permiso_personal hpp 
+          horas_permiso_personal hpp 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hpp.fecha BETWEEN cp.desde 
@@ -1414,7 +1414,7 @@ FROM  planilla_quincenal   tr
       hep.abonar,
       hep.id_fec_abono 
     FROM
-      planilla_quincenal_horas_extras_personal hep) AS hep 
+      horas_extras_personal hep) AS hep 
     ON tr.id_trab = hep.id_trab 
     AND hep.fecha BETWEEN ch.desde 
     AND ch.hasta 
@@ -1443,7 +1443,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al25 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -1467,7 +1467,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al35 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -1491,7 +1491,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_dom 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -1515,7 +1515,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_fer 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -1550,7 +1550,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al25 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -1574,7 +1574,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al35 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -1598,7 +1598,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_dom 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
         LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -1622,7 +1622,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_fer 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -2745,7 +2745,7 @@ FROM  planilla_quincenal   tr
           hpp.fecha,
           hpp.tiempo_fin 
         FROM
-          planilla_quincenal_horas_permiso_personal hpp 
+          horas_permiso_personal hpp 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hpp.fecha NOT BETWEEN cp.desde 
@@ -2769,7 +2769,7 @@ FROM  planilla_quincenal   tr
       hpp.descontar,
       hpp.id_fec_dscto 
     FROM
-      planilla_quincenal_horas_permiso_personal hpp 
+      horas_permiso_personal hpp 
       LEFT JOIN 
         /* INICIO  - El que causa conflicto*/
         (SELECT 
@@ -2812,7 +2812,7 @@ FROM  planilla_quincenal   tr
           hpp.fecha,
           hpp.tiempo_fin 
         FROM
-          planilla_quincenal_horas_permiso_personal hpp 
+          horas_permiso_personal hpp 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hpp.fecha BETWEEN cp.desde 
@@ -2830,7 +2830,7 @@ FROM  planilla_quincenal   tr
       hep.abonar,
       hep.id_fec_abono 
     FROM
-      planilla_quincenal_horas_extras_personal hep) AS hep 
+      horas_extras_personal hep) AS hep 
     ON tr.id_trab = hep.id_trab 
     AND hep.fecha BETWEEN ch.desde 
     AND ch.hasta 
@@ -2859,7 +2859,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al25 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -2883,7 +2883,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al35 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -2907,7 +2907,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_dom 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -2931,7 +2931,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_fer 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -2966,7 +2966,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al25 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -2990,7 +2990,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al35 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -3014,7 +3014,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_dom 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
         LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -3038,7 +3038,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_fer 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_seg_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -3201,44 +3201,19 @@ while($res=mysql_fetch_array($sql)){
 
  }
  
-//rellenar con contenido
-  
-$sql=mysql_query("SELECT 
-       SUM(HOUR(cant_dscto_enhoras)) + SUM(MINUTE(cant_dscto_enhoras))/60 AS cant_dscto_enhoras,
-       SUM(cant_dscto_endias)AS cant_dscto_endias,
-   SUM(HOUR(cant_abono_horas_al25)) + SUM(MINUTE(cant_abono_horas_al25))/60 AS cant_abono_horas_al25,
-   SUM(HOUR(cant_abono_horas_al35)) + SUM(MINUTE(cant_abono_horas_al35))/60 AS cant_abono_horas_al35,
-   SUM(HOUR(cant_abono_horas_dom)) + SUM(MINUTE(cant_abono_horas_dom))/60  AS cant_abono_horas_dom,
-   SUM(HOUR(cant_abono_horas_fer)) + SUM(MINUTE(cant_abono_horas_fer))/60  AS cant_abono_horas_fer,
-   ( SUM(HOUR(cant_abono_horas_al25)) + SUM(MINUTE(cant_abono_horas_al25))/60 ) +
-   ( SUM(HOUR(cant_abono_horas_al35)) + SUM(MINUTE(cant_abono_horas_al35))/60 ) +
-   ( SUM(HOUR(cant_abono_horas_dom)) + SUM(MINUTE(cant_abono_horas_dom))/60 ) +
-   ( SUM(HOUR(cant_abono_horas_fer)) + SUM(MINUTE(cant_abono_horas_fer))/60)
-   AS
-   cant_horas_extras_totales
-FROM detalle_horas_dsctos_abonos_quincenal 
-WHERE id_quin='".$id_seg_quin."';
- ");  
-
-       
-while($res=mysql_fetch_array($sql)){    
-  $fila+=1;
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("AE$fila", utf8_encode($res["cant_dscto_enhoras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("AF$fila", utf8_encode($res["cant_dscto_endias"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BB$fila", utf8_encode($res["cant_abono_horas_al25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BC$fila", utf8_encode($res["cant_abono_horas_al35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BD$fila", utf8_encode($res["cant_abono_horas_dom"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BE$fila", utf8_encode($res["cant_abono_horas_fer"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BG$fila", utf8_encode($res["cant_horas_extras_totales"]));
-
-  //Establecer estilo
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "AE$fila:AF$fila");
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "BB$fila:BE$fila");
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "BG$fila");
+//insertar formula
+// $fila+=2;
+// $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'SUMA');
+// $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", '=1+2');
+ 
+//recorrer las columnas
+// foreach (range( 'C', 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J', 'K') as $columnID) {
+//   //autodimensionar las columnas
+//   $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+// }
  
 
- }
+
 
   $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(2);
   $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(7);
@@ -3303,7 +3278,6 @@ while($res=mysql_fetch_array($sql)){
 
 
 
-
 //INICIO 1era HOJA
 $objPHPExcel->createSheet(0); //crear hoja 2 
 $objPHPExcel->setActiveSheetIndex(0); //seleccionar hora 2
@@ -3362,7 +3336,6 @@ $fila+=1;
 $objPHPExcel->getActiveSheet(0)->freezePaneByColumnAndRow(0,4);
 
 $objPHPExcel->getActiveSheet()->freezePane('W5');
-
 
 
 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'ITEM');
@@ -3439,56 +3412,49 @@ $objPHPExcel->getActiveSheet()->SetCellValue("BT$fila", 'LICENCIA SIN GOCE DE HA
 $objPHPExcel->getActiveSheet()->SetCellValue("BU$fila", 'PERMISO HORA LACTANCIA');
 $objPHPExcel->getActiveSheet()->SetCellValue("BV$fila", 'TOTAL SUELDO QUINCENAL');
 $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", 'CANTIDAD AL 25%');
-$objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", 'MONTO AL 25%');
-$objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", 'CANTIDAD AL 35%');
-$objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", 'MONTO AL 35%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", 'CANTIDAD DOMINICAL 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", 'MONTO DOMINICAL 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", 'CANTIDAD FERIADO 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", 'MONTO FERIADO 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", 'MONTO TOTAL HORAS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", 'TOTAL REMUNERACION AFECTO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", 'DSCTO FONDO DE PENSION ');
-$objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", 'DSCTO RENTA 5TA');
-$objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", 'VIDA SEGURO DE ACCIDENTE');
-$objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", 'DSCTO BASE A DESTAJO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", 'DSCTO JUDICIALES');
-$objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", 'DSCTO PRESTAMOS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", 'DSCTO INSUMOS Y DESTAJEROS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", 'DSCTO VARIOS   (PRENDAS)');
-$objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", 'DSCTO MENU');
-$objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", 'ANTICIPO - ADELANTO,  VACACIONES CHEQUE / EFECTIVO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", 'TOTAL DESCUENTOS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", 'TOTAL DEPOSITAR QUICENAL');
-$objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", 'REGULARIZACION');
-$objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", 'OTROS VARIOS    (EXCESO)');
-$objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", 'TOTAL A DEPOSITAR BCP QUINCENAL');
-$objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", 'BONO SUELDO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", 'BONO DESTAJO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", 'VACACIONES COMPRADAS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", 'TOTAL  H.EXTRAS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", 'DESCUENTOS VARIOS');
-$objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", 'TOTAL PAGO EFECTIVO');
-$objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", 'OBSERVACIONES ');
-$objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", '-');
-$objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", '100');
-$objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", '50');
-$objPHPExcel->getActiveSheet()->SetCellValue("DF$fila", '20');
-$objPHPExcel->getActiveSheet()->SetCellValue("DG$fila", '10');
-$objPHPExcel->getActiveSheet()->SetCellValue("DH$fila", '5');
-$objPHPExcel->getActiveSheet()->SetCellValue("DI$fila", '2');
-$objPHPExcel->getActiveSheet()->SetCellValue("DJ$fila", '1');
-$objPHPExcel->getActiveSheet()->SetCellValue("DK$fila", '-');
-$objPHPExcel->getActiveSheet()->SetCellValue("DL$fila", '100');
-$objPHPExcel->getActiveSheet()->SetCellValue("DM$fila", '50');
-$objPHPExcel->getActiveSheet()->SetCellValue("DN$fila", '20');
-$objPHPExcel->getActiveSheet()->SetCellValue("DO$fila", '10');
-$objPHPExcel->getActiveSheet()->SetCellValue("DP$fila", '5');
-$objPHPExcel->getActiveSheet()->SetCellValue("DQ$fila", '2');
-$objPHPExcel->getActiveSheet()->SetCellValue("DR$fila", '1');
-
-
-
+$objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", 'CANTIDAD AL 35%');
+$objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", 'CANTIDAD DOMINICAL 100%');
+$objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", 'CANTIDAD FERIADO 100%');
+$objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", 'MONTO TOTAL HORAS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", 'TOTAL REMUNERACION AFECTO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", 'DSCTO FONDO DE PENSION ');
+$objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", 'DSCTO RENTA 5TA');
+$objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", 'VIDA SEGURO DE ACCIDENTE');
+$objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", 'DSCTO BASE A DESTAJO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", 'DSCTO JUDICIALES');
+$objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", 'DSCTO PRESTAMOS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", 'DSCTO INSUMOS Y DESTAJEROS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", 'DSCTO VARIOS   (PRENDAS)');
+$objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", 'DSCTO MENU');
+$objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", 'ANTICIPO - ADELANTO,  VACACIONES CHEQUE / EFECTIVO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", 'TOTAL DESCUENTOS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", 'TOTAL DEPOSITAR QUICENAL');
+$objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", 'REGULARIZACION');
+$objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", 'OTROS VARIOS    (EXCESO)');
+$objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", 'TOTAL A DEPOSITAR BCP QUINCENAL');
+$objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", 'BONO SUELDO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", 'BONO DESTAJO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", 'VACACIONES COMPRADAS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", 'TOTAL  H.EXTRAS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", 'DESCUENTOS VARIOS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", 'TOTAL PAGO EFECTIVO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", 'OBSERVACIONES ');
+$objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", '-');
+$objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", '100');
+$objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", '50');
+$objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", '20');
+$objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", '10');
+$objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", '5');
+$objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", '2');
+$objPHPExcel->getActiveSheet()->SetCellValue("DF$fila", '1');
+$objPHPExcel->getActiveSheet()->SetCellValue("DG$fila", '-');
+$objPHPExcel->getActiveSheet()->SetCellValue("DH$fila", '100');
+$objPHPExcel->getActiveSheet()->SetCellValue("DI$fila", '50');
+$objPHPExcel->getActiveSheet()->SetCellValue("DJ$fila", '20');
+$objPHPExcel->getActiveSheet()->SetCellValue("DK$fila", '10');
+$objPHPExcel->getActiveSheet()->SetCellValue("DL$fila", '5');
+$objPHPExcel->getActiveSheet()->SetCellValue("DM$fila", '2');
+$objPHPExcel->getActiveSheet()->SetCellValue("DN$fila", '1');
   
 
 
@@ -3744,7 +3710,9 @@ while($res=mysql_fetch_array($sql)){
 
   $fila+=1;
 
-  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($res["id_trab"]));
+  
+
+ $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", utf8_encode($res["id_trab"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", utf8_encode($res["estado_civil"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", utf8_encode($res["tipo_contrato"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", utf8_encode($res[""]));
@@ -3817,48 +3785,41 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet()->SetCellValue("BT$fila", utf8_encode($res["mon_licenciasingocedehaber"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BU$fila", utf8_encode($res["monto_lactancia"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BV$fila", utf8_encode($res["mon_total_sueldo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["cant_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["cant_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["cant_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["cant_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["mon_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["mon_total_horas_extras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_fondopension"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_rentaquinta"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_segurovida"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_basedestajo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_judicial"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_prestamo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["dscto_insumodestajeros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["dscto_menu"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["dscto_anticipo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_dsctos"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["total_deposito_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["abono_regularizacion"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res["total_deposito_bcp_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["bono_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["bono_destajo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", utf8_encode($res["vacaciones_compradas_otros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", utf8_encode($res["total_hextras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", utf8_encode($res["total_dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", utf8_encode($res["pago_efectivo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", utf8_encode($res[""]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", utf8_encode($res["cant_billetes_100"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", utf8_encode($res["cant_billetes_50"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", utf8_encode($res["cant_billetes_20"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DF$fila", utf8_encode($res["cant_billetes_10"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DG$fila", utf8_encode($res["cant_monedas_5"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DH$fila", utf8_encode($res["cant_monedas_2"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DI$fila", utf8_encode($res["cant_monedas_1"]));
-
-  
-
+  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["mon_hor_ext_25"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_35"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["mon_hor_ext_dominical"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_feriado"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["mon_total_horas_extras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["dscto_fondopension"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["dscto_rentaquinta"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["dscto_segurovida"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["dscto_basedestajo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_judicial"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_prestamo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_insumodestajeros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_menu"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_anticipo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["total_dsctos"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["total_deposito_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["abono_regularizacion"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_deposito_bcp_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["bono_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["bono_destajo_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["vacaciones_compradas_otros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res["total_hextras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["total_dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["pago_efectivo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", utf8_encode($res[""]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", utf8_encode($res["cant_billetes_100"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", utf8_encode($res["cant_billetes_50"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", utf8_encode($res["cant_billetes_20"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", utf8_encode($res["cant_billetes_10"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", utf8_encode($res["cant_monedas_5"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", utf8_encode($res["cant_monedas_2"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", utf8_encode($res["cant_monedas_1"]));
 
   
  
@@ -3899,6 +3860,9 @@ while($res=mysql_fetch_array($sql)){
 
  }
 
+
+  $fila+=1;
+  $fila+=1;
 
 
 
@@ -3961,19 +3925,7 @@ while($res=mysql_fetch_array($sql)){
    SUM(total_dscto_varios) AS total_dscto_varios,
    SUM(pago_efectivo) AS pago_efectivo
 FROM planilla_quincenal 
-WHERE id_quin='".$id_seg_quin."' ;
- ");  
-
-
-
-
-
-  
-    $sql_pla=mysql_query("SELECT 
-   SUM(total_deposito_bcp_quincenal) AS total_deposito_bcp_quincenal
-FROM planilla_quincenal 
-WHERE id_quin='".$id_seg_quin."'
-AND tipo_planilla='PLANILLA'
+WHERE id_quin='".$id_seg_quin."';
  ");  
 
 
@@ -3986,30 +3938,47 @@ AND tipo_planilla='PLANILLA'
         
 while($res=mysql_fetch_array($sql)){    
 
-  while($res_pla=mysql_fetch_array($sql_pla)){    
-
  
   
 
   $fila+=1;
  
 
- 
   $objPHPExcel->getActiveSheet()->SetCellValue("AJ$fila", utf8_encode($res["sueldo_trab"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AK$fila", utf8_encode($res["asig_familiar"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AL$fila", utf8_encode($res["horas_lactancia"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AS$fila", utf8_encode($res["cant_hor_ext_25"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AT$fila", utf8_encode($res["cant_hor_ext_35"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AU$fila", utf8_encode($res["cant_hor_ext_dominical"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AV$fila", utf8_encode($res["cant_hor_ext_feriado"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AX$fila", utf8_encode($res["cant_dias_vacaciones"]));
+
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AZ$fila", utf8_encode($res["cant_dias_descanso_medico"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BB$fila", utf8_encode($res["cant_dias_subsidio"]));
+
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BD$fila", utf8_encode($res["cant_dias_lic_con_goce_haber"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BF$fila", utf8_encode($res["cant_dias_lic_sin_goce_haber"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BH$fila", utf8_encode($res["cant_horas_faltadas"]));
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BI$fila", utf8_encode($res["cant_dias_falta"]));
+
+ 
   $objPHPExcel->getActiveSheet()->SetCellValue("BK$fila", utf8_encode($res["total_dsctoxhoras"]));
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BL$fila", utf8_encode($res["total_dsctoxfaltas"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BM$fila", utf8_encode($res["sueldo_quincenal"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BN$fila", utf8_encode($res["asig_familiar"]));
@@ -4021,51 +3990,44 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet()->SetCellValue("BT$fila", utf8_encode($res["mon_licenciasingocedehaber"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BU$fila", utf8_encode($res["monto_lactancia"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BV$fila", utf8_encode($res["mon_total_sueldo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["cant_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["cant_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["cant_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["cant_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["mon_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["mon_total_horas_extras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_fondopension"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_rentaquinta"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_segurovida"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_basedestajo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_judicial"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_prestamo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["dscto_insumodestajeros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["dscto_menu"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["dscto_anticipo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_dsctos"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["total_deposito_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["abono_regularizacion"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res_pla["total_deposito_bcp_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["bono_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["bono_destajo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", utf8_encode($res["vacaciones_compradas_otros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", utf8_encode($res["total_hextras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", utf8_encode($res["total_dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", utf8_encode($res["pago_efectivo"]));
-
-
-
+  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["mon_hor_ext_25"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_35"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["mon_hor_ext_dominical"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_feriado"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["mon_total_horas_extras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["dscto_fondopension"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["dscto_rentaquinta"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["dscto_segurovida"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["dscto_basedestajo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_judicial"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_prestamo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_insumodestajeros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_menu"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_anticipo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["total_dsctos"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["total_deposito_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["abono_regularizacion"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_deposito_bcp_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["bono_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["bono_destajo_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["vacaciones_compradas_otros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res["total_hextras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["total_dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["pago_efectivo"]));
 
 
  //Establecer estilo
 
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "AJ$fila:DA$fila");
+ $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "AJ$fila:CW$fila");
 
   //Establecer estilo
  $objPHPExcel->getActiveSheet()->getStyle("AJ$fila")->getNumberFormat()->setFormatCode('0,000.00'); 
  $objPHPExcel->getActiveSheet()->getStyle("AK$fila")->getNumberFormat()->setFormatCode('0,000.00');
  $objPHPExcel->getActiveSheet()->getStyle("BJ$fila")->getNumberFormat()->setFormatCode('0,000.00'); 
- $objPHPExcel->getActiveSheet()->getStyle("BK$fila:DA$fila")->getNumberFormat()->setFormatCode('0,000.00');  
+ $objPHPExcel->getActiveSheet()->getStyle("BK$fila:CW$fila")->getNumberFormat()->setFormatCode('0,000.00');  
 
 
 
@@ -4095,13 +4057,6 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet() ->getStyle("X$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
 
 
-
-
-  $fila+=1;
-  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", 'BCP');
-  $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "CU$fila");
-
-
   $objPHPExcel->getActiveSheet()
     ->getStyle('C3:C100')
     ->getAlignment()
@@ -4110,8 +4065,6 @@ while($res=mysql_fetch_array($sql)){
 
 
  }
-
-  }
  
 
 
@@ -4192,43 +4145,42 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet()->getColumnDimension('BV')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BW')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BX')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('BZ')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BY')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BZ')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CA')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CB')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CC')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CC')->setWidth(20);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CD')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CE')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CF')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CE')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CF')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CG')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CH')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CI')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CH')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CI')->setWidth(12);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CJ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CK')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CK')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CL')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CM')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CM')->setWidth(13);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CN')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CO')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CP')->setWidth(13);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CO')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CP')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CQ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CR')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CR')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CS')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CT')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CU')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CV')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CW')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CX')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CY')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CT')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CU')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CV')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CW')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CX')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CY')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CZ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DA')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DA')->setWidth(20);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DB')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DC')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DD')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DE')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DF')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DC')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DD')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DE')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DF')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DG')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DH')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DH')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DI')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DJ')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DK')->setWidth(10);
@@ -4247,9 +4199,6 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet()->getColumnDimension('DX')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DY')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DZ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('EA')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('EB')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('EC')->setWidth(10);
 
 
   
@@ -5069,7 +5018,7 @@ FROM  planilla_quincenal   tr
           hpp.fecha,
           hpp.tiempo_fin 
         FROM
-          planilla_quincenal_horas_permiso_personal hpp 
+          horas_permiso_personal hpp 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hpp.fecha NOT BETWEEN cp.desde 
@@ -5093,7 +5042,7 @@ FROM  planilla_quincenal   tr
       hpp.descontar,
       hpp.id_fec_dscto 
     FROM
-      planilla_quincenal_horas_permiso_personal hpp 
+      horas_permiso_personal hpp 
       LEFT JOIN 
         /* INICIO  - El que causa conflicto*/
         (SELECT 
@@ -5136,7 +5085,7 @@ FROM  planilla_quincenal   tr
           hpp.fecha,
           hpp.tiempo_fin 
         FROM
-          planilla_quincenal_horas_permiso_personal hpp 
+          horas_permiso_personal hpp 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hpp.fecha BETWEEN cp.desde 
@@ -5154,7 +5103,7 @@ FROM  planilla_quincenal   tr
       hep.abonar,
       hep.id_fec_abono 
     FROM
-      planilla_quincenal_horas_extras_personal hep) AS hep 
+      horas_extras_personal hep) AS hep 
     ON tr.id_trab = hep.id_trab 
     AND hep.fecha BETWEEN ch.desde 
     AND ch.hasta 
@@ -5183,7 +5132,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al25 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -5207,7 +5156,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al35 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -5231,7 +5180,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_dom 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -5255,7 +5204,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_fer 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha NOT BETWEEN cp.desde 
@@ -5290,7 +5239,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al25 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -5314,7 +5263,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_al35 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -5338,7 +5287,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_dom 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
         LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -5362,7 +5311,7 @@ FROM  planilla_quincenal   tr
             ''
           ) AS cant_horas_fer 
         FROM
-          planilla_quincenal_horas_extras_personal hep 
+          horas_extras_personal hep 
           LEFT JOIN cronograma_dsctos_abonos_horasdias cp 
             ON cp.id_cp = '".$id_pri_quin."' 
         WHERE hep.fecha BETWEEN cp.desde 
@@ -5524,49 +5473,18 @@ while($res=mysql_fetch_array($sql)){
 
 
  }
-
-
-
-
-//rellenar con contenido
-  
-$sql=mysql_query("SELECT 
-       SUM(HOUR(cant_dscto_enhoras)) + SUM(MINUTE(cant_dscto_enhoras))/60 AS cant_dscto_enhoras,
-       SUM(cant_dscto_endias)AS cant_dscto_endias,
-   SUM(HOUR(cant_abono_horas_al25)) + SUM(MINUTE(cant_abono_horas_al25))/60 AS cant_abono_horas_al25,
-   SUM(HOUR(cant_abono_horas_al35)) + SUM(MINUTE(cant_abono_horas_al35))/60 AS cant_abono_horas_al35,
-   SUM(HOUR(cant_abono_horas_dom)) + SUM(MINUTE(cant_abono_horas_dom))/60  AS cant_abono_horas_dom,
-   SUM(HOUR(cant_abono_horas_fer)) + SUM(MINUTE(cant_abono_horas_fer))/60  AS cant_abono_horas_fer,
-   ( SUM(HOUR(cant_abono_horas_al25)) + SUM(MINUTE(cant_abono_horas_al25))/60 ) +
-   ( SUM(HOUR(cant_abono_horas_al35)) + SUM(MINUTE(cant_abono_horas_al35))/60 ) +
-   ( SUM(HOUR(cant_abono_horas_dom)) + SUM(MINUTE(cant_abono_horas_dom))/60 ) +
-   ( SUM(HOUR(cant_abono_horas_fer)) + SUM(MINUTE(cant_abono_horas_fer))/60)
-   AS
-   cant_horas_extras_totales
-FROM detalle_horas_dsctos_abonos_quincenal 
-WHERE id_quin='".$id_pri_quin."';
- ");  
-
-       
-while($res=mysql_fetch_array($sql)){    
-  $fila+=1;
-
-  $objPHPExcel->getActiveSheet()->SetCellValue("AE$fila", utf8_encode($res["cant_dscto_enhoras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("AF$fila", utf8_encode($res["cant_dscto_endias"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BB$fila", utf8_encode($res["cant_abono_horas_al25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BC$fila", utf8_encode($res["cant_abono_horas_al35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BD$fila", utf8_encode($res["cant_abono_horas_dom"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BE$fila", utf8_encode($res["cant_abono_horas_fer"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BG$fila", utf8_encode($res["cant_horas_extras_totales"]));
-
-  //Establecer estilo
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "AE$fila:AF$fila");
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "BB$fila:BE$fila");
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "BG$fila");
-
-
- }
-
+ 
+//insertar formula
+// $fila+=2;
+// $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'SUMA');
+// $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", '=1+2');
+ 
+//recorrer las columnas
+// foreach (range( 'C', 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J', 'K') as $columnID) {
+//   //autodimensionar las columnas
+//   $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+// }
+ 
 
 
 
@@ -5767,54 +5685,50 @@ $objPHPExcel->getActiveSheet()->SetCellValue("BT$fila", 'LICENCIA SIN GOCE DE HA
 $objPHPExcel->getActiveSheet()->SetCellValue("BU$fila", 'PERMISO HORA LACTANCIA');
 $objPHPExcel->getActiveSheet()->SetCellValue("BV$fila", 'TOTAL SUELDO QUINCENAL');
 $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", 'CANTIDAD AL 25%');
-$objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", 'MONTO AL 25%');
-$objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", 'CANTIDAD AL 35%');
-$objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", 'MONTO AL 35%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", 'CANTIDAD DOMINICAL 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", 'MONTO DOMINICAL 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", 'CANTIDAD FERIADO 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", 'MONTO FERIADO 100%');
-$objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", 'MONTO TOTAL HORAS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", 'TOTAL REMUNERACION AFECTO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", 'DSCTO FONDO DE PENSION ');
-$objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", 'DSCTO RENTA 5TA');
-$objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", 'VIDA SEGURO DE ACCIDENTE');
-$objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", 'DSCTO BASE A DESTAJO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", 'DSCTO JUDICIALES');
-$objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", 'DSCTO PRESTAMOS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", 'DSCTO INSUMOS Y DESTAJEROS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", 'DSCTO VARIOS   (PRENDAS)');
-$objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", 'DSCTO MENU');
-$objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", 'ANTICIPO - ADELANTO,  VACACIONES CHEQUE / EFECTIVO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", 'TOTAL DESCUENTOS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", 'TOTAL DEPOSITAR QUICENAL');
-$objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", 'REGULARIZACION');
-$objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", 'OTROS VARIOS    (EXCESO)');
-$objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", 'TOTAL A DEPOSITAR BCP QUINCENAL');
-$objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", 'BONO SUELDO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", 'BONO DESTAJO');
-$objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", 'VACACIONES COMPRADAS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", 'TOTAL  H.EXTRAS');
-$objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", 'DESCUENTOS VARIOS');
-$objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", 'TOTAL PAGO EFECTIVO');
-$objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", 'OBSERVACIONES ');
-$objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", '-');
-$objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", '100');
-$objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", '50');
-$objPHPExcel->getActiveSheet()->SetCellValue("DF$fila", '20');
-$objPHPExcel->getActiveSheet()->SetCellValue("DG$fila", '10');
-$objPHPExcel->getActiveSheet()->SetCellValue("DH$fila", '5');
-$objPHPExcel->getActiveSheet()->SetCellValue("DI$fila", '2');
-$objPHPExcel->getActiveSheet()->SetCellValue("DJ$fila", '1');
-$objPHPExcel->getActiveSheet()->SetCellValue("DK$fila", '-');
-$objPHPExcel->getActiveSheet()->SetCellValue("DL$fila", '100');
-$objPHPExcel->getActiveSheet()->SetCellValue("DM$fila", '50');
-$objPHPExcel->getActiveSheet()->SetCellValue("DN$fila", '20');
-$objPHPExcel->getActiveSheet()->SetCellValue("DO$fila", '10');
-$objPHPExcel->getActiveSheet()->SetCellValue("DP$fila", '5');
-$objPHPExcel->getActiveSheet()->SetCellValue("DQ$fila", '2');
-$objPHPExcel->getActiveSheet()->SetCellValue("DR$fila", '1');
-
+$objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", 'CANTIDAD AL 35%');
+$objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", 'CANTIDAD DOMINICAL 100%');
+$objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", 'CANTIDAD FERIADO 100%');
+$objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", 'MONTO TOTAL HORAS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", 'TOTAL REMUNERACION AFECTO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", 'DSCTO FONDO DE PENSION ');
+$objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", 'DSCTO RENTA 5TA');
+$objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", 'VIDA SEGURO DE ACCIDENTE');
+$objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", 'DSCTO BASE A DESTAJO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", 'DSCTO JUDICIALES');
+$objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", 'DSCTO PRESTAMOS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", 'DSCTO INSUMOS Y DESTAJEROS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", 'DSCTO VARIOS   (PRENDAS)');
+$objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", 'DSCTO MENU');
+$objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", 'ANTICIPO - ADELANTO,  VACACIONES CHEQUE / EFECTIVO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", 'TOTAL DESCUENTOS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", 'TOTAL DEPOSITAR QUICENAL');
+$objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", 'REGULARIZACION');
+$objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", 'OTROS VARIOS    (EXCESO)');
+$objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", 'TOTAL A DEPOSITAR BCP QUINCENAL');
+$objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", 'BONO SUELDO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", 'BONO DESTAJO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", 'VACACIONES COMPRADAS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", 'TOTAL  H.EXTRAS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", 'DESCUENTOS VARIOS');
+$objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", 'TOTAL PAGO EFECTIVO');
+$objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", 'OBSERVACIONES ');
+$objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", '-');
+$objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", '100');
+$objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", '50');
+$objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", '20');
+$objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", '10');
+$objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", '5');
+$objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", '2');
+$objPHPExcel->getActiveSheet()->SetCellValue("DF$fila", '1');
+$objPHPExcel->getActiveSheet()->SetCellValue("DG$fila", '-');
+$objPHPExcel->getActiveSheet()->SetCellValue("DH$fila", '100');
+$objPHPExcel->getActiveSheet()->SetCellValue("DI$fila", '50');
+$objPHPExcel->getActiveSheet()->SetCellValue("DJ$fila", '20');
+$objPHPExcel->getActiveSheet()->SetCellValue("DK$fila", '10');
+$objPHPExcel->getActiveSheet()->SetCellValue("DL$fila", '5');
+$objPHPExcel->getActiveSheet()->SetCellValue("DM$fila", '2');
+$objPHPExcel->getActiveSheet()->SetCellValue("DN$fila", '1');
+  
 
 
 
@@ -6053,10 +5967,20 @@ $sql=mysql_query("SELECT DISTINCT  id_quin,
   pago_efectivo
   FROM  planilla_quincenal
   WHERE id_quin='".$id_pri_quin."'
-  "); 
+  ");  
+
+
+
+
+
+    
+
 
          
 while($res=mysql_fetch_array($sql)){    
+
+ 
+  
 
   $fila+=1;
 
@@ -6135,45 +6059,41 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet()->SetCellValue("BT$fila", utf8_encode($res["mon_licenciasingocedehaber"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BU$fila", utf8_encode($res["monto_lactancia"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BV$fila", utf8_encode($res["mon_total_sueldo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["cant_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["cant_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["cant_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["cant_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["mon_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["mon_total_horas_extras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_fondopension"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_rentaquinta"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_segurovida"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_basedestajo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_judicial"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_prestamo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["dscto_insumodestajeros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["dscto_menu"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["dscto_anticipo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_dsctos"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["total_deposito_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["abono_regularizacion"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res["total_deposito_bcp_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["bono_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["bono_destajo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", utf8_encode($res["vacaciones_compradas_otros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", utf8_encode($res["total_hextras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", utf8_encode($res["total_dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", utf8_encode($res["pago_efectivo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", utf8_encode($res[""]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", utf8_encode($res["cant_billetes_100"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", utf8_encode($res["cant_billetes_50"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", utf8_encode($res["cant_billetes_20"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DF$fila", utf8_encode($res["cant_billetes_10"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DG$fila", utf8_encode($res["cant_monedas_5"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DH$fila", utf8_encode($res["cant_monedas_2"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DI$fila", utf8_encode($res["cant_monedas_1"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["mon_hor_ext_25"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_35"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["mon_hor_ext_dominical"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_feriado"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["mon_total_horas_extras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["dscto_fondopension"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["dscto_rentaquinta"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["dscto_segurovida"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["dscto_basedestajo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_judicial"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_prestamo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_insumodestajeros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_menu"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_anticipo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["total_dsctos"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["total_deposito_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["abono_regularizacion"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_deposito_bcp_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["bono_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["bono_destajo_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["vacaciones_compradas_otros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res["total_hextras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["total_dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["pago_efectivo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", utf8_encode($res[""]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", utf8_encode($res["cant_billetes_100"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", utf8_encode($res["cant_billetes_50"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", utf8_encode($res["cant_billetes_20"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DB$fila", utf8_encode($res["cant_billetes_10"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DC$fila", utf8_encode($res["cant_monedas_5"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DD$fila", utf8_encode($res["cant_monedas_2"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("DE$fila", utf8_encode($res["cant_monedas_1"]));
 
   
  
@@ -6216,7 +6136,8 @@ while($res=mysql_fetch_array($sql)){
  
 
 
-
+  $fila+=1;
+  $fila+=1;
 
 
 
@@ -6284,17 +6205,6 @@ WHERE id_quin='".$id_pri_quin."';
 
 
 
-  
-$sql_pla=mysql_query("SELECT SUM(total_deposito_bcp_quincenal) AS total_deposito_bcp_quincenal
-FROM planilla_quincenal 
-WHERE id_quin='".$id_pri_quin."'
-AND tipo_planilla='PLANILLA'
- ");  
-
-
-
-
-
 
 
     
@@ -6303,25 +6213,47 @@ AND tipo_planilla='PLANILLA'
         
 while($res=mysql_fetch_array($sql)){    
 
-  while($res_pla=mysql_fetch_array($sql_pla)){    
  
+  
+
   $fila+=1;
  
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AJ$fila", utf8_encode($res["sueldo_trab"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AK$fila", utf8_encode($res["asig_familiar"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AL$fila", utf8_encode($res["horas_lactancia"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AS$fila", utf8_encode($res["cant_hor_ext_25"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AT$fila", utf8_encode($res["cant_hor_ext_35"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AU$fila", utf8_encode($res["cant_hor_ext_dominical"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("AV$fila", utf8_encode($res["cant_hor_ext_feriado"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AX$fila", utf8_encode($res["cant_dias_vacaciones"]));
+
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("AZ$fila", utf8_encode($res["cant_dias_descanso_medico"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BB$fila", utf8_encode($res["cant_dias_subsidio"]));
+
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BD$fila", utf8_encode($res["cant_dias_lic_con_goce_haber"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BF$fila", utf8_encode($res["cant_dias_lic_sin_goce_haber"]));
+
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BH$fila", utf8_encode($res["cant_horas_faltadas"]));
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BI$fila", utf8_encode($res["cant_dias_falta"]));
+
+ 
   $objPHPExcel->getActiveSheet()->SetCellValue("BK$fila", utf8_encode($res["total_dsctoxhoras"]));
+
   $objPHPExcel->getActiveSheet()->SetCellValue("BL$fila", utf8_encode($res["total_dsctoxfaltas"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BM$fila", utf8_encode($res["sueldo_quincenal"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BN$fila", utf8_encode($res["asig_familiar"]));
@@ -6333,49 +6265,43 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet()->SetCellValue("BT$fila", utf8_encode($res["mon_licenciasingocedehaber"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BU$fila", utf8_encode($res["monto_lactancia"]));
   $objPHPExcel->getActiveSheet()->SetCellValue("BV$fila", utf8_encode($res["mon_total_sueldo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["cant_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_25"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["cant_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_35"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["cant_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_hor_ext_dominical"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["cant_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["mon_hor_ext_feriado"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["mon_total_horas_extras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_fondopension"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_rentaquinta"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_segurovida"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_basedestajo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_judicial"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_prestamo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["dscto_insumodestajeros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["dscto_menu"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["dscto_anticipo"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_dsctos"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["total_deposito_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["abono_regularizacion"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res_pla["total_deposito_bcp_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["bono_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["bono_destajo_quincenal"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CX$fila", utf8_encode($res["vacaciones_compradas_otros"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CY$fila", utf8_encode($res["total_hextras"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("CZ$fila", utf8_encode($res["total_dscto_varios"]));
-  $objPHPExcel->getActiveSheet()->SetCellValue("DA$fila", utf8_encode($res["pago_efectivo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BW$fila", utf8_encode($res["mon_hor_ext_25"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BX$fila", utf8_encode($res["mon_hor_ext_35"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BY$fila", utf8_encode($res["mon_hor_ext_dominical"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("BZ$fila", utf8_encode($res["mon_hor_ext_feriado"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CA$fila", utf8_encode($res["mon_total_horas_extras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CB$fila", utf8_encode($res["mon_total_remuneracionafecto"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CC$fila", utf8_encode($res["dscto_fondopension"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CD$fila", utf8_encode($res["dscto_rentaquinta"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CE$fila", utf8_encode($res["dscto_segurovida"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CF$fila", utf8_encode($res["dscto_basedestajo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CG$fila", utf8_encode($res["dscto_judicial"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CH$fila", utf8_encode($res["dscto_prestamo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CI$fila", utf8_encode($res["dscto_insumodestajeros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CJ$fila", utf8_encode($res["dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CK$fila", utf8_encode($res["dscto_menu"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CL$fila", utf8_encode($res["dscto_anticipo"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CM$fila", utf8_encode($res["total_dsctos"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CN$fila", utf8_encode($res["total_deposito_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CO$fila", utf8_encode($res["abono_regularizacion"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CP$fila", utf8_encode($res["otros_exceso_dscto_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CQ$fila", utf8_encode($res["total_deposito_bcp_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CR$fila", utf8_encode($res["bono_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CS$fila", utf8_encode($res["bono_destajo_quincenal"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CT$fila", utf8_encode($res["vacaciones_compradas_otros"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", utf8_encode($res["total_hextras"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CV$fila", utf8_encode($res["total_dscto_varios"]));
+  $objPHPExcel->getActiveSheet()->SetCellValue("CW$fila", utf8_encode($res["pago_efectivo"]));
 
   //Establecer estilo
 
- $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "AJ$fila:DA$fila");
+ $objPHPExcel->getActiveSheet()->setSharedStyle($regularizaciones, "AJ$fila:CW$fila");
 
    //Establecer estilo
  $objPHPExcel->getActiveSheet()->getStyle("AJ$fila")->getNumberFormat()->setFormatCode('0,000.00'); 
  $objPHPExcel->getActiveSheet()->getStyle("AK$fila")->getNumberFormat()->setFormatCode('0,000.00');
  $objPHPExcel->getActiveSheet()->getStyle("BJ$fila")->getNumberFormat()->setFormatCode('0,000.00'); 
- $objPHPExcel->getActiveSheet()->getStyle("BK$fila:DA$fila")->getNumberFormat()->setFormatCode('0,000.00');  
-
-
+ $objPHPExcel->getActiveSheet()->getStyle("BK$fila:CW$fila")->getNumberFormat()->setFormatCode('0,000.00');  
 
 
 
@@ -6403,13 +6329,6 @@ while($res=mysql_fetch_array($sql)){
   $objPHPExcel->getActiveSheet() ->getStyle("X$fila")  ->getAlignment()  ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);  
 
 
-
-$fila+=1;
-$objPHPExcel->getActiveSheet()->SetCellValue("CU$fila", 'BCP');
-$objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "CU$fila");
-
-
-
   $objPHPExcel->getActiveSheet()
     ->getStyle('C3:C100')
     ->getAlignment()
@@ -6418,13 +6337,11 @@ $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "CU$fila");
 
 
  }
-
- }
  
 
 
 
- $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(2);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(2);
   $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(7);
   $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(5);
   $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(16);
@@ -6500,43 +6417,42 @@ $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "CU$fila");
   $objPHPExcel->getActiveSheet()->getColumnDimension('BV')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BW')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BX')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('BZ')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BY')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('BZ')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CA')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CB')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CC')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CC')->setWidth(20);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CD')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CE')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CF')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CE')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CF')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CG')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CH')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CI')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CH')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CI')->setWidth(12);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CJ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CK')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CK')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CL')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CM')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CM')->setWidth(13);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CN')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CO')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CP')->setWidth(13);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CO')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CP')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CQ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CR')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CR')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CS')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CT')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CU')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CV')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CW')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CX')->setWidth(12);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('CY')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CT')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CU')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CV')->setWidth(12);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CW')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CX')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('CY')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('CZ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DA')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DA')->setWidth(20);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DB')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DC')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DD')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DE')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DF')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DC')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DD')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DE')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DF')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DG')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('DH')->setWidth(20);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('DH')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DI')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DJ')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DK')->setWidth(10);
@@ -6555,9 +6471,6 @@ $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "CU$fila");
   $objPHPExcel->getActiveSheet()->getColumnDimension('DX')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DY')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('DZ')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('EA')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('EB')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('EC')->setWidth(10);
 
 
   

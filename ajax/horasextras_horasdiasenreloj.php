@@ -31,6 +31,7 @@ $fecha=isset($_POST["fecha"])? limpiarCadena($_POST["fecha"]):"";
 $cantidad=isset($_POST["cantidad"])? limpiarCadena($_POST["cantidad"]):"";
 $tiempo_fin=isset($_POST["tiempo_fin"])? limpiarCadena($_POST["tiempo_fin"]):"";
 $observacion=isset($_POST["observacion"])? limpiarCadena($_POST["observacion"]):"";
+$por_pago=isset($_POST["por_pago"])? limpiarCadena($_POST["por_pago"]):"";
 
 
 $num=isset($_POST["num"])? limpiarCadena($_POST["num"]):"";
@@ -44,9 +45,9 @@ switch ($_GET["op"]){
 		
 			
 
-			$rspta=$tpx->editar($id_cp, $_POST["id_hor_ext"], $_POST["tiempo_fin"], $_POST["observacion"] );
+			$rspta=$tpx->editar($id_cp, $_POST["id_hor_ext"], $_POST["tiempo_fin"], $_POST["observacion"] , $_POST["por_pago"]  );
 
-		    $rspta=$tpx->insertar2($id_cp, $_POST["id_hor_ext"], $_POST["tiempo_fin"], $_POST["observacion"] );
+		    $rspta=$tpx->insertar2($id_cp, $_POST["id_hor_ext"], $_POST["tiempo_fin"], $_POST["observacion"] , $_POST["por_pago"] );
 			
 
 			echo $rspta ? "Vacaciones actualizadas" : "No se pudieron actualizar todos los datos de las vacaciones";
@@ -101,7 +102,7 @@ switch ($_GET["op"]){
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 
 				{
-					echo '<tr class="filas" size="3" id="fila'.$cont.'">  <td><input type="text" size="1" autocomplete="off" name="id_hor_ext[]" value="'.$reg->id_hor_ext.'"></td><td><input type="text" size="7" name="fecha[]" value="'.$reg->fecha.'" readonly></td><td><input type="text" size="30" readonly name="nombres[]" value="'.$reg->nombres.'"></td><td><input type="text" size="10" readonly name="estado_dia[]" value="'.$reg->estado_dia.'"></td><td><input type="text" size="4" readonly name="por_pago[]" value="'.$reg->por_pago.'"></td><td><input type="text" size="8" readonly name="cantidad[]" value="'.$reg->cantidad.'"></td><td><input type="text" size="8" autocomplete="off" name="tiempo_fin[]" value="'.$reg->tiempo_fin.'"></td><td><input type="text" size="45" autocomplete="off" name="observacion[]" value="'.$reg->observacion.'"></td><td><input type="text" size="8" autocomplete="off" readonly name="situacion[]" value="'.$reg->situacion.'"></td><td><input type="text" size="10" readonly name="estado[]" value="'.$reg->estado.'"></td></tr>';
+					echo '<tr class="filas" size="3" id="fila'.$cont.'">  <td><input type="text" size="1" autocomplete="off" name="id_hor_ext[]" value="'.$reg->id_hor_ext.'"></td><td><input type="text" size="7" name="fecha[]" value="'.$reg->fecha.'" readonly></td><td><input type="text" size="30" readonly name="nombres[]" value="'.$reg->nombres.'"></td><td><input type="text" size="10" readonly name="estado_dia[]" value="'.$reg->estado_dia.'"></td><td><input type="text" size="4"  name="por_pago[]" value="'.$reg->por_pago.'"></td><td><input type="text" size="8" readonly name="cantidad[]" value="'.$reg->cantidad.'"></td><td><input type="text" size="8" autocomplete="off" name="tiempo_fin[]" value="'.$reg->tiempo_fin.'"></td><td><input type="text" size="45" autocomplete="off" name="observacion[]" value="'.$reg->observacion.'"></td><td><input type="text" size="8" autocomplete="off" readonly name="situacion[]" value="'.$reg->situacion.'"></td><td><input type="text" size="10" readonly name="estado[]" value="'.$reg->estado.'"></td></tr>';
 					//$total=$periodo;
 					$cont++;
 				}
@@ -174,16 +175,17 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->id_hor_ext.',\''.$reg->fecha.'\',\''.$reg->nombres.'\',\''.$reg->estado_dia.'\',\''.$reg->cantidad.'\',\''.$reg->tiempo_fin.'\',\''.$reg->observacion.'\', \''.$reg->situacion.'\', \''.$reg->estado.'\'  )"><span class="fa fa-plus"></span></button>',
+ 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->id_hor_ext.',\''.$reg->fecha.'\',\''.$reg->nombres.'\',\''.$reg->estado_dia.'\', \''.$reg->por_pago.'\',	\''.$reg->cantidad.'\',	\''.$reg->tiempo_fin.'\',\''.$reg->observacion.'\', \''.$reg->situacion.'\', \''.$reg->estado.'\'  )"><span class="fa fa-plus"></span></button>',
  				"1"=>$reg->id_hor_ext,
  				"2"=>$reg->fecha,
  				"3"=>$reg->nombres,
  				"4"=>$reg->estado_dia, 
- 				"5"=>$reg->cantidad,
- 				"6"=>$reg->tiempo_fin,
- 				"7"=>$reg->observacion,
- 				"8"=>$reg->situacion,
- 				"9"=>$reg->estado
+ 				"5"=>$reg->por_pago,
+ 				"6"=>$reg->cantidad,
+ 				"7"=>$reg->tiempo_fin,
+ 				"8"=>$reg->observacion,
+ 				"9"=>$reg->situacion,
+ 				"10"=>$reg->estado
  				);
  		}
  		$results = array(

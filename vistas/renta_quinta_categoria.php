@@ -122,20 +122,16 @@ if ($_SESSION['rrhh']==1)
           <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
             <thead>
                 <th>Opciones</th>
-                <th>Id.Trabajador</th>
-                <th>Nombres</th>
-                <th>Sueldo</th>
-                <th>Bono</th>
+                <th>Corr.</th>
+                <th>Nombre del Trabajador</th>
             </thead>
             <tbody>
               
             </tbody>
             <tfoot>
                 <th>Opciones</th>
-                <th>Id.Trabajador</th>
-                <th>Nombres</th>
-                <th>Sueldo</th>
-                <th>Bono</th>
+                <th>Corr.</th>
+                <th>Nombre del Trabajador</th>
             </tfoot>
           </table>
         </div>

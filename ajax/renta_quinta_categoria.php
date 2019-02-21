@@ -32,6 +32,7 @@ switch ($_GET["op"]){
 			
 
 			$rspta=$renta_quinta_categoria->editar(   $id_cp,
+													  $_POST["correlativo"],
 													  $_POST["id_trab"],
 													  $_POST["mon_total"],
 												      $fec_reg,
@@ -40,6 +41,7 @@ switch ($_GET["op"]){
 
 			$rspta=$renta_quinta_categoria->insertar2(    $id_cp,
 													      $CantItems,
+													      $_POST["correlativo"],
 														  $_POST["id_trab"],
 														  $_POST["mon_total"],
 														  $fec_reg,
@@ -70,20 +72,20 @@ switch ($_GET["op"]){
 		$total=0;
 		$cont=0;
 		echo '<thead style="background-color:#A9D0F5">
-									<th width="100px">Id.Trab</th>
-                                    <th width="300px">Trabajador</th>
+									<th width="100px">Corr.</th>
+                                    <th width="300px">Nombre del Trabajador</th>
                                     <th width="100px">Monto</th>
                                     <th width="80px">Opciones</th>
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="5" id="fila'.$cont.'">  ><td><input type="text" size="3" readonly  name="id_trab[]" value="'.$reg->id_trab.'"></td>
+					echo '<tr class="filas" size="5" id="fila'.$cont.'">  ><td><input type="text" size="3" readonly  name="correlativo[]" value="'.$reg->correlativo.'"></td>
 					<td><input type="text" size="80" readonly name="id_trab[]" value="'.$reg->apellidosynombres.'" readonly></td>
-					<td><input type="text" size="15"  name="mon_total[]" value="'.$reg->mon_total.'"></td>
+					<td><input type="text" size="15"  name="mon_total[]"  autocomplete="off" value="'.$reg->mon_total.'"></td>
 					<a data-toggle="modal" href="#myModal">
                               <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
-                            </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
+                            </a></td><td></td></tr>';
 					$total=$periodo;
 					$cont++;
 				}
@@ -141,11 +143,9 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle(\''.$reg->id_trab.'\',\''.$reg->nombres.'\',\''.$reg->sueldo.'\',\''.$reg->bono_des_trab.'\')"><span class="fa fa-plus"></span></button>',
+ 				"0"=>'<button class="btn btn-warning" onclick="agregarDetalle(\''.$reg->id_trab.'\',\''.$reg->nombres.'\')"><span class="fa fa-plus"></span></button>',
  				"1"=>$reg->id_trab,
- 				"2"=>$reg->nombres,
- 				"3"=>$reg->sueldo,
- 				"4"=>$reg->bono_des_trab
+ 				"2"=>$reg->nombres
  				);
  		}
  		$results = array(

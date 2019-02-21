@@ -42,7 +42,7 @@ if ($_SESSION['rrhh']==1)
                             <th>Tipo.Permiso</th>
                             <th>Situacion</th>
                             <th>Descontar</th>
-                            <th>Editar</th>
+                           <!---  <th>Editar</th> -->
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -55,7 +55,7 @@ if ($_SESSION['rrhh']==1)
                             <th>Tipo.Permiso</th>
                             <th>Situacion</th>
                             <th>Descontar</th>
-                            <th>Editar</th>
+                          <!---  <th>Editar</th> -->
                           </tfoot>
                         </table>
                     </div>

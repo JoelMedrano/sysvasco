@@ -40,9 +40,9 @@ $id_fecha_pago2=isset($_POST["id_fecha_pago2"])? limpiarCadena($_POST["id_fecha_
 $id_fecha_pago3=isset($_POST["id_fecha_pago3"])? limpiarCadena($_POST["id_fecha_pago3"]):"";
 $id_fecha_pago4=isset($_POST["id_fecha_pago4"])? limpiarCadena($_POST["id_fecha_pago4"]):"";
 
-//$monto_a_pagar=isset($_POST["monto_a_pagar"])? limpiarCadena($_POST["monto_a_pagar"]):"";
+$monto_a_pagar=isset($_POST["monto_a_pagar"])? limpiarCadena($_POST["monto_a_pagar"]):"";
 
-
+$monto_pago_destajo=$monto_a_pagar;
 
 
 
@@ -150,9 +150,14 @@ switch ($_GET["op"]){
 
 	        if ($id_pag_vac_cts=='1') { // Pago de vacaciones como Jornal
 	        	
-	        	
+	        	$monto_a_pagar=$monto_a_pagar;
 
+	        }else if ($id_pag_vac_cts=='2') {
+
+	        	$monto_a_pagar=$monto_pago_destajo;
 	        }
+
+
 
 	        if ($tip_permiso=='VC') {
 	        	
@@ -207,9 +212,32 @@ switch ($_GET["op"]){
 
 					}
 
-			
-
 				/*FIN  - AGREGADO EL  08/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+
+				/*INICIO - AGREGADO EL  18/02/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+				/*DESCANSO MEDICO, LICENCIA CON GOCE HABER, SUBSIDIOS ETC */
+
+					if ($tip_permiso=='LS'  OR  $tip_permiso=='LC' OR $tip_permiso=='VC' OR $tip_permiso=='LM' OR $tip_permiso=='LP'OR $tip_permiso=='FD'  OR $tip_permiso=='FF'  OR $tip_permiso=='DM') {
+						
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+					}
+
+				/*FIN  - AGREGADO EL   18/02/2019PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
 
 
 		    	/*INICIO  - AGREGADO EL  19/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS, HORAS DE PERMISO Y COLOQUE COMO FALTA*/
@@ -267,6 +295,30 @@ switch ($_GET["op"]){
 			echo $rspta ? "Permiso registrado" : "Permiso no se pudo registrar";
 		}
 		else {
+
+
+			$ci=$permiso_personal->consultar_tipodepagovacaciones($id_trab, $tip_permiso,$dias ); // (Jornal, Destajero o Comision)
+	        $regc=$ci->fetch_object();
+	        $id_pag_vac_cts=$regc->id_pag_vac_cts;
+
+	        $ci=$permiso_personal->consultar_pagodevacacionesjornal($id_trab,$dias ); //(Jornal =1 )
+		    $regc=$ci->fetch_object();
+		    $monto_a_pagar=$regc->monto_a_pagar;
+
+		  
+
+
+			
+
+	        if ($id_pag_vac_cts=='1') { // Pago de vacaciones como Jornal
+	        	
+	        	$monto_a_pagar=$monto_a_pagar;
+
+	        }else if ($id_pag_vac_cts=='2') {//Pago de vacaciones como destajeros
+
+	        	$monto_a_pagar=$monto_pago_destajo;
+	        }
+
 			
 			$rspta=$permiso_personal->editar($id_permiso,
 											 $id_trab,
@@ -281,7 +333,7 @@ switch ($_GET["op"]){
 											 $hora_sal, 
 											 $motivo,
 											 $id_fecha_pago1,
-										//	 $monto_a_pagar,
+											 $monto_a_pagar,
 											 $id_fecha_pago2,
 											 $id_fecha_pago3,
 											 $id_fecha_pago4,  
@@ -315,6 +367,33 @@ switch ($_GET["op"]){
 					}
 
 			/*FIN  - AGREGADO EL  08/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+
+				/*INICIO - AGREGADO EL  18/02/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+				/*DESCANSO MEDICO, LICENCIA CON GOCE HABER, SUBSIDIOS ETC */
+
+					if ($tip_permiso=='LS'  OR  $tip_permiso=='LC' OR $tip_permiso=='VC' OR $tip_permiso=='LM' OR $tip_permiso=='LP'OR $tip_permiso=='FD'  OR $tip_permiso=='FF'  OR $tip_permiso=='DM') {
+						
+					$rspta=$permiso_personal->insertar_reloj_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_reloj( $id_trab, $fecha_procede, $fecha_hasta,  $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_reloj( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_falta_data_eliminada( $id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_falta($id_trab,	$fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_falta( $id_trab, $fecha_procede, $fecha_hasta );
+
+
+					$rspta=$permiso_personal->insertar_hora_extra_data_eliminada($id_trab, $fecha_procede, $fecha_hasta );
+					$rspta=$permiso_personal->actualizar_quienelimino_hora_extra($id_trab, $fecha_procede, $fecha_hasta, $fec_reg, $pc_reg, $usu_reg);
+					$rspta=$permiso_personal->eliminar_hora_extra( $id_trab, $fecha_procede, $fecha_hasta ); 
+
+					}
+
+				/*FIN  - AGREGADO EL   18/02/2019PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS Y HORAS DE PERMISO*/
+
+
+
 
 			
 		    	/*INICIO  - AGREGADO EL  19/01/2019 PARA QUE ELIMINE LOS REGISTROS DE FALTAS, HORAS EXTRAS, HORAS DE PERMISO Y COLOQUE COMO FALTA*/

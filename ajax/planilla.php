@@ -1194,7 +1194,19 @@ switch ($_GET["op"]){
 
 			$rspta=$planilla->insertar_informacion_atabla($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
 
+			$rspta=$planilla->insertar_informacion_atabla_horasextras($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->insertar_informacion_atabla_horasdescuento($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->actualizar_estado_tabla_horasextras($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->actualizar_estado_tabla_horasdescuento($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->insertar_planilla_quincenal_totalizado($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+
 			echo  "Quincena cerrada"; 
+
 		}else if ($cie_quin=='2'){
 				
 			echo  "No se puede cerrar, ha sido cerrada esta quincena"; 
@@ -1217,6 +1229,18 @@ switch ($_GET["op"]){
 			$rspta=$planilla->insertardetalle_horasdsctoabono($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg);
 
 			$rspta=$planilla->insertar_informacion_atabla($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->insertar_informacion_atabla_horasextras($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->insertar_informacion_atabla_horasdescuento($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->actualizar_estado_tabla_horasextras($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->actualizar_estado_tabla_horasdescuento($segunda_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+			$rspta=$planilla->insertar_planilla_quincenal_totalizado($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
+
+
 
 			echo  "Quincena cerrada"; 
 		}else if ($cie_quin=='2'){

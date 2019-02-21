@@ -188,9 +188,9 @@ Class Pago_Destajeros
 	//  Implementar un método para listar los trabajadores que son destajeros
 	public function selectTrabajadoresDestajeros()
 	{
-		$sql="SELECT  id_trab,   CONCAT(apepat_trab, ' ' , apemat_trab, ' ', SUBSTRING_INDEX(nom_trab, ' ', 1))    AS nombres , (sueldo_trab/2) AS sueldo, bono_des_trab
+		$sql="SELECT  id_trab,   CONCAT(apepat_trab, ' ' , apemat_trab, ' ', nom_trab)  AS nombres , (sueldo_trab/2) AS sueldo, bono_des_trab
 		FROM trabajador 
-		where id_form_pag='2' 
+		WHERE est_reg='1'
 		order by apepat_trab ASC";
 		return ejecutarConsulta($sql);		
 	}

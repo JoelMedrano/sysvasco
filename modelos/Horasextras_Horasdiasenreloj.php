@@ -14,7 +14,7 @@ Class Horasextras_Horasdiasenreloj
 
 
 	//Implementamos un método para editar registros
-	public function editar($id_cp, $id_hor_ext, $tiempo_fin,  $observacion)
+	public function editar($id_cp, $id_hor_ext, $tiempo_fin,  $observacion,  $por_pago )
 	{
 		
 		$num_elementos=0;
@@ -22,7 +22,9 @@ Class Horasextras_Horasdiasenreloj
 
 		while ($num_elementos < count($id_hor_ext))
 		{			
-			$sql_detalle="UPDATE horas_extras_personal SET    tiempo_fin='$tiempo_fin[$num_elementos]' ,  observacion='$observacion[$num_elementos]'   WHERE id_hor_ext='$id_hor_ext[$num_elementos]'  ";
+			$sql_detalle="UPDATE horas_extras_personal SET    tiempo_fin='$tiempo_fin[$num_elementos]' ,  observacion='$observacion[$num_elementos]' ,
+                por_pago='$por_pago[$num_elementos]' 
+			  WHERE id_hor_ext='$id_hor_ext[$num_elementos]'  ";
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 		}
@@ -33,7 +35,7 @@ Class Horasextras_Horasdiasenreloj
 	
 
 
-	public function insertar2($id_cp, $id_hor_ext, $tiempo_fin,  $observacion)
+	public function insertar2($id_cp, $id_hor_ext, $tiempo_fin,  $observacion ,  $por_pago  )
 	{
 		
 
@@ -44,7 +46,9 @@ Class Horasextras_Horasdiasenreloj
 		while ($num_elementos < count($id_hor_ext))
 		{	
 			
-			$sql_detalle="UPDATE horas_extras_personal SET   id_fec_abono='$id_cp' ,  tiempo_fin='$tiempo_fin[$num_elementos]' ,  observacion='$observacion[$num_elementos]'   WHERE id_hor_ext='$id_hor_ext[$num_elementos]'  ";
+			$sql_detalle="UPDATE horas_extras_personal SET   id_fec_abono='$id_cp' ,  tiempo_fin='$tiempo_fin[$num_elementos]' ,
+			  observacion='$observacion[$num_elementos]',   por_pago='$por_pago[$num_elementos]'
+			  WHERE id_hor_ext='$id_hor_ext[$num_elementos]'  ";
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 
@@ -203,7 +207,8 @@ Class Horasextras_Horasdiasenreloj
 					 fe.estado AS estado_dia,
 					 IF(hep.abonar='1', 'X ABONAR', 'NO ABONAR') AS situacion,
 					 IF(hep.abonado='2', 'NO ABONADO', 'ABONADO') AS estado ,
-					 hep.observacion
+					 hep.observacion,
+					 hep.por_pago
 				FROM horas_extras_personal hep
 				LEFT JOIN (
 					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) AS nombres

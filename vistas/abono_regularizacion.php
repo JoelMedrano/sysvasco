@@ -94,15 +94,15 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Cantidad:</label>
-                            <input type="number" class="form-control" name="cantidad" id="cantidad">
+                            <input type="text" class="form-control" name="cantidad" id="cantidad">
                           </div>
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Cant.Pagada</label>
-                            <input type="number" class="form-control" name="pagado" id="pagado" readonly>
+                            <input type="text" class="form-control" name="pagado" id="pagado" readonly>
                           </div>
                           <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <label>Saldo</label>
-                            <input type="number" class="form-control" name="saldo" id="saldo" readonly>
+                            <input type="text" class="form-control" name="saldo" id="saldo" readonly>
                           </div>
 
 

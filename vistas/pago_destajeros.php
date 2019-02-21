@@ -131,7 +131,6 @@ if ($_SESSION['rrhh']==1)
                 <th>Id.Trabajador</th>
                 <th>Nombres</th>
                 <th>Sueldo</th>
-                <th>Bono</th>
             </thead>
             <tbody>
               
@@ -141,7 +140,6 @@ if ($_SESSION['rrhh']==1)
                 <th>Id.Trabajador</th>
                 <th>Nombres</th>
                 <th>Sueldo</th>
-                <th>Bono</th>
             </tfoot>
           </table>
         </div>

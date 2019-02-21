@@ -200,7 +200,7 @@ Class Habilitardscto_Permisostardanzas_Xhorasenreloj
 					 hpp.est_reg
 				FROM horas_permiso_personal hpp
 				LEFT JOIN (
-					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) AS nombres
+					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', tr.nom_trab ) AS nombres
 					FROM  trabajador tr
 					) AS tr ON  tr.id_trab=hpp.id_trab  
 				LEFT JOIN (
@@ -255,7 +255,7 @@ Class Habilitardscto_Permisostardanzas_Xhorasenreloj
 					 hpp.id_fec_dscto 
 				FROM horas_permiso_personal hpp
 				LEFT JOIN (
-					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) AS nombres
+					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', tr.nom_trab ) AS nombres
 					FROM  trabajador tr
 					) AS tr ON  tr.id_trab=hpp.id_trab  
 				LEFT JOIN (

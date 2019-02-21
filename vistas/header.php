@@ -282,7 +282,6 @@ if (strlen(session_id()) < 1)
                           <li><a href="horario_refrigerio_trabajador.php"><i class="fa fa-circle-o"></i>(*)Horario - Refrigerio del Trabajador</a></li>
                            <li><a href="regimen_pensionario.php"><i class="fa fa-circle-o"></i>(*)Regimen Pensionario</a></li>
                           <li><a href="cronograma_dsctos_abonos_horasdias.php"><i class="fa fa-circle-o"></i>(*)Cronograma Dsctos y Abonos(Horas/Dias)</a></li>
-                          <li><a href="cronograma_pagos.php"><i class="fa fa-circle-o"></i>Cronograma de Pagos</a></li>
                            <li><a href="horario.php"><i class="fa fa-circle-o"></i>Horarios</a></li>
                           <li><a href="refrigerio.php"><i class="fa fa-circle-o"></i>Refrigerio</a></li>
                           <li><a href="maternidad.php"><i class="fa fa-circle-o"></i>Registro de Maternidad</a></li>
@@ -349,6 +348,7 @@ if (strlen(session_id()) < 1)
                           <li><a href="descuentos_varios.php"><i class="fa fa-circle-o"></i> Descuentos Varios(Prendas)</a></li>
                           <li><a href="descuentos_menu.php"><i class="fa fa-circle-o"></i> Descuento Menu</a></li>
                           <li><a href="anticipo_adelanto.php"><i class="fa fa-circle-o"></i> Anticipo adelanto</a></li>
+                          <li><a href="descuentos_en_efectivo.php"><i class="fa fa-circle-o"></i> Descuentos en efectivo</a></li>
                           <li><a href="tardanzas_permisos_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Descuentos de Permisos y Tardanzas en "Horas" del Reloj</a></li>
                           <li><a href="habilitardscto_permisostardanzas_xhorasenreloj.php"><i class="fa fa-circle-o"></i>Habilitar Descuentos en "Horas" de Permisos y Tardanzas</a></li>
                 

@@ -94,8 +94,15 @@ switch ($_GET["op"]){
 
 		while ($reg = $rspta->fetch_object()) //COLOCAR NAME'S
 				{
-					echo '<tr class="filas" size="5" id="fila'.$cont.'">  ><td><input type="text" size="3" name="correlativo[]" value="'.$reg->correlativo.'"></td><td><input type="text" size="80" readonly name="id_trab[]" value="'.$reg->apellidosynombres.'" readonly></td><td><input type="text" size="15" readonly name="sueldo[]" value="'.$reg->sueldo.'"></td><td><input type="text" size="15"  name="bono_des_trab[]" value="'.$reg->bono_des_trab.'"></td><td><input type="text" size="15" name="prod_soles[]" value="'.$reg->prod_soles.'"></td><td><input type="text" size="15" readonly name="dif_soles[]" value="'.$reg->dif_soles.'"></td><a data-toggle="modal" href="#myModal">
-                              <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
+					echo '<tr class="filas" size="5" id="fila'.$cont.'">  >
+					<td><input type="text" size="3" name="correlativo[]" value="'.$reg->correlativo.'"></td>
+					<td><input type="text" size="80" readonly name="id_trab[]" value="'.$reg->apellidosynombres.'" readonly></td>
+					<td><input type="text" size="15" readonly name="sueldo[]" value="'.$reg->sueldo.'"></td>
+					<td><input type="text" size="15"  name="bono_des_trab[]" value="'.$reg->bono_des_trab.'"></td>
+					<td><input type="text" size="15" name="prod_soles[]" value="'.$reg->prod_soles.'"></td>
+					<td><input type="text" size="15" readonly name="dif_soles[]" value="'.$reg->dif_soles.'"></td>
+					<a data-toggle="modal" href="#myModal">
+                    <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span></button>
                             </a></td><td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
 					$total=$periodo;
 					$cont++;

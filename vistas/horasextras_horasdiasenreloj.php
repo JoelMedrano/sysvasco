@@ -88,22 +88,22 @@ if ($_SESSION['rrhh']==1)
 
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
                       <label>Buscar por fecha</label>
-                      <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Fecha">
+                      <input type="text" id="myInput" onkeyup="myFunction()" class="form-control"  autocomplete="off" placeholder="Fecha">
                     </div>
 
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
                       <label>Buscar por Nombre</label>
-                      <input type="text" id="myInput1" onkeyup="myFunction1()" class="form-control" placeholder="Nombre">
+                      <input type="text" id="myInput1" onkeyup="myFunction1()" class="form-control" autocomplete="off" placeholder="Nombre">
                     </div>
 
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
                       <label>Buscar por Estado </label>
-                      <input type="text" id="myInput2" onkeyup="myFunction2()" class="form-control" placeholder="Estado">
+                      <input type="text" id="myInput2" onkeyup="myFunction2()" class="form-control" autocomplete="off" placeholder="Estado">
                     </div>
 
                     <div class="form-group col-lg-3 col-md-4 col-sm-4 col-xs-12">
                       <label>Buscar por Situación</label>
-                      <input type="text" id="myInput3" onkeyup="myFunction3()" class="form-control" placeholder="Situación">
+                      <input type="text" id="myInput3" onkeyup="myFunction3()" class="form-control" autocomplete="off" placeholder="Situación">
                     </div>
 
                   </div>

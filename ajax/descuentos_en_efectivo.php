@@ -1,10 +1,10 @@
 <?php
-require_once "../modelos/Anticipo_Adelanto.php";
+require_once "../modelos/Descuentos_En_Efectivo.php";
 session_start();
 
 
 
-$anticipo_adelanto=new Anticipo_Adelanto();
+$descuentos_en_efectivo=new Descuentos_En_Efectivo();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
@@ -23,16 +23,15 @@ $fec_reg = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$fec_emi)));
 //Campos de Seguridad//
 
 
-$id_ant_ade=isset($_POST["id_ant_ade"])? limpiarCadena($_POST["id_ant_ade"]):"";
+$id_des_efe=isset($_POST["id_des_efe"])? limpiarCadena($_POST["id_des_efe"]):"";
 $id_trab=isset($_POST["id_trab"])? limpiarCadena($_POST["id_trab"]):"";
 $fec_suc=isset($_POST["fec_suc"])? limpiarCadena($_POST["fec_suc"]):"";
 $detalle=isset($_POST["detalle"])? limpiarCadena($_POST["detalle"]):"";
 $num_cuotas=isset($_POST["num_cuotas"])? limpiarCadena($_POST["num_cuotas"]):"";
-$modalidad=isset($_POST["modalidad"])? limpiarCadena($_POST["modalidad"]):"";
-$tip_dscto=isset($_POST["modalidad"])? limpiarCadena($_POST["tip_dscto"]):"";
 $cantidad=isset($_POST["cantidad"])? limpiarCadena($_POST["cantidad"]):"";
 $pagado=isset($_POST["pagado"])? limpiarCadena($_POST["pagado"]):"";
 $saldo=isset($_POST["saldo"])? limpiarCadena($_POST["saldo"]):"";
+
 
 $fec_des1=isset($_POST["fec_des1"])? limpiarCadena($_POST["fec_des1"]):"";
 $mon_des1=isset($_POST["mon_des1"])? limpiarCadena($_POST["mon_des1"]):"";
@@ -44,21 +43,26 @@ $fec_des3=isset($_POST["fec_des3"])? limpiarCadena($_POST["fec_des3"]):"";
 $mon_des3=isset($_POST["mon_des3"])? limpiarCadena($_POST["mon_des3"]):"";
 
 
+$data_adjunta=isset($_POST["data_adjunta"])? limpiarCadena($_POST["data_adjunta"]):"";
+
+
+
+
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
 		
-		if (empty($id_ant_ade)){
-			$rspta=$anticipo_adelanto->insertar(	$id_trab,	
+		if (empty($id_des_efe)){
+			$rspta=$descuentos_en_efectivo->insertar($id_trab,	
 													$fec_suc,
 													$detalle,
 													$num_cuotas,
-													$modalidad,
-													$tip_dscto,
 													$cantidad,
 													$pagado,
 													$saldo,
+													$data_adjunta,
 													$fec_des1,
 													$mon_des1,
 													$fec_des2,
@@ -68,20 +72,18 @@ switch ($_GET["op"]){
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-			echo $rspta ? "Registrado" : "No se pudo registrar";
+			echo $rspta ? "Descuento registrado" : "El descuento no se pudo registrar";
 		}
 		else {
-			$rspta=$anticipo_adelanto->editar(              	
-													$id_ant_ade,
+			$rspta=$descuentos_en_efectivo->editar( $id_des_efe,
 													$id_trab,	
 													$fec_suc,
 													$detalle,
 													$num_cuotas,
-													$modalidad,
-													$tip_dscto,
 													$cantidad,
 													$pagado,
 													$saldo,
+													$data_adjunta,
 													$fec_des1,
 													$mon_des1,
 													$fec_des2,
@@ -91,40 +93,40 @@ switch ($_GET["op"]){
 													$fec_reg,
 													$usu_reg,
 													$pc_reg);
-			echo $rspta ? "Actualizado" : "No se pudo actualizar";
+			echo $rspta ? "Descuento actualizado" : "El descuento no se pudo actualizar";
 		}
 		
 	break;
 
 	case 'desactivar':
-		$rspta=$anticipo_adelanto->desactivar(    $id_ant_ade,
-												  $fec_reg,
-												  $usu_reg,
-												  $pc_reg
-												  );
- 		echo $rspta ? "Desactivado" : "No se puede desactivar";
+		$rspta=$descuentos_en_efectivo->desactivar(   $id_ins_des,
+													  $fec_reg,
+													  $usu_reg,
+													  $pc_reg
+													  );
+ 		echo $rspta ? "Descuento desactivado" : "El descuento no se puede desactivar";
 	break;
 
 	case 'activar':
 
 		$id='0';
-		$id=$anticipo_adelanto->obtenerIdAprobador($usu_reg);
+		$id=$descuentos_en_efectivo->obtenerIdAprobador($usu_reg);
 
-		$rspta=$anticipo_adelanto->activar(			   $id_ant_ade,
-											   $fec_reg,
-											   $usu_reg,
-											   $pc_reg);
- 		echo $rspta ? "Activado" : "No se puede activar";
+		$rspta=$descuentos_en_efectivo->activar(   $id_ins_des,
+												   $fec_reg,
+												   $usu_reg,
+												   $pc_reg);
+ 		echo $rspta ? "Descuento activado" : "El descuento no se puede activar";
 	break;
 
 	case 'mostrar':
-		$rspta=$anticipo_adelanto->mostrar($id_ant_ade);
+		$rspta=$descuentos_en_efectivo->mostrar($id_des_efe);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
 
 	case 'listar':
-		$rspta=$anticipo_adelanto->listar();
+		$rspta=$descuentos_en_efectivo->listar();
 
 		//Vamos a declarar un array
  		$data= Array();
@@ -136,15 +138,14 @@ switch ($_GET["op"]){
  				"1"=>$reg->trab_apellidosynombres,
  				"2"=>$reg->des_area,
  				"3"=>$reg->detalle,
- 				"4"=>($reg->est_ant_ade=='1')?'<span class="label bg-green">Pendiente</span>':
+ 				"4"=>($reg->est_des_efe=='1')?'<span class="label bg-green">Pendiente</span>':
  				'<span class="label bg-red">Cancelado</span>',
- 				"5"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
+ 				"5"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
  				'<span class="label bg-red">Inactivo</span>',
- 				"6"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ant_ade.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_ant_ade.')"><i class="fa fa-pencil"></i></button>',
- 				"7"=>($reg->est_reg)?
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_ant_ade.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_ant_ade.')"><i class="fa fa-check"></i></button>'
+ 				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_efe.')"><i class="fa fa-pencil"></i></button>',
+ 				"7"=>($reg->est_reg=='1')?
+ 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_des_efe.')"><i class="fa fa-close"></i></button>':
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_des_efe.')"><i class="fa fa-check"></i></button>'
  				);
  		}
  		$results = array(
@@ -169,7 +170,6 @@ switch ($_GET["op"]){
 	break;
 
 
-	
 
 
 
@@ -197,12 +197,6 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->modalidad . '>' . $reg->des_modalidad . '</option>';
 				}
 	break;
-
-
-
-
-
-
 
 
 

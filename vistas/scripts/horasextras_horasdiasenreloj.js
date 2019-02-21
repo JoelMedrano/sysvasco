@@ -224,7 +224,7 @@ var detalles = 0;
 $("#btnGuardar").hide();
 
 
-function agregarDetalle(id_hor_ext, fecha, nombres, estado_dia, cantidad, tiempo_fin, observacion, situacion, estado) {
+function agregarDetalle(id_hor_ext, fecha, nombres, estado_dia, por_pago, cantidad, tiempo_fin, observacion, situacion, estado) {
 
 
 	if (id_hor_ext != "") {
@@ -234,6 +234,7 @@ function agregarDetalle(id_hor_ext, fecha, nombres, estado_dia, cantidad, tiempo
 			'<td><input type="text" readonly size="7" autocomplete="off" name="fecha[]" value="' + fecha + '"></td>' +
 			'<td><input type="text" readonly size="35" autocomplete="off" name="nombres[]" value="' + nombres + '"></td>' +
 			'<td><input type="text" readonly size="10" autocomplete="off" name="estado_dia[]" value="' + estado_dia + '"></td>' +
+			'<td><input type="text" readonly size="10" autocomplete="off" name="por_pago[]" value="' + por_pago + '"></td>' +
 			'<td><input type="text" readonly size="8" autocomplete="off" name="cantidad[]" value="' + cantidad + '"></td>' +
 			'<td><input type="text"  size="8" autocomplete="off" name="tiempo_fin[]" value="' + tiempo_fin + '"></td>' +
 			'<td><input type="text" size="45" autocomplete="off" name="observacion[]" value="' + observacion + '"></td>' +

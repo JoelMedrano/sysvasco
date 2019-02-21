@@ -65,7 +65,7 @@ Class Anticipo_Adelanto
 												'$mon_des2',
 												'$fec_des3',
 												'$mon_des3',
-												'0',
+												'1',
 												'1',
 												'$fec_reg',
 												'$usu_reg',
