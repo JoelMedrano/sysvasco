@@ -24,7 +24,8 @@ if ($_SESSION['rrhh']==1)
                   <div class="box">
                     <div class="box-header with-border">
                           <h1 class="box-title">Vacaciones
-                          <a href="../reportes/rpt_xls_vacaciones.php" target="_blank"><button class="btn btn-info">Vacciones Gozadas</button></a> 
+                          <a href="../reportes/rpt_xls_vacaciones.php" target="_blank"><button class="btn btn-info">Vacciones Gozadas</button></a>
+                          <a href="eliminar_det_vac.php" class="btn btn-success" role="button">Detalle Vacaciones</a> 
                         </h1>
                         <div class="box-tools pull-right">
                         </div>

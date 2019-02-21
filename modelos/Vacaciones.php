@@ -86,9 +86,9 @@ Class Vacaciones
 
 
 	//Implementamos un método para anular la venta
-	public function anular($nro_doc)
+	public function eliminarDetalle($nro_doc,$correlativo)
 	{
-		$sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
+		$sql="DELETE FROM vacaciones WHERE nro_doc='$nro_doc' AND correlativo='$correlativo'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -125,11 +125,47 @@ Class Vacaciones
 		return ejecutarConsulta($sql);
 	}
 
+	public function listarDetVac(){
+
+		$sql="SELECT 
+		nro_doc,
+		id_periodo,
+		correlativo,
+		TbPea.des_larga AS PeridoAnual,
+		DATE(fec_del) AS fec_del,
+		DATE(fec_al) AS fec_al,
+		tot_dias,
+		pen_dias,
+		vencidas,
+		truncas,
+		DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS fec_del_dec,
+		DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS fec_al_dec,
+		tot_dias_dec,
+		pen_dias_dec,
+		inicio_prog,
+		salida_prog,
+		tot_dias_prog,
+		obser,
+		obser_detalle 
+	  FROM
+		Vacaciones vac 
+		LEFT JOIN trabajador tr 
+		  ON vac.id_trab = tr.id_trab 
+		LEFT JOIN tabla_maestra_detalle TbPea 
+		  ON TbPea.cod_tabla = 'TPEA' 
+		  AND TbPea.cod_argumento = vac.id_periodo 
+	  WHERE tr.vac_trab = '1' 
+	  ORDER BY nro_doc,
+		vac.correlativo ASC";
+
+		return ejecutarConsulta($sql);
+	}
+
 	//Implementar un método para listar los registros
 	public function listar()
 	{
 		$sql="SELECT tr.id_trab, tr.num_doc_trab, CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres, tpla.des_larga AS tipo_planilla,
-				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab,  tr.num_doc_trab AS nro_doc
+				tsua.des_larga AS sucursal_anexo, tfun.des_larga AS funcion, tare.des_larga AS area_trab, tr.est_reg, tr.num_doc_trab,  tr.num_doc_trab AS nro_doc,tr.vac_trab
 				FROM trabajador tr
 				LEFT JOIN tabla_maestra_detalle AS tpla ON
 				tpla.cod_argumento= tr.id_tip_plan
@@ -169,6 +205,18 @@ Class Vacaciones
 		return ejecutarConsulta($sql);	
 	}
 
+	
+	public function activar($id_trab)
+	{
+		$sql="UPDATE trabajador SET vac_trab='1' WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function desactivar($id_trab)
+	{
+		$sql="UPDATE trabajador SET vac_trab='0' WHERE id_trab='$id_trab'";
+		return ejecutarConsulta($sql);
+	}
 
 
 	

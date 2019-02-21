@@ -55,6 +55,7 @@ if ($_SESSION['ventas']==1)
                           </tfoot>
                         </table>
                     </div>
+
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -125,6 +126,8 @@ if ($_SESSION['ventas']==1)
                           </div>
                         </form>
                     </div>
+
+                    
                     <!--Fin centro -->
                   </div><!-- /.box -->
               </div><!-- /.col -->

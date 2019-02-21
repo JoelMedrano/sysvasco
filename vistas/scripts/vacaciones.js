@@ -4,6 +4,7 @@ var tabla;
 function init(){
 	mostrarform(false);
 	listar();
+	listarDetVac();
 
 	$("#formulario").on("submit",function(e)
 	{
@@ -94,6 +95,35 @@ function listar()
 		"ajax":
 				{
 					url: '../ajax/vacaciones.php?op=listar',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"iDisplayLength": 10,//Paginación
+	    "order": [[ 2, "asc" ]]//Ordenar (columna,orden)
+	}).DataTable();
+}
+
+//Función Listar
+function listarDetVac()
+{
+	tablaDet=$('#tbllistadoDetalle').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/vacaciones.php?op=listarDetVac',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -195,16 +225,43 @@ function mostrar(nro_doc)
 }
 
 //Función para anular registros
-function anular(nro_doc)
-{
-	bootbox.confirm("¿Está Seguro de anular la venta?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/vacaciones.php?op=anular", {nro_doc : nro_doc}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
+function eliminarDetalle(nro_doc,correlativo) {
+	bootbox.confirm("¿Está Seguro de anular el detalle?", function (result) {
+		if (result) {
+			$.post("../ajax/vacaciones.php?op=anular", {
+				nro_doc: nro_doc,
+				correlativo: correlativo
+			}, function (e) {
+				bootbox.alert(e);
+				tabla.ajax.reload();
+			});
+		}
+	})
+}
+
+function activar(id_trab) {
+	bootbox.confirm("¿Está Seguro de activar el detalle?", function (result) {
+		if (result) {
+			$.post("../ajax/vacaciones.php?op=activar", {
+				id_trab: id_trab
+			}, function (e) {
+				bootbox.alert(e);
+				tabla.ajax.reload();
+			});
+		}
+	})
+}
+
+function desactivar(id_trab) {
+	bootbox.confirm("¿Está Seguro de desactivar el detalle?", function (result) {
+		if (result) {
+			$.post("../ajax/vacaciones.php?op=desactivar", {
+				id_trab: id_trab
+			}, function (e) {
+				bootbox.alert(e);
+				tabla.ajax.reload();
+			});
+		}
 	})
 }
 

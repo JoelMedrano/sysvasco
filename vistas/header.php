@@ -172,6 +172,64 @@ if (strlen(session_id()) < 1)
             ?>
 
             <?php
+            if ($_SESSION['almacen']==1)
+            {
+            echo '<li class="treeview">
+            <a href="#">
+                <i class="fa fa-cogs"></i> <span>Movimientos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+        
+            <ul class="treeview-menu">
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-circle-o"></i> <span>Produccion</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+        
+                    <ul class="treeview-menu">
+                        <li class="treeview">
+                        <li><a href="dash_prod.php"><i class="fa fa-circle-o"></i> Documentos</a></li>
+                        <li><a href="produccion.php"><i class="fa fa-circle-o"></i> Registro</a></li>
+                        </li>
+                    </ul>
+                </li>
+        
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-circle-o"></i> <span>Devoluciones</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+        
+                    <ul class="treeview-menu">
+                        <li class="treeview">
+                        <li><a href="dash_dev.php"><i class="fa fa-circle-o"></i> Documentos</a></li>
+                        <li><a href="devolucion.php"><i class="fa fa-circle-o"></i> Registro</a></li>
+                        </li>
+                    </ul>
+                </li>
+        
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-circle-o"></i> <span>Facturacion</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+        
+                    <ul class="treeview-menu">
+                        <li class="treeview">
+                        <li><a href="dash_fact.php"><i class="fa fa-circle-o"></i> Documentos</a></li>
+                        <li><a href="facturacion.php"><i class="fa fa-circle-o"></i> Registro</a></li>
+                        </li>
+                    </ul>
+                </li>
+        
+            </ul>
+        
+        </li>';
+            }
+            ?>
+
+            <?php
             if ($_SESSION['compras']==1)
             {
               echo '<li class="treeview">
