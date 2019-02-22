@@ -48,6 +48,20 @@ Class Facturacion
 
 	}
 
+
+	public function limpiarMR()
+	{
+		$sql="DELETE
+		mov_resumen
+		FROM
+		  mov_resumen
+		  LEFT JOIN articulojf 
+		  ON mov_resumen.articulo=articulojf.articulo
+		WHERE articulojf.articulo IS NULL";
+
+		return ejecutarConsulta($sql);
+	}
+
 	public function insertarResumen($num_mov)
 	
 	{
@@ -507,7 +521,7 @@ public function listarDetalle($num_mov)
 										WHERE tmd.cod_tabla = 'TVEN') AS v 
 										ON mr.cod_ven = v.cod_ven 
 								WHERE mr.num_mov = '$num_mov' 
-									AND mr.cod_mov = 'I05' 
+									AND mr.cod_mov = 'S03' 
 								GROUP BY mr.num_mov 
 								ORDER BY mr.fecha_hora,
 									mr.cod_alm";

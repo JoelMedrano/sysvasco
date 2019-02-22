@@ -151,11 +151,15 @@ switch ($_GET["op"]){
 															</tfoot>';
 break;
 	
-	case 'limpiarNulos':
+case 'limpiarNulos':
 	$rspta=$facturacion->limpiarNulos();
-	 echo $rspta ? "Artículo Desactivado" : "Artículo no se puede desactivar";
-	break;
-    
+	echo $rspta ? "Artículo Desactivado" : "Artículo no se puede desactivar";
+break;
+		
+case 'limpiarMR':
+	$rspta=$facturacion->limpiarMR();
+	echo $rspta ? "Artículo Desactivado" : "Artículo no se puede desactivar";
+break;
 
   case 'listarProd':
     

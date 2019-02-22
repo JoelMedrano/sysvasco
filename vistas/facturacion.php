@@ -90,7 +90,7 @@ if ($_SESSION['almacen']==1)
                                                 <button class="btn btn-success" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i>
                                                     Nuevo</button>
 
-                                                <button class="btn btn-info" onclick="limpiarNulos()" type="button"><i class="fa fa-refresh"></i>
+                                                <button class="btn btn-info" onclick="limpiarMR()" type="button"><i class="fa fa-refresh"></i>
                                                     Limpiar</button>
                                             </div>
                                         </form>

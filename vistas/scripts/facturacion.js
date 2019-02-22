@@ -46,6 +46,15 @@ function limpiarNulos() {
 
 }
 
+//Función para desactivar registros
+function limpiarMR() {
+	$.post("../ajax/facturacion.php?op=limpiarMR", function (e) {
+
+		tabla.ajax.reload();
+	});
+
+}
+
 
 //Función mostrar formulario
 function mostrarform(flag) {
