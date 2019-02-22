@@ -23,7 +23,7 @@ if ($_SESSION['almacen']==1)
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h1 class="box-title">Devolución</h1>
+                                <h1 class="box-title">Facturacion</h1>
                                 <div class="box-tools pull-right">
                                 </div>
                             </div>
@@ -105,10 +105,10 @@ if ($_SESSION['almacen']==1)
                                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th width="5%"></th>
+                                                    <th width="5%"></th>
+                                                    <th width="5%"></th>
+                                                    <th width="15%"></th>
                                                     <th>S</th>
                                                     <th>M</th>
                                                     <th>L</th>
@@ -117,14 +117,14 @@ if ($_SESSION['almacen']==1)
                                                     <th>XS</th>
                                                     <th></th>
                                                     <th></th>
-                                                    <th></th>
+                                                    <th width="5%"></th>
                                                 </tr>
 
                                                 <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th width="5%"></th>
+                                                    <th width="5%"></th>
+                                                    <th width="5%"></th>
+                                                    <th width="15%"></th>
                                                     <th>28</th>
                                                     <th>30</th>
                                                     <th>32</th>
@@ -133,35 +133,35 @@ if ($_SESSION['almacen']==1)
                                                     <th>38</th>
                                                     <th>40</th>
                                                     <th>42</th>
-                                                    <th></th>
+                                                    <th width="5%"></th>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>Movimiento</th>
-                                                    <th>Vendedor</th>
-                                                    <th>Modelo</th>
-                                                    <th>Color</th>
+                                                    <th width="5%">Movimiento</th>
+                                                    <th width="5%">Ven</th>
+                                                    <th width="5%">Modelo</th>
+                                                    <th width="15%">Color</th>
                                                     <th>3</th>
                                                     <th>4</th>
                                                     <th>6</th>
                                                     <th>8</th>
-                                                    <th>10</th>
+                                                    <th>5</th>
                                                     <th>12</th>
                                                     <th>14</th>
                                                     <th>16</th>
-                                                    <th>SUBTOTAL</th>
+                                                    <th width="5%">SUBTOTAL</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                             </tbody>
                                             <tfoot>
-                                                <th>Movimiento</th>
-                                                <th>Vendedor</th>
-                                                <th>Modelo</th>
-                                                <th>Color</th>
+                                                <th width="5%">Movimiento</th>
+                                                <th width="5%">Ven</th>
+                                                <th width="5%">Modelo</th>
+                                                <th width="15%">Color</th>
                                                 <th colspan="8">TALLAS</th>
-                                                <th>TOTAL</th>
+                                                <th width="5%">TOTAL</th>
                                             </tfoot>
                                         </table>
                                     </div>

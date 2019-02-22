@@ -34,6 +34,14 @@ if ($_SESSION['almacen']==1)
     $totalesp=substr($totalesp, 0, -1);
 
 ?>
+
+
+<style>
+
+    body:not(.modal-open){ padding-right: 0px !important; }
+
+</style>
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

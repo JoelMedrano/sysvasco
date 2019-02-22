@@ -14,6 +14,7 @@ require 'header.php';
 if ($_SESSION['almacen']==1)
 {
 ?>
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">

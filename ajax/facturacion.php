@@ -171,16 +171,25 @@ break;
                 "1"=>$reg->cod_ven,
                 "2"=>($reg->modelo)?'<b>'.$reg->modelo.'</b>':'<b>'.$reg->modelo.'</b>',
 				"3"=>$reg->color,
-				"4"=>($reg->s1>0)?'<span class="label bg-blue">'.$reg->t1.'</span>'.' <span class="label bg-green">'.$reg->s1.'</span>':'<span class="label bg-blue">'.$reg->t1.'</span>'.' <span class="label bg-red">'.$reg->s1.'</span>',
-				"5"=>($reg->s2>0)?'<span class="label bg-blue">'.$reg->t2.'</span>'.' <span class="label bg-green">'.$reg->s2.'</span>':'<span class="label bg-blue">'.$reg->t2.'</span>'.' <span class="label bg-red">'.$reg->s2.'</span>',
-				"6"=>($reg->s3>0)?'<span class="label bg-blue">'.$reg->t3.'</span>'.' <span class="label bg-green">'.$reg->s3.'</span>':'<span class="label bg-blue">'.$reg->t3.'</span>'.' <span class="label bg-red">'.$reg->s3.'</span>',
-				"7"=>($reg->s4>0)?'<span class="label bg-blue">'.$reg->t4.'</span>'.' <span class="label bg-green">'.$reg->s4.'</span>':'<span class="label bg-blue">'.$reg->t4.'</span>'.' <span class="label bg-red">'.$reg->s4.'</span>',
-				"8"=>($reg->s5>0)?'<span class="label bg-blue">'.$reg->t5.'</span>'.' <span class="label bg-green">'.$reg->s5.'</span>':'<span class="label bg-blue">'.$reg->t5.'</span>'.' <span class="label bg-red">'.$reg->s5.'</span>',
-				"9"=>($reg->s6>0)?'<span class="label bg-blue">'.$reg->t6.'</span>'.' <span class="label bg-green">'.$reg->s6.'</span>':'<span class="label bg-blue">'.$reg->t6.'</span>'.' <span class="label bg-red">'.$reg->s6.'</span>',
-				"10"=>($reg->s7>0)?'<span class="label bg-blue">'.$reg->t7.'</span>'.' <span class="label bg-green">'.$reg->s7.'</span>':'<span class="label bg-blue">'.$reg->t7.'</span>'.' <span class="label bg-red">'.$reg->s7.'</span>',
-				"11"=>($reg->s8>0)?'<span class="label bg-blue">'.$reg->t8.'</span>'.' <span class="label bg-green">'.$reg->s8.'</span>':'<span class="label bg-blue">'.$reg->t8.'</span>'.' <span class="label bg-red">'.$reg->s8.'</span>',
+				"4"=>($reg->t1==0)?('<span class="label bg-yellow"></span>'):(($reg->s1<='0')?('<span class="label bg-blue">'.$reg->t1.'</span>'.' <span class="label bg-red">'.$reg->s1.'</span>'):('<span class="label bg-blue">'.$reg->t1.'</span>'.' <span class="label bg-green">'.$reg->s1.'</span>')),
+
+				"5"=>($reg->t2==0)?('<span class="label bg-yellow"></span>'):(($reg->s2<='0')?('<span class="label bg-blue">'.$reg->t2.'</span>'.' <span class="label bg-red">'.$reg->s2.'</span>'):('<span class="label bg-blue">'.$reg->t2.'</span>'.' <span class="label bg-green">'.$reg->s2.'</span>')),
+
+				"6"=>($reg->t3==0)?('<span class="label bg-yellow"></span>'):(($reg->s3<='0')?('<span class="label bg-blue">'.$reg->t3.'</span>'.' <span class="label bg-red">'.$reg->s3.'</span>'):('<span class="label bg-blue">'.$reg->t3.'</span>'.' <span class="label bg-green">'.$reg->s3.'</span>')),
+
+				"7"=>($reg->t4==0)?('<span class="label bg-yellow"></span>'):(($reg->s4<='0')?('<span class="label bg-blue">'.$reg->t4.'</span>'.' <span class="label bg-red">'.$reg->s4.'</span>'):('<span class="label bg-blue">'.$reg->t4.'</span>'.' <span class="label bg-green">'.$reg->s4.'</span>')),
+
+				"8"=>($reg->t5==0)?('<span class="label bg-yellow"></span>'):(($reg->s5<='0')?('<span class="label bg-blue">'.$reg->t5.'</span>'.' <span class="label bg-red">'.$reg->s5.'</span>'):('<span class="label bg-blue">'.$reg->t5.'</span>'.' <span class="label bg-green">'.$reg->s5.'</span>')),
+				
+				"9"=>($reg->t6==0)?('<span class="label bg-yellow"></span>'):(($reg->s6<='0')?('<span class="label bg-blue">'.$reg->t6.'</span>'.' <span class="label bg-red">'.$reg->s6.'</span>'):('<span class="label bg-blue">'.$reg->t6.'</span>'.' <span class="label bg-green">'.$reg->s6.'</span>')),
+
+				"10"=>($reg->t7==0)?('<span class="label bg-yellow"></span>'):(($reg->s7<='0')?('<span class="label bg-blue">'.$reg->t7.'</span>'.' <span class="label bg-red">'.$reg->s7.'</span>'):('<span class="label bg-blue">'.$reg->t7.'</span>'.' <span class="label bg-green">'.$reg->s7.'</span>')),
+
+				"11"=>($reg->t8==0)?('<span class="label bg-yellow"></span>'):(($reg->s8<='0')?('<span class="label bg-blue">'.$reg->t8.'</span>'.' <span class="label bg-red">'.$reg->s8.'</span>'):('<span class="label bg-blue">'.$reg->t8.'</span>'.' <span class="label bg-green">'.$reg->s8.'</span>')),
+
 				"12"=>($reg->subtotal>0)?'<span class="label bg-blue">'.$reg->subtotal.'</span>':'<span class="label bg-red"></span>'
 
+				//($reg->s1='0')?('<span class="label bg-yellow"></span>'):(($reg->s1<'0')?('<span class="label bg-red">INACTIVO</span>'):('<span class="label bg-green">ACTIVO</span>')),
 
  				);
  		}
