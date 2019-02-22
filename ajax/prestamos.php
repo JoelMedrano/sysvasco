@@ -322,6 +322,12 @@ switch ($_GET["op"]){
  		echo json_encode($rspta);
 	break;
 
+
+	case 'eliminar':
+		$rspta=$prestamos->eliminar($id_pre);
+ 		echo $rspta ? "Eliminado" : "No se puede eliminar";
+	break;
+
 	case 'listar':
 		$rspta=$prestamos->listar();
 
@@ -340,11 +346,12 @@ switch ($_GET["op"]){
  				"6"=>$reg->des_tip_dscto,
  				"7"=>($reg->est_pre)?'<span class="label bg-green">Aprobado</span>':
  				'<span class="label bg-red">Desaprobado</span>',
- 				"8"=>($reg->est_pre)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>',
- 				"9"=>($reg->est_pre)?
+ 				"8"=>($reg->est_pre)?
  					' <button class="btn btn-danger" onclick="desaprobar('.$reg->id_pre.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_pre.')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-primary" onclick="aprobar('.$reg->id_pre.')"><i class="fa fa-check"></i></button>',
+ 				"9"=>($reg->est_pre)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>':
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pre.')"><i class="fa fa-pencil"></i></button>',
+ 				"10"=>' <button class="btn btn-danger" onclick="eliminar('.$reg->id_pre.')"><i class="fa fa-close"></i></button>'	
  				); 
  		}
  		$results = array(

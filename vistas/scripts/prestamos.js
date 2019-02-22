@@ -741,6 +741,21 @@ function mostrar(id_pre)
  	})
 }
 
+
+//Función para desactivar registros
+function eliminar(id_pre)
+{
+	bootbox.confirm("¿Está Seguro de eliminar?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/prestamos.php?op=eliminar", {id_pre : id_pre}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
+
 //Función para desactivar registros
 function desaprobar(id_pre)
 {

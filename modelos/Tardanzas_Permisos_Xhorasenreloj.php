@@ -101,7 +101,7 @@ Class Tardanzas_Permisos_Xhorasenreloj
 					 hpp.observacion 
 				FROM horas_permiso_personal hpp
 				LEFT JOIN (
-					Select  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) As nombres
+					Select  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', tr.nom_trab) As nombres
 					FROM  trabajador tr
 					) As tr ON  tr.id_trab=hpp.id_trab  
 				LEFT JOIN (
@@ -185,7 +185,7 @@ Class Tardanzas_Permisos_Xhorasenreloj
 					 IF(hpp.descontado='2', 'NO DESCONTADO', 'DESCONTADO') AS estado
 				FROM horas_permiso_personal hpp
 				LEFT JOIN (
-					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) AS nombres
+					SELECT  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', tr.nom_trab) AS nombres
 					FROM  trabajador tr
 					) AS tr ON  tr.id_trab=hpp.id_trab  
 				LEFT JOIN (

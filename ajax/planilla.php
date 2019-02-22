@@ -1204,6 +1204,7 @@ switch ($_GET["op"]){
 
 			$rspta=$planilla->insertar_planilla_quincenal_totalizado($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
 
+			$rspta=$planilla->cambiar_estado_dscto_insumo_destajeros($primera_quincena, $fec_reg,  $usu_reg, $pc_reg );
 
 			echo  "Quincena cerrada"; 
 

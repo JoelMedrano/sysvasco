@@ -287,7 +287,7 @@ Class Permisos_Descuentos_Enhoras
 					 hpp.id_fec_dscto 
 				FROM horas_permiso_personal hpp
 				LEFT JOIN (
-					Select  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', SUBSTRING_INDEX(tr.nom_trab, ' ', 1)) As nombres
+					Select  tr.id_trab,  CONCAT(tr.apepat_trab, ' ' , tr.apemat_trab, ' ', tr.nom_trab ) As nombres
 					FROM  trabajador tr
 					) As tr ON  tr.id_trab=hpp.id_trab  
 				LEFT JOIN (

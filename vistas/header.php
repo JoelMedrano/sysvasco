@@ -425,7 +425,8 @@ if (strlen(session_id()) < 1)
           
                       <ul class="treeview-menu">
                           <li class="treeview">
-                          <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i> Abono - Regularización</a></li>
+                          <li><a href="abono_regularizacion.php"><i class="fa fa-circle-o"></i>Abono en Planilla por Regularización</a></li>
+                          <li><a href="abonos_en_efectivo.php"><i class="fa fa-circle-o"></i>Abono en Efectivo por Regularizacion </a></li>
                           <li><a href="pago_destajeros.php"><i class="fa fa-circle-o"></i> Pago Destajeros</a></li>
                           <li><a href="horasextras_horasdiasenreloj.php"><i class="fa fa-circle-o"></i>Horas Extras en Horas y Dias del Reloj</a></li>
                           <li><a href="habilitarabono_tiempoextra_enreloj.php"><i class="fa fa-circle-o"></i>Habilitar Abono por Horas Extras en Horas y Dias del Reloj</a></li>

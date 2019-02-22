@@ -33,24 +33,24 @@ if ($_SESSION['rrhh']==1)
                           <thead>
                             <th>Fec.Registro</th>
                             <th>Trabajador</th>
-                            <th>Area</th>
                             <th>Detalle</th>
                             <th>Situacion</th>
                             <th>Estado</th>
+                            <th>Aprobar</th>
                             <th>Ver</th>
-                            <th>Estado</th>
+                            <th>Eliminar</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
                             <th>Fec.Registro</th>
                             <th>Trabajador</th>
-                            <th>Area</th>
                             <th>Detalle</th>
                             <th>Situacion</th>
                             <th>Estado</th>
+                            <th>Aprobar</th>
                             <th>Ver</th>
-                            <th>Estado</th>
+                            <th>Eliminar</th>
                           </tfoot>
                         </table>
                     </div>
@@ -124,32 +124,32 @@ if ($_SESSION['rrhh']==1)
                          <div class="form-group  col-xs-12">
 
                                 <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                  <label>Fecha Descuento 1</label>
+                                  <label>Fecha Abono 1</label>
                                    <select id="fec_des1" name="fec_des1" class="form-control selectpicker" required data-live-search="true"></select>
                                 </div>
                                 <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                  <label>Monto Dscto1:</label>
-                                  <input type="decimal" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
+                                  <label>Monto Abono:</label>
+                                  <input type="text" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
                                 </div>
 
 
                                 <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                  <label>Fecha Descuento 2</label>
+                                  <label>Fecha Abono 2</label>
                                    <select id="fec_des2" name="fec_des2" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                                 <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                  <label>Monto Dscto2:</label>
-                                  <input type="decimal" class="form-control" name="mon_des2" id="mon_des2"  autocomplete="off">
+                                  <label>Monto Abono:</label>
+                                  <input type="text" class="form-control" name="mon_des2" id="mon_des2"  autocomplete="off">
                                 </div>
 
 
                                 <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                  <label>Fecha Descuento 3</label>
+                                  <label>Fecha Abono 3</label>
                                   <select id="fec_des3" name="fec_des3" class="form-control selectpicker" data-live-search="true"></select>
                                 </div>
                                 <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                                  <label>Monto Dscto3:</label>
-                                  <input type="decimal" class="form-control" name="mon_des3" id="mon_des3"  autocomplete="off">
+                                  <label>Monto Abono3:</label>
+                                  <input type="text" class="form-control" name="mon_des3" id="mon_des3"  autocomplete="off">
                                 </div>
 
 

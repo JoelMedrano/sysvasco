@@ -11,7 +11,7 @@ Class Vacaciones
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($id_nomtrab,$id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias,$obser_detalle,$vencidas,$truncas,$fec_del_dec,$fec_al_dec,$tot_dias_dec,$pen_dias_dec,$obser, $usu_reg, $fec_reg, $pc_reg)
+	public function insertar($id_trab, $id_nomtrab,$id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias,$obser_detalle,$vencidas,$truncas,$fec_del_dec,$fec_al_dec,$tot_dias_dec,$pen_dias_dec,$obser, $usu_reg, $fec_reg, $pc_reg)
 	{
 		
 
@@ -21,8 +21,8 @@ Class Vacaciones
 
 		while ($num_elementos <count($id_periodo))
 		{
-			$sql_detalle = "INSERT INTO vacaciones(nro_doc,correlativo, id_periodo,fec_del,fec_al,tot_dias,pen_dias,obser_detalle,vencidas,truncas,fec_del_dec,fec_al_dec,tot_dias_dec,pen_dias_dec,obser, usu_reg, fec_reg, pc_reg) 
-			VALUES ('$id_nomtrab','$item', '$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]','$obser_detalle[$num_elementos]',
+			$sql_detalle = "INSERT INTO vacaciones(id_trab, nro_doc,correlativo, id_periodo,fec_del,fec_al,tot_dias,pen_dias,obser_detalle,vencidas,truncas,fec_del_dec,fec_al_dec,tot_dias_dec,pen_dias_dec,obser, usu_reg, fec_reg, pc_reg) 
+			VALUES ('$id_trab' , '$id_nomtrab','$item', '$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]','$obser_detalle[$num_elementos]',
 				'$vencidas[$num_elementos]','$truncas[$num_elementos]','$fec_del_dec[$num_elementos]','$fec_al_dec[$num_elementos]','$tot_dias_dec[$num_elementos]','$pen_dias_dec[$num_elementos]',
 				'$obser[$num_elementos]',  '$usu_reg', '$fec_reg', '$pc_reg')";
 			ejecutarConsulta($sql_detalle) or $sw = false;
@@ -36,7 +36,7 @@ Class Vacaciones
 
 
 	//Implementamos un método para editar registros
-	public function editar($nro_doc, $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser ,   $usu_reg, $fec_reg, $pc_reg)
+	public function editar($id_trab, $nro_doc, $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser ,   $usu_reg, $fec_reg, $pc_reg)
 	{
 		
 		$num_elementos=0;
@@ -56,7 +56,7 @@ Class Vacaciones
 	
 
 
-	public function insertar2($nro_doc, $CantItems,  $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser,   $usu_reg, $fec_reg, $pc_reg)
+	public function insertar2($id_trab, $nro_doc, $CantItems,  $correlativo, $id_periodo,$fec_del,$fec_al,$tot_dias,$pen_dias, $obser_detalle, $obser,   $usu_reg, $fec_reg, $pc_reg)
 	{
 		
 
@@ -73,7 +73,7 @@ Class Vacaciones
 
 	
 
-			$sql_detalle = "INSERT INTO vacaciones  (  nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias,  obser_detalle, obser, usu_reg, fec_reg, pc_reg) VALUES( '$nro_doc', '$item','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' ,  '$obser_detalle[$num_elementos]', '$obser[$num_elementos]', '$usu_reg', '$fec_reg', '$pc_reg'  )  "; 
+			$sql_detalle = "INSERT INTO vacaciones  (  id_trab , nro_doc, correlativo,id_periodo,fec_del,fec_al, tot_dias, pen_dias,  obser_detalle, obser, usu_reg, fec_reg, pc_reg) VALUES( '$id_trab', '$nro_doc', '$item','$id_periodo[$num_elementos]','$fec_del[$num_elementos]','$fec_al[$num_elementos]','$tot_dias[$num_elementos]','$pen_dias[$num_elementos]' ,  '$obser_detalle[$num_elementos]', '$obser[$num_elementos]', '$usu_reg', '$fec_reg', '$pc_reg'  )  "; 
 
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
@@ -86,7 +86,7 @@ Class Vacaciones
 
 
 	//Implementamos un método para anular la venta
-	public function eliminarDetalle($nro_doc,$correlativo)
+	public function eliminarDetalleItems($nro_doc,$correlativo)
 	{
 		$sql="DELETE FROM vacaciones WHERE nro_doc='$nro_doc' AND correlativo='$correlativo'";
 		return ejecutarConsulta($sql);
@@ -128,6 +128,7 @@ Class Vacaciones
 	public function listarDetVac(){
 
 		$sql="SELECT 
+		vac.id_trab,
 		nro_doc,
 		id_periodo,
 		correlativo,
@@ -140,6 +141,7 @@ Class Vacaciones
 		truncas,
 		DATE_FORMAT(fec_del_dec, '%d/%m/%Y') AS fec_del_dec,
 		DATE_FORMAT(fec_al_dec, '%d/%m/%Y') AS fec_al_dec,
+		CONCAT_WS(' ',  tr.apepat_trab, tr.apemat_trab,  tr.nom_trab ) AS nombres,
 		tot_dias_dec,
 		pen_dias_dec,
 		inicio_prog,

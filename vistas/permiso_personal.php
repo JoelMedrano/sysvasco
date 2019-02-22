@@ -19,6 +19,14 @@ if ($_SESSION['rrhh']==1)
 
 
 ?>
+
+
+<style>
+
+    body:not(.modal-open){ padding-right: 0px !important; }
+
+</style>
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        

@@ -1373,19 +1373,18 @@ switch ($_GET["op"]){
  				"4"=>$reg->num_doc_trab,
  				"5"=>$reg->nombres,
  				"6"=>$reg->area_trab,
- 				"7"=>$reg->funcion,
- 				"8"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
+ 				"7"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
  				'<span class="label bg-red">Cesado</span>', 
- 				"9"=>($reg->est_reg=='1')?
+ 				"8"=>($reg->est_reg=='1')?
  					' <button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>', 
- 				"10"=>'<button class="btn btn-primary" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
+ 				"9"=>'<button class="btn btn-primary" onclick="mostrar(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
  			///	"9"=>'<a target="_blank" href="'.$url.$reg->id_trab.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"11"=>'<button class="btn btn-primary" onclick="mostrar_datos(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
- 				"12"=>'<button class="btn btn-primary" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
- 				"13"=>'<a target="_blank" href="'.$url.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"14"=>'<a target="_blank" href="'.$url2.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
- 				"15"=>'<button class="btn btn-warning" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-warning"></i></button>'
+ 				"10"=>'<button class="btn btn-primary" onclick="mostrar_datos(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
+ 				"11"=>'<button class="btn btn-primary" onclick="mostrar_data_adjunta(\''.$reg->id_trab.'\')"><i class="fa fa-pencil"></i></button>',
+ 				"12"=>'<a target="_blank" href="'.$url.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+ 				"13"=>'<a target="_blank" href="'.$url2.'\''.$reg->id_trab.'\''.'"> <button class="btn btn-info"><i class="fa fa-file"></i></button></a>',
+ 				"14"=>'<button class="btn btn-warning" onclick="eliminar(\''.$reg->id_trab.'\')"><i class="fa fa-warning"></i></button>'
  				);
  		}
  		$results = array(

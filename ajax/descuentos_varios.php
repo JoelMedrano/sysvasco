@@ -139,16 +139,13 @@ switch ($_GET["op"]){
  				"1"=>$reg->trab_apellidosynombres,
  				"2"=>$reg->des_area,
  				"3"=>$reg->detalle,
- 				"4"=>$reg->cantidad,
- 				"5"=>$reg->des_modalidad,
- 				"6"=>$reg->des_tip_dscto,
- 				"7"=>($reg->est_des_var)?'<span class="label bg-green">Cancelado</span>':
+ 				"4"=>($reg->est_des_var)?'<span class="label bg-green">Cancelado</span>':
  				'<span class="label bg-red">Pendiente</span>',
- 				"8"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
+ 				"5"=>($reg->est_reg)?'<span class="label bg-green">Activo</span>':
  				'<span class="label bg-red">Inactivo</span>',
- 				"9"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_var.')"><i class="fa fa-pencil"></i></button>':
+ 				"6"=>($reg->est_reg)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_var.')"><i class="fa fa-pencil"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_des_var.')"><i class="fa fa-pencil"></i></button>',
- 				"10"=>($reg->est_reg)?
+ 				"7"=>($reg->est_reg)?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_des_var.')"><i class="fa fa-close"></i></button>':
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_des_var.')"><i class="fa fa-check"></i></button>'
  				);

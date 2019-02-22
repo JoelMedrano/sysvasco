@@ -233,6 +233,21 @@ function mostrar(id_abo_efe)
  	})
 }
 
+
+//Función para desactivar registros
+function eliminar(id_abo_efe)
+{
+	bootbox.confirm("¿Está Seguro de eliminar?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/abonos_en_efectivo.php?op=eliminar", {id_abo_efe : id_abo_efe}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});
+        }
+	})
+}
+
 //Función para desactivar registros
 function desactivar(id_abo_efe)
 {

@@ -93,6 +93,18 @@ Class Planilla
   }
 
 
+    //Implementamos un método para cambiar estado de descuentos por insumos destajeros
+  public function cambiar_estado_dscto_insumo_destajeros($primera_quincena, $fec_reg,  $usu_reg, $pc_reg)
+  {
+    $sql="UPDATE descuentos_insumos_destajeros SET valor_3='2' WHERE cod_tabla='TMES' AND  valor_1='$primera_quincena'";
+    return ejecutarConsulta($sql);
+  }
+
+  /*POR MODIFICAR*/
+
+
+
+
 
 
 	

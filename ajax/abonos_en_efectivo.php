@@ -98,6 +98,15 @@ switch ($_GET["op"]){
 		
 	break;
 
+	case 'eliminar':
+		$rspta=$descuentos_en_efectivo->eliminar(   $id_abo_efe,
+													$fec_reg,
+													$usu_reg,
+													$pc_reg
+											    );
+ 		echo $rspta ? "Eliminado" : "No se puede eliminar";
+	break;
+
 	case 'desactivar':
 		$rspta=$descuentos_en_efectivo->desactivar(   $id_ins_des,
 													  $fec_reg,
@@ -136,16 +145,16 @@ switch ($_GET["op"]){
 			$data[]=array(
 				"0"=>$reg->fec_suc,
  				"1"=>$reg->trab_apellidosynombres,
- 				"2"=>$reg->des_area,
- 				"3"=>$reg->detalle,
- 				"4"=>($reg->est_abo_efe=='2')?'<span class="label bg-green">Pendiente</span>':
+ 				"2"=>$reg->detalle,
+ 				"3"=>($reg->est_abo_efe=='2')?'<span class="label bg-green">Pendiente</span>':
  				'<span class="label bg-red">Cancelado</span>',
- 				"5"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
+ 				"4"=>($reg->est_reg=='1')?'<span class="label bg-green">Activo</span>':
  				'<span class="label bg-red">Inactivo</span>',
- 				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_abo_efe.')"><i class="fa fa-pencil"></i></button>',
- 				"7"=>($reg->est_reg=='1')?
+ 				"5"=>($reg->est_reg=='1')?
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_abo_efe.')"><i class="fa fa-close"></i></button>':
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_abo_efe.')"><i class="fa fa-check"></i></button>'
+ 					' <button class="btn btn-primary" onclick="activar('.$reg->id_abo_efe.')"><i class="fa fa-check"></i></button>',
+ 				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_abo_efe.')"><i class="fa fa-pencil"></i></button>',
+ 				"7"=>'<button class="btn btn-danger" onclick="eliminar('.$reg->id_abo_efe.')"><i class="fa fa-close"></i></button>'
  				);
  		}
  		$results = array(

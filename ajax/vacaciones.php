@@ -40,7 +40,7 @@ $CantItems=isset($_POST["CantItems"])? limpiarCadena($_POST["CantItems"]):"";
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($nro_doc)){
-			$rspta=$vacaciones->insertar($id_nomtrab,$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],
+			$rspta=$vacaciones->insertar($id_trab, $id_nomtrab,$_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],
 				$_POST["pen_dias"],$_POST["obser_detalle"],$_POST["vencidas"],$_POST["truncas"],$_POST["fec_del_dec"],$_POST["fec_al_dec"],$_POST["tot_dias_dec"],
 				$_POST["pen_dias_dec"],$_POST["obser"] ,   $usu_reg, $fec_reg, $pc_reg );
 			echo $rspta ? "Vacacion registrada" : "No se pudieron registrar todos los datos de la vacacion";
@@ -49,8 +49,8 @@ switch ($_GET["op"]){
 		else {
 			
 			
-			$rspta=$vacaciones->editar($nro_doc, $_POST["correlativo"], $_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"],   $usu_reg, $fec_reg, $pc_reg );
-		    $rspta=$vacaciones->insertar2($nro_doc, $CantItems, $_POST["correlativo"], $_POST["id_periodo"], $_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"],   $usu_reg, $fec_reg, $pc_reg );
+			$rspta=$vacaciones->editar($id_trab, $nro_doc, $_POST["correlativo"], $_POST["id_periodo"],$_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"],   $usu_reg, $fec_reg, $pc_reg );
+		    $rspta=$vacaciones->insertar2($id_trab, $nro_doc, $CantItems, $_POST["correlativo"], $_POST["id_periodo"], $_POST["fec_del"],$_POST["fec_al"],$_POST["tot_dias"],$_POST["pen_dias"], $_POST["obser_detalle"], $_POST["obser"],   $usu_reg, $fec_reg, $pc_reg );
 			
 
 
@@ -58,9 +58,9 @@ switch ($_GET["op"]){
 		}
 	break;
 
-	case 'eliminarDetalle':
-		$rspta=$vacaciones->eliminarDetalle($nro_doc,$correlativo);
- 		echo $rspta ? "Detalle anulado" : "Detalle no se puede anular";
+	case 'eliminarDetalleItems':
+		$rspta=$vacaciones->eliminarDetalleItems($nro_doc,$correlativo);
+ 		echo $rspta ? "Detalle eliminado" : "Detalle no se puede eliminar";
 	break;
 
 	case 'activar':
@@ -109,7 +109,7 @@ switch ($_GET["op"]){
 					  <td><input type="text" size="1"  autocomplete="off" name="pen_dias[]" value="'.$reg->pen_dias.'"></td>
 					  <td><input type="text"  autocomplete="off" size="70" name="obser_detalle[]" value="'.$reg->obser_detalle.'"></td>
 					  <td><input type="text" size="25"  autocomplete="off" name="obser[]" value="'.$reg->obser.'"></td>
-					  <td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('.$cont.')">X</button></td></tr>';
+					  <td></td></tr>';
 					$total=$periodo;
 					$cont++;
 				}
@@ -150,7 +150,8 @@ switch ($_GET["op"]){
  				"6"=>$reg->nombres,
  				"7"=>($reg->vac_trab=='1')?'<span class="label bg-blue">ACTIVO</span>':
  				'<span class="label bg-red">INACTIVO</span>',
- 				"8"=>($reg->vac_trab=='1')?'<button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>'.' <button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>':'<button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>'.' <button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>'
+ 				"8"=>($reg->vac_trab=='1')?'<button class="btn btn-danger" onclick="desactivar(\''.$reg->id_trab.'\')"><i class="fa fa-close"></i></button>':'<button class="btn btn-primary" onclick="activar(\''.$reg->id_trab.'\')"><i class="fa fa-check"></i></button>',
+ 				"9"=>' <button class="btn btn-warning" onclick="mostrar(\''.$reg->nro_doc.'\')"><i class="fa fa-pencil"></i></button>'
  				);
  		}
  		$results = array(
@@ -171,16 +172,18 @@ switch ($_GET["op"]){
 		 
 
 		 $data[]=array(
-			 "0"=>$reg->nro_doc,
-			 "1"=>$reg->correlativo,
-			 "2"=>$reg->PeridoAnual,
-			 "3"=>$reg->fec_del,
-			 "4"=>$reg->fec_al,
-			 "5"=>$reg->tot_dias,
-			 "6"=>$reg->pen_dias,
-			 "7"=>$reg->obser_detalle,
-			 "8"=>$reg->obser,
-			 "9"=>'<button class="btn btn-danger" onclick="mostrar(\''.$reg->nro_doc.'\',\''.$reg->correlativo.'\')"><i class="fa fa-trash"></i></button>',
+		 	 "0"=>$reg->id_trab,
+		 	 "1"=>$reg->nombres,
+			 "2"=>$reg->nro_doc,
+			 "3"=>$reg->correlativo,
+			 "4"=>$reg->PeridoAnual,
+			 "5"=>$reg->fec_del,
+			 "6"=>$reg->fec_al,
+			 "7"=>$reg->tot_dias,
+			 "8"=>$reg->pen_dias,
+			 "9"=>$reg->obser_detalle,
+			 "10"=>$reg->obser,
+			 "11"=>'<button class="btn btn-danger" onclick="eliminarDetalleItems(\''.$reg->nro_doc.'\',\''.$reg->correlativo.'\')"><i class="fa fa-trash"></i></button>',
 			 );
 	 }
 	 $results = array(

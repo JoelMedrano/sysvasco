@@ -141,6 +141,18 @@ Class Abonos_En_Efectivo
 		return ejecutarConsulta($sql);
 	}
 
+
+	//Implementamos un método para activar registros
+	public function eliminar(                     $id_abo_efe,
+		                                          $fec_reg,
+												  $usu_reg,
+												  $pc_reg)
+	{
+		$sql="DELETE FROM abonos_en_efectivo  WHERE id_abo_efe='$id_abo_efe'";
+		return ejecutarConsulta($sql);
+	}
+
+
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_abo_efe)
 	{

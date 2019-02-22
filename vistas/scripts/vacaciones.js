@@ -225,10 +225,10 @@ function mostrar(nro_doc)
 }
 
 //Función para anular registros
-function eliminarDetalle(nro_doc,correlativo) {
-	bootbox.confirm("¿Está Seguro de anular el detalle?", function (result) {
+function eliminarDetalleItems(nro_doc,correlativo) {
+	bootbox.confirm("¿Está Seguro de eliminar el detalle?", function (result) {
 		if (result) {
-			$.post("../ajax/vacaciones.php?op=anular", {
+			$.post("../ajax/vacaciones.php?op=eliminarDetalleItems", {
 				nro_doc: nro_doc,
 				correlativo: correlativo
 			}, function (e) {

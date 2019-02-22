@@ -406,6 +406,17 @@ Class Prestamos
 	}
 
 	//Implementamos un método para desactivar registros
+	public function eliminar(                   $id_pre,
+												  $fec_reg,
+												  $usu_reg,
+												  $pc_reg)
+	{
+		$sql="DELETE FROM  prestamos    WHERE id_pre='$id_pre'";
+		return ejecutarConsulta($sql);
+	}
+
+
+	//Implementamos un método para desactivar registros
 	public function desaprobar(                   $id_pre,
 												  $fec_reg,
 												  $usu_reg,
@@ -418,6 +429,8 @@ Class Prestamos
 									     WHERE id_pre='$id_pre'";
 		return ejecutarConsulta($sql);
 	}
+
+
 
 	//Implementamos un método para activar registros
 	public function aprobar(                      $id_pre,

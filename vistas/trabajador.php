@@ -41,7 +41,6 @@ if ($_SESSION['rrhh']==1)
                             <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
-                            <th>Funcion</th>
                             <th>Estado</th>
                             <th>Cesar</th>
                             <th>Principal</th>
@@ -61,7 +60,6 @@ if ($_SESSION['rrhh']==1)
                             <th>Dni</th>
                             <th>Nombres</th>
                             <th>Area</th>
-                            <th>Funcion</th>
                             <th>Estado</th>
                             <th>Cesar</th>
                             <th>Principal</th>

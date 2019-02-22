@@ -209,7 +209,8 @@ Class Descuentos_Insumos_Destajeros
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT     did.id_ins_des,
+		$sql="SELECT     '-' AS ins_des,
+						 did.id_ins_des,
 		                 DATE_FORMAT(did.fec_suc, '%d/%m/%Y') AS fec_suc,
 					     CONCAT(tra.nom_trab , ' ' ,  tra.apepat_trab, ' ' ,  tra.apemat_trab) AS trab_apellidosynombres,  
 				         did.detalle,

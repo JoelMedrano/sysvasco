@@ -14,6 +14,13 @@ require 'header.php';
 if ($_SESSION['rrhh']==1)
 {
 ?>
+
+<style>
+
+    body:not(.modal-open){ padding-right: 0px !important; }
+
+</style>
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -24,8 +31,8 @@ if ($_SESSION['rrhh']==1)
                   <div class="box">
                     <div class="box-header with-border">
                           <h1 class="box-title">Vacaciones
-                          <a href="../reportes/rpt_xls_vacaciones.php" target="_blank"><button class="btn btn-info">Vacciones Gozadas</button></a>
-                          <a href="eliminar_det_vac.php" class="btn btn-success" role="button">Detalle Vacaciones</a> 
+                          <a href="../reportes/rpt_xls_vacaciones.php" target="_blank"><button class="btn btn-info"> REPORTE  - Vacciones Gozadas</button></a>
+                          <a href="eliminar_det_vac.php" class="btn btn-success" role="button">PANTALLA PARA ELIMINICACION DE ITEMS DE VACACIONES</a> 
                         </h1>
                         <div class="box-tools pull-right">
                         </div>
@@ -42,8 +49,9 @@ if ($_SESSION['rrhh']==1)
                             <th>Area</th>
                             <th>Funcion</th>
                             <th>Nombres</th>
-                            <th>Est.Trabajador</th>
-                            <th>Opciones</th>
+                            <th>Est.Elimicacion Detalle</th>
+                            <th>Activar Eliminacion</th>
+                            <th>Editar</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -55,8 +63,9 @@ if ($_SESSION['rrhh']==1)
                             <th>Area</th>
                             <th>Funcion</th>
                             <th>Nombres</th>
-                            <th>Est.Trabajador</th>
-                            <th>Opciones</th>
+                            <th>Est.Elimicacion Detalle</th>
+                            <th>Activar Eliminacion</th>
+                            <th>Editar</th>
                           </tfoot>
                         </table>
                     </div>

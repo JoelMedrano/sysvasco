@@ -139,7 +139,7 @@ function limpiar()
 //Función mostrar formulario
 function mostrarform(flag)
 {
-	limpiar();
+	//limpiar();
 	if (flag)
 	{
 		$("#listadoregistros").hide();

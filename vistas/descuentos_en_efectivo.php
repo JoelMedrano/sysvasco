@@ -129,7 +129,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                   <label>Monto Dscto1:</label>
-                                  <input type="decimal" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
+                                  <input type="text" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
                                 </div>
 
 
@@ -139,7 +139,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                   <label>Monto Dscto2:</label>
-                                  <input type="decimal" class="form-control" name="mon_des2" id="mon_des2"  autocomplete="off">
+                                  <input type="text" class="form-control" name="mon_des2" id="mon_des2"  autocomplete="off">
                                 </div>
 
 
@@ -149,7 +149,7 @@ if ($_SESSION['rrhh']==1)
                                 </div>
                                 <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                                   <label>Monto Dscto3:</label>
-                                  <input type="decimal" class="form-control" name="mon_des3" id="mon_des3"  autocomplete="off">
+                                  <input type="text" class="form-control" name="mon_des3" id="mon_des3"  autocomplete="off">
                                 </div>
 
 

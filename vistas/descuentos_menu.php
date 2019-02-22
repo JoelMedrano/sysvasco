@@ -35,8 +35,6 @@ if ($_SESSION['rrhh']==1)
                             <th>Trabajador</th>
                             <th>Area</th>
                             <th>Detalle</th>
-                            <th>Modalidad</th>
-                            <th>Tip.Dscto</th>
                             <th>Situacion</th>
                             <th>Estado</th>
                             <th>Ver</th>
@@ -49,8 +47,6 @@ if ($_SESSION['rrhh']==1)
                             <th>Trabajador</th>
                             <th>Area</th>
                             <th>Detalle</th>
-                            <th>Modalidad</th>
-                            <th>Tip.Dscto</th>
                             <th>Situacion</th>
                             <th>Estado</th>
                             <th>Ver</th>
@@ -132,7 +128,7 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                            <label>Monto Dscto 1</label>
-                           <input type="decimal" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
+                           <input type="text" class="form-control" name="mon_des1" id="mon_des1"  required autocomplete="off">
                           </div>
  
                           <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -143,7 +139,7 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                            <label>Monto Dscto 2</label>
-                           <input type="decimal" class="form-control" name="mon_des2" id="mon_des2"  autocomplete="off">
+                           <input type="text" class="form-control" name="mon_des2" id="mon_des2"  autocomplete="off">
                           </div>
 
 
@@ -155,7 +151,7 @@ if ($_SESSION['rrhh']==1)
 
                           <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-12">
                            <label>Monto Dscto 3</label>
-                           <input type="decimal" class="form-control" name="mon_des3" id="mon_des3"  autocomplete="off">
+                           <input type="text" class="form-control" name="mon_des3" id="mon_des3"  autocomplete="off">
                           </div>
 
 
