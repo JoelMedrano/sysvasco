@@ -189,7 +189,7 @@ function habilitar_abono(id_hor_ext)
         {
         	$.post("../ajax/habilitarabono_tiempoextra_enreloj.php?op=habilitar_abono", {id_hor_ext : id_hor_ext}, function(e){
         		bootbox.alert(e);
-	            tabla.ajax.reload();
+	            tabla.ajax.reload(null, false);
         	});	
         }
 	})
@@ -203,7 +203,7 @@ function desabilitar_abono(id_hor_ext)
         {
         	$.post("../ajax/habilitarabono_tiempoextra_enreloj.php?op=desabilitar_abono", {id_hor_ext : id_hor_ext}, function(e){
         		bootbox.alert(e);
-	            tabla.ajax.reload();
+	           tabla.ajax.reload(null, false);
         	});	
         }
 	})

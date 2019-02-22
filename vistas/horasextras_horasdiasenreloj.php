@@ -24,7 +24,8 @@ if ($_SESSION['rrhh']==1)
         <div class="box">
           <div class="box-header with-border">
             <h1 class="box-title">Horas Extras en Horas y Dias del Reloj</h1>
-
+            <a href="habilitarabono_tiempoextra_enreloj.php" class="btn btn-success" role="button">PANTALLA PARA ELIMINICACION DE ITEMS DE VACACIONES</a> 
+            <br>
             <div class="box-tools pull-right">
               <h10>Nota:Solo un periodo debe estar habilitado cuando se requiera eligir cuales seran abonados x
                 items(Pantalla: Habilitar abono x fila del reloj)</h10>
